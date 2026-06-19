@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소장 문서 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      position: relative;
+      padding: 52px 48px 40px;
+      border-bottom: 1px solid var(--border-normal);
+      background: var(--bg-body);
+      overflow: hidden;
+    }
+    .page-hero-top {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .page-title-ko {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+    }
+    .page-title-hanja {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--gold-600);
+      letter-spacing: 0.14em;
+      margin-top: 5px;
+    }
+    .doc-count {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-top: 6px;
+    }
+    .doc-count span { color: var(--gold-500); font-weight: 600; }
+
+    /* Search bar */
+    .search-bar {
+      position: relative;
+      margin-top: 24px;
+      display: flex;
+      gap: 8px;
+      max-width: 580px;
+    }
+    .search-input-wrap { flex: 1; position: relative; }
+    .search-input-wrap svg {
+      position: absolute; left: 13px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted); pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      padding: 10px 14px 10px 40px;
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus {
+      border-color: var(--navy-400);
+      background: rgba(255,255,255,0.09);
+    }
+
+    /* 장식 줄 */
+    .hero-ornament {
+      position: relative;
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-ornament-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--gold-800), transparent);
+    }
+    .hero-ornament-line.right {
+      background: linear-gradient(90deg, transparent, var(--gold-800));
+    }
+    .hero-ornament-text {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      color: var(--gold-800);
+      letter-spacing: 0.18em;
+    }
+
+    /* ===== LAYOUT ===== */
+    .list-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: calc(100vh - var(--header-h) - 52px - 160px);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .filter-sidebar {
+      border-right: 1px solid var(--border-subtle);
+      background: var(--bg-body);
+      padding: 22px 14px 32px;
+    }
+    .filter-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      padding: 0 10px;
+      margin-bottom: 8px;
+      margin-top: 4px;
+    }
+    .filter-list { list-style: none; margin-bottom: 22px; }
+    .filter-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 15px;
+      color: var(--text-primary);
+      border: 1px solid transparent;
+    }
+    .filter-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .filter-item.active {
+      color: var(--navy-100);
+      background: var(--sidebar-active-bg);
+      border-color: var(--sidebar-active-border);
+    }
+    .filter-count {
+      font-size: 11px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+    .filter-item.active .filter-count {
+      background: rgba(255,255,255,0.12);
+      color: var(--navy-200);
+    }
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 16px 10px;
+    }
+    .digitized-only {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 15px;
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .digitized-only:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .digitized-only input[type="checkbox"] {
+      width: 13px; height: 13px;
+      accent-color: var(--navy-400);
+    }
+
+    /* ===== DOC LIST ===== */
+    .list-main { display: flex; flex-direction: column; }
+    .list-controls {
+      padding: 12px 32px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--text-primary);
+      background: var(--bg-body);
+    }
+    .sort-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      padding: 4px 10px;
+      outline: none;
+      margin-left: auto;
+    }
+
+    .doc-list {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== DOCUMENT CARD ===== */
+    .doc-card {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 24px 28px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .doc-card:first-child { border-top: 1px solid var(--border-subtle); }
+    .doc-card:hover { background: var(--bg-hover); }
+
+    .doc-card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .doc-card-title {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.01em;
+    }
+
+    .doc-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      font-size: 15px;
+      color: var(--text-primary);
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .doc-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .doc-meta-item + .doc-meta-item::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 10px;
+      background: var(--border-normal);
+      margin: 0 10px;
+    }
+    .doc-meta-key { color: var(--text-primary); }
+    .doc-meta-val { color: var(--text-primary); }
+
+
+    /* 클릭 불가 카드 */
+    .doc-card-inactive {
+      cursor: default;
+      pointer-events: none;
+      opacity: 0.72;
+    }
+    .doc-card-inactive:hover { background: var(--bg-card); }
+
+    /* 빈 결과 */
+    .empty-state {
+      padding: 80px 40px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .empty-state-icon { font-size: 44px; margin-bottom: 14px; opacity: 0.25; }
+  </style>
+</head>
+<body>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header">
+  <div class="logo-wrap">
+    <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-item disabled" href="#">메인 홈</a>
+    <a class="nav-item disabled" href="#">가옥 소개</a>
+    <a class="nav-item active" href="index.html">소장 문서</a>
+  </nav>
+</header>
+
+<!-- ===== PAGE HERO ===== -->
+<div class="page-hero">
+  <div class="page-hero-top">
+    <div>
+      <div class="page-title-ko">소장 문서</div>
+    </div>
+    <div class="doc-count">총 <span id="total-count">1</span>건 소장</div>
+  </div>
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input class="search-input" type="text" id="search-input" placeholder="문서명, 저자, 연도로 검색…">
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="applySearch()">검색</button>
+  </div>
+  <div class="hero-ornament">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-text">慶州金氏 上村公派 斗里宗中</div>
+    <div class="hero-ornament-line right"></div>
+  </div>
+</div>
+
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="list-layout">
+
+  <!-- FILTER SIDEBAR -->
+  <aside class="filter-sidebar">
+    <div class="filter-section-title">분류</div>
+    <ul class="filter-list" id="category-filters">
+      <li class="filter-item active" data-cat="all">전체 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="종중 기록">종중 기록 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="호적·관문서">호적·관문서 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="족보">족보 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="사서·전기">사서·전기 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="경전·유학">경전·유학 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="문집·기문">문집·기문 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="의서">의서 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="풍수·도가">풍수·도가 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="유서류">유서류 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="지도·도면">지도·도면 <span class="filter-count">0</span></li>
+      <li class="filter-item" data-cat="기타">기타 <span class="filter-count">0</span></li>
+    </ul>
+    <div class="sidebar-divider"></div>
+    <div class="filter-section-title">필터</div>
+    <label class="digitized-only">
+      <input type="checkbox" id="digitized-only-check">
+      디지털화 자료만 보기
+    </label>
+  </aside>
+
+  <!-- DOC LIST -->
+  <div class="list-main">
+    <div class="list-controls">
+      <span id="result-count">1건의 문서</span>
+      <select class="sort-select" id="sort-select">
+        <option value="title" selected>가나다 순</option>
+        <option value="year-desc">최신 순</option>
+        <option value="year-asc">오래된 순</option>
+      </select>
+    </div>
+    <div class="doc-list" id="doc-list"></div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer-main">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">斗里宗中</div>
+      <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-links">
+        <a href="#">이용 안내</a>
+        <a href="#">소장처 소개</a>
+        <a href="#">문의</a>
+      </div>
+      <div class="footer-address">
+        <span>소장처 : 강원도 양양군 두리</span>
+        <span>경주김씨 상촌공파 두리종중</span>
+      </div>
+      <div class="footer-copyright">
+        소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="data/catalog.js"></script>
+<script>
+  let activeCategory = 'all';
+  let digitizedOnly = false;
+  let searchQuery = '';
+  let sortOrder = 'title';
+
+  function updateCounts() {
+    document.getElementById('total-count').textContent = CATALOG.length;
+    document.querySelectorAll('#category-filters .filter-item').forEach(item => {
+      const cat = item.dataset.cat;
+      const countEl = item.querySelector('.filter-count');
+      if (!countEl) return;
+      countEl.textContent = cat === 'all'
+        ? CATALOG.length
+        : CATALOG.filter(d => d.category === cat).length;
+    });
+  }
+
+  function renderList() {
+    let docs = [...CATALOG];
+    if (activeCategory !== 'all') docs = docs.filter(d => d.category === activeCategory);
+    if (digitizedOnly) docs = docs.filter(d => d.digitized);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      docs = docs.filter(d =>
+        d.title_hanja.toLowerCase().includes(q) ||
+        d.title_korean.toLowerCase().includes(q) ||
+        d.author.toLowerCase().includes(q) ||
+        (d.year || '').includes(q) ||
+        (d.summary || '').toLowerCase().includes(q)
+      );
+    }
+
+    docs.sort((a, b) => {
+      // 디지털화 항목 우선
+      if (a.digitized !== b.digitized) return a.digitized ? -1 : 1;
+      // 그 다음 선택된 정렬 기준
+      if (sortOrder === 'year-desc') {
+        return (b.year || '0') > (a.year || '0') ? 1 : -1;
+      } else if (sortOrder === 'year-asc') {
+        return (a.year || '9999') > (b.year || '9999') ? 1 : -1;
+      } else {
+        return a.title_korean.localeCompare(b.title_korean, 'ko');
+      }
+    });
+
+    const list = document.getElementById('doc-list');
+    list.innerHTML = '';
+    if (docs.length === 0) {
+      list.innerHTML = `<div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <p>검색 결과가 없습니다.</p>
+      </div>`;
+      document.getElementById('result-count').textContent = '0건';
+      return;
+    }
+    document.getElementById('result-count').textContent = `${docs.length}건의 문서`;
+
+    docs.forEach((doc) => {
+      const titleStr = doc.title_hanja
+        ? `${doc.title_korean}(${doc.title_hanja})`
+        : doc.title_korean;
+      const yearStr = doc.year_display || doc.year || '미상';
+      const inner = `
+        <div class="doc-card-title-row">
+          <span class="doc-card-title">${titleStr}</span>
+        </div>
+        <div class="doc-card-meta">
+          <div class="doc-meta-item">
+            <span class="doc-meta-key">편저자 :</span>
+            <span class="doc-meta-val">${doc.author}</span>
+          </div>
+          <div class="doc-meta-item">
+            <span class="doc-meta-key">간행년대 :</span>
+            <span class="doc-meta-val">${yearStr}</span>
+          </div>
+          <div class="doc-meta-item">
+            <span class="doc-meta-key">사부분류 :</span>
+            <span class="doc-meta-val">${doc.classification}</span>
+          </div>
+        </div>
+      `;
+
+      let card;
+      if (doc.digitized) {
+        card = document.createElement('a');
+        card.href = 'detail.html';
+        card.className = 'doc-card';
+      } else {
+        card = document.createElement('div');
+        card.className = 'doc-card doc-card-inactive';
+      }
+      card.innerHTML = inner;
+      list.appendChild(card);
+    });
+  }
+
+  document.getElementById('category-filters').addEventListener('click', (e) => {
+    const item = e.target.closest('.filter-item');
+    if (!item) return;
+    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    activeCategory = item.dataset.cat;
+    renderList();
+  });
+
+  document.getElementById('digitized-only-check').addEventListener('change', (e) => {
+    digitizedOnly = e.target.checked;
+    renderList();
+  });
+
+  document.getElementById('sort-select').addEventListener('change', (e) => {
+    sortOrder = e.target.value;
+    renderList();
+  });
+
+  document.getElementById('search-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') applySearch();
+  });
+  function applySearch() {
+    searchQuery = document.getElementById('search-input').value.trim();
+    renderList();
+  }
+
+  updateCounts();
+  renderList();
+</script>
+</body>
+</html>
