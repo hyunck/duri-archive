@@ -263,6 +263,40 @@
     }
     .doc-card-inactive:hover { background: var(--bg-card); }
 
+    /* ===== PAGINATION ===== */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 24px 0 32px;
+    }
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 8px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-bright); }
+    .page-btn.active {
+      background: var(--navy-600);
+      border-color: var(--navy-400);
+      color: var(--navy-100);
+      font-weight: 700;
+    }
+    .page-btn:disabled { opacity: 0.3; cursor: default; }
+    .page-ellipsis { padding: 0 4px; color: var(--text-muted); font-size: 14px; }
+
     /* 빈 결과 */
     .empty-state {
       padding: 80px 40px;
@@ -349,6 +383,7 @@
       </select>
     </div>
     <div class="doc-list" id="doc-list"></div>
+    <div class="pagination" id="pagination"></div>
   </div>
 </div>
 
@@ -382,6 +417,8 @@
   let digitizedOnly = false;
   let searchQuery = '';
   let sortOrder = 'title';
+  let listPage = 1;
+  const PAGE_SIZE = 20;
 
   function updateCounts() {
     document.getElementById('total-count').textContent = CATALOG.length;
@@ -433,9 +470,14 @@
       document.getElementById('result-count').textContent = '0건';
       return;
     }
-    document.getElementById('result-count').textContent = `${docs.length}건의 문서`;
+    const totalDocs = docs.length;
+    const totalPages = Math.ceil(totalDocs / PAGE_SIZE);
+    if (listPage > totalPages) listPage = 1;
+    const pageDocs = docs.slice((listPage - 1) * PAGE_SIZE, listPage * PAGE_SIZE);
 
-    docs.forEach((doc) => {
+    document.getElementById('result-count').textContent = `${totalDocs}건의 문서`;
+
+    pageDocs.forEach((doc) => {
       const titleStr = doc.title_hanja
         ? `${doc.title_korean}(${doc.title_hanja})`
         : doc.title_korean;
@@ -472,6 +514,44 @@
       card.innerHTML = inner;
       list.appendChild(card);
     });
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const el = document.getElementById('pagination');
+    el.innerHTML = '';
+    if (totalPages <= 1) return;
+
+    const mkBtn = (label, page, disabled, active) => {
+      const btn = document.createElement('button');
+      btn.className = 'page-btn' + (active ? ' active' : '');
+      btn.textContent = label;
+      btn.disabled = disabled;
+      if (!disabled && !active) btn.addEventListener('click', () => { listPage = page; renderList(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      return btn;
+    };
+
+    el.appendChild(mkBtn('‹', listPage - 1, listPage === 1, false));
+
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || Math.abs(i - listPage) <= 2) pages.push(i);
+      else if (pages[pages.length - 1] !== '…') pages.push('…');
+    }
+
+    pages.forEach(p => {
+      if (p === '…') {
+        const sp = document.createElement('span');
+        sp.className = 'page-ellipsis';
+        sp.textContent = '…';
+        el.appendChild(sp);
+      } else {
+        el.appendChild(mkBtn(p, p, false, p === listPage));
+      }
+    });
+
+    el.appendChild(mkBtn('›', listPage + 1, listPage === totalPages, false));
   }
 
   document.getElementById('category-filters').addEventListener('click', (e) => {
@@ -480,16 +560,19 @@
     document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
     item.classList.add('active');
     activeCategory = item.dataset.cat;
+    listPage = 1;
     renderList();
   });
 
   document.getElementById('digitized-only-check').addEventListener('change', (e) => {
     digitizedOnly = e.target.checked;
+    listPage = 1;
     renderList();
   });
 
   document.getElementById('sort-select').addEventListener('change', (e) => {
     sortOrder = e.target.value;
+    listPage = 1;
     renderList();
   });
 
@@ -498,6 +581,7 @@
   });
   function applySearch() {
     searchQuery = document.getElementById('search-input').value.trim();
+    listPage = 1;
     renderList();
   }
 
