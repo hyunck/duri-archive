@@ -304,6 +304,48 @@
       color: var(--text-muted);
     }
     .empty-state-icon { font-size: 44px; margin-bottom: 14px; opacity: 0.25; }
+
+    /* 모바일 필터 토글 버튼 (데스크톱에서는 숨김) */
+    .filter-mobile-btn { display: none; }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .page-hero { padding: 28px 20px 24px; }
+      .page-title-ko { font-size: 24px; }
+      .page-title-hanja { font-size: 13px; }
+      .search-bar { max-width: 100%; }
+      .hero-ornament { display: none; }
+
+      .list-layout { grid-template-columns: 1fr; }
+
+      .filter-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 0 14px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+      .filter-sidebar.open {
+        max-height: 700px;
+        padding: 16px 14px 24px;
+      }
+      .filter-mobile-btn { display: inline-flex; }
+
+      .list-controls { padding: 10px 16px; font-size: 14px; flex-wrap: wrap; }
+      .sort-select { font-size: 13px; }
+      .doc-card { padding: 16px; }
+      .doc-card-title { font-size: 18px; }
+      .doc-card-meta { font-size: 13px; }
+      .doc-meta-item + .doc-meta-item::before { margin: 0 6px; }
+      .pagination { padding: 18px 0 24px; }
+    }
+    @media (max-width: 480px) {
+      .page-title-ko { font-size: 20px; }
+      .doc-card-title { font-size: 16px; }
+      .doc-card-meta { flex-direction: column; gap: 4px; align-items: flex-start; }
+      .doc-meta-item + .doc-meta-item::before { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -375,6 +417,12 @@
   <!-- DOC LIST -->
   <div class="list-main">
     <div class="list-controls">
+      <button class="btn btn-ghost btn-sm filter-mobile-btn" id="filter-mobile-btn" onclick="toggleMobileFilter()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+        분류
+      </button>
       <span id="result-count">1건의 문서</span>
       <select class="sort-select" id="sort-select">
         <option value="title" selected>가나다 순</option>
@@ -583,6 +631,10 @@
     searchQuery = document.getElementById('search-input').value.trim();
     listPage = 1;
     renderList();
+  }
+
+  function toggleMobileFilter() {
+    document.querySelector('.filter-sidebar').classList.toggle('open');
   }
 
   updateCounts();

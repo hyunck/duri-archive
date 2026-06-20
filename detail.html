@@ -222,6 +222,36 @@
     .desc-body h3:first-child { margin-top: 0; }
     .desc-body p { margin-bottom: 16px; }
     .desc-body strong { color: var(--text-bright); font-weight: 600; }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .detail-wrap { padding: 0 16px 40px; }
+      .doc-title-hanja { font-size: 28px; }
+      .doc-title-kr { font-size: 16px; }
+      .doc-overview { flex-direction: column; gap: 20px; padding: 20px; }
+      .doc-cover { width: 120px; }
+      .doc-meta-block { width: 100%; }
+      .doc-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-width: auto;
+        width: 100%;
+        padding-top: 0;
+      }
+      .doc-actions .btn { flex: 1; min-width: 140px; }
+      .overview-table td:first-child { width: 80px; font-size: 13px; }
+      .overview-table td { padding: 9px 10px; font-size: 14px; }
+      .biblio-table td:first-child { width: 90px; font-size: 14px; }
+      .biblio-table td { padding: 12px 10px; }
+      .tab-btn { padding: 12px 18px; font-size: 14px; }
+      .tab-content { padding: 24px 0; }
+      .desc-body { font-size: 14px; }
+    }
+    @media (max-width: 480px) {
+      .doc-title-hanja { font-size: 22px; }
+      .breadcrumb { font-size: 12px; margin-bottom: 20px; }
+      .doc-overview { padding: 16px; gap: 16px; }
+    }
   </style>
 </head>
 <body>

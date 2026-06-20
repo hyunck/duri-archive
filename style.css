@@ -323,8 +323,11 @@ button { cursor: pointer; font-family: inherit; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .site-header { padding: 0 16px; }
-  .logo-korean { display: none; }
-  .footer-inner { flex-direction: column; gap: 24px; padding: 28px 24px; }
+  .site-header { padding: 0 16px; gap: 8px; }
+  .logo-main { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  .nav-item.disabled { display: none; }
+  .nav-item { padding: 5px 10px; font-size: 14px; }
+  .footer-inner { flex-direction: column; gap: 24px; padding: 24px 20px; }
   .footer-logo-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-right: 0; padding-bottom: 20px; }
+  .footer-address span { display: block; margin-right: 0; }
 }

@@ -533,6 +533,80 @@
       transition: var(--transition);
     }
     .zoom-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      /* Topbar: wrap into two rows */
+      .viewer-topbar { flex-wrap: wrap; padding: 10px 12px 0; gap: 8px; row-gap: 6px; }
+      .doc-title-bar { order: -1; flex: 0 0 100%; min-width: 0; overflow: hidden; }
+      .doc-title-hanja { font-size: 17px; }
+      .doc-title-kr { font-size: 13px; }
+      .page-nav { margin-left: 0; flex-wrap: wrap; gap: 5px; }
+      .view-toggles { padding: 2px; }
+      .toggle-btn { padding: 3px 8px; font-size: 11px; }
+      .page-nav-btn { width: 28px; height: 28px; font-size: 14px; }
+      .page-num-display { min-width: 60px; font-size: 12px; }
+
+      /* Viewer layout: allow vertical scroll */
+      .viewer-main { height: auto; overflow: visible; }
+      .viewer-content { overflow: visible; }
+
+      /* Compare panels: stack vertically */
+      .panels-wrap {
+        flex-direction: column;
+        padding: 10px;
+        flex: none;
+        height: auto;
+        overflow: visible;
+        gap: 0;
+      }
+      .panel-left {
+        width: 100% !important;
+        flex: none;
+        border-radius: 10px 10px 0 0;
+        border-right: 1px solid var(--border-subtle) !important;
+        border-bottom: none !important;
+      }
+      .panel-right {
+        flex: none;
+        width: 100% !important;
+        border-radius: 0 0 10px 10px;
+        border-left: 1px solid var(--border-subtle) !important;
+        border-top: none !important;
+      }
+      .divider { display: none; }
+      .panel-body { height: 44vh; flex: none; }
+
+      /* Image mode */
+      .image-panel-container { height: 75vh; flex: none; }
+
+      /* Page sidebar: overlay instead of push */
+      .page-sidebar { transition: none; }
+      .page-sidebar.open {
+        position: fixed;
+        top: var(--header-h);
+        left: 44px;
+        bottom: 0;
+        width: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 100;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.7);
+        border-right-color: var(--border-normal);
+      }
+
+      /* Text content */
+      .korean-content, .hanja-content { font-size: 15px !important; }
+
+      /* Zoom controls */
+      .zoom-controls { bottom: 12px; right: 12px; }
+      .zoom-btn { width: 36px; height: 36px; font-size: 18px; }
+    }
+    @media (max-width: 480px) {
+      .doc-title-kr { display: none; }
+      .panel-body { height: 40vh; }
+      .image-panel-container { height: 70vh; }
+    }
   </style>
 </head>
 <body>
