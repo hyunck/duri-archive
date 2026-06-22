@@ -51,7 +51,7 @@
 
     .tree-outer {
       position: relative;
-      min-width: 900px;
+      min-width: 1100px;
       padding: 8px 24px 40px;
     }
 
@@ -111,6 +111,9 @@
     .p-alias-hj {
       font-family: var(--font-serif); font-size: 13px;
       color: #A8ADB8; margin-left: 4px; letter-spacing: 0.04em;
+    }
+    .p-dates {
+      font-size: 12px; color: #9AA0B0; margin-top: 6px; letter-spacing: 0.02em;
     }
 
     /* ── Source ── */
@@ -253,6 +256,7 @@
           <div class="person-card" id="p51">
             <div class="p-kr">김도철</div>
             <div class="p-hj">金道喆</div>
+            <div class="p-dates">1769년 ~ ?</div>
           </div>
         </div>
       </div>
@@ -306,6 +310,21 @@
             <div class="p-aliases">
               <div class="p-alias">김필제<span class="p-alias-hj">金弼濟</span></div>
             </div>
+          </div>
+          <div class="person-card" id="p75">
+            <div class="p-kr">김치성</div>
+            <div class="p-hj">金致聲</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">8대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p81">
+            <div class="p-kr">김동와</div>
+            <div class="p-hj">金東娃</div>
           </div>
         </div>
       </div>
@@ -361,6 +380,8 @@
     ['p61', 'p72'],
     ['p61', 'p73'],
     ['p61', 'p74'],
+    ['p62', 'p75'],
+    ['p75', 'p81'],
   ];
 
   function drawTree() {
@@ -417,7 +438,35 @@
     svg.appendChild(el);
   }
 
-  requestAnimationFrame(() => requestAnimationFrame(drawTree));
+  let _drawn = false;
+  function _onceDraw() {
+    if (_drawn) return;
+    const svg = document.getElementById('tree-svg');
+    drawTree();
+    if (svg.children.length) _drawn = true;
+  }
+
+  /* 즉시 시도 */
+  requestAnimationFrame(_onceDraw);
+
+  /* 폰트 로드 후 재시도 */
+  document.fonts.ready.then(() => requestAnimationFrame(_onceDraw));
+
+  /* IntersectionObserver: 요소가 뷰포트에 진입 시 */
+  (function() {
+    const io = new IntersectionObserver((e) => {
+      if (e[0].isIntersecting) { _onceDraw(); io.disconnect(); }
+    }, { threshold: 0.01 });
+    io.observe(document.getElementById('tree-outer'));
+  })();
+
+  /* 폴백: 200ms 간격으로 최대 5회 재시도 */
+  let _retries = 0;
+  const _retry = setInterval(() => {
+    _onceDraw();
+    if (_drawn || ++_retries >= 5) clearInterval(_retry);
+  }, 200);
+
   window.addEventListener('resize', drawTree);
 </script>
 </body>
