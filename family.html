@@ -14,7 +14,7 @@
     .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
     .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
 
-    .family-wrap { max-width: 1900px; margin: 0 auto; padding: 40px 48px 80px; }
+    .family-wrap { width: 100%; padding: 40px 48px 80px; box-sizing: border-box; }
     .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
     .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
     .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
@@ -59,6 +59,19 @@
     .source-label { font-size: 13px; font-weight: 700; color: #C0C4D0; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
     .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
     .source-item { font-size: 13px; color: #D0D4DE; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 4px 12px; }
+
+    /* ── 고스트(출계) 카드 ── */
+    .person-card-ghost {
+      background: transparent;
+      border: 1px solid transparent;
+      outline: 2px dashed rgba(91, 141, 184, 0.55);
+      outline-offset: -1px;
+    }
+    .person-card-ghost .p-kr      { color: #5880A8; }
+    .person-card-ghost .p-hj      { color: #3D6080; }
+    .person-card-ghost .p-dates   { color: #3A5570; }
+    .person-card-ghost .p-alias   { color: #4A6080; }
+    .person-card-ghost .p-alias-hj { color: #3A5068; }
 
     @media (max-width: 768px) {
       .page-hero { padding: 28px 20px 24px; }
@@ -107,7 +120,7 @@
     <div class="legend-item"><div class="legend-line"></div><span>직계 연결선</span></div>
     <div class="legend-item">
       <div style="width:24px;height:2px;background:none;border-top:2px dashed #5B8DB8;"></div>
-      <span>양자 연결선</span>
+      <span>출계 화살표 (빈 칸 = 생물학적 위치, 화살표 = 양자 간 실제 위치)</span>
     </div>
   </div>
 
@@ -125,6 +138,9 @@
       <span class="source-item">강원도 양양부 호구단자</span>
       <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br>
         <span style="font-size:11px;color:#8890A0;">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span>
+      </span>
+      <span class="source-item">경주김씨파보<br>
+        <span style="font-size:11px;color:#8890A0;">(慶州金氏派譜, 19세기 말)</span>
       </span>
     </div>
   </div>
@@ -153,47 +169,164 @@
 //  데이터 — 사람·연결 추가 시 이 두 객체만 수정
 // ══════════════════════════════════════════════════════════
 const NODES = {
+  p00: { kr:'김영환', hj:'金榮煥', gen:0 },
   p11: { kr:'김여경', hj:'金如慶', gen:1 },
   p21: { kr:'김한태', hj:'金漢泰', gen:2 },
   p31: { kr:'김용흡', hj:'金龍翕', gen:3, aliases:[{kr:'김용주',hj:'金龍柱'}] },
-  p41: { kr:'김상연', hj:'金尙演', gen:4, aliases:[{kr:'김노연',hj:'金魯演'}] },
-  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ ?' },
-  p61: { kr:'김주형', hj:'金胄衡', gen:6, dates:'1786년 ~ ?', aliases:[{kr:'김상형',hj:'金商衡'}] },
-  p62: { kr:'김주화', hj:'金胄華', gen:6, aliases:[{kr:'김상화',hj:'金商華'}] },
-  p71: { kr:'김지성', hj:'金志聲 · 金智聲', gen:7, dates:'1812년 ~ 1846년 이전', aliases:[{kr:'김지제',hj:'金志濟'}] },
-  p72: { kr:'김의성', hj:'金義聲 · 金意聲 · 金宜聲', gen:7, dates:'1814년/1817년 ~ ?', aliases:[{kr:'김의제',hj:'金義濟'}] },
-  p73: { kr:'김봉성', hj:'金鳳聲', gen:7, dates:'1824년 ~ ?', aliases:[{kr:'김철제',hj:'金哲濟'}] },
-  p74: { kr:'김학성', hj:'金鶴聲', gen:7, dates:'1834년 ~ ?', aliases:[{kr:'김필제',hj:'金弼濟'}] },
-  p75: { kr:'김치성', hj:'金致聲', gen:7 },
-  p81: { kr:'김동와',  hj:'金東娃',  gen:8 },
-  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1904년?', aliases:[{kr:'김탁영',hj:'金鐸永'}] },
+  p32: { kr:'김수주', hj:'金洙柱', gen:3 },
+  p41: { kr:'김상연', hj:'金尙演', gen:4, dates:'1735년 ~ ?', aliases:[{kr:'김노연',hj:'金魯演'}] },
+  p42: { kr:'김노익', hj:'金魯益', gen:4 },
+  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ 1812년', aliases:[{kr:'김경희',hj:'金景喜'}] },
+  p52: { kr:'김서희', hj:'金瑞喜', gen:5 },
+  p53: { kr:'김철희', hj:'金喆喜', gen:5 },
+  p54: { kr:'김화희', hj:'金化喜', gen:5 },
+  p64: { kr:'김상학', hj:'金商學', gen:6, dates:'1816년 ~ 1890년' },
+  p65: { kr:'김상하', hj:'金商河', gen:6, dates:'1808년 ~ 1891년' },
+  p66: { kr:'김상인', hj:'金商仁', gen:6, dates:'1796년 ~ 1870년' },
+  p67: { kr:'김상종', hj:'金商宗', gen:6, dates:'1811년 ~ ?' },
+  p115: { kr:'김기제', hj:'金基濟', gen:7, dates:'1828년 ~ 1895년' },
+  p116: { kr:'김동고', hj:'金東古', gen:8, dates:'1857년 ~ ?' },
+  p117: { kr:'김백열', hj:'金百烈', gen:9, dates:'1878년 ~ ?' },
+  p118: { kr:'김만열', hj:'金萬烈', gen:9, dates:'1882년 ~ ?' },
+  p119: { kr:'김동헌', hj:'金東憲', gen:8, dates:'1870년 ~ ?' },
+  p120: { kr:'김해열', hj:'金海烈', gen:9, dates:'1925년 ~ ?' },
+  p114: { kr:'김태제', hj:'金泰濟', gen:7, dates:'1852년 ~ ?' },
+  p114g: { kr:'김태제', hj:'金泰濟', gen:7, ghost:true },
+  p78: { kr:'김재제', hj:'金在濟', gen:7, dates:'1841년 ~ 1894년' },
+  p89: { kr:'김동식', hj:'金東植', gen:8, dates:'1863년 ~ ?' },
+  p106: { kr:'김동건', hj:'金東建', gen:8, dates:'1870년 ~ ?' },
+  p107: { kr:'김양열', hj:'金鍚烈', gen:9, dates:'1891년 ~ ?' },
+  p108: { kr:'김진열', hj:'金𣈆烈', gen:9, dates:'1896년 ~ ?' },
+  p103: { kr:'김부열', hj:'金富烈', gen:9, dates:'1884년 ~ ?' },
+  p109: { kr:'김성열', hj:'金聖烈', gen:9, dates:'1893년 ~ ?' },
+  p109g: { kr:'김성열', hj:'金聖烈', gen:9, ghost:true },
+  p111: { kr:'김동근', hj:'金東根', gen:8, dates:'1873년 ~ 1950년' },
+  p112: { kr:'김동설', hj:'金東卨', gen:8, dates:'1876년 ~ ?' },
+  p113: { kr:'김명열', hj:'金明烈', gen:9, dates:'1900년 ~ ?' },
+  p110: { kr:'김수열', hj:'金秀烈', gen:9, dates:'1896년 ~ ?' },
+  p61: { kr:'김주형', hj:'金胄衡', gen:6, dates:'1786년 ~ 1863년', aliases:[{kr:'김상형',hj:'金商衡'}] },
+  p62: { kr:'김주화', hj:'金胄華', gen:6, dates:'1789년 ~ ?', aliases:[{kr:'김상화',hj:'金商華'}] },
+  p63: { kr:'김상항', hj:'金商恒', gen:6, dates:'1803년 ~ 1863년' },
+  p71: { kr:'김지성', hj:'金志聲 · 金智聲', gen:7, dates:'1812년 ~ 1844년', aliases:[{kr:'김지제',hj:'金志濟'},{kr:'김선제',hj:'金善濟'}] },
+  p72: { kr:'김의성', hj:'金義聲 · 金意聲 · 金宜聲', gen:7, dates:'1817년 ~ 1887년', aliases:[{kr:'김의제',hj:'金義濟'}] },
+  p73: { kr:'김봉성', hj:'金鳳聲', gen:7, dates:'1824년 ~ 1890년', aliases:[{kr:'김철제',hj:'金哲濟'},{kr:'김성제',hj:'金聲濟'}] },
+  p74: { kr:'김학성', hj:'金鶴聲', gen:7, dates:'1834년 ~ 1896년', aliases:[{kr:'김필제',hj:'金弼濟'}] },
+  p75: { kr:'김치성', hj:'金致聲', gen:7, dates:'1827년 ~ 1886년', aliases:[{kr:'김치제',hj:'金致濟'}] },
+  p76: { kr:'김운제', hj:'金雲濟', gen:7, dates:'1825년 ~ 1898년' },
+  p77: { kr:'김덕제', hj:'金悳濟', gen:7 },
+  p79: { kr:'김종제', hj:'金宗濟', gen:7 },
+  p80: { kr:'김창제', hj:'金昌濟', gen:7 },
+  p90: { kr:'김동명', hj:'金東明', gen:8 },
+  p104: { kr:'김동수', hj:'金東洙', gen:8 },
+  p105: { kr:'김수열', hj:'金壽烈', gen:9 },
+  p88: { kr:'김동극', hj:'金東極', gen:8 },
+  p102: { kr:'김기열', hj:'金竒烈', gen:9 },
+  p86: { kr:'김동응', hj:'金東應', gen:8 },
+  p87: { kr:'김동익', hj:'金東谥', gen:8 },
+  p100: { kr:'김지열', hj:'金之烈', gen:9 },
+  p81: { kr:'김동와',  hj:'金東娃',  gen:8, dates:'1848년 ~ 1888년', aliases:[{kr:'김동주',hj:'金東炷'}] },
+  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1902년', aliases:[{kr:'김탁영',hj:'金鐸永'}] },
   p83: { kr:'김동규', hj:'金東奎', gen:8, dates:'1847년 ~ ?' },
+  p84: { kr:'김동호', hj:'金東枑', gen:8, dates:'1856년 ~ ?' },
+  p85: { kr:'김동현', hj:'金東顯', gen:8, dates:'1865년 ~ 1939년', aliases:[{kr:'김동한',hj:'金東漢'},{kr:'김동걸',hj:'金東杰'}] },
+  p82g: { kr:'김동영', hj:'金東永', gen:8, ghost:true },  // 생물학적 위치 빈칸 (출계)
+  p85g: { kr:'김동현', hj:'金東顯', gen:8, ghost:true },  // 김봉성 차남 출계 빈칸
+  p91: { kr:'김봉열', hj:'金奉烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김용원',hj:'金龍源'}] },
+  p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김일귀',hj:'金日貴'}] },
+  p93: { kr:'김○열', hj:'金○烈', gen:9, dates:'1877년 ~ ?', aliases:[{kr:'김도원',hj:'金道源'}] },
+  p94: { kr:'김주열', hj:'金周烈', gen:9, dates:'1868년 ~ ?' },
+  p101: { kr:'김규황', hj:'金圭璜', gen:10, dates:'1901년 ~ ?' },
+  p121: { kr:'김규양', hj:'金圭鍚', gen:10, dates:'1893년 ~ ?' },
+  p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년' },
+  p125: { kr:'김철호', hj:'金喆鎬', gen:11, dates:'1906년 ~ 1956년' },
+  p126: { kr:'김택준', hj:'金澤俊', gen:12, dates:'1944년 ~ 1990년' },
+  p127: { kr:'김OO', hj:'金OO', gen:13 },
+  p128: { kr:'김OO', hj:'金OO', gen:13 },
+  p129: { kr:'김OO', hj:'金OO', gen:13 },
+  p130: { kr:'김OO', hj:'金OO', gen:14 },
+  p131: { kr:'김OO', hj:'金OO', gen:14 },
+  p122g: { kr:'김규하', hj:'金圭夏', gen:10, ghost:true },
+  p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1888년 ~ ?' },
+  p124: { kr:'김규현', hj:'金圭鉉', gen:10, dates:'1899년 ~ ?' },
+  p95: { kr:'김종열', hj:'金宗烈', gen:9, dates:'1859년 ~ 1876년' },
+  p96: { kr:'김재열', hj:'金載烈', gen:9, dates:'1861년 ~ 1884년', aliases:[{kr:'김복원',hj:'金澓源'}] },
+  p97: { kr:'김상열', hj:'金相烈', gen:9, dates:'1880년 ~ ?' },
+  p98: { kr:'김동락', hj:'金東洛', gen:8, dates:'1870년 ~ 1897년' },
+  p99: { kr:'김무열', hj:'金武烈', gen:9, dates:'1888년 ~ ?' },
 };
 
 // 부모 → [자식, ...] (장자 먼저)
 const CHILDREN = {
+  p00: ['p11'],
   p11: ['p21'],
-  p21: ['p31'],
+  p21: ['p31','p32'],
+  p32: ['p42'],
+  p42: ['p53','p54'],
+  p53: ['p65'],
+  p54: ['p66','p67'],
+  p66: ['p115','p114g'],
+  p115: ['p116'],
+  p116: ['p117','p118'],
+  p65: ['p114'],
+  p114: ['p119'],
+  p119: ['p120'],
   p31: ['p41'],
-  p41: ['p51'],
-  p51: ['p61','p62'],
+  p41: ['p51','p52'],
+  p52: ['p64'],
+  p64: ['p78'],
+  p78: ['p89','p106','p111','p112'],
+  p112: ['p113'],
+  p106: ['p107','p108'],
+  p89: ['p103','p109g','p110'],
+  p111: ['p109'],
+  p51: ['p61','p62','p63'],
   p61: ['p71','p72','p73','p74'],
   p62: ['p75'],
-  p72: ['p82','p83'],
+  p63: ['p76','p77','p79','p80'],
+  p79: ['p90'],
+  p80: ['p104'],
+  p104: ['p105'],
+  p77: ['p88'],
+  p88: ['p102'],
+  p76: ['p86','p87'],
+  p87: ['p100'],
+  p71: ['p82'],           // 양자 (족보상 아들)
+  p72: ['p82g','p83'],   // 빈칸(출계) + 김동규
+  p73: ['p84','p85g','p98'],  // 장남 김동호, 차남 출계(김동현) 빈칸, 3남 김동락
+  p74: ['p85'],
   p75: ['p81'],
+  p81: ['p92'],
+  p82: ['p95','p96'],
+  p95: ['p122'],
+  p122: ['p125'],
+  p125: ['p126'],
+  p126: ['p127','p128','p129'],
+  p127: ['p130','p131'],
+  p96: ['p122g','p123','p124'],
+  p83: ['p94'],
+  p94: ['p121'],
+  p84: ['p93','p97'],
+  p93: ['p101'],
+  p98: ['p99'],
+  p85: ['p91'],
 };
 
-// 양자 연결 (파란 점선으로 표시)
-const ADOPTIVE = {
-  p71: ['p82'],  // 김지성(후사 없음) → 김동영(김의성 장남, 양자 입양)
+// 빈칸(생물학적 위치) → 실제 위치 파란 화살표
+const ARROWS = {
+  p82g: 'p82',  // 출계 자리(김의성 아래) → 양자 실제 위치(김지성 아래)
+  p85g: 'p85',  // 출계 자리(김봉성 차남) → 양자 실제 위치(김학성 아래)
+  p109g: 'p109',  // 출계 자리(김동식 차남) → 양자 실제 위치(김동근 아래)
+  p122g: 'p122',  // 출계 자리(김재열 장남) → 양자 실제 위치(김종열 아래)
+  p114g: 'p114', // 출계 자리(김상인 차남) → 양자 실제 위치(김상하 아래)
 };
 
 // 대(代) 라벨
 const GEN_INFO = {
+  0:{label:'18세', pre:'상촌공파'},
   1:{label:'1대',sub:'입향조'},
   2:{label:'2대'}, 3:{label:'3대'}, 4:{label:'4대'},
   5:{label:'5대'}, 6:{label:'6대'}, 7:{label:'7대'}, 8:{label:'8대'},
-  9:{label:'9대'},10:{label:'10대'},
+  9:{label:'9대'},10:{label:'10대'},11:{label:'11대'},12:{label:'12대'},13:{label:'13대'},14:{label:'14대'},
 };
 
 // ══════════════════════════════════════════════════════════
@@ -207,10 +340,11 @@ const PAD_B  = 60;    // 아래
 
 // 세대별 행 높이 (해당 대 카드 상단 → 다음 대 카드 상단까지 거리)
 const ROW_HEIGHTS = {
+  0: 148,                  // 0대(상촌공파) → 1대
   1: 148, 2: 148,          // 1·2대: 간격 축소
-  3: 182, 4: 182, 5: 192,  // 중간 세대
-  6: 205,                  // 6대
-  7: 252, 8: 252,          // 7·8대: 간격 확대
+  3: 182, 4: 218, 5: 225,  // 중간 세대
+  6: 235,                  // 6대
+  7: 252, 8: 252, 9: 252, 10: 252, 11: 252, 12: 252, 13: 252,  // 7~13대: 간격 확대
 };
 
 // ══════════════════════════════════════════════════════════
@@ -241,7 +375,7 @@ const colS = {}, colE = {};
 // 세대 상단 y (누적 계산)
 function genTopY(gen) {
   let y = PAD_T;
-  for (let g = 1; g < gen; g++) y += (ROW_HEIGHTS[g] || 200);
+  for (let g = 0; g < gen; g++) y += (ROW_HEIGHTS[g] || 200);
   return y;
 }
 
@@ -276,26 +410,43 @@ function renderTree() {
       const lbl = document.createElement('div');
       lbl.className = 'gen-label-abs';
       lbl.style.cssText = `left:0; top:${ty + 16}px; width:${PAD_L - 4}px;`;
-      lbl.innerHTML = `<span class="gen-num">${gi.label}</span>` +
+      lbl.innerHTML = (gi.pre ? `<span class="gen-sub">${gi.pre}</span>` : '') +
+                      `<span class="gen-num">${gi.label}</span>` +
                       (gi.sub ? `<span class="gen-sub">${gi.sub}</span>` : '');
       outer.appendChild(lbl);
     }
 
     // 인물 카드
     const card = document.createElement('div');
-    card.className = 'person-card';
     card.id = id;
     card.style.cssText = `left:${cx - CARD_W/2}px; top:${ty}px; width:${CARD_W}px;`;
 
-    let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
-    if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
-    if (node.aliases?.length) {
-      html += '<div class="p-aliases">' +
-        node.aliases.map(a =>
-          `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
-        ).join('') + '</div>';
+    if (node.ghost) {
+      card.className = 'person-card person-card-ghost';
+      // 실제 카드와 동일한 내용을 렌더링 (크기 일치)
+      const srcId = Object.entries(ARROWS).find(([from]) => from === id)?.[1];
+      const src = srcId ? NODES[srcId] : node;
+      let ghtml = `<div class="p-kr">${src.kr}</div><div class="p-hj">${src.hj}</div>`;
+      if (src.dates)           ghtml += `<div class="p-dates">${src.dates}</div>`;
+      if (src.aliases?.length) {
+        ghtml += '<div class="p-aliases">' +
+          src.aliases.map(a =>
+            `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+          ).join('') + '</div>';
+      }
+      card.innerHTML = ghtml;
+    } else {
+      card.className = 'person-card';
+      let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+      if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
+      if (node.aliases?.length) {
+        html += '<div class="p-aliases">' +
+          node.aliases.map(a =>
+            `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+          ).join('') + '</div>';
+      }
+      card.innerHTML = html;
     }
-    card.innerHTML = html;
     outer.appendChild(card);
   });
 }
@@ -312,8 +463,45 @@ function drawTree() {
   const oRect = outer.getBoundingClientRect();
   if (oRect.height < 10) return;
 
-  drawConnections(svg, oRect, CHILDREN,  '#A87C24', null);
-  drawConnections(svg, oRect, ADOPTIVE,  '#5B8DB8', '7 4');
+  // SVG 화살표 마커
+  const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  defs.innerHTML = `<marker id="blue-arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M 0 0 L 8 3 L 0 6 Z" fill="#5B8DB8"/></marker>`;
+  svg.appendChild(defs);
+
+  // 금색 직계 연결선 (p71→p82 제외, ghost 노드 포함)
+  const goldMap = {};
+  Object.entries(CHILDREN).forEach(([pid, cids]) => {
+    if (pid === 'p71') return; // 양부→양자 파란색 별도 처리
+    if (pid === 'p74') return; // 양부→양자 파란색 별도 처리
+    if (pid === 'p111') return; // 양부→양자 파란색 별도 처리
+    if (pid === 'p65') return;  // 양부→양자 파란색 별도 처리
+    if (pid === 'p95') return;  // 양부→양자 파란색 별도 처리
+    if (pid === 'p00') return; // 상촌공파 점선 별도 처리
+    if (cids.length) goldMap[pid] = cids;
+  });
+  drawConnections(svg, oRect, goldMap, '#A87C24', null);
+
+  // 상촌공파 → 두리종중 입향조 연결 (실선)
+  drawConnections(svg, oRect, { p00: ['p11'] }, '#A87C24', null);
+
+  // 김영환 위로 점선 (상위 계보 존재 표시)
+  const p00El = document.getElementById('p00');
+  if (p00El) {
+    const p00Rect = p00El.getBoundingClientRect();
+    const cx = p00Rect.left + p00Rect.width / 2 - oRect.left;
+    const ty = p00Rect.top - oRect.top;
+    seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
+  }
+
+  // 양부 → 양자 (파란색)
+  drawConnections(svg, oRect, { p71: ['p82'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p74: ['p85'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p111: ['p109'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p95: ['p122'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p65: ['p114'] }, '#5B8DB8', null);
+
+  // 파란 출계 화살표 (김동영2 → 김동영1)
+  drawArrows(svg, oRect, ARROWS, '#5B8DB8');
 }
 
 function drawConnections(svg, oRect, map, color, dash) {
@@ -356,6 +544,65 @@ function drawConnections(svg, oRect, map, color, dash) {
       kids.forEach(k => seg(svg, k.kx, midY, k.kx, k.ky, color, dash));
     }
   });
+}
+
+function drawArrows(svg, oRect, map, color) {
+  Object.entries(map).forEach(([fromId, toId]) => {
+    const fEl = document.getElementById(fromId);
+    const tEl = document.getElementById(toId);
+    if (!fEl || !tEl) return;
+    const fRect = fEl.getBoundingClientRect();
+    const tRect = tEl.getBoundingClientRect();
+    const fCX = (fRect.left + fRect.right) / 2;
+    const tCX = (tRect.left + tRect.right) / 2;
+
+    // ghost가 오른쪽이고 수평선 예외 없음 → 수평 왼쪽 화살표
+    if (fCX > tCX && fromId !== 'p114g') {
+      const midY = (fRect.top + fRect.bottom) / 2 - oRect.top;
+      const x1   = fRect.left  - oRect.left - 2;
+      const x2   = tRect.right - oRect.left + 2;
+      const midX = (fRect.left + tRect.right) / 2 - oRect.left + 8;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1); line.setAttribute('y1', midY);
+      line.setAttribute('x2', x2); line.setAttribute('y2', midY);
+      line.setAttribute('stroke', color); line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '6 3');
+      line.setAttribute('marker-end', 'url(#blue-arrow)');
+      svg.appendChild(line);
+      _arrowLabel(svg, midX, midY - 7, color);
+    } else {
+      // 카드 위 우회 꺾인 경로
+      const fTopY    = fRect.top - oRect.top;
+      const tTopY    = tRect.top - oRect.top;
+      const fCenterX = fCX - oRect.left;
+      const tCenterX = tCX - oRect.left;
+      const parentEntry = Object.entries(CHILDREN).find(([, cids]) => cids.includes(fromId));
+      const parentEl2   = parentEntry ? document.getElementById(parentEntry[0]) : null;
+      let aboveY = fTopY - 40;
+      if (parentEl2) {
+        const pBot = parentEl2.getBoundingClientRect().bottom - oRect.top;
+        aboveY = (pBot + fTopY) / 2 - 20;
+      }
+      // ghost가 오른쪽(p114g 등)이면 박스 상단 왼쪽 출발, 아니면 살짝 우측 출발
+      const startX = (fCX > tCX) ? fCenterX - 30 : fCenterX + 30;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${startX} ${fTopY} L ${startX} ${aboveY} L ${tCenterX} ${aboveY} L ${tCenterX} ${tTopY}`);
+      path.setAttribute('stroke', color); path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-dasharray', '6 3'); path.setAttribute('fill', 'none');
+      path.setAttribute('marker-end', 'url(#blue-arrow)');
+      svg.appendChild(path);
+      _arrowLabel(svg, (startX + tCenterX) / 2, aboveY - 7, color);
+    }
+  });
+}
+
+function _arrowLabel(svg, x, y, color) {
+  const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  txt.setAttribute('x', x); txt.setAttribute('y', y);
+  txt.setAttribute('text-anchor', 'middle'); txt.setAttribute('fill', color);
+  txt.setAttribute('font-size', '11'); txt.setAttribute('font-weight', '700');
+  txt.setAttribute('letter-spacing', '2'); txt.textContent = '출계';
+  svg.appendChild(txt);
 }
 
 function seg(svg, x1, y1, x2, y2, color = '#A87C24', dash = null) {
