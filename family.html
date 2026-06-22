@@ -105,6 +105,10 @@
       <span>이명·별칭 — 구분선 아래 작은 글씨</span>
     </div>
     <div class="legend-item"><div class="legend-line"></div><span>직계 연결선</span></div>
+    <div class="legend-item">
+      <div style="width:24px;height:2px;background:none;border-top:2px dashed #5B8DB8;"></div>
+      <span>양자 연결선</span>
+    </div>
   </div>
 
   <div class="tree-scroll-wrap">
@@ -162,6 +166,8 @@ const NODES = {
   p74: { kr:'김학성', hj:'金鶴聲', gen:7, dates:'1834년 ~ ?', aliases:[{kr:'김필제',hj:'金弼濟'}] },
   p75: { kr:'김치성', hj:'金致聲', gen:7 },
   p81: { kr:'김동와',  hj:'金東娃',  gen:8 },
+  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1904년?', aliases:[{kr:'김탁영',hj:'金鐸永'}] },
+  p83: { kr:'김동규', hj:'金東奎', gen:8, dates:'1847년 ~ ?' },
 };
 
 // 부모 → [자식, ...] (장자 먼저)
@@ -173,7 +179,13 @@ const CHILDREN = {
   p51: ['p61','p62'],
   p61: ['p71','p72','p73','p74'],
   p62: ['p75'],
+  p72: ['p82','p83'],
   p75: ['p81'],
+};
+
+// 양자 연결 (파란 점선으로 표시)
+const ADOPTIVE = {
+  p71: ['p82'],  // 김지성(후사 없음) → 김동영(김의성 장남, 양자 입양)
 };
 
 // 대(代) 라벨
@@ -286,7 +298,12 @@ function drawTree() {
   const oRect = outer.getBoundingClientRect();
   if (oRect.height < 10) return;
 
-  Object.entries(CHILDREN).forEach(([pid, cids]) => {
+  drawConnections(svg, oRect, CHILDREN,  '#A87C24', null);
+  drawConnections(svg, oRect, ADOPTIVE,  '#5B8DB8', '7 4');
+}
+
+function drawConnections(svg, oRect, map, color, dash) {
+  Object.entries(map).forEach(([pid, cids]) => {
     const pEl = document.getElementById(pid);
     if (!pEl) return;
     const pRect = pEl.getBoundingClientRect();
@@ -299,14 +316,13 @@ function drawTree() {
       const cRect = cEl.getBoundingClientRect();
       const cx2 = cRect.left + cRect.width / 2 - oRect.left;
       const cy2 = cRect.top - oRect.top;
-      // 수직 직선 (단일 자식이면 x 동일 보장되지만 getBoundingClientRect로 정확히)
       if (Math.abs(px - cx2) < 1) {
-        seg(svg, px, py, px, cy2);
+        seg(svg, px, py, px, cy2, color, dash);
       } else {
         const midY = (py + cy2) / 2;
-        seg(svg, px, py, px, midY);
-        seg(svg, px, midY, cx2, midY);
-        seg(svg, cx2, midY, cx2, cy2);
+        seg(svg, px, py, px, midY, color, dash);
+        seg(svg, px, midY, cx2, midY, color, dash);
+        seg(svg, cx2, midY, cx2, cy2, color, dash);
       }
     } else {
       const kids = cids.map(id => {
@@ -321,20 +337,21 @@ function drawTree() {
       const minX = Math.min(...kids.map(k => k.kx));
       const maxX = Math.max(...kids.map(k => k.kx));
 
-      seg(svg, px, py, px, midY);
-      seg(svg, minX, midY, maxX, midY);
-      kids.forEach(k => seg(svg, k.kx, midY, k.kx, k.ky));
+      seg(svg, px, py, px, midY, color, dash);
+      seg(svg, minX, midY, maxX, midY, color, dash);
+      kids.forEach(k => seg(svg, k.kx, midY, k.kx, k.ky, color, dash));
     }
   });
 }
 
-function seg(svg, x1, y1, x2, y2) {
+function seg(svg, x1, y1, x2, y2, color = '#A87C24', dash = null) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
   el.setAttribute('x1', x1); el.setAttribute('y1', y1);
   el.setAttribute('x2', x2); el.setAttribute('y2', y2);
-  el.setAttribute('stroke', '#A87C24');
+  el.setAttribute('stroke', color);
   el.setAttribute('stroke-width', '2');
   el.setAttribute('stroke-linecap', 'round');
+  if (dash) el.setAttribute('stroke-dasharray', dash);
   svg.appendChild(el);
 }
 
