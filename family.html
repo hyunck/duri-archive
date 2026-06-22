@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가계 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      position: relative;
+      padding: 52px 48px 40px;
+      border-bottom: 1px solid var(--border-normal);
+      background: var(--bg-body);
+      overflow: hidden;
+    }
+    .page-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .page-title-ko {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+    }
+    .page-title-hanja {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--gold-600);
+      letter-spacing: 0.14em;
+      margin-top: 5px;
+    }
+
+    /* 장식 줄 */
+    .hero-ornament {
+      position: relative;
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-ornament-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--gold-800), transparent);
+    }
+    .hero-ornament-line.right {
+      background: linear-gradient(90deg, transparent, var(--gold-800));
+    }
+    .hero-ornament-text {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      color: var(--gold-800);
+      letter-spacing: 0.18em;
+    }
+
+    /* ===== CONTENT WRAP ===== */
+    .family-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.02em;
+    }
+    .section-title-hanja {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      color: var(--gold-600);
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== FAMILY TREE PLACEHOLDER ===== */
+    .tree-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 480px;
+      border: 1px dashed var(--border-normal);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.02);
+      gap: 20px;
+      text-align: center;
+      padding: 60px 40px;
+    }
+    .tree-placeholder-icon {
+      opacity: 0.18;
+    }
+    .tree-placeholder-title {
+      font-size: 17px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    .tree-placeholder-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 440px;
+    }
+
+    /* ===== INFO CARDS ===== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .info-card {
+      padding: 22px 24px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-body);
+    }
+    .info-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .info-card-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--gold-400);
+      letter-spacing: 0.02em;
+    }
+    .info-card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .page-hero { padding: 28px 20px 24px; }
+      .page-title-ko { font-size: 24px; }
+      .hero-ornament { display: none; }
+      .family-wrap { padding: 32px 20px 60px; }
+      .info-grid { grid-template-columns: 1fr 1fr; }
+      .tree-placeholder { min-height: 320px; padding: 40px 24px; }
+    }
+    @media (max-width: 480px) {
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header">
+  <div class="logo-wrap">
+    <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
+  </div>
+  <nav class="site-nav">
+    <a class="nav-item disabled" href="#">메인 홈</a>
+    <a class="nav-item disabled" href="#">가옥 소개</a>
+    <a class="nav-item active" href="family.html">가계</a>
+    <a class="nav-item" href="index.html">소장 문서</a>
+  </nav>
+</header>
+
+<!-- ===== PAGE HERO ===== -->
+<div class="page-hero">
+  <div class="page-hero-top">
+    <div>
+      <div class="page-title-ko">가계</div>
+      <div class="page-title-hanja">家系 · 家系圖</div>
+    </div>
+  </div>
+  <div class="hero-ornament">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-text">慶州金氏 上村公派 斗里宗中</div>
+    <div class="hero-ornament-line right"></div>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="family-wrap">
+
+  <!-- 가계도 섹션 -->
+  <div class="section-header">
+    <span class="section-title">가계도</span>
+    <span class="section-title-hanja">家系圖</span>
+  </div>
+
+  <div class="tree-placeholder" id="tree-area">
+    <svg class="tree-placeholder-icon" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="46" y="8" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+      <line x1="60" y1="28" x2="60" y2="44" stroke="currentColor" stroke-width="2"/>
+      <line x1="24" y1="44" x2="96" y2="44" stroke="currentColor" stroke-width="2"/>
+      <line x1="24" y1="44" x2="24" y2="56" stroke="currentColor" stroke-width="2"/>
+      <line x1="60" y1="44" x2="60" y2="56" stroke="currentColor" stroke-width="2"/>
+      <line x1="96" y1="44" x2="96" y2="56" stroke="currentColor" stroke-width="2"/>
+      <rect x="10" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+      <rect x="46" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+      <rect x="82" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+      <line x1="24" y1="76" x2="24" y2="88" stroke="currentColor" stroke-width="2"/>
+      <line x1="10" y1="88" x2="38" y2="88" stroke="currentColor" stroke-width="2"/>
+      <line x1="10" y1="88" x2="10" y2="100" stroke="currentColor" stroke-width="2"/>
+      <line x1="38" y1="88" x2="38" y2="100" stroke="currentColor" stroke-width="2"/>
+      <rect x="0" y="100" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+      <rect x="28" y="100" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+    </svg>
+    <div class="tree-placeholder-title">가계도 준비 중</div>
+    <div class="tree-placeholder-desc">
+      경주김씨 상촌공파 두리종중의 가계도가 이 곳에 구현될 예정입니다.<br>
+      데이터를 입력하고 시각화를 추가해 주세요.
+    </div>
+  </div>
+
+  <!-- 기본 정보 카드 -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-label">본관</div>
+      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">慶州</div>
+      <div class="info-card-sub">경주</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">파</div>
+      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">上村公派</div>
+      <div class="info-card-sub">상촌공파</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">종중</div>
+      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">斗里宗中</div>
+      <div class="info-card-sub">두리종중</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer-main">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">斗里宗中</div>
+      <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-links">
+        <a href="#">이용 안내</a>
+        <a href="#">소장처 소개</a>
+        <a href="#">문의</a>
+      </div>
+      <div class="footer-address">
+        <span>소장처 : 강원도 양양군 두리</span>
+        <span>경주김씨 상촌공파 두리종중</span>
+      </div>
+      <div class="footer-copyright">
+        소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
