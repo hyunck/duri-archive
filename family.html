@@ -6,136 +6,59 @@
   <title>가계 — 두리종중 디지털 아카이브</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      padding: 52px 48px 40px;
-      border-bottom: 1px solid var(--border-normal);
-      background: var(--bg-body);
-    }
-    .page-title-ko {
-      font-size: 32px; font-weight: 800;
-      color: var(--text-bright); letter-spacing: 0.04em;
-    }
-    .page-title-hanja {
-      font-family: var(--font-serif); font-size: 15px;
-      color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px;
-    }
-    .hero-ornament {
-      margin-top: 28px; display: flex; align-items: center; gap: 12px;
-    }
+    .page-hero { padding: 52px 48px 40px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); }
+    .page-title-ko { font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 15px; color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px; }
+    .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
     .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
     .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
     .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
 
-    .family-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 48px 80px; }
-
-    .section-header {
-      display: flex; align-items: baseline; gap: 12px;
-      margin-bottom: 20px; padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
+    .family-wrap { max-width: 1300px; margin: 0 auto; padding: 40px 48px 80px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
     .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
     .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
 
-    /* ── Legend ── */
-    .legend {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      margin-bottom: 24px; font-size: 13px; color: #C8CDD8;
-      align-items: center;
-    }
+    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; font-size: 13px; color: #C8CDD8; align-items: center; }
     .legend-item { display: flex; align-items: center; gap: 5px; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-700); }
     .legend-line { width: 24px; height: 2px; background: var(--gold-700); }
 
-    /* ── Tree scroll ── */
+    /* ── 트리 컨테이너 ── */
     .tree-scroll-wrap { overflow-x: auto; width: 100%; margin-bottom: 40px; }
+    .tree-outer { position: relative; /* width/height set by JS */ }
+    #tree-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
 
-    .tree-outer {
-      position: relative;
-      min-width: 1100px;
-      padding: 8px 24px 40px;
+    /* ── 대(代) 라벨 ── */
+    .gen-label-abs {
+      position: absolute; display: flex; flex-direction: column;
+      align-items: flex-end; padding-right: 12px;
     }
+    .gen-num { font-size: 13px; font-weight: 700; color: var(--gold-600); letter-spacing: 0.08em; }
+    .gen-sub { font-size: 12px; color: #C0C4D0; margin-top: 3px; letter-spacing: 0.04em; }
 
-    #tree-svg {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; overflow: visible; z-index: 0;
-    }
-
-    /* ── Gen row ── */
-    .gen-row {
-      display: flex; align-items: center;
-      padding: 28px 0; position: relative; z-index: 1;
-    }
-    .gen-label {
-      width: 80px; flex-shrink: 0;
-      text-align: center; padding-right: 4px;
-    }
-    .gen-num {
-      display: block; font-size: 13px; font-weight: 700;
-      color: var(--gold-600); letter-spacing: 0.08em;
-    }
-    .gen-sub {
-      display: block; font-size: 12px; color: #C0C4D0;
-      margin-top: 3px; letter-spacing: 0.04em;
-    }
-    .gen-nodes {
-      flex: 1; display: flex;
-      justify-content: center; gap: 24px; align-items: flex-start;
-    }
-
-    /* ── Person card ── */
+    /* ── 인물 카드 ── */
     .person-card {
-      min-width: 168px;
+      position: absolute;
       background: var(--bg-elevated);
       border: 1px solid var(--border-normal);
       border-radius: var(--radius-md);
-      padding: 16px 20px;
+      padding: 16px 14px;
       text-align: center;
-      flex-shrink: 0;
+      box-sizing: border-box;
     }
-    .p-kr {
-      font-size: 21px; font-weight: 700;
-      color: var(--text-bright); letter-spacing: 0.02em;
-      margin-bottom: 5px;
-    }
-    .p-hj {
-      font-family: var(--font-serif); font-size: 15px;
-      color: var(--gold-500); letter-spacing: 0.06em; line-height: 1.5;
-    }
-    .p-aliases {
-      margin-top: 12px; padding-top: 10px;
-      border-top: 1px solid var(--border-subtle);
-      display: flex; flex-direction: column; gap: 4px;
-    }
+    .p-kr { font-size: 21px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.02em; margin-bottom: 5px; }
+    .p-hj { font-family: var(--font-serif); font-size: 15px; color: var(--gold-500); letter-spacing: 0.06em; line-height: 1.5; }
+    .p-dates { font-size: 12px; color: #9AA0B0; margin-top: 6px; letter-spacing: 0.02em; }
+    .p-aliases { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 4px; }
     .p-alias { font-size: 14px; color: #D0D4DE; line-height: 1.5; }
-    .p-alias-hj {
-      font-family: var(--font-serif); font-size: 13px;
-      color: #A8ADB8; margin-left: 4px; letter-spacing: 0.04em;
-    }
-    .p-dates {
-      font-size: 12px; color: #9AA0B0; margin-top: 6px; letter-spacing: 0.02em;
-    }
+    .p-alias-hj { font-family: var(--font-serif); font-size: 13px; color: #A8ADB8; margin-left: 4px; letter-spacing: 0.04em; }
 
-    /* ── Source ── */
-    .source-section {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 18px 22px; font-size: 14px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-    }
-    .source-label {
-      font-size: 13px; font-weight: 700; color: #C0C4D0;
-      letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px;
-    }
+    /* ── 출처 ── */
+    .source-section { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+    .source-label { font-size: 13px; font-weight: 700; color: #C0C4D0; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
     .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .source-item {
-      font-size: 13px; color: #D0D4DE;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 4px 12px;
-    }
+    .source-item { font-size: 13px; color: #D0D4DE; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 4px 12px; }
 
     @media (max-width: 768px) {
       .page-hero { padding: 28px 20px 24px; }
@@ -149,9 +72,7 @@
 <body>
 
 <header class="site-header">
-  <div class="logo-wrap">
-    <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
-  </div>
+  <div class="logo-wrap"><span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span></div>
   <nav class="site-nav">
     <a class="nav-item disabled" href="#">메인 홈</a>
     <a class="nav-item disabled" href="#">가옥 소개</a>
@@ -178,159 +99,19 @@
   </div>
 
   <div class="legend">
-    <div class="legend-item">
-      <div class="legend-dot"></div>
-      <span>본명(漢字) — 큰 글씨</span>
-    </div>
+    <div class="legend-item"><div class="legend-dot"></div><span>본명(漢字) — 큰 글씨</span></div>
     <div class="legend-item">
       <span style="font-size:11px;color:var(--text-muted);border-top:1px solid var(--border-subtle);padding-top:2px;padding-right:4px;">이명</span>
       <span>이명·별칭 — 구분선 아래 작은 글씨</span>
     </div>
-    <div class="legend-item">
-      <div class="legend-line"></div>
-      <span>직계 연결선</span>
-    </div>
+    <div class="legend-item"><div class="legend-line"></div><span>직계 연결선</span></div>
   </div>
 
   <div class="tree-scroll-wrap">
     <div class="tree-outer" id="tree-outer">
       <svg id="tree-svg"></svg>
-
-      <!-- 1대 -->
-      <div class="gen-row">
-        <div class="gen-label">
-          <span class="gen-num">1대</span>
-          <span class="gen-sub">입향조</span>
-        </div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p11">
-            <div class="p-kr">김여경</div>
-            <div class="p-hj">金如慶</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">2대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p21">
-            <div class="p-kr">김한태</div>
-            <div class="p-hj">金漢泰</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">3대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p31">
-            <div class="p-kr">김용흡</div>
-            <div class="p-hj">金龍翕</div>
-            <div class="p-aliases">
-              <div class="p-alias">김용주<span class="p-alias-hj">金龍柱</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">4대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p41">
-            <div class="p-kr">김상연</div>
-            <div class="p-hj">金尙演</div>
-            <div class="p-aliases">
-              <div class="p-alias">김노연<span class="p-alias-hj">金魯演</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">5대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p51">
-            <div class="p-kr">김도철</div>
-            <div class="p-hj">金道喆</div>
-            <div class="p-dates">1769년 ~ ?</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">6대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p61">
-            <div class="p-kr">김주형</div>
-            <div class="p-hj">金胄衡</div>
-            <div class="p-aliases">
-              <div class="p-alias">김상형<span class="p-alias-hj">金商衡</span></div>
-            </div>
-          </div>
-          <div class="person-card" id="p62">
-            <div class="p-kr">김주화</div>
-            <div class="p-hj">金胄華</div>
-            <div class="p-aliases">
-              <div class="p-alias">김상화<span class="p-alias-hj">金商華</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">7대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p71">
-            <div class="p-kr">김지성</div>
-            <div class="p-hj">金志聲 · 金智聲</div>
-            <div class="p-aliases">
-              <div class="p-alias">김지제<span class="p-alias-hj">金志濟</span></div>
-            </div>
-          </div>
-          <div class="person-card" id="p72">
-            <div class="p-kr">김의성</div>
-            <div class="p-hj">金義聲</div>
-            <div class="p-aliases">
-              <div class="p-alias">김의제<span class="p-alias-hj">金義濟</span></div>
-            </div>
-          </div>
-          <div class="person-card" id="p73">
-            <div class="p-kr">김철제</div>
-            <div class="p-hj">金哲濟</div>
-          </div>
-          <div class="person-card" id="p74">
-            <div class="p-kr">김학성</div>
-            <div class="p-hj">金鶴聲</div>
-            <div class="p-aliases">
-              <div class="p-alias">김필제<span class="p-alias-hj">金弼濟</span></div>
-            </div>
-          </div>
-          <div class="person-card" id="p75">
-            <div class="p-kr">김치성</div>
-            <div class="p-hj">金致聲</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8대 -->
-      <div class="gen-row">
-        <div class="gen-label"><span class="gen-num">8대</span></div>
-        <div class="gen-nodes">
-          <div class="person-card" id="p81">
-            <div class="p-kr">김동와</div>
-            <div class="p-hj">金東娃</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /tree-outer -->
-  </div><!-- /tree-scroll-wrap -->
+    </div>
+  </div>
 
   <div class="source-section">
     <div class="source-label">출처</div>
@@ -338,7 +119,9 @@
       <span class="source-item">종가실록 (宗家實錄, 1930)</span>
       <span class="source-item">대한제국 강원도 양양군 현남면 호적</span>
       <span class="source-item">강원도 양양부 호구단자</span>
-      <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br><span style="font-size:11px;color:#8890A0;">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span></span>
+      <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br>
+        <span style="font-size:11px;color:#8890A0;">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span>
+      </span>
     </div>
   </div>
 
@@ -351,123 +134,235 @@
       <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
     </div>
     <div class="footer-info">
-      <div class="footer-links">
-        <a href="#">이용 안내</a>
-        <a href="#">소장처 소개</a>
-        <a href="#">문의</a>
-      </div>
+      <div class="footer-links"><a href="#">이용 안내</a><a href="#">소장처 소개</a><a href="#">문의</a></div>
       <div class="footer-address">
         <span>소장처 : 강원도 양양군 두리</span>
         <span>경주김씨 상촌공파 두리종중</span>
       </div>
-      <div class="footer-copyright">
-        소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.
-      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
     </div>
   </div>
 </footer>
 
 <script>
-  /* 부모 → 자식 연결 정의 */
-  const CONNECTIONS = [
-    ['p11', 'p21'],
-    ['p21', 'p31'],
-    ['p31', 'p41'],
-    ['p41', 'p51'],
-    ['p51', 'p61'],
-    ['p51', 'p62'],
-    ['p61', 'p71'],
-    ['p61', 'p72'],
-    ['p61', 'p73'],
-    ['p61', 'p74'],
-    ['p62', 'p75'],
-    ['p75', 'p81'],
-  ];
+// ══════════════════════════════════════════════════════════
+//  데이터 — 사람·연결 추가 시 이 두 객체만 수정
+// ══════════════════════════════════════════════════════════
+const NODES = {
+  p11: { kr:'김여경', hj:'金如慶', gen:1 },
+  p21: { kr:'김한태', hj:'金漢泰', gen:2 },
+  p31: { kr:'김용흡', hj:'金龍翕', gen:3, aliases:[{kr:'김용주',hj:'金龍柱'}] },
+  p41: { kr:'김상연', hj:'金尙演', gen:4, aliases:[{kr:'김노연',hj:'金魯演'}] },
+  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ ?' },
+  p61: { kr:'김주형', hj:'金胄衡', gen:6, aliases:[{kr:'김상형',hj:'金商衡'}] },
+  p62: { kr:'김주화', hj:'金胄華', gen:6, aliases:[{kr:'김상화',hj:'金商華'}] },
+  p71: { kr:'김지성', hj:'金志聲 · 金智聲', gen:7, aliases:[{kr:'김지제',hj:'金志濟'}] },
+  p72: { kr:'김의성', hj:'金義聲', gen:7, aliases:[{kr:'김의제',hj:'金義濟'}] },
+  p73: { kr:'김철제', hj:'金哲濟', gen:7 },
+  p74: { kr:'김학성', hj:'金鶴聲', gen:7, aliases:[{kr:'김필제',hj:'金弼濟'}] },
+  p75: { kr:'김치성', hj:'金致聲', gen:7 },
+  p81: { kr:'김동와',  hj:'金東娃',  gen:8 },
+};
 
-  function drawTree() {
-    const svg = document.getElementById('tree-svg');
-    const outer = document.getElementById('tree-outer');
-    if (!svg || !outer) return;
-    svg.innerHTML = '';
+// 부모 → [자식, ...] (장자 먼저)
+const CHILDREN = {
+  p11: ['p21'],
+  p21: ['p31'],
+  p31: ['p41'],
+  p41: ['p51'],
+  p51: ['p61','p62'],
+  p61: ['p71','p72','p73','p74'],
+  p62: ['p75'],
+  p75: ['p81'],
+};
 
-    const oRect = outer.getBoundingClientRect();
+// 대(代) 라벨
+const GEN_INFO = {
+  1:{label:'1대',sub:'입향조'},
+  2:{label:'2대'}, 3:{label:'3대'}, 4:{label:'4대'},
+  5:{label:'5대'}, 6:{label:'6대'}, 7:{label:'7대'}, 8:{label:'8대'},
+  9:{label:'9대'},10:{label:'10대'},
+};
 
-    /* 부모별로 자식 그룹화 */
-    const byParent = {};
-    CONNECTIONS.forEach(([from, to]) => {
-      (byParent[from] = byParent[from] || []).push(to);
-    });
+// ══════════════════════════════════════════════════════════
+//  레이아웃 상수
+// ══════════════════════════════════════════════════════════
+const COL_W  = 210;   // 열 너비 (카드 중심 간격)
+const ROW_H  = 190;   // 행 높이 (카드 상단 간격)
+const CARD_W = 164;   // 카드 너비
+const PAD_L  = 92;    // 왼쪽 (대 라벨 영역)
+const PAD_T  = 20;    // 위
+const PAD_B  = 60;    // 아래
 
-    Object.entries(byParent).forEach(([parentId, childIds]) => {
-      const pEl = document.getElementById(parentId);
-      if (!pEl) return;
-      const pRect = pEl.getBoundingClientRect();
-      const px = pRect.left + pRect.width / 2 - oRect.left;
-      const py = pRect.bottom - oRect.top;
+// ══════════════════════════════════════════════════════════
+//  트리 레이아웃 계산
+// ══════════════════════════════════════════════════════════
 
-      const kids = childIds.map(id => {
+// 루트(부모 없는 노드)
+const _allCh = new Set(Object.values(CHILDREN).flat());
+const ROOT   = Object.keys(NODES).find(id => !_allCh.has(id));
+
+// 리프(자식 없는 노드) 수 → 열 스팬
+const leafCnt = {};
+(function calc(id) {
+  const ch = CHILDREN[id] || [];
+  if (!ch.length) { leafCnt[id] = 1; return 1; }
+  leafCnt[id] = ch.reduce((s,c) => s + calc(c), 0);
+  return leafCnt[id];
+})(ROOT);
+
+// 열 범위 배정 (colS: 시작 열, colE: 끝 열)
+const colS = {}, colE = {};
+(function assign(id, start) {
+  colS[id] = start; colE[id] = start + leafCnt[id];
+  let cur = start;
+  (CHILDREN[id] || []).forEach(c => { assign(c, cur); cur += leafCnt[c]; });
+})(ROOT, 0);
+
+// 카드 중심 x, 상단 y
+function nodeCX(id) { return PAD_L + (colS[id] + colE[id]) / 2 * COL_W; }
+function nodeTY(id) { return PAD_T + (NODES[id].gen - 1) * ROW_H; }
+
+const totalLeaves = leafCnt[ROOT];
+const maxGen = Math.max(...Object.values(NODES).map(n => n.gen));
+const TREE_W = PAD_L + totalLeaves * COL_W + 20;
+const TREE_H = PAD_T + (maxGen - 1) * ROW_H + 160 + PAD_B;
+
+// ══════════════════════════════════════════════════════════
+//  렌더링 (카드 + 대 라벨 DOM 생성)
+// ══════════════════════════════════════════════════════════
+function renderTree() {
+  const outer = document.getElementById('tree-outer');
+  outer.style.width  = TREE_W + 'px';
+  outer.style.height = TREE_H + 'px';
+
+  const genSeen = new Set();
+
+  Object.keys(NODES).forEach(id => {
+    const node = NODES[id];
+    const cx   = nodeCX(id);
+    const ty   = nodeTY(id);
+
+    // 대 라벨 (세대당 1회)
+    if (!genSeen.has(node.gen)) {
+      genSeen.add(node.gen);
+      const gi  = GEN_INFO[node.gen] || { label: node.gen + '대' };
+      const lbl = document.createElement('div');
+      lbl.className = 'gen-label-abs';
+      lbl.style.cssText = `left:0; top:${ty + 16}px; width:${PAD_L - 4}px;`;
+      lbl.innerHTML = `<span class="gen-num">${gi.label}</span>` +
+                      (gi.sub ? `<span class="gen-sub">${gi.sub}</span>` : '');
+      outer.appendChild(lbl);
+    }
+
+    // 인물 카드
+    const card = document.createElement('div');
+    card.className = 'person-card';
+    card.id = id;
+    card.style.cssText = `left:${cx - CARD_W/2}px; top:${ty}px; width:${CARD_W}px;`;
+
+    let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+    if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
+    if (node.aliases?.length) {
+      html += '<div class="p-aliases">' +
+        node.aliases.map(a =>
+          `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+        ).join('') + '</div>';
+    }
+    card.innerHTML = html;
+    outer.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+//  SVG 연결선
+// ══════════════════════════════════════════════════════════
+function drawTree() {
+  const svg   = document.getElementById('tree-svg');
+  const outer = document.getElementById('tree-outer');
+  if (!svg || !outer) return;
+  svg.innerHTML = '';
+
+  const oRect = outer.getBoundingClientRect();
+  if (oRect.height < 10) return;
+
+  Object.entries(CHILDREN).forEach(([pid, cids]) => {
+    const pEl = document.getElementById(pid);
+    if (!pEl) return;
+    const pRect = pEl.getBoundingClientRect();
+    const px = pRect.left + pRect.width / 2 - oRect.left;
+    const py = pRect.bottom - oRect.top;
+
+    if (cids.length === 1) {
+      const cEl = document.getElementById(cids[0]);
+      if (!cEl) return;
+      const cRect = cEl.getBoundingClientRect();
+      const cx2 = cRect.left + cRect.width / 2 - oRect.left;
+      const cy2 = cRect.top - oRect.top;
+      // 수직 직선 (단일 자식이면 x 동일 보장되지만 getBoundingClientRect로 정확히)
+      if (Math.abs(px - cx2) < 1) {
+        seg(svg, px, py, px, cy2);
+      } else {
+        const midY = (py + cy2) / 2;
+        seg(svg, px, py, px, midY);
+        seg(svg, px, midY, cx2, midY);
+        seg(svg, cx2, midY, cx2, cy2);
+      }
+    } else {
+      const kids = cids.map(id => {
         const el = document.getElementById(id);
         if (!el) return null;
         const r = el.getBoundingClientRect();
-        return { cx: r.left + r.width / 2 - oRect.left, cy: r.top - oRect.top };
+        return { kx: r.left + r.width/2 - oRect.left, ky: r.top - oRect.top };
       }).filter(Boolean);
-
       if (!kids.length) return;
 
-      const midY = py + (kids[0].cy - py) * 0.5;
+      const midY = (py + kids[0].ky) / 2;
+      const minX = Math.min(...kids.map(k => k.kx));
+      const maxX = Math.max(...kids.map(k => k.kx));
 
-      if (kids.length === 1) {
-        seg(svg, px, py, px, kids[0].cy);
-      } else {
-        const minX = Math.min(...kids.map(k => k.cx));
-        const maxX = Math.max(...kids.map(k => k.cx));
-        seg(svg, px, py, px, midY);       /* 부모 아래로 */
-        seg(svg, minX, midY, maxX, midY); /* 수평 가지 */
-        kids.forEach(k => seg(svg, k.cx, midY, k.cx, k.cy)); /* 각 자식 위로 */
-      }
-    });
-  }
+      seg(svg, px, py, px, midY);
+      seg(svg, minX, midY, maxX, midY);
+      kids.forEach(k => seg(svg, k.kx, midY, k.kx, k.ky));
+    }
+  });
+}
 
-  function seg(svg, x1, y1, x2, y2) {
-    const el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    el.setAttribute('x1', x1); el.setAttribute('y1', y1);
-    el.setAttribute('x2', x2); el.setAttribute('y2', y2);
-    el.setAttribute('stroke', '#A87C24');
-    el.setAttribute('stroke-width', '2');
-    el.setAttribute('stroke-linecap', 'round');
-    svg.appendChild(el);
-  }
+function seg(svg, x1, y1, x2, y2) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+  el.setAttribute('x2', x2); el.setAttribute('y2', y2);
+  el.setAttribute('stroke', '#A87C24');
+  el.setAttribute('stroke-width', '2');
+  el.setAttribute('stroke-linecap', 'round');
+  svg.appendChild(el);
+}
 
-  let _drawn = false;
-  function _onceDraw() {
-    if (_drawn) return;
-    const svg = document.getElementById('tree-svg');
-    drawTree();
-    if (svg.children.length) _drawn = true;
-  }
+// ══════════════════════════════════════════════════════════
+//  초기화
+// ══════════════════════════════════════════════════════════
+renderTree();
 
-  /* 즉시 시도 */
-  requestAnimationFrame(_onceDraw);
+let _drawn = false;
+function _onceDraw() {
+  if (_drawn) return;
+  const svg = document.getElementById('tree-svg');
+  drawTree();
+  if (svg.children.length) _drawn = true;
+}
 
-  /* 폰트 로드 후 재시도 */
-  document.fonts.ready.then(() => requestAnimationFrame(_onceDraw));
+requestAnimationFrame(_onceDraw);
+document.fonts.ready.then(() => requestAnimationFrame(_onceDraw));
+(function () {
+  const io = new IntersectionObserver((e) => {
+    if (e[0].isIntersecting) { _onceDraw(); io.disconnect(); }
+  }, { threshold: 0.01 });
+  io.observe(document.getElementById('tree-outer'));
+})();
+let _rc = 0;
+const _ti = setInterval(() => { _onceDraw(); if (_drawn || ++_rc >= 5) clearInterval(_ti); }, 200);
 
-  /* IntersectionObserver: 요소가 뷰포트에 진입 시 */
-  (function() {
-    const io = new IntersectionObserver((e) => {
-      if (e[0].isIntersecting) { _onceDraw(); io.disconnect(); }
-    }, { threshold: 0.01 });
-    io.observe(document.getElementById('tree-outer'));
-  })();
-
-  /* 폴백: 200ms 간격으로 최대 5회 재시도 */
-  let _retries = 0;
-  const _retry = setInterval(() => {
-    _onceDraw();
-    if (_drawn || ++_retries >= 5) clearInterval(_retry);
-  }, 200);
-
-  window.addEventListener('resize', drawTree);
+window.addEventListener('resize', drawTree);
 </script>
 </body>
 </html>
