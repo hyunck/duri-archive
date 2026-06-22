@@ -14,7 +14,7 @@
     .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
     .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
 
-    .family-wrap { max-width: 1300px; margin: 0 auto; padding: 40px 48px 80px; }
+    .family-wrap { max-width: 1900px; margin: 0 auto; padding: 40px 48px 80px; }
     .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
     .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
     .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
@@ -199,12 +199,19 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const COL_W  = 210;   // 열 너비 (카드 중심 간격)
-const ROW_H  = 190;   // 행 높이 (카드 상단 간격)
-const CARD_W = 164;   // 카드 너비
+const COL_W  = 260;   // 열 너비 (카드 중심 간격)
+const CARD_W = 175;   // 카드 너비
 const PAD_L  = 92;    // 왼쪽 (대 라벨 영역)
 const PAD_T  = 20;    // 위
 const PAD_B  = 60;    // 아래
+
+// 세대별 행 높이 (해당 대 카드 상단 → 다음 대 카드 상단까지 거리)
+const ROW_HEIGHTS = {
+  1: 148, 2: 148,          // 1·2대: 간격 축소
+  3: 182, 4: 182, 5: 192,  // 중간 세대
+  6: 205,                  // 6대
+  7: 252, 8: 252,          // 7·8대: 간격 확대
+};
 
 // ══════════════════════════════════════════════════════════
 //  트리 레이아웃 계산
@@ -231,14 +238,21 @@ const colS = {}, colE = {};
   (CHILDREN[id] || []).forEach(c => { assign(c, cur); cur += leafCnt[c]; });
 })(ROOT, 0);
 
+// 세대 상단 y (누적 계산)
+function genTopY(gen) {
+  let y = PAD_T;
+  for (let g = 1; g < gen; g++) y += (ROW_HEIGHTS[g] || 200);
+  return y;
+}
+
 // 카드 중심 x, 상단 y
 function nodeCX(id) { return PAD_L + (colS[id] + colE[id]) / 2 * COL_W; }
-function nodeTY(id) { return PAD_T + (NODES[id].gen - 1) * ROW_H; }
+function nodeTY(id) { return genTopY(NODES[id].gen); }
 
 const totalLeaves = leafCnt[ROOT];
 const maxGen = Math.max(...Object.values(NODES).map(n => n.gen));
 const TREE_W = PAD_L + totalLeaves * COL_W + 20;
-const TREE_H = PAD_T + (maxGen - 1) * ROW_H + 160 + PAD_B;
+const TREE_H = genTopY(maxGen) + 160 + PAD_B;
 
 // ══════════════════════════════════════════════════════════
 //  렌더링 (카드 + 대 라벨 DOM 생성)
