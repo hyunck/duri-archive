@@ -39,7 +39,7 @@
     /* ── Legend ── */
     .legend {
       display: flex; gap: 20px; flex-wrap: wrap;
-      margin-bottom: 24px; font-size: 12px; color: var(--text-muted);
+      margin-bottom: 24px; font-size: 13px; color: #C8CDD8;
       align-items: center;
     }
     .legend-item { display: flex; align-items: center; gap: 5px; }
@@ -51,7 +51,7 @@
 
     .tree-outer {
       position: relative;
-      min-width: 760px;
+      min-width: 900px;
       padding: 8px 24px 40px;
     }
 
@@ -64,74 +64,74 @@
     /* ── Gen row ── */
     .gen-row {
       display: flex; align-items: center;
-      padding: 22px 0; position: relative; z-index: 1;
+      padding: 28px 0; position: relative; z-index: 1;
     }
     .gen-label {
-      width: 68px; flex-shrink: 0;
+      width: 80px; flex-shrink: 0;
       text-align: center; padding-right: 4px;
     }
     .gen-num {
-      display: block; font-size: 11px; font-weight: 700;
+      display: block; font-size: 13px; font-weight: 700;
       color: var(--gold-600); letter-spacing: 0.08em;
     }
     .gen-sub {
-      display: block; font-size: 10px; color: var(--text-muted);
-      margin-top: 2px; letter-spacing: 0.04em;
+      display: block; font-size: 12px; color: #C0C4D0;
+      margin-top: 3px; letter-spacing: 0.04em;
     }
     .gen-nodes {
       flex: 1; display: flex;
-      justify-content: center; gap: 16px; align-items: flex-start;
+      justify-content: center; gap: 24px; align-items: flex-start;
     }
 
     /* ── Person card ── */
     .person-card {
-      min-width: 138px;
+      min-width: 168px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-normal);
       border-radius: var(--radius-md);
-      padding: 13px 15px;
+      padding: 16px 20px;
       text-align: center;
       flex-shrink: 0;
     }
     .p-kr {
-      font-size: 17px; font-weight: 700;
+      font-size: 21px; font-weight: 700;
       color: var(--text-bright); letter-spacing: 0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
     .p-hj {
-      font-family: var(--font-serif); font-size: 13px;
+      font-family: var(--font-serif); font-size: 15px;
       color: var(--gold-500); letter-spacing: 0.06em; line-height: 1.5;
     }
     .p-aliases {
-      margin-top: 9px; padding-top: 8px;
+      margin-top: 12px; padding-top: 10px;
       border-top: 1px solid var(--border-subtle);
-      display: flex; flex-direction: column; gap: 3px;
+      display: flex; flex-direction: column; gap: 4px;
     }
-    .p-alias { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .p-alias { font-size: 14px; color: #D0D4DE; line-height: 1.5; }
     .p-alias-hj {
-      font-family: var(--font-serif); font-size: 11px;
-      color: #606878; margin-left: 3px; letter-spacing: 0.04em;
+      font-family: var(--font-serif); font-size: 13px;
+      color: #A8ADB8; margin-left: 4px; letter-spacing: 0.04em;
     }
 
     /* ── Source ── */
     .source-section {
       display: flex; align-items: flex-start; gap: 16px;
-      padding: 16px 20px; font-size: 13px;
+      padding: 18px 22px; font-size: 14px;
       background: rgba(255,255,255,0.025);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
     }
     .source-label {
-      font-size: 12px; font-weight: 700; color: var(--text-muted);
+      font-size: 13px; font-weight: 700; color: #C0C4D0;
       letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px;
     }
     .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
     .source-item {
-      font-size: 12px; color: var(--text-secondary);
+      font-size: 13px; color: #D0D4DE;
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 3px 10px;
+      padding: 4px 12px;
     }
 
     @media (max-width: 768px) {
@@ -319,6 +319,7 @@
       <span class="source-item">종가실록 (宗家實錄, 1930)</span>
       <span class="source-item">대한제국 강원도 양양군 현남면 호적</span>
       <span class="source-item">강원도 양양부 호구단자</span>
+      <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br><span style="font-size:11px;color:#8890A0;">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span></span>
     </div>
   </div>
 
