@@ -6,166 +6,145 @@
   <title>가계 — 두리종중 디지털 아카이브</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ===== PAGE HERO ===== */
     .page-hero {
-      position: relative;
       padding: 52px 48px 40px;
       border-bottom: 1px solid var(--border-normal);
       background: var(--bg-body);
-      overflow: hidden;
-    }
-    .page-hero-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
     }
     .page-title-ko {
-      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--text-bright);
-      letter-spacing: 0.04em;
+      font-size: 32px; font-weight: 800;
+      color: var(--text-bright); letter-spacing: 0.04em;
     }
     .page-title-hanja {
-      font-family: var(--font-serif);
-      font-size: 15px;
-      color: var(--gold-600);
-      letter-spacing: 0.14em;
-      margin-top: 5px;
+      font-family: var(--font-serif); font-size: 15px;
+      color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px;
     }
-
-    /* 장식 줄 */
     .hero-ornament {
-      position: relative;
-      margin-top: 28px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      margin-top: 28px; display: flex; align-items: center; gap: 12px;
     }
-    .hero-ornament-line {
-      flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--gold-800), transparent);
-    }
-    .hero-ornament-line.right {
-      background: linear-gradient(90deg, transparent, var(--gold-800));
-    }
-    .hero-ornament-text {
-      font-family: var(--font-serif);
-      font-size: 11px;
-      color: var(--gold-800);
-      letter-spacing: 0.18em;
-    }
+    .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
+    .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
+    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
 
-    /* ===== CONTENT WRAP ===== */
-    .family-wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 48px 80px;
-    }
+    .family-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 48px 80px; }
 
-    /* ===== SECTION HEADER ===== */
     .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 28px;
-      padding-bottom: 14px;
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 20px; padding-bottom: 14px;
       border-bottom: 1px solid var(--border-subtle);
     }
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-bright);
-      letter-spacing: 0.02em;
-    }
-    .section-title-hanja {
-      font-family: var(--font-serif);
-      font-size: 14px;
-      color: var(--gold-600);
-      letter-spacing: 0.1em;
-    }
+    .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
+    .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
 
-    /* ===== FAMILY TREE PLACEHOLDER ===== */
-    .tree-placeholder {
-      display: flex;
-      flex-direction: column;
+    /* ── Legend ── */
+    .legend {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      margin-bottom: 24px; font-size: 12px; color: var(--text-muted);
       align-items: center;
-      justify-content: center;
-      min-height: 480px;
-      border: 1px dashed var(--border-normal);
-      border-radius: var(--radius-lg);
-      background: rgba(255,255,255,0.02);
-      gap: 20px;
-      text-align: center;
-      padding: 60px 40px;
     }
-    .tree-placeholder-icon {
-      opacity: 0.18;
-    }
-    .tree-placeholder-title {
-      font-size: 17px;
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
-    .tree-placeholder-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.8;
-      max-width: 440px;
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-700); }
+    .legend-line { width: 24px; height: 2px; background: var(--gold-700); }
+
+    /* ── Tree scroll ── */
+    .tree-scroll-wrap { overflow-x: auto; width: 100%; margin-bottom: 40px; }
+
+    .tree-outer {
+      position: relative;
+      min-width: 760px;
+      padding: 8px 24px 40px;
     }
 
-    /* ===== INFO CARDS ===== */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 40px;
+    #tree-svg {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; overflow: visible; z-index: 0;
     }
-    .info-card {
-      padding: 22px 24px;
+
+    /* ── Gen row ── */
+    .gen-row {
+      display: flex; align-items: center;
+      padding: 22px 0; position: relative; z-index: 1;
+    }
+    .gen-label {
+      width: 68px; flex-shrink: 0;
+      text-align: center; padding-right: 4px;
+    }
+    .gen-num {
+      display: block; font-size: 11px; font-weight: 700;
+      color: var(--gold-600); letter-spacing: 0.08em;
+    }
+    .gen-sub {
+      display: block; font-size: 10px; color: var(--text-muted);
+      margin-top: 2px; letter-spacing: 0.04em;
+    }
+    .gen-nodes {
+      flex: 1; display: flex;
+      justify-content: center; gap: 16px; align-items: flex-start;
+    }
+
+    /* ── Person card ── */
+    .person-card {
+      min-width: 138px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      padding: 13px 15px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .p-kr {
+      font-size: 17px; font-weight: 700;
+      color: var(--text-bright); letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+    .p-hj {
+      font-family: var(--font-serif); font-size: 13px;
+      color: var(--gold-500); letter-spacing: 0.06em; line-height: 1.5;
+    }
+    .p-aliases {
+      margin-top: 9px; padding-top: 8px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .p-alias { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .p-alias-hj {
+      font-family: var(--font-serif); font-size: 11px;
+      color: #606878; margin-left: 3px; letter-spacing: 0.04em;
+    }
+
+    /* ── Source ── */
+    .source-section {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 20px; font-size: 13px;
+      background: rgba(255,255,255,0.025);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      background: var(--bg-body);
     }
-    .info-card-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+    .source-label {
+      font-size: 12px; font-weight: 700; color: var(--text-muted);
+      letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px;
     }
-    .info-card-value {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--gold-400);
-      letter-spacing: 0.02em;
-    }
-    .info-card-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
+    .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .source-item {
+      font-size: 12px; color: var(--text-secondary);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
     }
 
-    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
       .page-hero { padding: 28px 20px 24px; }
       .page-title-ko { font-size: 24px; }
       .hero-ornament { display: none; }
-      .family-wrap { padding: 32px 20px 60px; }
-      .info-grid { grid-template-columns: 1fr 1fr; }
-      .tree-placeholder { min-height: 320px; padding: 40px 24px; }
-    }
-    @media (max-width: 480px) {
-      .info-grid { grid-template-columns: 1fr; }
+      .family-wrap { padding: 28px 16px 60px; }
+      .source-section { flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ===== SITE HEADER ===== -->
 <header class="site-header">
   <div class="logo-wrap">
     <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
@@ -178,14 +157,9 @@
   </nav>
 </header>
 
-<!-- ===== PAGE HERO ===== -->
 <div class="page-hero">
-  <div class="page-hero-top">
-    <div>
-      <div class="page-title-ko">가계</div>
-      <div class="page-title-hanja">家系 · 家系圖</div>
-    </div>
-  </div>
+  <div class="page-title-ko">가계</div>
+  <div class="page-title-hanja">家系 · 家系圖</div>
   <div class="hero-ornament">
     <div class="hero-ornament-line"></div>
     <div class="hero-ornament-text">慶州金氏 上村公派 斗里宗中</div>
@@ -193,62 +167,163 @@
   </div>
 </div>
 
-<!-- ===== MAIN CONTENT ===== -->
 <div class="family-wrap">
 
-  <!-- 가계도 섹션 -->
   <div class="section-header">
     <span class="section-title">가계도</span>
     <span class="section-title-hanja">家系圖</span>
   </div>
 
-  <div class="tree-placeholder" id="tree-area">
-    <svg class="tree-placeholder-icon" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="46" y="8" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
-      <line x1="60" y1="28" x2="60" y2="44" stroke="currentColor" stroke-width="2"/>
-      <line x1="24" y1="44" x2="96" y2="44" stroke="currentColor" stroke-width="2"/>
-      <line x1="24" y1="44" x2="24" y2="56" stroke="currentColor" stroke-width="2"/>
-      <line x1="60" y1="44" x2="60" y2="56" stroke="currentColor" stroke-width="2"/>
-      <line x1="96" y1="44" x2="96" y2="56" stroke="currentColor" stroke-width="2"/>
-      <rect x="10" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
-      <rect x="46" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
-      <rect x="82" y="56" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
-      <line x1="24" y1="76" x2="24" y2="88" stroke="currentColor" stroke-width="2"/>
-      <line x1="10" y1="88" x2="38" y2="88" stroke="currentColor" stroke-width="2"/>
-      <line x1="10" y1="88" x2="10" y2="100" stroke="currentColor" stroke-width="2"/>
-      <line x1="38" y1="88" x2="38" y2="100" stroke="currentColor" stroke-width="2"/>
-      <rect x="0" y="100" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-      <rect x="28" y="100" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
-    </svg>
-    <div class="tree-placeholder-title">가계도 준비 중</div>
-    <div class="tree-placeholder-desc">
-      경주김씨 상촌공파 두리종중의 가계도가 이 곳에 구현될 예정입니다.<br>
-      데이터를 입력하고 시각화를 추가해 주세요.
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot"></div>
+      <span>본명(漢字) — 큰 글씨</span>
+    </div>
+    <div class="legend-item">
+      <span style="font-size:11px;color:var(--text-muted);border-top:1px solid var(--border-subtle);padding-top:2px;padding-right:4px;">이명</span>
+      <span>이명·별칭 — 구분선 아래 작은 글씨</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-line"></div>
+      <span>직계 연결선</span>
     </div>
   </div>
 
-  <!-- 기본 정보 카드 -->
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="info-card-label">본관</div>
-      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">慶州</div>
-      <div class="info-card-sub">경주</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">파</div>
-      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">上村公派</div>
-      <div class="info-card-sub">상촌공파</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">종중</div>
-      <div class="info-card-value" style="font-family: var(--font-serif); font-size: 22px;">斗里宗中</div>
-      <div class="info-card-sub">두리종중</div>
+  <div class="tree-scroll-wrap">
+    <div class="tree-outer" id="tree-outer">
+      <svg id="tree-svg"></svg>
+
+      <!-- 1대 -->
+      <div class="gen-row">
+        <div class="gen-label">
+          <span class="gen-num">1대</span>
+          <span class="gen-sub">입향조</span>
+        </div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p11">
+            <div class="p-kr">김여경</div>
+            <div class="p-hj">金如慶</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">2대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p21">
+            <div class="p-kr">김한태</div>
+            <div class="p-hj">金漢泰</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">3대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p31">
+            <div class="p-kr">김용흡</div>
+            <div class="p-hj">金龍翕</div>
+            <div class="p-aliases">
+              <div class="p-alias">김용주<span class="p-alias-hj">金龍柱</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">4대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p41">
+            <div class="p-kr">김상연</div>
+            <div class="p-hj">金尙演</div>
+            <div class="p-aliases">
+              <div class="p-alias">김노연<span class="p-alias-hj">金魯演</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">5대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p51">
+            <div class="p-kr">김도철</div>
+            <div class="p-hj">金道喆</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">6대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p61">
+            <div class="p-kr">김주형</div>
+            <div class="p-hj">金胄衡</div>
+            <div class="p-aliases">
+              <div class="p-alias">김상형<span class="p-alias-hj">金商衡</span></div>
+            </div>
+          </div>
+          <div class="person-card" id="p62">
+            <div class="p-kr">김주화</div>
+            <div class="p-hj">金胄華</div>
+            <div class="p-aliases">
+              <div class="p-alias">김상화<span class="p-alias-hj">金商華</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7대 -->
+      <div class="gen-row">
+        <div class="gen-label"><span class="gen-num">7대</span></div>
+        <div class="gen-nodes">
+          <div class="person-card" id="p71">
+            <div class="p-kr">김지성</div>
+            <div class="p-hj">金志聲 · 金智聲</div>
+            <div class="p-aliases">
+              <div class="p-alias">김지제<span class="p-alias-hj">金志濟</span></div>
+            </div>
+          </div>
+          <div class="person-card" id="p72">
+            <div class="p-kr">김의성</div>
+            <div class="p-hj">金義聲</div>
+            <div class="p-aliases">
+              <div class="p-alias">김의제<span class="p-alias-hj">金義濟</span></div>
+            </div>
+          </div>
+          <div class="person-card" id="p73">
+            <div class="p-kr">김철제</div>
+            <div class="p-hj">金哲濟</div>
+          </div>
+          <div class="person-card" id="p74">
+            <div class="p-kr">김학성</div>
+            <div class="p-hj">金鶴聲</div>
+            <div class="p-aliases">
+              <div class="p-alias">김필제<span class="p-alias-hj">金弼濟</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tree-outer -->
+  </div><!-- /tree-scroll-wrap -->
+
+  <div class="source-section">
+    <div class="source-label">출처</div>
+    <div class="source-list">
+      <span class="source-item">종가실록 (宗家實錄, 1930)</span>
+      <span class="source-item">대한제국 강원도 양양군 현남면 호적</span>
+      <span class="source-item">강원도 양양부 호구단자</span>
     </div>
   </div>
 
 </div>
 
-<!-- ===== FOOTER ===== -->
 <footer class="site-footer-main">
   <div class="footer-inner">
     <div class="footer-logo-block">
@@ -272,5 +347,77 @@
   </div>
 </footer>
 
+<script>
+  /* 부모 → 자식 연결 정의 */
+  const CONNECTIONS = [
+    ['p11', 'p21'],
+    ['p21', 'p31'],
+    ['p31', 'p41'],
+    ['p41', 'p51'],
+    ['p51', 'p61'],
+    ['p51', 'p62'],
+    ['p61', 'p71'],
+    ['p61', 'p72'],
+    ['p61', 'p73'],
+    ['p61', 'p74'],
+  ];
+
+  function drawTree() {
+    const svg = document.getElementById('tree-svg');
+    const outer = document.getElementById('tree-outer');
+    if (!svg || !outer) return;
+    svg.innerHTML = '';
+
+    const oRect = outer.getBoundingClientRect();
+
+    /* 부모별로 자식 그룹화 */
+    const byParent = {};
+    CONNECTIONS.forEach(([from, to]) => {
+      (byParent[from] = byParent[from] || []).push(to);
+    });
+
+    Object.entries(byParent).forEach(([parentId, childIds]) => {
+      const pEl = document.getElementById(parentId);
+      if (!pEl) return;
+      const pRect = pEl.getBoundingClientRect();
+      const px = pRect.left + pRect.width / 2 - oRect.left;
+      const py = pRect.bottom - oRect.top;
+
+      const kids = childIds.map(id => {
+        const el = document.getElementById(id);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return { cx: r.left + r.width / 2 - oRect.left, cy: r.top - oRect.top };
+      }).filter(Boolean);
+
+      if (!kids.length) return;
+
+      const midY = py + (kids[0].cy - py) * 0.5;
+
+      if (kids.length === 1) {
+        seg(svg, px, py, px, kids[0].cy);
+      } else {
+        const minX = Math.min(...kids.map(k => k.cx));
+        const maxX = Math.max(...kids.map(k => k.cx));
+        seg(svg, px, py, px, midY);       /* 부모 아래로 */
+        seg(svg, minX, midY, maxX, midY); /* 수평 가지 */
+        kids.forEach(k => seg(svg, k.cx, midY, k.cx, k.cy)); /* 각 자식 위로 */
+      }
+    });
+  }
+
+  function seg(svg, x1, y1, x2, y2) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+    el.setAttribute('x2', x2); el.setAttribute('y2', y2);
+    el.setAttribute('stroke', '#A87C24');
+    el.setAttribute('stroke-width', '2');
+    el.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(el);
+  }
+
+  requestAnimationFrame(() => requestAnimationFrame(drawTree));
+  window.addEventListener('resize', drawTree);
+</script>
 </body>
 </html>
