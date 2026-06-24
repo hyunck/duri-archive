@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>경주김씨 상촌공파 두리종중 소장자료</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    /* ============================================================
+       RESET & ROOT
+    ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white:      #ffffff;
+      --gray-50:    #f8f7f5;
+      --gray-100:   #f0eeeb;
+      --gray-200:   #e4e1dc;
+      --gray-300:   #ccc9c3;
+      --gray-400:   #a8a49d;
+      --gray-500:   #7a7670;
+      --gray-600:   #565350;
+      --gray-700:   #3a3835;
+      --gray-800:   #2a2825;
+      --gray-900:   #1a1916;
+      --brown:      #6b5c4a;
+      --brown-mid:  #8b7355;
+      --brown-light:#b0967a;
+      --brown-pale: #d4c4ae;
+      --text:       #1a1916;
+      --text-sub:   #3d3b38;
+      --text-muted: #6e6b66;
+      --text-light: #9c9892;
+      --border:     rgba(0,0,0,0.08);
+      --border-2:   rgba(0,0,0,0.14);
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.09);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.12);
+      --radius:     2px;
+      --serif:      'Nanum Myeongjo', 'Batang', Georgia, serif;
+      --sans:       'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); }
+    a    { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    /* ============================================================
+       HERO CAROUSEL
+    ============================================================ */
+    .hero {
+      position: relative; width: 100%;
+      height: calc(100vh - 100px); min-height: 520px;
+      overflow: hidden;
+      background: var(--gray-100);
+    }
+
+    .hero-track {
+      display: flex; height: 100%;
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .hero-slide {
+      flex: 0 0 100%; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transform: scale(1.04);
+      transition: transform 9s ease-out;
+    }
+    /* 이미지 없을 때 placeholder — 실제 사진으로 교체 예정 */
+    .hero-slide:nth-child(1) .hero-bg { background-color: #dedad5; background-image: linear-gradient(160deg, #e8e4de 0%, #d0ccc5 50%, #c4bfb8 100%); }
+    .hero-slide:nth-child(2) .hero-bg { background-color: #d5d8da; background-image: linear-gradient(160deg, #dde0e3 0%, #c8cdd1 50%, #bcc2c8 100%); }
+    .hero-slide:nth-child(3) .hero-bg { background-color: #dad5cf; background-image: linear-gradient(160deg, #e3ddd7 0%, #ccc6bf 50%, #c0b9b1 100%); }
+    .hero-slide:nth-child(4) .hero-bg { background-color: #d5d8d5; background-image: linear-gradient(160deg, #dde0db 0%, #c8ccc7 50%, #bcbfba 100%); }
+
+    .hero-slide.active .hero-bg { transform: scale(1); }
+
+    /* 하단 그라디언트 오버레이 */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(255,255,255,.72) 0%,
+        rgba(255,255,255,.18) 40%,
+        rgba(255,255,255,0)   100%
+      );
+    }
+
+    /* 상단 브라운 가는 선 */
+    .hero-top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2;
+      background: linear-gradient(90deg, transparent 0%, var(--brown-mid) 50%, transparent 100%);
+      opacity: 0.6;
+    }
+
+    /* 슬라이드 텍스트 */
+    .hero-content {
+      position: absolute; bottom: 96px; left: 80px; right: 80px;
+      z-index: 2;
+    }
+    .hero-label {
+      font-size: 11px; letter-spacing: 0.32em; color: var(--brown-mid);
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.6vw, 50px); font-weight: 800;
+      line-height: 1.28; color: var(--gray-900); margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 15px; color: var(--text-sub);
+      line-height: 1.78; max-width: 460px; font-weight: 400;
+    }
+
+    /* 이전 / 다음 */
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid var(--gray-300);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(6px);
+      color: var(--gray-700); font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 5;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .hero-arrow:hover {
+      background: var(--white);
+      border-color: var(--brown-mid);
+      color: var(--brown);
+    }
+    .hero-prev { left: 28px; }
+    .hero-next { right: 28px; }
+
+    /* 점 인디케이터 */
+    .hero-dots {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 10px; z-index: 5;
+    }
+    .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%; border: none;
+      background: var(--gray-300); cursor: pointer;
+      transition: background .2s, transform .2s; padding: 0;
+    }
+    .hero-dot.active { background: var(--brown-mid); transform: scale(1.5); }
+
+    /* 카운터 */
+    .hero-counter {
+      position: absolute; bottom: 40px; right: 44px;
+      font-size: 12px; color: var(--gray-400);
+      letter-spacing: 0.1em; z-index: 5;
+    }
+
+    /* 스크롤 힌트 */
+    .scroll-hint {
+      position: absolute; bottom: 24px; left: 80px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; z-index: 5; opacity: .45;
+    }
+    .scroll-hint-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--gray-500), transparent);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+    .scroll-hint-text {
+      font-size: 9px; letter-spacing: .24em; color: var(--gray-500);
+      writing-mode: vertical-rl;
+    }
+    @keyframes scrollAnim {
+      0%,100% { opacity:.45; }
+      50%      { opacity: .8; }
+    }
+
+    /* ============================================================
+       INTRO 3단
+    ============================================================ */
+    .intro-section {
+      background: var(--gray-900);
+      padding: 60px 80px;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      gap: 0 52px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .intro-sep { background: rgba(255,255,255,.1); align-self: stretch; }
+    .intro-item { text-align: center; padding: 12px 0; }
+    .intro-glyph {
+      font-family: var(--serif); font-size: 30px;
+      color: var(--brown-pale); margin-bottom: 14px; line-height: 1;
+    }
+    .intro-title {
+      font-family: var(--serif); font-size: 16px; font-weight: 700;
+      color: rgba(255,255,255,.9); margin-bottom: 4px;
+    }
+    .intro-hj {
+      font-family: var(--serif); font-size: 11px;
+      color: var(--brown-pale); letter-spacing: .2em; margin-bottom: 12px;
+    }
+    .intro-desc {
+      font-size: 13.5px; color: rgba(255,255,255,.5); line-height: 1.88;
+    }
+
+    /* ============================================================
+       SECTION 공통
+    ============================================================ */
+    .section    { padding: 88px 80px; }
+    .section-sm { padding: 64px 80px; }
+    .container  { max-width: 1100px; margin: 0 auto; }
+
+    .sec-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .28em;
+      color: var(--brown-mid); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: var(--serif); font-size: 26px; font-weight: 800;
+      color: var(--text); line-height: 1.35; margin-bottom: 10px;
+    }
+    .sec-divider {
+      width: 32px; height: 2px;
+      background: var(--brown-light);
+    }
+    .sec-desc {
+      font-size: 14.5px; color: var(--text-muted);
+      line-height: 1.9; margin-top: 14px;
+    }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about-section { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-text p {
+      font-size: 14.5px; color: var(--text-sub);
+      line-height: 2.05; margin-top: 18px;
+    }
+
+    .about-panel { display: flex; flex-direction: column; gap: 20px; }
+    .about-hanja {
+      font-family: var(--serif); font-size: 64px;
+      color: var(--gray-200);
+      line-height: 1; letter-spacing: .08em;
+      text-align: center; user-select: none;
+    }
+    .stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .stat-card {
+      padding: 24px 16px; text-align: center;
+      background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .stat-num {
+      font-family: var(--serif); font-size: 32px; font-weight: 800;
+      color: var(--brown); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); }
+
+    /* ============================================================
+       QUICK LINKS
+    ============================================================ */
+    .links-section { background: var(--gray-50); }
+    .links-header { text-align: center; margin-bottom: 48px; }
+
+    .links-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .link-card {
+      display: flex; flex-direction: column;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 44px 32px 36px;
+      text-align: center;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+    }
+    .link-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--brown-light);
+    }
+    .link-card.disabled { opacity: .42; pointer-events: none; }
+    .link-glyph {
+      font-family: var(--serif); font-size: 38px;
+      color: var(--brown-mid); margin-bottom: 16px; line-height: 1;
+    }
+    .link-kr {
+      font-family: var(--serif); font-size: 18px; font-weight: 700;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .link-hj {
+      font-family: var(--serif); font-size: 11.5px;
+      color: var(--brown-mid); letter-spacing: .18em; margin-bottom: 14px;
+    }
+    .link-desc {
+      font-size: 13.5px; color: var(--text-muted);
+      line-height: 1.75; flex: 1;
+    }
+    .link-cta {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 22px; font-size: 12px; font-weight: 700;
+      color: var(--brown); letter-spacing: .06em;
+    }
+
+    /* ============================================================
+       NOTICE / RECENT
+    ============================================================ */
+    .notice-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .notice-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .notice-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .notice-head-title {
+      font-family: var(--serif); font-size: 16px; font-weight: 700;
+      color: var(--text);
+    }
+    .notice-head a {
+      font-size: 12px; color: var(--text-muted);
+      transition: color .15s;
+    }
+    .notice-head a:hover { color: var(--brown); }
+
+    .notice-list { list-style: none; }
+    .notice-list li {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px; padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text-sub);
+      transition: color .15s;
+    }
+    .notice-list li:hover { color: var(--text); }
+    .notice-list li span {
+      font-size: 12px; color: var(--text-light);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .notice-empty {
+      padding: 36px 0; text-align: center;
+      font-size: 13.5px; color: var(--text-light); font-style: italic;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--gray-100);
+      color: var(--text);
+      border-color: var(--brown-mid);
+    }
+
+    /* ============================================================
+       DARK MODE — 검정/회색 베이스, 헤더만 보라, 금 포인트
+    ============================================================ */
+    [data-theme="dark"] {
+      /* 배경: 순수 다크 */
+      --white:       #181614;
+      --gray-50:     #242220;
+      --gray-100:    #2a2826;
+      --gray-200:    #383430;
+      --gray-300:    #504c48;
+      --gray-400:    #706c68;
+      --gray-500:    #908c88;
+      --gray-600:    #b0aca8;
+      --gray-700:    #c8c4c0;
+      --gray-800:    #dedad6;
+      --gray-900:    #f0ebe4;
+      /* 금색 포인트 */
+      --brown:       #C9A84C;
+      --brown-mid:   #DFC070;
+      --brown-light: #EDD490;
+      --brown-pale:  #F5E8C0;
+      /* 텍스트 */
+      --text:        #F0EBE4;
+      --text-sub:    #D4CEC8;
+      --text-muted:  #9C9690;
+      --text-light:  #6E6A64;
+      /* 보더 */
+      --border:      rgba(255,255,255,0.07);
+      --border-2:    rgba(255,255,255,0.12);
+      /* 그림자 */
+      --shadow-sm:   0 1px 4px rgba(0,0,0,0.4);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.5);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
+    }
+
+    /* 헤더: 검정 베이스에 보라 틴트만 */
+    [data-theme="dark"] .hero-overlay {
+      background: linear-gradient(to top,
+        rgba(0,0,0,.72) 0%,
+        rgba(0,0,0,.25) 45%,
+        rgba(0,0,0,.08) 100%
+      );
+    }
+    [data-theme="dark"] .hero-slide:nth-child(1) .hero-bg { background-color: #1a1208; background-image: linear-gradient(160deg,#1e1508 0%,#100c04 60%,#080602 100%); }
+    [data-theme="dark"] .hero-slide:nth-child(2) .hero-bg { background-color: #100e0c; background-image: linear-gradient(160deg,#181614 0%,#0c0a08 60%,#060402 100%); }
+    [data-theme="dark"] .hero-slide:nth-child(3) .hero-bg { background-color: #180f06; background-image: linear-gradient(160deg,#221506 0%,#0e0a04 60%,#060402 100%); }
+    [data-theme="dark"] .hero-slide:nth-child(4) .hero-bg { background-color: #0e100e; background-image: linear-gradient(160deg,#141610 0%,#090a08 60%,#040504 100%); }
+
+    [data-theme="dark"] .hero-title  { color: #FFFFFF; text-shadow: 0 2px 20px rgba(0,0,0,.6); }
+    [data-theme="dark"] .hero-label  { color: #DFC070; }
+    [data-theme="dark"] .hero-sub    { color: rgba(240,235,228,.80); }
+    [data-theme="dark"] .hero-arrow  { border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.28); color: #fff; }
+    [data-theme="dark"] .hero-arrow:hover { background: rgba(168,124,36,.45); border-color: #A87C24; }
+    [data-theme="dark"] .hero-dot    { background: rgba(255,255,255,.28); }
+    [data-theme="dark"] .hero-dot.active { background: #DFC070; }
+    [data-theme="dark"] .hero-counter { color: rgba(255,255,255,.38); }
+    [data-theme="dark"] .scroll-hint { opacity: .42; }
+    [data-theme="dark"] .scroll-hint-line { background: linear-gradient(to bottom, rgba(255,255,255,.7), transparent); }
+    [data-theme="dark"] .scroll-hint-text { color: rgba(255,255,255,.7); }
+    [data-theme="dark"] .hero-top-bar { opacity: 1; }
+
+    [data-theme="dark"] .intro-section { background: #0f0e0c; }
+    [data-theme="dark"] .intro-title   { color: rgba(240,235,228,.92); }
+    [data-theme="dark"] .intro-desc    { color: rgba(212,206,200,.50); }
+
+    [data-theme="dark"] .about-section  { background: var(--white); }
+    [data-theme="dark"] .about-hanja    { color: #242220; }
+    [data-theme="dark"] .stat-card      { background: #242220; border-color: rgba(255,255,255,.07); }
+    [data-theme="dark"] .stat-num       { color: #DFC070; }
+
+    [data-theme="dark"] .links-section  { background: #1e1c1a; }
+    [data-theme="dark"] .link-card      { background: #242220; border-color: rgba(255,255,255,.07); }
+    [data-theme="dark"] .link-card:hover { border-color: #A87C24; box-shadow: 0 8px 32px rgba(0,0,0,.45); }
+    [data-theme="dark"] .link-glyph    { color: #DFC070; }
+    [data-theme="dark"] .link-cta      { color: #C9A84C; }
+
+    [data-theme="dark"] .notice-section { background: var(--white); border-top-color: rgba(255,255,255,.06); }
+    [data-theme="dark"] .notice-head    { border-bottom-color: rgba(255,255,255,.40); }
+    [data-theme="dark"] .notice-head-title { color: #D4CEC8; }
+    [data-theme="dark"] .notice-list li { border-bottom-color: rgba(255,255,255,.06); color: #9C9690; }
+    [data-theme="dark"] .notice-list li:hover { color: #F0EBE4; }
+    [data-theme="dark"] .notice-list li span { color: #6E6A64; }
+
+    /* 헤더·푸터·토글버튼 다크모드: style.css가 처리 */
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 960px) {
+      .section, .section-sm, .intro-section { padding: 56px 24px; }
+      .intro-grid { grid-template-columns: 1fr; gap: 36px; }
+      .intro-sep  { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 44px; }
+      .links-grid { grid-template-columns: 1fr; }
+      .notice-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-content { left: 24px; right: 24px; bottom: 80px; }
+      .scroll-hint  { left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ━━ HEADER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<header class="site-header">
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 上村公派 杜里宗中</div>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-item active" href="home.html">홈</a>
+    <a class="nav-item" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item disabled" href="#">가옥 안내</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+  </nav>
+</header>
+
+<!-- ━━ HERO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="hero">
+  <div class="hero-top-bar"></div>
+
+  <div class="hero-track" id="heroTrack">
+    <div class="hero-slide active">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">두리종중 소장 문화유산</div>
+        <h1 class="hero-title">경주김씨 상촌공파<br>두리종중 가옥</h1>
+        <p class="hero-sub">강원도 양양에 자리한 상촌공파 종가의 역사적 건축물과 소장 자료를 디지털로 보존합니다.</p>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">종중 소장 건축물</div>
+        <h1 class="hero-title">진사청<br><span style="font-size:.68em;color:var(--gray-600)">進士廳</span></h1>
+        <p class="hero-sub">조선 후기 양반 가문의 전통 건축 양식을 간직한 진사청의 기록을 담습니다.</p>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">종중 문화 유적</div>
+        <h1 class="hero-title">각자바위</h1>
+        <p class="hero-sub">선조들의 자취가 새겨진 각자바위와 주변 자연 경관의 기록을 보존합니다.</p>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">소장 고문서</div>
+        <h1 class="hero-title">종가실록<br><span style="font-size:.68em;color:var(--gray-600)">宗家實錄 · 1930</span></h1>
+        <p class="hero-sub">1930년 김규하가 저술한 종가실록을 포함, 조선 후기부터 일제강점기의 고문서를 열람하실 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="hero-arrow hero-prev" id="heroPrev">&#8249;</button>
+  <button class="hero-arrow hero-next" id="heroNext">&#8250;</button>
+
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active"></button>
+    <button class="hero-dot"></button>
+    <button class="hero-dot"></button>
+    <button class="hero-dot"></button>
+  </div>
+
+  <div class="hero-counter" id="heroCounter">01 / 04</div>
+
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    <span class="scroll-hint-text">SCROLL</span>
+  </div>
+</section>
+
+<!-- ━━ INTRO 3단 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="intro-section">
+  <div class="intro-grid">
+    <div class="intro-item">
+      <div class="intro-glyph">宗</div>
+      <div class="intro-title">두리종중</div>
+      <div class="intro-hj">杜里 宗中</div>
+      <p class="intro-desc">경주김씨 상촌공파의 강원도 양양 입향 후예들로 구성된 종중으로, 선조들의 유산과 기록을 계승하고 있습니다.</p>
+    </div>
+    <div class="intro-sep"></div>
+    <div class="intro-item">
+      <div class="intro-glyph">牒</div>
+      <div class="intro-title">고문서 아카이브</div>
+      <div class="intro-hj">古文書 Archive</div>
+      <p class="intro-desc">종가실록을 비롯한 94건의 소장 고문서를 디지털화하여 호적·족보·경전·문집 등 다양한 자료를 제공합니다.</p>
+    </div>
+    <div class="intro-sep"></div>
+    <div class="intro-item">
+      <div class="intro-glyph">譜</div>
+      <div class="intro-title">세계도</div>
+      <div class="intro-hj">世系圖</div>
+      <p class="intro-desc">18세 입향조로부터 14대에 걸친 가계도를 시각화하여 제공합니다. 양자 관계 및 혼인 관계도 포함됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ ABOUT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="about-section section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="sec-label">About</div>
+        <h2 class="sec-title">경주김씨 상촌공파<br>두리종중을 소개합니다</h2>
+        <div class="sec-divider"></div>
+        <p>경주김씨 상촌공파 두리종중은 조선 후기 강원도 양양군 현남면 두리(杜里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
+        <p>입향조 김여경(金如慶)을 시조로 하여, 대한제국기·일제강점기에 걸쳐 형성된 다수의 고문서와 건축 유산을 보존하고 있습니다.</p>
+        <p>본 사이트는 종중이 소장한 문화유산을 디지털 아카이브로 구축하여 후세에 전하고자 마련하였습니다.</p>
+      </div>
+      <div class="about-panel">
+        <div class="about-hanja">慶州<br>金氏</div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">94</div>
+            <div class="stat-label">소장 문서 건수</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">14</div>
+            <div class="stat-label">가계도 세대 수</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1930</div>
+            <div class="stat-label">종가실록 저술 연도</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">130+</div>
+            <div class="stat-label">가계도 등재 인물</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ QUICK LINKS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="links-section section">
+  <div class="container">
+    <div class="links-header">
+      <div class="sec-label">Quick Access</div>
+      <h2 class="sec-title">소장 자료 열람하기</h2>
+      <div class="sec-divider" style="margin:12px auto 0"></div>
+    </div>
+    <div class="links-grid">
+      <a href="index.html" class="link-card">
+        <div class="link-glyph">帖</div>
+        <div class="link-kr">소장 문서</div>
+        <div class="link-hj">所藏 文書</div>
+        <p class="link-desc">종가실록 등 94건의 고문서를 카테고리별로 검색하고 원문·국역을 열람할 수 있습니다.</p>
+        <span class="link-cta">열람하기 →</span>
+      </a>
+      <a href="family.html" class="link-card">
+        <div class="link-glyph">譜</div>
+        <div class="link-kr">가계도</div>
+        <div class="link-hj">家系圖</div>
+        <p class="link-desc">입향조부터 14대에 이르는 경주김씨 상촌공파 두리종중의 세계도를 확인합니다.</p>
+        <span class="link-cta">열람하기 →</span>
+      </a>
+      <a class="link-card disabled">
+        <div class="link-glyph">宅</div>
+        <div class="link-kr">가옥 안내</div>
+        <div class="link-hj">家屋 案內</div>
+        <p class="link-desc">두리종중 가옥과 진사청, 각자바위 등 문화유산 건축물을 소개합니다.</p>
+        <span class="link-cta">준비 중</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ NOTICE / RECENT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="notice-section section-sm">
+  <div class="container">
+    <div class="notice-grid">
+      <div>
+        <div class="notice-head">
+          <span class="notice-head-title">공지사항</span>
+          <a href="#">더 보기 +</a>
+        </div>
+        <ul class="notice-list">
+          <li class="notice-empty">등록된 공지사항이 없습니다.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="notice-head">
+          <span class="notice-head-title">최근 추가 자료</span>
+          <a href="index.html">더 보기 +</a>
+        </div>
+        <ul class="notice-list">
+          <li><span style="flex:1">종가실록 (宗家實錄)</span><span>1930</span></li>
+          <li><span style="flex:1">대한제국 호적 문서</span><span>1900년대</span></li>
+          <li><span style="flex:1">경주김씨파보</span><span>19세기 말</span></li>
+          <li><span style="flex:1">정시문무전시방목</span><span>1801</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ FOOTER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 上村公派 杜里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면</span>
+        <span>문의: changhyun0430@gmail.com</span>
+      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<script src="theme.js"></script>
+<script>
+// ── 히어로 캐러셀 ────────────────────────────────────────────────
+(function () {
+  const track   = document.getElementById('heroTrack');
+  const slides  = track.querySelectorAll('.hero-slide');
+  const dots    = document.querySelectorAll('.hero-dot');
+  const counter = document.getElementById('heroCounter');
+  const total   = slides.length;
+  let cur = 0, timer;
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' +
+                          String(total).padStart(2, '0');
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(cur + 1), 5500);
+  }
+
+  document.getElementById('heroPrev')
+    .addEventListener('click', () => { goTo(cur - 1); startTimer(); });
+  document.getElementById('heroNext')
+    .addEventListener('click', () => { goTo(cur + 1); startTimer(); });
+  dots.forEach((d, i) =>
+    d.addEventListener('click', () => { goTo(i); startTimer(); }));
+
+  // 터치 스와이프
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) { goTo(dx < 0 ? cur + 1 : cur - 1); startTimer(); }
+  });
+
+  startTimer();
+})();
+</script>
+
+</body>
+</html>

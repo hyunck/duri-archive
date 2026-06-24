@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>가계 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
     .page-hero { padding: 52px 48px 40px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); }
-    .page-title-ko { font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
-    .page-title-hanja { font-family: var(--font-serif); font-size: 15px; color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px; }
+    .page-title-ko { font-family: var(--font-serif); font-size: 30px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px; }
     .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
     .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
     .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
@@ -19,13 +21,14 @@
     .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
     .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
 
-    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; font-size: 13px; color: #C8CDD8; align-items: center; }
+    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; font-size: 13px; color: var(--text-secondary); align-items: center; }
     .legend-item { display: flex; align-items: center; gap: 5px; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-700); }
     .legend-line { width: 24px; height: 2px; background: var(--gold-700); }
 
     /* ── 트리 컨테이너 ── */
-    .tree-scroll-wrap { overflow-x: auto; width: 100%; margin-bottom: 40px; }
+    .tree-scroll-wrap { overflow: auto; width: 100%; height: calc(100vh - 260px); min-height: 500px; margin-bottom: 40px; cursor: grab; }
+    .tree-scroll-wrap.panning { cursor: grabbing; user-select: none; }
     .tree-outer { position: relative; /* width/height set by JS */ }
     #tree-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
 
@@ -33,9 +36,10 @@
     .gen-label-abs {
       position: absolute; display: flex; flex-direction: column;
       align-items: flex-end; padding-right: 12px;
+      z-index: 10; text-shadow: 0 0 6px var(--bg-body), 0 0 12px var(--bg-body), 0 0 18px var(--bg-body), 0 0 24px var(--bg-body), 0 0 30px var(--bg-body);
     }
-    .gen-num { font-size: 13px; font-weight: 700; color: var(--gold-600); letter-spacing: 0.08em; }
-    .gen-sub { font-size: 12px; color: #C0C4D0; margin-top: 3px; letter-spacing: 0.04em; }
+    .gen-num { font-size: 13px; font-weight: 700; color: var(--gold-700); letter-spacing: 0.08em; }
+    .gen-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.04em; }
 
     /* ── 인물 카드 ── */
     .person-card {
@@ -48,30 +52,81 @@
       box-sizing: border-box;
     }
     .p-kr { font-size: 21px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.02em; margin-bottom: 5px; }
-    .p-hj { font-family: var(--font-serif); font-size: 15px; color: var(--gold-500); letter-spacing: 0.06em; line-height: 1.5; }
-    .p-dates { font-size: 12px; color: #9AA0B0; margin-top: 6px; letter-spacing: 0.02em; }
+    .p-hj { font-family: var(--font-serif); font-size: 15px; color: var(--gold-600); letter-spacing: 0.06em; line-height: 1.5; }
+    .p-dates { font-size: 12px; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.02em; }
     .p-aliases { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 4px; }
-    .p-alias { font-size: 14px; color: #D0D4DE; line-height: 1.5; }
-    .p-alias-hj { font-family: var(--font-serif); font-size: 13px; color: #A8ADB8; margin-left: 4px; letter-spacing: 0.04em; }
+    .p-alias { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .p-alias-hj { font-family: var(--font-serif); font-size: 13px; color: var(--text-muted); margin-left: 4px; letter-spacing: 0.04em; }
+    .p-spouses { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 5px; }
+    .p-spouse { font-size: 12px; }
+    .p-spouse-head { display: flex; align-items: baseline; gap: 5px; }
+    .p-spouse-prefix { font-size: 12px; color: var(--text-muted); }
+    .p-spouse-clan { font-family: var(--font-serif); font-size: 13px; color: var(--text-primary); letter-spacing: 0.04em; }
+    .p-spouse-rank { font-size: 11px; color: var(--text-muted); }
+    .p-spouse-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; padding-left: 14px; }
 
     /* ── 출처 ── */
-    .source-section { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; background: rgba(255,255,255,0.025); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
-    .source-label { font-size: 13px; font-weight: 700; color: #C0C4D0; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
+    .source-section { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; background: var(--bg-elevated); border: 1px solid var(--border-normal); border-radius: var(--radius-md); }
+    .source-label { font-size: 13px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
     .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .source-item { font-size: 13px; color: #D0D4DE; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 4px 12px; }
+    .source-item { font-size: 13px; color: var(--text-primary); background: var(--bg-body); border: 1px solid var(--border-normal); border-radius: var(--radius-sm); padding: 4px 12px; }
+
+    /* ── 딸 카드 ── */
+    .person-card-female {
+      border-color: #9B4F63;
+    }
+    .person-card-female .p-hj { color: #9B4F63; }
 
     /* ── 고스트(출계) 카드 ── */
     .person-card-ghost {
       background: transparent;
       border: 1px solid transparent;
-      outline: 2px dashed rgba(91, 141, 184, 0.55);
+      outline: 2px dashed rgba(60, 110, 165, 0.45);
       outline-offset: -1px;
     }
-    .person-card-ghost .p-kr      { color: #5880A8; }
-    .person-card-ghost .p-hj      { color: #3D6080; }
-    .person-card-ghost .p-dates   { color: #3A5570; }
-    .person-card-ghost .p-alias   { color: #4A6080; }
-    .person-card-ghost .p-alias-hj { color: #3A5068; }
+    .person-card-ghost .p-kr      { color: #2E5F8A; }
+    .person-card-ghost .p-hj      { color: #2D5070; }
+    .person-card-ghost .p-dates   { color: #3A6080; }
+    .person-card-ghost .p-alias   { color: #3A5878; }
+    .person-card-ghost .p-alias-hj { color: #305068; }
+
+    /* ── 확대/축소 플로팅 버튼 ── */
+    .zoom-controls {
+      position: fixed;
+      bottom: 36px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      padding: 6px 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 200;
+    }
+    .zoom-btn {
+      width: 30px; height: 30px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 18px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .zoom-btn:hover { background: var(--bg-hover); color: var(--gold-700); border-color: var(--gold-600); }
+    .zoom-level {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-secondary);
+      min-width: 40px; text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .zoom-btn-reset {
+      font-size: 11px; width: auto; padding: 0 7px;
+      color: var(--text-muted);
+    }
 
     @media (max-width: 768px) {
       .page-hero { padding: 28px 20px 24px; }
@@ -80,17 +135,48 @@
       .family-wrap { padding: 28px 16px 60px; }
       .source-section { flex-direction: column; gap: 10px; }
     }
+
+    /* ── 다크 모드 ── */
+    [data-theme="dark"] .page-hero { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .hero-ornament-line { background: linear-gradient(90deg, var(--gold-600), transparent); }
+    [data-theme="dark"] .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-600)); }
+
+    /* 인물 카드 */
+    [data-theme="dark"] .person-card { background: var(--bg-elevated); border-color: var(--border-normal); }
+
+    /* 딸 카드 */
+    [data-theme="dark"] .person-card-female { border-color: #C87090; }
+    [data-theme="dark"] .person-card-female .p-hj { color: #D4859A; }
+
+    /* 고스트 카드 */
+    [data-theme="dark"] .person-card-ghost { outline-color: rgba(91,141,184,0.55); }
+    [data-theme="dark"] .person-card-ghost .p-kr      { color: #5880A8; }
+    [data-theme="dark"] .person-card-ghost .p-hj      { color: #4070A0; }
+    [data-theme="dark"] .person-card-ghost .p-dates   { color: #3A5E80; }
+    [data-theme="dark"] .person-card-ghost .p-alias   { color: #4A6880; }
+    [data-theme="dark"] .person-card-ghost .p-alias-hj { color: #3A5870; }
+
+    /* 출처 */
+    [data-theme="dark"] .source-section { background: var(--bg-elevated); border-color: var(--border-subtle); }
+
+    /* 줌 컨트롤 */
+    [data-theme="dark"] .zoom-controls { background: var(--bg-elevated); border-color: var(--border-normal); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="logo-wrap"><span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span></div>
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 上村公派 杜里宗中</div>
+  </a>
   <nav class="site-nav">
-    <a class="nav-item disabled" href="#">메인 홈</a>
-    <a class="nav-item disabled" href="#">가옥 소개</a>
-    <a class="nav-item active" href="family.html">가계</a>
+    <a class="nav-item" href="home.html">홈</a>
     <a class="nav-item" href="index.html">소장 문서</a>
+    <a class="nav-item active" href="family.html">가계도</a>
+    <a class="nav-item disabled" href="#">가옥 안내</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
   </nav>
 </header>
 
@@ -113,6 +199,7 @@
 
   <div class="legend">
     <div class="legend-item"><div class="legend-dot"></div><span>본명(漢字) — 큰 글씨</span></div>
+    <div class="legend-item"><div style="width:14px;height:14px;border-radius:3px;border:1px solid #9B4F63;"></div><span>딸 — 박스 안은 사위 이름</span></div>
     <div class="legend-item">
       <span style="font-size:11px;color:var(--text-muted);border-top:1px solid var(--border-subtle);padding-top:2px;padding-right:4px;">이명</span>
       <span>이명·별칭 — 구분선 아래 작은 글씨</span>
@@ -125,9 +212,18 @@
   </div>
 
   <div class="tree-scroll-wrap">
-    <div class="tree-outer" id="tree-outer">
-      <svg id="tree-svg"></svg>
+    <div id="tree-scale-wrap">
+      <div class="tree-outer" id="tree-outer">
+        <svg id="tree-svg"></svg>
+      </div>
     </div>
+  </div>
+
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoom-out" title="축소">−</button>
+    <span class="zoom-level" id="zoom-level">100%</span>
+    <button class="zoom-btn" id="zoom-in" title="확대">+</button>
+    <button class="zoom-btn zoom-btn-reset" id="zoom-reset" title="초기화">↺</button>
   </div>
 
   <div class="source-section">
@@ -137,49 +233,63 @@
       <span class="source-item">대한제국 강원도 양양군 현남면 호적</span>
       <span class="source-item">강원도 양양부 호구단자</span>
       <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br>
-        <span style="font-size:11px;color:#8890A0;">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span>
+        <span style="font-size:11px;color:var(--text-muted);">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span>
       </span>
       <span class="source-item">경주김씨파보<br>
-        <span style="font-size:11px;color:#8890A0;">(慶州金氏派譜, 19세기 말)</span>
+        <span style="font-size:11px;color:var(--text-muted);">(慶州金氏派譜, 19세기 말)</span>
       </span>
     </div>
   </div>
 
 </div>
 
-<footer class="site-footer-main">
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo-block">
-      <div class="footer-logo-name">斗里宗中</div>
-      <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 上村公派 杜里宗中</div>
     </div>
     <div class="footer-info">
-      <div class="footer-links"><a href="#">이용 안내</a><a href="#">소장처 소개</a><a href="#">문의</a></div>
       <div class="footer-address">
-        <span>소장처 : 강원도 양양군 두리</span>
-        <span>경주김씨 상촌공파 두리종중</span>
+        <span>강원특별자치도 양양군 현남면</span>
+        <span>문의: changhyun0430@gmail.com</span>
       </div>
       <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
     </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
   </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
 </footer>
 
+<script src="theme.js"></script>
 <script>
 // ══════════════════════════════════════════════════════════
 //  데이터 — 사람·연결 추가 시 이 두 객체만 수정
 // ══════════════════════════════════════════════════════════
 const NODES = {
   p00: { kr:'김영환', hj:'金榮煥', gen:0 },
-  p11: { kr:'김여경', hj:'金如慶', gen:1 },
-  p21: { kr:'김한태', hj:'金漢泰', gen:2 },
-  p31: { kr:'김용흡', hj:'金龍翕', gen:3, aliases:[{kr:'김용주',hj:'金龍柱'}] },
-  p32: { kr:'김수주', hj:'金洙柱', gen:3 },
-  p41: { kr:'김상연', hj:'金尙演', gen:4, dates:'1735년 ~ ?', aliases:[{kr:'김노연',hj:'金魯演'}] },
-  p42: { kr:'김노익', hj:'金魯益', gen:4 },
-  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ 1812년', aliases:[{kr:'김경희',hj:'金景喜'}] },
-  p52: { kr:'김서희', hj:'金瑞喜', gen:5 },
-  p53: { kr:'김철희', hj:'金喆喜', gen:5 },
-  p54: { kr:'김화희', hj:'金化喜', gen:5 },
+  p11: { kr:'김여경', hj:'金如慶', gen:1, dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', spouse:[{ hj:'密陽朴氏', rank:'정부인' }] },
+  p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사', spouse:[{ hj:'嘉山李氏', rank:'정부인' }] },
+  p31: { kr:'김용흡', hj:'金龍翕', gen:3, dates:'정조조 가선대부', aliases:[{kr:'김용주',hj:'金龍柱'}], spouse:[{ hj:'慶州李氏', rank:'정부인', father:'후도(厚道)' }] },
+  p32: { kr:'김수주', hj:'金洙柱', gen:3, dates:'영조조 蔭至 절충장군<br>첨지중추부사', spouse:[{ hj:'延日鄭氏', rank:'의인' }] },
+  p33: { kr:'김덕주', hj:'金德柱', gen:3, spouse:[{ hj:'坡平尹氏' }] },
+  p41: { kr:'김상연', hj:'金尙演', gen:4, dates:'1735년 ~ ?', post:'蔭至 가선대부<br>행 용양위부호군', aliases:[{kr:'김노연',hj:'金魯演'}], spouse:[
+    { hj:'密陽朴氏', rank:'정부인' },
+    { hj:'蔚珍張氏', order:'계배', rank:'정부인', dates:'1741년 ~ ?', father:'태한(泰漢)' },
+  ] },
+  p42: { kr:'김노익', hj:'金魯益', gen:4, dates:'1747년 ~ ?', spouse:[{ hj:'平山申氏' }, { hj:'慶州李氏', order:'계배' }] },
+  p43: { kr:'김노경', hj:'金魯敬', gen:4, spouse:[{ hj:'延安金氏' }] },
+  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ 1812년', post:'순조조 등무과 선전', aliases:[{kr:'김경희',hj:'金景喜'}], spouse:[
+    { hj:'旌善全氏', rank:'의인', dates:'1769년 ~ ?' },
+    { hj:'順興安氏', order:'계배', rank:'의인', father:'윤흡(允翕)' },
+  ] },
+  p52: { kr:'김서희', hj:'金瑞喜', gen:5, dates:'? ~ 1806년', spouse:[{ hj:'鎭安金氏', father:'치억(致億)' }] },
+  p53: { kr:'김철희', hj:'金喆喜', gen:5, spouse:[{ hj:'鎭安金氏' }] },
+  p54: { kr:'김화희', hj:'金化喜', gen:5, spouse:[{ hj:'鎭安金氏', father:'신흥(信興)' }] },
   p64: { kr:'김상학', hj:'金商學', gen:6, dates:'1816년 ~ 1890년' },
   p65: { kr:'김상하', hj:'金商河', gen:6, dates:'1808년 ~ 1891년' },
   p66: { kr:'김상인', hj:'金商仁', gen:6, dates:'1796년 ~ 1870년' },
@@ -235,13 +345,54 @@ const NODES = {
   p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김일귀',hj:'金日貴'}] },
   p93: { kr:'김○열', hj:'金○烈', gen:9, dates:'1877년 ~ ?', aliases:[{kr:'김도원',hj:'金道源'}] },
   p94: { kr:'김주열', hj:'金周烈', gen:9, dates:'1868년 ~ ?' },
+  p132: { kr:'김공열', hj:'金共烈', gen:9, dates:'1883년 ~ ?' },
+  p133: { kr:'김승열', hj:'金承烈', gen:9, dates:'1890년 ~ ?' },
+  p134: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'류익정', hj:'柳益渟' }, clan:'문화 류씨' },
+  p135: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'곽상순', hj:'郭相舜' }, clan:'현풍 곽씨' },
+  p136: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'김원문', hj:'金元文' }, clan:'연안 김씨' },
+  p137: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함이택', hj:'咸李澤' }, clan:'강릉 함씨' },
+  p138: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함문영', hj:'咸文榮' }, clan:'강릉 함씨' },
+  p139: { kr:'딸', gen:8, gender:'f', clan:'파평 윤씨', clanHj:'坡平 尹氏' },
+  p140: { kr:'딸', gen:9, gender:'f', clan:'강릉 O씨', clanHj:'江陵 O氏' },
+  p141: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'김원지', hj:'金元之' }, clan:'강릉 김씨' },
+  p142: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'이형의', hj:'李衡儀' }, clan:'전주 이씨' },
+  p143: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'엄화영', hj:'嚴和永' }, clan:'영월 엄씨' },
+  p144: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'이민용', hj:'李敏用' }, clan:'경주 이씨' },
+  p145: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함만영', hj:'咸萬榮' }, clan:'강릉 함씨' },
+  p146: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'김두현', hj:'金斗鉉' }, clan:'김해 김씨' },
+  p147: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'임원수', hj:'林源壽' }, clan:'평택 임씨' },
+  p148: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'곽상열', hj:'郭相烈' }, clan:'현풍 곽씨' },
+  p149: { kr:'딸', gen:6, gender:'f', sonInLaw:{ kr:'함규영', hj:'咸奎英' }, clan:'강릉 함씨' },
+  p150: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'임대선', hj:'林大善' }, clan:'평택 임씨' },
+  p151: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'곽장한', hj:'郭章漢' }, clan:'현풍 곽씨' },
+  p152: { kr:'김병제', hj:'金秉濟', gen:7, dates:'1847년 ~ 1888년' },
+  p153: { kr:'김동만', hj:'金東萬', gen:8, dates:'1867년 ~ 1891년' },
+  p154: { kr:'김성열', hj:'金成烈', gen:9, dates:'1889년 ~ ?' },
+  p155: { kr:'김대열', hj:'金大烈', gen:9, dates:'1891년 ~ ?' },
+  p156: { kr:'김화열', hj:'金和烈', gen:9, dates:'1894년? ~ ?' },
+  p157: { kr:'김동수', hj:'金東秀', gen:8, dates:'1879년 ~ ?' },
+  p158: { kr:'김동협', hj:'金東協', gen:8, dates:'1884년 ~ ?' },
+  p159: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'이용이', hj:'李庸而' }, clan:'경주 이씨' },
+  p160: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함병삼', hj:'咸炳三' }, clan:'강릉 함씨' },
+  p161: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'윤경중', hj:'尹敬重' }, clan:'파평 윤씨' },
+  p162: { kr:'딸', gen:8, gender:'f', clan:'미혼' },
+  p163: { kr:'김헌제', hj:'金憲濟', gen:7, dates:'1846년 ~ ?' },
+  p164: { kr:'김동양', hj:'金東鍚', gen:8, dates:'1878년 ~ ?' },
+  p165: { kr:'김동달', hj:'金東鐽', gen:8, dates:'1881년 ~ ?' },
+  p166: { kr:'김만제', hj:'金萬濟', gen:7, dates:'1862년 ~ ?' },
+  p167: { kr:'김동구', hj:'金東龜', gen:8, dates:'1889년 ~ ?' },
+  p168: { kr:'김동룡', hj:'金東龍', gen:8, dates:'1897년 ~ ?' },
+  p169: { kr:'김범제', hj:'金範濟', gen:7, dates:'1865년 ~ ?' },
+  p170: { kr:'김동흥', hj:'金東興', gen:8, dates:'1889년 ~ ?' },
+  p171: { kr:'김동진', hj:'金東震', gen:8, dates:'1893년 ~ ?' },
+  p172: { kr:'김동한', hj:'金東漢', gen:8, dates:'1899년 ~ ?' },
   p101: { kr:'김규황', hj:'金圭璜', gen:10, dates:'1901년 ~ ?' },
   p121: { kr:'김규양', hj:'金圭鍚', gen:10, dates:'1893년 ~ ?' },
   p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년' },
   p125: { kr:'김철호', hj:'金喆鎬', gen:11, dates:'1906년 ~ 1956년' },
   p126: { kr:'김택준', hj:'金澤俊', gen:12, dates:'1944년 ~ 1990년' },
   p127: { kr:'김OO', hj:'金OO', gen:13 },
-  p128: { kr:'김OO', hj:'金OO', gen:13 },
+  p128: { kr:'김OO', hj:'金OO', gen:13, gender:'f' },
   p129: { kr:'김OO', hj:'金OO', gen:13 },
   p130: { kr:'김OO', hj:'金OO', gen:14 },
   p131: { kr:'김OO', hj:'金OO', gen:14 },
@@ -249,7 +400,7 @@ const NODES = {
   p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1888년 ~ ?' },
   p124: { kr:'김규현', hj:'金圭鉉', gen:10, dates:'1899년 ~ ?' },
   p95: { kr:'김종열', hj:'金宗烈', gen:9, dates:'1859년 ~ 1876년' },
-  p96: { kr:'김재열', hj:'金載烈', gen:9, dates:'1861년 ~ 1884년', aliases:[{kr:'김복원',hj:'金澓源'}] },
+  p96: { kr:'김재열', hj:'金載烈', gen:9, dates:'1861년 ~ 1884년', aliases:[{kr:'김복원',hj:'金澓源'},{kr:'김상열',hj:'金相烈'}] },
   p97: { kr:'김상열', hj:'金相烈', gen:9, dates:'1880년 ~ ?' },
   p98: { kr:'김동락', hj:'金東洛', gen:8, dates:'1870년 ~ 1897년' },
   p99: { kr:'김무열', hj:'金武烈', gen:9, dates:'1888년 ~ ?' },
@@ -259,12 +410,17 @@ const NODES = {
 const CHILDREN = {
   p00: ['p11'],
   p11: ['p21'],
-  p21: ['p31','p32'],
+  p21: ['p31','p32','p33'],
   p32: ['p42'],
+  p33: ['p43'],
   p42: ['p53','p54'],
   p53: ['p65'],
   p54: ['p66','p67'],
   p66: ['p115','p114g'],
+  p67: ['p163','p166','p169'],
+  p169: ['p170','p171','p172'],
+  p163: ['p164','p165'],
+  p166: ['p167','p168'],
   p115: ['p116'],
   p116: ['p117','p118'],
   p65: ['p114'],
@@ -272,9 +428,11 @@ const CHILDREN = {
   p119: ['p120'],
   p31: ['p41'],
   p41: ['p51','p52'],
-  p52: ['p64'],
-  p64: ['p78'],
-  p78: ['p89','p106','p111','p112'],
+  p52: ['p64','p149'],
+  p64: ['p78','p152'],
+  p78: ['p89','p106','p111','p112','p150','p151'],
+  p152: ['p153','p157','p158','p159','p160','p161','p162'],
+  p153: ['p154','p155','p156'],
   p112: ['p113'],
   p106: ['p107','p108'],
   p89: ['p103','p109g','p110'],
@@ -290,20 +448,20 @@ const CHILDREN = {
   p88: ['p102'],
   p76: ['p86','p87'],
   p87: ['p100'],
-  p71: ['p82'],           // 양자 (족보상 아들)
-  p72: ['p82g','p83'],   // 빈칸(출계) + 김동규
-  p73: ['p84','p85g','p98'],  // 장남 김동호, 차남 출계(김동현) 빈칸, 3남 김동락
+  p71: ['p137','p138','p139','p82'],  // 딸 셋 + 양자 (족보상 아들)
+  p72: ['p82g','p83','p141','p142'],  // 빈칸(출계) + 김동규 + 딸 둘
+  p73: ['p84','p85g','p98','p143','p144','p145','p146','p147','p148'],  // 장남 김동호, 차남 출계(김동현) 빈칸, 3남 김동락, 딸 여섯
   p74: ['p85'],
   p75: ['p81'],
   p81: ['p92'],
-  p82: ['p95','p96'],
+  p82: ['p95','p96','p132','p133','p140'],
   p95: ['p122'],
   p122: ['p125'],
   p125: ['p126'],
   p126: ['p127','p128','p129'],
   p127: ['p130','p131'],
   p96: ['p122g','p123','p124'],
-  p83: ['p94'],
+  p83: ['p94','p134','p135','p136'],
   p94: ['p121'],
   p84: ['p93','p97'],
   p93: ['p101'],
@@ -341,8 +499,8 @@ const PAD_B  = 60;    // 아래
 // 세대별 행 높이 (해당 대 카드 상단 → 다음 대 카드 상단까지 거리)
 const ROW_HEIGHTS = {
   0: 148,                  // 0대(상촌공파) → 1대
-  1: 148, 2: 148,          // 1·2대: 간격 축소
-  3: 182, 4: 218, 5: 225,  // 중간 세대
+  1: 220, 2: 220,          // 1·2대
+  3: 252, 4: 345, 5: 360,  // 중간 세대
   6: 235,                  // 6대
   7: 252, 8: 252, 9: 252, 10: 252, 11: 252, 12: 252, 13: 252,  // 7~13대: 간격 확대
 };
@@ -379,8 +537,20 @@ function genTopY(gen) {
   return y;
 }
 
+// CX 오버라이드: 특정 노드를 지정 위치에 강제 배치
+const CX_OVERRIDE = {};
+(function() {
+  // 김지성(p71) 딸들을 김동영(p82) 카드 바로 왼쪽에 압축 배치
+  const p82CX = PAD_L + (colS['p82'] + colE['p82']) / 2 * COL_W;
+  const gap = COL_W;
+  ['p139','p138','p137'].forEach((id, i) => { CX_OVERRIDE[id] = p82CX - gap * (i + 1); });
+})();
+
 // 카드 중심 x, 상단 y
-function nodeCX(id) { return PAD_L + (colS[id] + colE[id]) / 2 * COL_W; }
+function nodeCX(id) {
+  if (id in CX_OVERRIDE) return CX_OVERRIDE[id];
+  return PAD_L + (colS[id] + colE[id]) / 2 * COL_W;
+}
 function nodeTY(id) { return genTopY(NODES[id].gen); }
 
 const totalLeaves = leafCnt[ROOT];
@@ -435,15 +605,59 @@ function renderTree() {
           ).join('') + '</div>';
       }
       card.innerHTML = ghtml;
+    } else if (node.gender === 'f') {
+      card.className = 'person-card person-card-female';
+      let html;
+      if (node.kr !== '딸') {
+        // 이름이 있는 딸: 텍스트는 일반 카드와 동일, 스타일만 여성 적용
+        html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+        if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
+        if (node.aliases?.length) {
+          html += '<div class="p-aliases">' +
+            node.aliases.map(a =>
+              `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+            ).join('') + '</div>';
+        }
+      } else {
+        // 이름 없는 딸: 사위/본관 표시
+        let siKr, siHj;
+        if (node.sonInLaw?.kr) {
+          siKr = node.sonInLaw.kr;
+          siHj = node.sonInLaw.hj || '';
+        } else {
+          siKr = node.clan || '사위 미상';
+          siHj = node.clanHj || '';
+        }
+        html = `<div class="p-kr">${siKr}</div>`;
+        if (siHj) html += `<div class="p-hj">${siHj}</div>`;
+        if (node.sonInLaw?.kr && node.clan) html += `<div class="p-dates">${node.clan}</div>`;
+        if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
+      }
+      card.innerHTML = html;
     } else {
       card.className = 'person-card';
       let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
       if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
+      if (node.post)           html += `<div class="p-dates">${node.post}</div>`;
       if (node.aliases?.length) {
         html += '<div class="p-aliases">' +
           node.aliases.map(a =>
             `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
           ).join('') + '</div>';
+      }
+      if (node.spouse?.length) {
+        html += '<div class="p-spouses">' +
+          node.spouse.map(s => {
+            const prefix = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
+            let sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
+            if (s.rank) sh += `<span class="p-spouse-rank">${s.rank}</span>`;
+            sh += '</div>';
+            const details = [];
+            if (s.dates)  details.push(s.dates);
+            if (s.father) details.push(`父 ${s.father}`);
+            if (details.length) sh += `<div class="p-spouse-detail">${details.join(' · ')}</div>`;
+            return `<div class="p-spouse">${sh}</div>`;
+          }).join('') + '</div>';
       }
       card.innerHTML = html;
     }
@@ -493,8 +707,22 @@ function drawTree() {
     seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
   }
 
+  // 김지성 → 딸들 (금색)
+  drawConnections(svg, oRect, { p71: ['p137','p138','p139'] }, '#A87C24', null);
+  // 김지성 → 김동영: 금색 바 끝(p139)에서 p82까지만 파란색
+  (function() {
+    const r139 = document.getElementById('p139')?.getBoundingClientRect();
+    const r82  = document.getElementById('p82')?.getBoundingClientRect();
+    const r71  = document.getElementById('p71')?.getBoundingClientRect();
+    if (!r139 || !r82 || !r71) return;
+    const x1   = r139.left + r139.width  / 2 - oRect.left;
+    const x2   = r82.left  + r82.width   / 2 - oRect.left;
+    const midY = (r71.bottom + r82.top) / 2 - oRect.top;
+    seg(svg, x1, midY, x2, midY, '#5B8DB8', null);
+    seg(svg, x2, midY, x2, r82.top - oRect.top, '#5B8DB8', null);
+  })();
+
   // 양부 → 양자 (파란색)
-  drawConnections(svg, oRect, { p71: ['p82'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p74: ['p85'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p111: ['p109'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p95: ['p122'] }, '#5B8DB8', null);
@@ -536,8 +764,8 @@ function drawConnections(svg, oRect, map, color, dash) {
       if (!kids.length) return;
 
       const midY = (py + kids[0].ky) / 2;
-      const minX = Math.min(...kids.map(k => k.kx));
-      const maxX = Math.max(...kids.map(k => k.kx));
+      const minX = Math.min(px, ...kids.map(k => k.kx));
+      const maxX = Math.max(px, ...kids.map(k => k.kx));
 
       seg(svg, px, py, px, midY, color, dash);
       seg(svg, minX, midY, maxX, midY, color, dash);
@@ -641,6 +869,70 @@ let _rc = 0;
 const _ti = setInterval(() => { _onceDraw(); if (_drawn || ++_rc >= 5) clearInterval(_ti); }, 200);
 
 window.addEventListener('resize', drawTree);
+
+// ══════════════════════════════════════════════════════════
+//  확대/축소
+// ══════════════════════════════════════════════════════════
+let _zoom = 1;
+const ZOOM_MIN = 0.3, ZOOM_MAX = 2.0, ZOOM_STEP = 0.15;
+
+function applyZoom(z) {
+  _zoom = Math.round(Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z)) * 100) / 100;
+  const outer     = document.getElementById('tree-outer');
+  const scaleWrap = document.getElementById('tree-scale-wrap');
+  outer.style.transform       = `scale(${_zoom})`;
+  outer.style.transformOrigin = 'top left';
+  scaleWrap.style.width  = (TREE_W * _zoom) + 'px';
+  scaleWrap.style.height = (TREE_H * _zoom) + 'px';
+  document.getElementById('zoom-level').textContent = Math.round(_zoom * 100) + '%';
+}
+
+document.getElementById('zoom-in').addEventListener('click',    () => applyZoom(_zoom + ZOOM_STEP));
+document.getElementById('zoom-out').addEventListener('click',   () => applyZoom(_zoom - ZOOM_STEP));
+document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(1));
+
+// ── 대(代) 라벨 수평 고정 ──
+function updateGenLabels() {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  const offset = wrap.scrollLeft / _zoom;
+  document.querySelectorAll('.gen-label-abs').forEach(el => {
+    el.style.left = offset + 'px';
+  });
+}
+document.querySelector('.tree-scroll-wrap').addEventListener('scroll', updateGenLabels);
+
+// applyZoom 후에도 라벨 위치 갱신
+const _origApplyZoom = applyZoom;
+applyZoom = function(z) { _origApplyZoom(z); updateGenLabels(); };
+
+// ── 드래그 팬 ──
+(function() {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  let isPanning = false, startX, startY, scrollX, scrollY;
+
+  wrap.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    isPanning = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    scrollX = wrap.scrollLeft;
+    scrollY = wrap.scrollTop;
+    wrap.classList.add('panning');
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!isPanning) return;
+    wrap.scrollLeft = scrollX - (e.clientX - startX);
+    wrap.scrollTop  = scrollY - (e.clientY - startY);
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isPanning) return;
+    isPanning = false;
+    wrap.classList.remove('panning');
+  });
+})();
 </script>
 </body>
 </html>

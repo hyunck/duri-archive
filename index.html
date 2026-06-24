@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>소장 문서 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
     /* ===== PAGE HERO ===== */
     .page-hero {
@@ -23,15 +25,15 @@
       flex-wrap: wrap;
     }
     .page-title-ko {
-      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
-      font-size: 32px;
+      font-family: var(--font-serif);
+      font-size: 30px;
       font-weight: 800;
       color: var(--text-bright);
       letter-spacing: 0.04em;
     }
     .page-title-hanja {
       font-family: var(--font-serif);
-      font-size: 15px;
+      font-size: 14px;
       color: var(--gold-600);
       letter-spacing: 0.14em;
       margin-top: 5px;
@@ -41,7 +43,7 @@
       color: var(--text-muted);
       padding-top: 6px;
     }
-    .doc-count span { color: var(--gold-500); font-weight: 600; }
+    .doc-count span { color: var(--gold-700); font-weight: 700; }
 
     /* Search bar */
     .search-bar {
@@ -59,7 +61,7 @@
     }
     .search-input {
       width: 100%;
-      background: rgba(255,255,255,0.07);
+      background: var(--bg-body);
       border: 1px solid var(--border-normal);
       border-radius: var(--radius-sm);
       color: var(--text-primary);
@@ -71,8 +73,9 @@
     }
     .search-input::placeholder { color: var(--text-muted); }
     .search-input:focus {
-      border-color: var(--navy-400);
-      background: rgba(255,255,255,0.09);
+      border-color: var(--gold-600);
+      background: var(--bg-body);
+      box-shadow: 0 0 0 3px rgba(107,92,74,0.08);
     }
 
     /* 장식 줄 */
@@ -114,7 +117,7 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.12em;
-      color: var(--text-secondary);
+      color: var(--text-primary);
       text-transform: uppercase;
       padding: 0 10px;
       margin-bottom: 8px;
@@ -133,22 +136,24 @@
       color: var(--text-primary);
       border: 1px solid transparent;
     }
-    .filter-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .filter-item:hover { background: var(--bg-hover); color: var(--text-bright); }
     .filter-item.active {
-      color: var(--navy-100);
+      color: var(--text-bright);
+      font-weight: 600;
       background: var(--sidebar-active-bg);
       border-color: var(--sidebar-active-border);
     }
     .filter-count {
       font-size: 11px;
-      background: rgba(255,255,255,0.06);
-      color: var(--text-muted);
+      background: var(--bg-active);
+      color: var(--text-secondary);
       padding: 1px 7px;
       border-radius: 10px;
     }
     .filter-item.active .filter-count {
-      background: rgba(255,255,255,0.12);
-      color: var(--navy-200);
+      background: rgba(107,92,74,0.14);
+      color: var(--text-bright);
+      font-weight: 600;
     }
     .sidebar-divider {
       height: 1px;
@@ -185,8 +190,8 @@
       background: var(--bg-body);
     }
     .sort-select {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      background: var(--bg-body);
+      border: 1px solid var(--border-normal);
       border-radius: var(--radius-sm);
       color: var(--text-primary);
       font-size: 14px;
@@ -289,9 +294,9 @@
     }
     .page-btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-bright); }
     .page-btn.active {
-      background: var(--navy-600);
-      border-color: var(--navy-400);
-      color: var(--navy-100);
+      background: var(--navy-700);
+      border-color: var(--navy-600);
+      color: #fff;
       font-weight: 700;
     }
     .page-btn:disabled { opacity: 0.3; cursor: default; }
@@ -309,6 +314,20 @@
     .filter-mobile-btn { display: none; }
 
     /* ===== MOBILE RESPONSIVE ===== */
+    /* ── 다크 모드 ── */
+    [data-theme="dark"] .page-hero { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .hero-ornament-line { background: linear-gradient(90deg, var(--gold-600), transparent); }
+    [data-theme="dark"] .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-600)); }
+    [data-theme="dark"] .filter-sidebar { background: var(--bg-body); border-right-color: var(--border-subtle); }
+    [data-theme="dark"] .list-controls { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .doc-card { background: var(--bg-card); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .doc-card:first-child { border-top-color: var(--border-subtle); }
+    [data-theme="dark"] .doc-card:hover { background: var(--bg-hover); }
+    [data-theme="dark"] .doc-card-inactive:hover { background: var(--bg-card); }
+    [data-theme="dark"] .page-btn { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-primary); }
+    [data-theme="dark"] .page-btn:hover:not(:disabled) { background: var(--bg-hover); }
+    [data-theme="dark"] .sort-select { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-primary); }
+
     @media (max-width: 768px) {
       .page-hero { padding: 28px 20px 24px; }
       .page-title-ko { font-size: 24px; }
@@ -352,14 +371,17 @@
 
 <!-- ===== SITE HEADER ===== -->
 <header class="site-header">
-  <div class="logo-wrap">
-    <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
-  </div>
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 上村公派 杜里宗中</div>
+  </a>
   <nav class="site-nav">
-    <a class="nav-item disabled" href="#">메인 홈</a>
-    <a class="nav-item disabled" href="#">가옥 소개</a>
-    <a class="nav-item" href="family.html">가계</a>
+    <a class="nav-item" href="home.html">홈</a>
     <a class="nav-item active" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item disabled" href="#">가옥 안내</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
   </nav>
 </header>
 
@@ -437,29 +459,29 @@
 </div>
 
 <!-- ===== FOOTER ===== -->
-<footer class="site-footer-main">
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo-block">
-      <div class="footer-logo-name">斗里宗中</div>
-      <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 上村公派 杜里宗中</div>
     </div>
     <div class="footer-info">
-      <div class="footer-links">
-        <a href="#">이용 안내</a>
-        <a href="#">소장처 소개</a>
-        <a href="#">문의</a>
-      </div>
       <div class="footer-address">
-        <span>소장처 : 강원도 양양군 두리</span>
-        <span>경주김씨 상촌공파 두리종중</span>
+        <span>강원특별자치도 양양군 현남면</span>
+        <span>문의: changhyun0430@gmail.com</span>
       </div>
-      <div class="footer-copyright">
-        소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.
-      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
     </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
   </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
 </footer>
 
+<script src="theme.js"></script>
 <script src="data/catalog.js"></script>
 <script>
   let activeCategory = 'all';

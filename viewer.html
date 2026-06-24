@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>국역·원문 대조 보기 — 종가실록</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
     /* ===== VIEWER LAYOUT ===== */
     body { display: flex; flex-direction: column; min-height: 100vh; overflow-y: auto; }
@@ -105,8 +107,8 @@
       transition: var(--transition);
     }
     .toggle-btn.active {
-      background: var(--navy-700);
-      color: var(--text-bright);
+      background: var(--text-primary);
+      color: #fff;
     }
     .toggle-btn:hover:not(.active) { color: var(--text-primary); }
     .toggle-btn:disabled { opacity: 0.3; pointer-events: none; }
@@ -148,7 +150,7 @@
       cursor: pointer;
     }
     .rail-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
-    .rail-btn.active { background: var(--navy-700); color: var(--text-bright); }
+    .rail-btn.active { background: var(--text-primary); color: #fff; }
     .rail-divider {
       width: 20px;
       height: 1px;
@@ -189,7 +191,7 @@
       padding: 6px;
     }
     .sidebar-list::-webkit-scrollbar { width: 4px; }
-    .sidebar-list::-webkit-scrollbar-thumb { background: var(--navy-800); }
+    .sidebar-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 
     .sidebar-item {
       display: flex;
@@ -204,14 +206,14 @@
     }
     .sidebar-item:hover { background: var(--bg-hover); }
     .sidebar-item.active {
-      background: rgba(46,50,104,0.35);
+      background: var(--sidebar-active-bg);
       border-color: var(--sidebar-active-border);
     }
     .sidebar-page-num {
       width: 26px;
       height: 26px;
       border-radius: 4px;
-      background: rgba(255,255,255,0.06);
+      background: var(--bg-active);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -220,8 +222,8 @@
       flex-shrink: 0;
     }
     .sidebar-item.active .sidebar-page-num {
-      background: var(--navy-700);
-      color: var(--text-bright);
+      background: var(--text-secondary);
+      color: #fff;
     }
     .sidebar-page-info { min-width: 0; }
     .sidebar-page-title {
@@ -238,9 +240,9 @@
       margin-top: 2px;
       display: inline-block;
     }
-    .badge-map   { background: rgba(126,255,80,0.12); color: #7EFF50; }
-    .badge-blank { background: rgba(255,255,255,0.06); color: var(--text-muted); }
-    .badge-none  { background: rgba(255,255,255,0.04); color: var(--text-muted); }
+    .badge-map   { background: rgba(0,100,0,0.10); color: #1A7A00; }
+    .badge-blank { background: var(--bg-active); color: var(--text-muted); }
+    .badge-none  { background: var(--bg-hover);  color: var(--text-muted); }
 
     /* ===== VIEWER CONTENT ===== */
     .viewer-content {
@@ -248,7 +250,12 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      background: #0d0f10;
+      background: var(--bg-elevated);
+    }
+
+    .viewer-topbar {
+      background: var(--bg-body);
+      border-bottom: 1px solid var(--border-normal);
     }
 
     .panels-wrap {
@@ -258,7 +265,7 @@
       position: relative;
       padding: 20px 24px;
       gap: 0;
-      background: #0d0f10;
+      background: var(--bg-elevated);
     }
 
     /* Panel */
@@ -301,20 +308,20 @@
       padding: 32px 36px;
     }
     .panel-body::-webkit-scrollbar { width: 4px; }
-    .panel-body::-webkit-scrollbar-thumb { background: var(--navy-800); }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 
     /* ===== CONTENT STYLES ===== */
     .korean-content {
       font-family: var(--font-sans);
       font-size: 18px;
       line-height: 1.7;
-      color: #C2BDB5;
+      color: var(--text-primary);
       white-space: pre-wrap;
     }
     .korean-content h2 {
       font-family: var(--font-sans);
       font-size: 20px;
-      color: var(--gold-400);
+      color: var(--gold-600);
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border-gold);
@@ -324,21 +331,21 @@
       font-family: var(--font-sans);
       font-size: 18px;
       line-height: 1.7;
-      color: #C2BDB5;
+      color: var(--text-primary);
       letter-spacing: 0.04em;
       white-space: pre-wrap;
     }
     .hanja-content h2 {
       font-size: 21px;
-      color: var(--navy-300);
+      color: var(--navy-600);
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border-subtle);
     }
 
     /* 사람 이름 / 지명 하이라이트 */
-    .person-name { color: #3CA7FF; }
-    .place-name  { color: #7EFF50; }
+    .person-name { color: #1A6FBF; }
+    .place-name  { color: #2A8A00; }
 
     /* ===== ANNOTATIONS ===== */
     sup.ann-ref {
@@ -444,7 +451,7 @@
     .image-panel-container {
       flex: 1;
       display: none;
-      background: #0d0f10;
+      background: var(--bg-elevated);
       overflow: hidden;
       position: relative;
     }
@@ -607,20 +614,43 @@
       .panel-body { height: 40vh; }
       .image-panel-container { height: 70vh; }
     }
+
+    /* ===== DARK MODE ===== */
+    [data-theme="dark"] .viewer-content    { background: #0d0f10; }
+    [data-theme="dark"] .viewer-topbar     { background: #181614; border-bottom-color: rgba(255,255,255,0.07); }
+    [data-theme="dark"] .panels-wrap       { background: #0d0f10; }
+    [data-theme="dark"] .image-panel-container { background: #0d0f10; }
+    [data-theme="dark"] .korean-content    { color: #C2BDB5; }
+    [data-theme="dark"] .hanja-content     { color: #C2BDB5; }
+    [data-theme="dark"] .korean-content h2 { color: var(--gold-400); }
+    [data-theme="dark"] .hanja-content h2  { color: var(--navy-300); }
+    [data-theme="dark"] .sidebar-item.active { background: rgba(46,50,104,0.35); }
+    [data-theme="dark"] .toggle-btn.active  { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .rail-btn.active    { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .sidebar-item.active .sidebar-page-num { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .sidebar-page-num  { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .badge-map   { background: rgba(126,255,80,0.12); color: #7EFF50; }
+    [data-theme="dark"] .badge-blank { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .badge-none  { background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .person-name { color: #3CA7FF; }
+    [data-theme="dark"] .place-name  { color: #7EFF50; }
   </style>
 </head>
 <body>
 
 <!-- ===== SITE HEADER ===== -->
 <header class="site-header">
-  <div class="logo-wrap">
-    <span class="logo-main">경주김씨 상촌공파 두리종중 소장문서</span>
-  </div>
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 上村公派 杜里宗中</div>
+  </a>
   <nav class="site-nav">
-    <a class="nav-item disabled" href="#">메인 홈</a>
-    <a class="nav-item disabled" href="#">가옥 소개</a>
-    <a class="nav-item" href="family.html">가계</a>
+    <a class="nav-item" href="home.html">홈</a>
     <a class="nav-item active" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item disabled" href="#">가옥 안내</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
   </nav>
 </header>
 
@@ -803,30 +833,29 @@
 </div><!-- /viewer-main -->
 
 <!-- FOOTER -->
-<footer class="site-footer-main">
+<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo-block">
-      <div class="footer-logo-name">斗里宗中</div>
-      <div class="footer-logo-sub">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 上村公派 杜里宗中</div>
     </div>
     <div class="footer-info">
-      <div class="footer-links">
-        <a href="#">이용 안내</a>
-        <a href="#">소장처 소개</a>
-        <a href="#">문의</a>
-      </div>
       <div class="footer-address">
-        <span>소장처 : 강원도 양양군 두리</span>
-        <span>경주김씨 상촌공파 두리종중</span>
+        <span>강원특별자치도 양양군 현남면</span>
+        <span>문의: changhyun0430@gmail.com</span>
       </div>
-      <div class="footer-copyright">
-        소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.
-      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
     </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
   </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
 </footer>
 
-
+<script src="theme.js"></script>
 <script src="data/jongga-1930.js"></script>
 <script>
   /* ===========================

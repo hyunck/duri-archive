@@ -1,79 +1,76 @@
-/* ===== PRETENDARD LOCAL FONT ===== */
-@font-face { font-family:'Pretendard'; src:local('Pretendard-Thin'),local('Pretendard Thin'); font-weight:100; font-display:swap; }
-@font-face { font-family:'Pretendard'; src:local('Pretendard-ExtraLight'),local('Pretendard ExtraLight'); font-weight:200; font-display:swap; }
-@font-face { font-family:'Pretendard'; src:local('Pretendard-Light'),local('Pretendard Light'); font-weight:300; font-display:swap; }
+/* ===== FONTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 @font-face { font-family:'Pretendard'; src:local('Pretendard-Regular'),local('Pretendard Regular'),local('Pretendard'); font-weight:400; font-display:swap; }
 @font-face { font-family:'Pretendard'; src:local('Pretendard-Medium'),local('Pretendard Medium'); font-weight:500; font-display:swap; }
 @font-face { font-family:'Pretendard'; src:local('Pretendard-SemiBold'),local('Pretendard SemiBold'); font-weight:600; font-display:swap; }
 @font-face { font-family:'Pretendard'; src:local('Pretendard-Bold'),local('Pretendard Bold'); font-weight:700; font-display:swap; }
-@font-face { font-family:'Pretendard'; src:local('Pretendard-ExtraBold'),local('Pretendard ExtraBold'); font-weight:800; font-display:swap; }
-@font-face { font-family:'Pretendard'; src:local('Pretendard-Black'),local('Pretendard Black'); font-weight:900; font-display:swap; }
 
-/* ===== CSS VARIABLES ===== */
+/* ===== CSS VARIABLES — LIGHT THEME ===== */
 :root {
-  /* ── 배경 레이어 ── */
-  --bg-body:      #181a1b;   /* 메인 콘텐츠 배경 (헤더/푸터 외 전체) */
-  --bg-elevated:  #2f2e41;   /* 헤더·푸터 배너만 */
-  --bg-card:      #181a1b;   /* 카드 = body와 동일 */
-  --bg-panel:     #181a1b;   /* 패널 = body와 동일 */
-  --bg-hover:     #1f2224;   /* 호버 시 미세 하이라이트 */
-  --bg-active:    #252a2d;   /* 활성 */
+  /* ── 배경 ── */
+  --bg-body:      #ffffff;
+  --bg-elevated:  #f8f7f5;
+  --bg-card:      #ffffff;
+  --bg-panel:     #f8f7f5;
+  --bg-hover:     #f0eeeb;
+  --bg-active:    #e8e4de;
 
-  /* ── 네이비-슬레이트 포인트 팔레트 ── */
-  --navy-950: #0D0F1A;
-  --navy-900: #141628;
-  --navy-800: #1C2040;
-  --navy-700: #272B58;
-  --navy-600: #343970;
-  --navy-500: #424990;
-  --navy-400: #5D64B0;
-  --navy-300: #8B91CC;
-  --navy-200: #B8BCE0;
-  --navy-100: #DADDF2;
+  /* ── 웜 브라운 (기존 navy 이름 유지) ── */
+  --navy-950: #1a1612;
+  --navy-900: #2a2418;
+  --navy-800: #3d3528;
+  --navy-700: #564a38;
+  --navy-600: #6b5c4a;
+  --navy-500: #8b7355;
+  --navy-400: #a68b6a;
+  --navy-300: #c0a882;
+  --navy-200: #d4c4ae;
+  --navy-100: #eadfd0;
 
-  /* ── 골드 포인트 (유지) ── */
-  --gold-900: #3A2800;
-  --gold-800: #5E4200;
-  --gold-700: #856018;
-  --gold-600: #A87C24;
-  --gold-500: #C9A84C;
-  --gold-400: #DFC070;
-  --gold-300: #EDD490;
-  --gold-200: #F5E8C0;
-  --gold-100: #FAF3DF;
+  /* ── 골드 → 뮤트 웜 브라운 ── */
+  --gold-900: #2a2010;
+  --gold-800: #4a3818;
+  --gold-700: #6b5c4a;
+  --gold-600: #8b7355;
+  --gold-500: #a68b6a;
+  --gold-400: #c0a882;
+  --gold-300: #d4c4ae;
+  --gold-200: #e8ddd0;
+  --gold-100: #f5f0e8;
 
   /* ── 텍스트 ── */
-  --text-bright:    #FFFFFF;
-  --text-primary:   #E8EAF2;
-  --text-secondary: #C0C4D4;
-  --text-muted:     #909AAA;
+  --text-bright:    #1a1916;
+  --text-primary:   #3d3b38;
+  --text-secondary: #6e6b66;
+  --text-muted:     #9c9892;
 
   /* ── 보더 ── */
-  --border-subtle:       rgba(255, 255, 255, 0.07);
-  --border-normal:       rgba(255, 255, 255, 0.12);
-  --border-strong:       rgba(255, 255, 255, 0.20);
-  --border-gold:         rgba(168, 124, 36, 0.38);
-  --border-gold-bright:  rgba(201, 168, 76, 0.55);
+  --border-subtle:       rgba(0,0,0,0.07);
+  --border-normal:       rgba(0,0,0,0.10);
+  --border-strong:       rgba(0,0,0,0.16);
+  --border-gold:         rgba(107,92,74,0.20);
+  --border-gold-bright:  rgba(107,92,74,0.38);
 
-  /* ── 사이드바 강조색 ── */
-  --sidebar-active-bg:     rgba(80, 90, 180, 0.22);
-  --sidebar-active-border: rgba(93, 100, 176, 0.55);
+  /* ── 사이드바 강조 ── */
+  --sidebar-active-bg:     rgba(107,92,74,0.09);
+  --sidebar-active-border: rgba(107,92,74,0.28);
 
   /* ── 푸터 ── */
-  --footer-bg:        #2f2e41;   /* 헤더와 동일 */
-  --footer-top-line:  rgba(255,255,255,0.15);
-  --footer-text:      #888a9e;
-  --footer-link:      #b0b3c8;
+  --footer-bg:        #1a1916;
+  --footer-top-line:  rgba(255,255,255,0.08);
+  --footer-text:      rgba(255,255,255,0.38);
+  --footer-link:      rgba(255,255,255,0.60);
 
   /* ── 타이포그래피 ── */
   --font-serif: 'Nanum Myeongjo', 'Batang', 'UnBatang', serif;
   --font-sans:  'Pretendard', 'Malgun Gothic', sans-serif;
 
   /* ── 레이아웃 ── */
-  --header-h: 60px;
-  --radius-sm: 3px;
-  --radius-md: 5px;
-  --radius-lg: 8px;
+  --header-h: 100px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 6px;
   --transition: 0.16s ease;
 }
 
@@ -94,240 +91,289 @@ button { cursor: pointer; font-family: inherit; }
 
 /* ===== SITE HEADER ===== */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 200;
+  position: sticky; top: 0; z-index: 200;
   height: var(--header-h);
-  background: var(--bg-elevated);
+  background: #ffffff;
   border-bottom: 1px solid var(--border-normal);
-  display: flex;
-  align-items: center;
-  padding: 0 28px;
-  gap: 20px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
 }
 
 .site-header::after {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--gold-800) 20%, var(--gold-600) 50%, var(--gold-800) 80%, transparent 100%);
+  bottom: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold-600) 30%, var(--gold-500) 50%, var(--gold-600) 70%, transparent 100%);
+  opacity: 0.5;
 }
 
+/* 로고 */
 .logo-wrap {
-  display: flex;
-  align-items: center;
+  display: flex; flex-direction: column; gap: 5px;
+  text-decoration: none;
 }
 .logo-main {
-  font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-bright);
-  letter-spacing: 0.01em;
-  white-space: nowrap;
+  font-family: var(--font-serif);
+  font-size: 22px; font-weight: 700;
+  color: var(--text-bright); letter-spacing: 0.06em; white-space: nowrap;
+}
+.logo-hj {
+  font-family: var(--font-serif);
+  font-size: 12px; color: var(--gold-600); letter-spacing: 0.28em;
 }
 
-.site-nav {
-  display: flex;
-  gap: 2px;
-  margin-left: auto;
-}
+/* 내비게이션 */
+.site-nav { display: flex; align-items: center; gap: 36px; }
 .nav-item {
-  display: flex;
-  align-items: center;
-  padding: 5px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  color: var(--text-primary);
-  border: 1px solid transparent;
-  transition: var(--transition);
+  display: flex; align-items: center;
+  font-size: 15px; font-weight: 500;
+  color: var(--text-secondary); letter-spacing: 0.03em;
+  transition: color var(--transition);
+  position: relative; padding: 4px 0;
 }
-.nav-item:hover { color: var(--text-bright); background: var(--bg-card); }
-.nav-item.active {
-  color: var(--gold-400);
-  background: rgba(46, 50, 104, 0.4);
-  border-color: var(--border-normal);
+.nav-item::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1.5px; background: var(--gold-600);
+  transform: scaleX(0); transition: transform 0.2s;
 }
+.nav-item:hover { color: var(--text-bright); }
+.nav-item:hover::after { transform: scaleX(1); }
+.nav-item.active { color: var(--gold-700); }
+.nav-item.active::after { transform: scaleX(1); }
 .nav-item.disabled { opacity: 0.38; pointer-events: none; }
 
 /* ===== GOLD RULE ===== */
 .gold-rule {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-800), var(--gold-500), var(--gold-800), transparent);
+  background: linear-gradient(90deg, transparent, var(--gold-600), var(--gold-500), var(--gold-600), transparent);
+  opacity: 0.35;
 }
 
 /* ===== BUTTONS ===== */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  transition: var(--transition);
-  white-space: nowrap;
-  line-height: 1.4;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; font-size: 13px; font-weight: 500;
+  border-radius: var(--radius-sm); border: 1px solid transparent;
+  transition: var(--transition); white-space: nowrap; line-height: 1.4;
 }
 .btn-primary {
-  background: var(--navy-600);
-  border-color: var(--navy-400);
-  color: var(--text-bright);
+  background: var(--navy-700); border-color: var(--navy-600); color: #fff;
 }
-.btn-primary:hover { background: var(--navy-500); border-color: var(--navy-300); }
-
+.btn-primary:hover { background: var(--navy-600); border-color: var(--navy-500); }
 .btn-gold {
-  background: transparent;
-  border-color: var(--border-gold-bright);
-  color: var(--gold-400);
+  background: transparent; border-color: var(--border-gold-bright);
+  color: var(--gold-700);
 }
 .btn-gold:hover {
-  background: rgba(201,168,76,0.08);
-  border-color: var(--gold-500);
-  color: var(--gold-300);
+  background: rgba(107,92,74,0.07);
+  border-color: var(--gold-600); color: var(--gold-600);
 }
 .btn-ghost {
-  background: transparent;
-  border-color: var(--border-subtle);
+  background: transparent; border-color: var(--border-normal);
   color: var(--text-secondary);
 }
-.btn-ghost:hover { background: var(--bg-card); color: var(--text-primary); }
+.btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); }
 .btn-sm  { padding: 5px 12px; font-size: 12px; }
 .btn-lg  { padding: 10px 22px; font-size: 15px; }
 .btn:disabled { opacity: 0.4; pointer-events: none; }
 
 /* ===== BADGE ===== */
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: 3px;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.6;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 3px;
+  font-size: 11px; font-weight: 500; line-height: 1.6;
 }
 .badge-gold {
-  background: rgba(168,124,36,0.15);
-  color: var(--gold-400);
-  border: 1px solid var(--gold-800);
+  background: rgba(107,92,74,0.08); color: var(--gold-700);
+  border: 1px solid var(--border-gold);
 }
 .badge-purple {
-  background: rgba(46,50,112,0.45);
-  color: var(--navy-200);
-  border: 1px solid var(--navy-600);
+  background: rgba(107,92,74,0.06); color: var(--navy-700);
+  border: 1px solid var(--sidebar-active-border);
 }
 .badge-muted {
-  background: rgba(255,255,255,0.05);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  background: var(--bg-hover); color: var(--text-secondary);
+  border: 1px solid var(--border-normal);
 }
 .badge-blank {
-  background: rgba(80,70,55,0.2);
-  color: var(--text-muted);
-  border: 1px solid rgba(80,70,55,0.3);
+  background: var(--bg-hover); color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
 }
 
 /* ===== MAIN FOOTER ===== */
-.site-footer-main {
+.site-footer {
   background: var(--footer-bg);
-  border-top: 3px solid var(--footer-top-line);
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 .footer-inner {
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  padding: 28px 32px;
+  display: flex; align-items: center; gap: 48px;
+  padding: 40px 56px;
 }
 .footer-logo-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 6px;
   flex-shrink: 0;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  border-right: 1px solid rgba(255,255,255,0.08);
   padding-right: 48px;
 }
 .footer-logo-name {
-  font-family: var(--font-serif);
-  font-size: 14px;
-  color: var(--footer-link);
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: var(--font-serif); font-size: 15px; font-weight: 700;
+  color: rgba(255,255,255,0.85); letter-spacing: 0.08em;
 }
-.footer-logo-sub {
-  font-size: 11px;
-  color: var(--footer-text);
-  letter-spacing: 0.02em;
+.footer-logo-hj {
+  font-family: var(--font-serif); font-size: 10.5px;
+  color: var(--gold-400); letter-spacing: 0.2em;
 }
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.footer-links {
-  display: flex;
-  gap: 0;
-}
+.footer-info { display: flex; flex-direction: column; gap: 10px; }
+.footer-links { display: flex; gap: 0; margin-left: auto; }
 .footer-links a {
-  font-size: 12px;
-  color: var(--footer-link);
-  padding: 0 12px;
-  border-right: 1px solid rgba(255,255,255,0.15);
+  font-size: 12px; color: var(--footer-link);
+  padding: 0 14px;
+  border-right: 1px solid rgba(255,255,255,0.10);
   transition: var(--transition);
 }
 .footer-links a:first-child { padding-left: 0; }
 .footer-links a:last-child { border-right: none; }
-.footer-links a:hover { color: var(--gold-400); }
-.footer-address {
-  font-size: 12px;
-  color: var(--footer-text);
-  line-height: 1.8;
-}
-.footer-address span {
-  margin-right: 16px;
-}
-.footer-copyright {
-  font-size: 11px;
-  color: var(--text-muted);
+.footer-links a:hover { color: var(--gold-300); }
+.footer-address { font-size: 12px; color: var(--footer-text); line-height: 1.9; }
+.footer-address span { margin-right: 16px; }
+.footer-copyright { font-size: 11px; color: rgba(255,255,255,0.22); margin-top: 4px; }
+.footer-copy {
+  text-align: center;
+  font-size: 11px; color: rgba(255,255,255,0.20);
+  padding: 16px 56px 28px;
 }
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--navy-700); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--navy-500); }
+::-webkit-scrollbar-thumb { background: var(--gray-300, #d0ccc6); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400, #b0aba4); }
 
 /* ===== SELECTION ===== */
-::selection { background: rgba(60, 70, 148, 0.5); color: var(--text-bright); }
+::selection { background: rgba(107,92,74,0.18); color: var(--text-bright); }
 
 /* ===== UTILITY ===== */
-.text-hanja {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 2;
-  color: var(--text-bright);
+.text-hanja  { font-family: var(--font-serif); font-size: 17px; line-height: 2; color: var(--text-bright); }
+.text-korean { font-family: var(--font-sans);  font-size: 15px; line-height: 2; color: var(--text-primary); }
+.text-gold   { color: var(--gold-600); }
+.text-muted  { color: var(--text-muted); }
+.font-serif  { font-family: var(--font-serif); }
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.theme-toggle-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-left: 8px;
 }
-.text-korean {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 2;
+.theme-toggle-btn:hover {
+  background: var(--bg-hover);
   color: var(--text-primary);
+  border-color: var(--gold-600);
 }
-.text-gold  { color: var(--gold-400); }
-.text-muted { color: var(--text-muted); }
-.font-serif { font-family: var(--font-serif); }
+
+/* ===== DARK MODE — 검정/회색 베이스, 보라+금 포인트 ===== */
+[data-theme="dark"] {
+  /* 배경: 순수 다크 */
+  --bg-body:     #181614;
+  --bg-elevated: #242220;
+  --bg-card:     #1e1c1a;
+  --bg-panel:    #1e1c1a;
+  --bg-hover:    #2c2a28;
+  --bg-active:   #333028;
+
+  /* 네이비-보라: 포인트 용도 */
+  --navy-950: #0D0F1A;
+  --navy-900: #141628;
+  --navy-800: #1C2040;
+  --navy-700: #272B58;
+  --navy-600: #343970;
+  --navy-500: #424990;
+  --navy-400: #5D64B0;
+  --navy-300: #8B91CC;
+  --navy-200: #B8BCE0;
+  --navy-100: #DADDF2;
+
+  /* 골드 */
+  --gold-900: #3A2800;
+  --gold-800: #5E4200;
+  --gold-700: #856018;
+  --gold-600: #A87C24;
+  --gold-500: #C9A84C;
+  --gold-400: #DFC070;
+  --gold-300: #EDD490;
+  --gold-200: #F5E8C0;
+  --gold-100: #FAF3DF;
+
+  /* 텍스트 */
+  --text-bright:    #F0EBE4;
+  --text-primary:   #D4CEC8;
+  --text-secondary: #9C9690;
+  --text-muted:     #6E6A64;
+
+  /* 보더 */
+  --border-subtle:       rgba(255,255,255,0.06);
+  --border-normal:       rgba(255,255,255,0.10);
+  --border-strong:       rgba(255,255,255,0.18);
+  --border-gold:         rgba(168,124,36,0.35);
+  --border-gold-bright:  rgba(201,168,76,0.50);
+
+  /* 사이드바 활성: 보라 포인트 */
+  --sidebar-active-bg:     rgba(52,57,112,0.28);
+  --sidebar-active-border: rgba(93,100,176,0.50);
+
+  /* 푸터 */
+  --footer-bg:       #0f0e0c;
+  --footer-top-line: rgba(255,255,255,0.08);
+  --footer-text:     rgba(255,255,255,0.35);
+  --footer-link:     rgba(255,255,255,0.55);
+}
+
+[data-theme="dark"] body { background: var(--bg-body); }
+
+/* 헤더: 검정 베이스에 보라 틴트만 */
+[data-theme="dark"] .site-header {
+  background: #1e1d2a;
+  border-bottom-color: rgba(255,255,255,0.08);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .site-header::after {
+  background: linear-gradient(90deg, transparent 0%, #856018 20%, #A87C24 50%, #856018 80%, transparent 100%);
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .nav-item { color: #C0BEB8; }
+[data-theme="dark"] .nav-item:hover { color: #F0EBE4; }
+[data-theme="dark"] .nav-item.active { color: #DFC070; }
+[data-theme="dark"] .nav-item::after { background: #A87C24; }
+
+[data-theme="dark"] .btn-primary {
+  background: #343970;
+  border-color: #5D64B0;
+  color: #DADDF2;
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: #424990;
+  border-color: #8B91CC;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .site-header { padding: 0 16px; gap: 8px; }
-  .logo-main { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  .site-header { padding: 0 20px; gap: 8px; }
+  .logo-main { font-size: 14px; }
+  .logo-hj { display: none; }
   .nav-item.disabled { display: none; }
-  .nav-item { padding: 5px 10px; font-size: 14px; }
-  .footer-inner { flex-direction: column; gap: 24px; padding: 24px 20px; }
-  .footer-logo-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-right: 0; padding-bottom: 20px; }
+  .nav-item { font-size: 14px; }
+  .footer-inner { flex-direction: column; gap: 24px; padding: 28px 20px; }
+  .footer-logo-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-right: 0; padding-bottom: 20px; }
   .footer-address span { display: block; margin-right: 0; }
 }
