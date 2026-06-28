@@ -929,7 +929,20 @@ function drawTree() {
   drawConnections(svg, oRect, { p74: ['p85'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p111: ['p109'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p95: ['p122'] }, '#5B8DB8', null);
-  drawConnections(svg, oRect, { p83: ['p94'] }, '#5B8DB8', null);
+  // 김동규 → 딸 3명 (금색)
+  drawConnections(svg, oRect, { p83: ['p134','p135','p136'] }, '#A87C24', null);
+  // 김동규 → 김주열: 금색 바 끝(p134)에서 p94까지 파란색
+  (function() {
+    const r134 = document.getElementById('p134')?.getBoundingClientRect();
+    const r94  = document.getElementById('p94')?.getBoundingClientRect();
+    const r83  = document.getElementById('p83')?.getBoundingClientRect();
+    if (!r134 || !r94 || !r83) return;
+    const x1   = r134.left + r134.width / 2 - oRect.left;
+    const x2   = r94.left  + r94.width  / 2 - oRect.left;
+    const midY = (r83.bottom + r94.top) / 2 - oRect.top;
+    seg(svg, x1, midY, x2, midY, '#5B8DB8', null);
+    seg(svg, x2, midY, x2, r94.top - oRect.top, '#5B8DB8', null);
+  })();
   drawConnections(svg, oRect, { p65: ['p114'] }, '#5B8DB8', null);
 
   // 파란 출계 화살표 (김동영2 → 김동영1)
