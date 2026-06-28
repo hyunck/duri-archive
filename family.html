@@ -507,7 +507,7 @@ const NODES = {
   p187: { kr:'김택암', hj:'金澤巖', gen:12 },
   p188: { kr:'김택주', hj:'金澤柱', gen:12 },
   p126: { kr:'김택준', hj:'金澤俊', gen:12, dates:'1944년 ~ 1990년' },
-  p182: { kr:'딸', gen:12, gender:'f', sonInLaw:{ kr:'박상동', hj:'朴相東' }, clan:'강릉 박씨', clanHj:'江陵 朴氏' },
+  p182: { kr:'딸', gen:12, gender:'f', name:'김옥순', sonInLaw:{ kr:'박상동', hj:'朴相東' }, clan:'강릉 박씨', clanHj:'江陵 朴氏' },
   p127: { kr:'김OO', hj:'金OO', gen:13 },
   p128: { kr:'김OO', hj:'金OO', gen:13, gender:'f' },
   p129: { kr:'김OO', hj:'金OO', gen:13 },
@@ -793,7 +793,9 @@ function renderTree() {
           siKr = node.clan || '사위 미상';
           siHj = node.clanHj || '';
         }
-        html = `<div class="p-kr">${siKr}</div>`;
+        html = '';
+        if (node.name) html += `<div class="p-dates" style="margin-bottom:4px">${node.name}</div>`;
+        html += `<div class="p-kr">${siKr}</div>`;
         if (siHj) html += `<div class="p-hj">${siHj}</div>`;
         if (node.sonInLaw?.kr && node.clan) html += `<div class="p-dates">${node.clan}</div>`;
         if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
