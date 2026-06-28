@@ -13,8 +13,17 @@
       position: relative;
       padding: 52px 48px 40px;
       border-bottom: 1px solid var(--border-normal);
-      background: var(--bg-body);
+      background: url('images/banner/banner.jpg') center/cover no-repeat;
       overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right,
+        rgba(255,255,255,.88) 0%,
+        rgba(255,255,255,.60) 55%,
+        rgba(255,255,255,.10) 100%
+      );
     }
     .page-hero-top {
       position: relative;
@@ -315,7 +324,8 @@
 
     /* ===== MOBILE RESPONSIVE ===== */
     /* ── 다크 모드 ── */
-    [data-theme="dark"] .page-hero { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .page-hero { background: url('images/banner/banner.jpg') center/cover no-repeat; border-bottom-color: var(--border-subtle); filter: brightness(0.75); }
+    [data-theme="dark"] .page-hero::before { background: linear-gradient(to right, rgba(0,0,0,.80) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.10) 100%); }
     [data-theme="dark"] .hero-ornament-line { background: linear-gradient(90deg, var(--gold-600), transparent); }
     [data-theme="dark"] .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-600)); }
     [data-theme="dark"] .filter-sidebar { background: var(--bg-body); border-right-color: var(--border-subtle); }
