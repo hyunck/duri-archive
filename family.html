@@ -27,8 +27,8 @@
     .legend-line { width: 24px; height: 2px; background: var(--gold-700); }
 
     /* ── 트리 컨테이너 ── */
-    .tree-scroll-wrap { overflow: auto; width: 100%; height: calc(100vh - 260px); min-height: 500px; margin-bottom: 40px; cursor: grab; }
-    .tree-scroll-wrap.panning { cursor: grabbing; user-select: none; }
+    .tree-scroll-wrap { overflow: auto; width: 100%; height: calc(100vh - 260px); min-height: 500px; margin-bottom: 40px; cursor: grab; user-select: none; }
+    .tree-scroll-wrap.panning { cursor: grabbing; }
     .tree-outer { position: relative; /* width/height set by JS */ }
     #tree-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
 
@@ -161,6 +161,55 @@
 
     /* 줌 컨트롤 */
     [data-theme="dark"] .zoom-controls { background: var(--bg-elevated); border-color: var(--border-normal); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
+    /* ===== 인물 상세 팝업 ===== */
+    .person-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 1000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .person-modal-overlay.open { display: flex; }
+    .person-modal {
+      background: var(--bg-card); border: 1px solid var(--border-normal);
+      border-radius: 12px; width: 360px; max-width: 100%; max-height: 80vh;
+      overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      position: relative; animation: pmFadeIn 0.14s ease;
+    }
+    @keyframes pmFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(5px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
+    }
+    .pm-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 26px; height: 26px; border: none;
+      background: var(--bg-hover); border-radius: 50%; cursor: pointer;
+      font-size: 13px; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .pm-close:hover { background: var(--border-subtle); color: var(--text-primary); }
+    .pm-header { padding: 22px 48px 16px 22px; border-bottom: 1px solid var(--border-subtle); }
+    .pm-name-kr { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.03em; }
+    .pm-name-hj { font-family: var(--font-serif); font-size: 14px; color: var(--text-secondary); margin-top: 3px; letter-spacing: 0.05em; }
+    .pm-gen-badge {
+      display: inline-block; font-size: 11px; color: var(--text-muted);
+      background: var(--bg-hover); border-radius: 4px;
+      padding: 2px 7px; margin-top: 9px; letter-spacing: 0.04em;
+    }
+    .pm-body { padding: 8px 0; }
+    .pm-row {
+      display: flex; gap: 10px; padding: 10px 22px;
+      border-bottom: 1px solid var(--border-subtle); align-items: flex-start;
+    }
+    .pm-row:last-child { border-bottom: none; }
+    .pm-label { width: 52px; flex-shrink: 0; color: var(--text-muted); font-size: 12px; padding-top: 2px; }
+    .pm-value { flex: 1; color: var(--text-primary); line-height: 1.65; font-size: 14px; }
+    .pm-spouse-item + .pm-spouse-item { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border-subtle); }
+    .pm-sp-head { display: flex; align-items: baseline; gap: 5px; }
+    .pm-sp-prefix { color: var(--text-muted); font-size: 13px; }
+    .pm-sp-clan { font-family: var(--font-serif); font-size: 14px; }
+    .pm-sp-rank { font-size: 12px; color: var(--text-muted); }
+    .pm-sp-detail { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
   </style>
 </head>
 <body>
@@ -265,6 +314,15 @@
   <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
 </footer>
 
+<!-- 인물 상세 팝업 -->
+<div class="person-modal-overlay" id="pm-overlay">
+  <div class="person-modal" id="pm-modal">
+    <button class="pm-close" id="pm-close" title="닫기">✕</button>
+    <div class="pm-header" id="pm-header"></div>
+    <div class="pm-body" id="pm-body"></div>
+  </div>
+</div>
+
 <script src="theme.js"></script>
 <script>
 // ══════════════════════════════════════════════════════════
@@ -314,12 +372,15 @@ const NODES = {
   p112: { kr:'김동설', hj:'金東卨', gen:8, dates:'1876년 ~ ?' },
   p113: { kr:'김명열', hj:'金明烈', gen:9, dates:'1900년 ~ ?' },
   p110: { kr:'김수열', hj:'金秀烈', gen:9, dates:'1896년 ~ ?' },
-  p61: { kr:'김주형', hj:'金胄衡', gen:6, dates:'1786년 ~ 1863년', aliases:[{kr:'김상형',hj:'金商衡'}] },
+  p61: { kr:'김주형', hj:'金胄衡', gen:6, dates:'1786년 ~ 1863년', aliases:[{kr:'김상형',hj:'金商衡'}], spouse:[{ hj:'延安金氏', father:'진광(鎭光)' }] },
   p62: { kr:'김주화', hj:'金胄華', gen:6, dates:'1789년 ~ ?', aliases:[{kr:'김상화',hj:'金商華'}] },
   p63: { kr:'김상항', hj:'金商恒', gen:6, dates:'1803년 ~ 1863년' },
-  p71: { kr:'김지성', hj:'金志聲 · 金智聲', gen:7, dates:'1812년 ~ 1844년', aliases:[{kr:'김지제',hj:'金志濟'},{kr:'김선제',hj:'金善濟'}] },
-  p72: { kr:'김의성', hj:'金義聲 · 金意聲 · 金宜聲', gen:7, dates:'1817년 ~ 1887년', aliases:[{kr:'김의제',hj:'金義濟'}] },
-  p73: { kr:'김봉성', hj:'金鳳聲', gen:7, dates:'1824년 ~ 1890년', aliases:[{kr:'김철제',hj:'金哲濟'},{kr:'김성제',hj:'金聲濟'}] },
+  p71: { kr:'김지성', hj:'金志聲 · 金智聲', gen:7, dates:'1812년 ~ 1844년', aliases:[{kr:'김지제',hj:'金志濟'},{kr:'김선제',hj:'金善濟'}], spouse:[{ hj:'金海金氏', dates:'1806년 ~ ?', father:'도흥(道興)' }] },
+  p72: { kr:'김의성', hj:'金義聲 · 金意聲<br>· 金宜聲', gen:7, dates:'1817년 ~ 1887년', aliases:[{kr:'김의제',hj:'金義濟'}], spouse:[
+    { hj:'密陽朴氏' },
+    { hj:'江陵咸氏', order:'계배', dates:'1813~89년', father:'덕영(德榮)' },
+  ] },
+  p73: { kr:'김봉성', hj:'金鳳聲', gen:7, dates:'1824년 ~ 1890년', aliases:[{kr:'김철제',hj:'金哲濟'},{kr:'김성제',hj:'金聲濟'}], spouse:[{ hj:'金海金氏', dates:'1826~86년', father:'헌진(憲鎮)' }] },
   p74: { kr:'김학성', hj:'金鶴聲', gen:7, dates:'1834년 ~ 1896년', aliases:[{kr:'김필제',hj:'金弼濟'}] },
   p75: { kr:'김치성', hj:'金致聲', gen:7, dates:'1827년 ~ 1886년', aliases:[{kr:'김치제',hj:'金致濟'}] },
   p76: { kr:'김운제', hj:'金雲濟', gen:7, dates:'1825년 ~ 1898년' },
@@ -335,23 +396,27 @@ const NODES = {
   p87: { kr:'김동익', hj:'金東谥', gen:8 },
   p100: { kr:'김지열', hj:'金之烈', gen:9 },
   p81: { kr:'김동와',  hj:'金東娃',  gen:8, dates:'1848년 ~ 1888년', aliases:[{kr:'김동주',hj:'金東炷'}] },
-  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1902년', aliases:[{kr:'김탁영',hj:'金鐸永'}] },
+  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1902년', aliases:[{kr:'김탁영',hj:'金鐸永'}], spouse:[
+    { hj:'江陵金氏', dates:'1836년 ~ 1876년' },
+    { hj:'金海金氏', order:'계배', dates:'1856년 ~ ?' },
+  ] },
   p83: { kr:'김동규', hj:'金東奎', gen:8, dates:'1847년 ~ ?' },
-  p84: { kr:'김동호', hj:'金東枑', gen:8, dates:'1856년 ~ ?' },
+  p84: { kr:'김동호', hj:'金東枑', gen:8, dates:'1856년 ~ ?', spouse:[{ hj:'全州李氏', dates:'1851년 ~ ?', father:'명순(明淳)' }] },
   p85: { kr:'김동현', hj:'金東顯', gen:8, dates:'1865년 ~ 1939년', aliases:[{kr:'김동한',hj:'金東漢'},{kr:'김동걸',hj:'金東杰'}] },
   p82g: { kr:'김동영', hj:'金東永', gen:8, ghost:true },  // 생물학적 위치 빈칸 (출계)
   p85g: { kr:'김동현', hj:'金東顯', gen:8, ghost:true },  // 김봉성 차남 출계 빈칸
   p91: { kr:'김봉열', hj:'金奉烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김용원',hj:'金龍源'}] },
   p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김일귀',hj:'金日貴'}] },
-  p93: { kr:'김○열', hj:'金○烈', gen:9, dates:'1877년 ~ ?', aliases:[{kr:'김도원',hj:'金道源'}] },
-  p94: { kr:'김주열', hj:'金周烈', gen:9, dates:'1868년 ~ ?' },
+  p93: { kr:'김○열', hj:'金○烈', gen:9, dates:'1877년 ~ ?', aliases:[{kr:'김도원',hj:'金道源'}], spouse:[{ hj:'坡平尹氏', dates:'1863년 ~ ?', father:'태두(泰斗)' }] },
+  p94: { kr:'김주열', hj:'金周烈', gen:9, dates:'1868년 ~ ?', spouse:[{ hj:'江陵金氏', dates:'1868년 ~ ?' }] },
   p132: { kr:'김공열', hj:'金共烈', gen:9, dates:'1883년 ~ ?' },
+  p173: { kr:'김공열', hj:'金共烈', gen:9, dates:'1883년 ~ ?', spouse:[{ hj:'全州李氏' }] },
   p133: { kr:'김승열', hj:'金承烈', gen:9, dates:'1890년 ~ ?' },
   p134: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'류익정', hj:'柳益渟' }, clan:'문화 류씨' },
   p135: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'곽상순', hj:'郭相舜' }, clan:'현풍 곽씨' },
   p136: { kr:'딸', gen:9, gender:'f', sonInLaw:{ kr:'김원문', hj:'金元文' }, clan:'연안 김씨' },
-  p137: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함이택', hj:'咸李澤' }, clan:'강릉 함씨' },
-  p138: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함문영', hj:'咸文榮' }, clan:'강릉 함씨' },
+  p137: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함효택', hj:'咸孝澤', dates:'1824년 ~ 1867년', ja:'혜원(兮源)', father:'유성(有聖)', note:'배우자의 아버지가 선제(善濟), 조부가 상형(商衡), 증조부가 경복(景福)으로 표기됨' }, clan:'강릉 함씨', source:'강릉함씨 족보' },
+  p138: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'함문영', hj:'咸文榮', dates:'1825년 ~ 1897년', post:'가선대부', ja:'문형(文亨)', ho:'신일(莘逸)', father:'진택(晉擇) · 증 가선대부', note:'배우자의 아버지가 지성(智聲)으로 표기됨' }, clan:'강릉 함씨', source:'강릉함씨 족보' },
   p139: { kr:'딸', gen:8, gender:'f', clan:'파평 윤씨', clanHj:'坡平 尹氏' },
   p140: { kr:'딸', gen:9, gender:'f', clan:'강릉 O씨', clanHj:'江陵 O氏' },
   p141: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'김원지', hj:'金元之' }, clan:'강릉 김씨' },
@@ -388,7 +453,7 @@ const NODES = {
   p172: { kr:'김동한', hj:'金東漢', gen:8, dates:'1899년 ~ ?' },
   p101: { kr:'김규황', hj:'金圭璜', gen:10, dates:'1901년 ~ ?' },
   p121: { kr:'김규양', hj:'金圭鍚', gen:10, dates:'1893년 ~ ?' },
-  p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년' },
+  p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년', spouse:[{ hj:'平澤林氏', dates:'1879~1926년', father:'재근(在根)' }] },
   p125: { kr:'김철호', hj:'金喆鎬', gen:11, dates:'1906년 ~ 1956년' },
   p126: { kr:'김택준', hj:'金澤俊', gen:12, dates:'1944년 ~ 1990년' },
   p127: { kr:'김OO', hj:'金OO', gen:13 },
@@ -397,11 +462,15 @@ const NODES = {
   p130: { kr:'김OO', hj:'金OO', gen:14 },
   p131: { kr:'김OO', hj:'金OO', gen:14 },
   p122g: { kr:'김규하', hj:'金圭夏', gen:10, ghost:true },
-  p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1888년 ~ ?' },
+  p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1888년 ~ ?', spouse:[{ hj:'江陵咸氏', dates:'1891년 ~ ?' }] },
   p124: { kr:'김규현', hj:'金圭鉉', gen:10, dates:'1899년 ~ ?' },
-  p95: { kr:'김종열', hj:'金宗烈', gen:9, dates:'1859년 ~ 1876년' },
-  p96: { kr:'김재열', hj:'金載烈', gen:9, dates:'1861년 ~ 1884년', aliases:[{kr:'김복원',hj:'金澓源'},{kr:'김상열',hj:'金相烈'}] },
-  p97: { kr:'김상열', hj:'金相烈', gen:9, dates:'1880년 ~ ?' },
+  p95: { kr:'김종열', hj:'金宗烈', gen:9, dates:'1859년 ~ 1876년', spouse:[{ hj:'慶州李氏', dates:'1854~1874년', father:'민주(敏周)' }] },
+  p96: { kr:'김재열', hj:'金載烈', gen:9, dates:'1861년 ~ ?', aliases:[{kr:'김복원',hj:'金澓源'},{kr:'김상열',hj:'金相烈'}], spouse:[
+    { hj:'延安金氏', dates:'1861~1884년' },
+    { hj:'全州李氏', order:'계배', dates:'1868년 ~ ?' },
+  ] },
+  p97: { kr:'김상열', hj:'金相烈', gen:9, dates:'1880년 ~ ?', spouse:[{ hj:'平海孫氏', dates:'1881년 ~ ?', father:'치경(致敬)' }] },
+  p132: { kr:'김창열', hj:'金昌烈', gen:9, dates:'1892년 ~ ?' },
   p98: { kr:'김동락', hj:'金東洛', gen:8, dates:'1870년 ~ 1897년' },
   p99: { kr:'김무열', hj:'金武烈', gen:9, dates:'1888년 ~ ?' },
 };
@@ -454,7 +523,7 @@ const CHILDREN = {
   p74: ['p85'],
   p75: ['p81'],
   p81: ['p92'],
-  p82: ['p95','p96','p132','p133','p140'],
+  p82: ['p95','p96','p173','p133','p140'],
   p95: ['p122'],
   p122: ['p125'],
   p125: ['p126'],
@@ -463,7 +532,7 @@ const CHILDREN = {
   p96: ['p122g','p123','p124'],
   p83: ['p94','p134','p135','p136'],
   p94: ['p121'],
-  p84: ['p93','p97'],
+  p84: ['p93','p97','p132'],
   p93: ['p101'],
   p98: ['p99'],
   p85: ['p91'],
@@ -501,8 +570,8 @@ const ROW_HEIGHTS = {
   0: 148,                  // 0대(상촌공파) → 1대
   1: 220, 2: 220,          // 1·2대
   3: 252, 4: 345, 5: 360,  // 중간 세대
-  6: 235,                  // 6대
-  7: 252, 8: 252, 9: 252, 10: 252, 11: 252, 12: 252, 13: 252,  // 7~13대: 간격 확대
+  6: 310,                  // 6대
+  7: 320, 8: 340, 9: 340, 10: 252, 11: 252, 12: 252, 13: 252,  // 7~13대: 간격 확대
 };
 
 // ══════════════════════════════════════════════════════════
@@ -661,9 +730,113 @@ function renderTree() {
       }
       card.innerHTML = html;
     }
+    // 클릭 핸들러 — _hasDragged 로 드래그와 구분
+    card.addEventListener('click', () => {
+      if (_hasDragged) return;
+      openPersonModal(id);
+    });
+    card.style.cursor = 'pointer';
+
     outer.appendChild(card);
   });
 }
+
+// ══════════════════════════════════════════════════════════
+//  인물 팝업
+// ══════════════════════════════════════════════════════════
+function genLabel(gen) {
+  const gi = GEN_INFO[gen];
+  if (!gi) return gen + '대';
+  let s = gi.label;
+  if (gi.sub) s += ' · ' + gi.sub;
+  if (gi.pre) s = gi.pre + ' ' + s;
+  return s;
+}
+
+function openPersonModal(id) {
+  const node = NODES[id];
+  if (!node) return;
+
+  let nameKr, nameHj, badge, rows = [];
+
+  if (node.ghost) {
+    const srcId = Object.entries(ARROWS).find(([from]) => from === id)?.[1];
+    const src = srcId ? NODES[srcId] : node;
+    nameKr = src.kr; nameHj = src.hj;
+    badge = genLabel(src.gen) + ' · 이 계보에서 출계';
+    if (src.dates) rows.push({ label: /년.*[~?]/.test(src.dates) ? '생몰연도' : '관직', value: src.dates });
+    if (src.post)  rows.push({ label: '관직', value: src.post });
+
+  } else if (node.gender === 'f') {
+    if (node.kr !== '딸') {
+      nameKr = node.kr; nameHj = node.hj;
+      badge = genLabel(node.gen);
+      if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '기록', value: node.dates });
+    } else if (node.sonInLaw?.kr) {
+      const si = node.sonInLaw;
+      nameKr = si.kr; nameHj = si.hj || '';
+      badge = genLabel(node.gen);
+      if (si.dates)  rows.push({ label: '생몰연도', value: si.dates });
+      if (node.clan) rows.push({ label: '본관', value: [node.clanHj, node.clan].filter(Boolean).join(' ') });
+      if (si.post)   rows.push({ label: '관직', value: si.post });
+      const jaHo = [si.ja ? '字 ' + si.ja : '', si.ho ? '號 ' + si.ho : ''].filter(Boolean);
+      if (jaHo.length) rows.push({ label: '자·호', value: jaHo.join(' · ') });
+      if (si.father) rows.push({ label: '父', value: si.father });
+      if (si.note)   rows.push({ label: '기타', value: si.note });
+      if (node.source) rows.push({ label: '출처', value: node.source });
+    } else {
+      nameKr = node.clan || '딸'; nameHj = node.clanHj || '';
+      badge = genLabel(node.gen);
+      if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '기록', value: node.dates });
+    }
+
+  } else {
+    nameKr = node.kr; nameHj = node.hj;
+    badge = genLabel(node.gen);
+    if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
+    if (node.post)  rows.push({ label: '관직', value: node.post });
+    if (node.aliases?.length) {
+      rows.push({ label: '이명', value: node.aliases.map(a =>
+        `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>`
+      ).join('<br>') });
+    }
+    if (node.spouse?.length) {
+      const spHtml = node.spouse.map(s => {
+        const pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
+        let sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}</span>`;
+        if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
+        sh += '</div>';
+        const det = [];
+        if (s.dates)  det.push(s.dates);
+        if (s.father) det.push('父 ' + s.father);
+        if (det.length) sh += `<div class="pm-sp-detail">${det.join(' · ')}</div>`;
+        return `<div class="pm-spouse-item">${sh}</div>`;
+      }).join('');
+      rows.push({ label: '배우자', value: spHtml });
+    }
+  }
+
+  document.getElementById('pm-header').innerHTML =
+    `<div class="pm-name-kr">${nameKr}</div>` +
+    (nameHj ? `<div class="pm-name-hj">${nameHj}</div>` : '') +
+    (badge   ? `<div class="pm-gen-badge">${badge}</div>` : '');
+
+  document.getElementById('pm-body').innerHTML = rows.length
+    ? rows.map(r => `<div class="pm-row"><div class="pm-label">${r.label}</div><div class="pm-value">${r.value}</div></div>`).join('')
+    : '';
+
+  document.getElementById('pm-overlay').classList.add('open');
+}
+
+function closePersonModal() {
+  document.getElementById('pm-overlay').classList.remove('open');
+}
+
+document.getElementById('pm-close').addEventListener('click', closePersonModal);
+document.getElementById('pm-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('pm-overlay')) closePersonModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePersonModal(); });
 
 // ══════════════════════════════════════════════════════════
 //  SVG 연결선
@@ -906,25 +1079,29 @@ const _origApplyZoom = applyZoom;
 applyZoom = function(z) { _origApplyZoom(z); updateGenLabels(); };
 
 // ── 드래그 팬 ──
+let _hasDragged = false;  // 카드 클릭 핸들러에서 드래그 여부 확인용
 (function() {
   const wrap = document.querySelector('.tree-scroll-wrap');
   let isPanning = false, startX, startY, scrollX, scrollY;
 
   wrap.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
+    _hasDragged = false;
     isPanning = true;
     startX = e.clientX;
     startY = e.clientY;
     scrollX = wrap.scrollLeft;
     scrollY = wrap.scrollTop;
     wrap.classList.add('panning');
-    e.preventDefault();
+    // e.preventDefault() 제거 — click 이벤트가 카드까지 전달되어야 함
   });
 
   window.addEventListener('mousemove', e => {
     if (!isPanning) return;
-    wrap.scrollLeft = scrollX - (e.clientX - startX);
-    wrap.scrollTop  = scrollY - (e.clientY - startY);
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    if (Math.abs(dx) + Math.abs(dy) > 5) _hasDragged = true;
+    wrap.scrollLeft = scrollX - dx;
+    wrap.scrollTop  = scrollY - dy;
   });
 
   window.addEventListener('mouseup', () => {
