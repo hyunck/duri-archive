@@ -95,7 +95,8 @@
     }
     .house-label[data-pid="p200"],
     .house-label[data-pid="p78"],
-    .house-label[data-pid="p110"] {
+    .house-label[data-pid="p110"],
+    .house-label[data-pid="p106"] {
       text-shadow: 0 0 10px var(--bg-body), 0 0 20px var(--bg-body), 0 2px 6px var(--bg-body);
     }
     .person-card-ghost {
@@ -378,7 +379,7 @@ const NODES = {
   p114g: { kr:'김태제', hj:'金泰濟', gen:7, ghost:true },
   p78: { kr:'김재제', hj:'金在濟', gen:7, dates:'1841년 ~ 1894년', houseLabel:'사웜집' },
   p89: { kr:'김동식', hj:'金東植', gen:8, dates:'1863년 ~ ?' },
-  p106: { kr:'김동건', hj:'金東建', gen:8, dates:'1870년 ~ ?' },
+  p106: { kr:'김동건', hj:'金東建', gen:8, dates:'1870년 ~ ?', houseLabel:'새강집' },
   p107: { kr:'김석열', hj:'金錫烈', gen:9, dates:'1891년 ~ ?' },
   p108: { kr:'김진열', hj:'金𣈆烈', gen:9, dates:'1896년 ~ ?' },
   p103: { kr:'김부열', hj:'金富烈', gen:9, dates:'1884년 ~ ?' },
@@ -738,7 +739,7 @@ function renderTree() {
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p200' ? 0.32 : (id === 'p78' || id === 'p110') ? 0.20 : 0.28;
+      const offsetRatio = id === 'p200' ? 0.32 : (id === 'p78' || id === 'p110' || id === 'p106') ? 0.20 : 0.28;
       const hl = document.createElement('div');
       hl.className = 'house-label';
       hl.dataset.pid = id;
