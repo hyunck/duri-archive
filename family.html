@@ -93,7 +93,8 @@
       pointer-events: none;
       white-space: nowrap;
     }
-    .house-label[data-pid="p200"] {
+    .house-label[data-pid="p200"],
+    .house-label[data-pid="p78"] {
       text-shadow: 0 0 10px var(--bg-body), 0 0 20px var(--bg-body), 0 2px 6px var(--bg-body);
     }
     .person-card-ghost {
@@ -736,7 +737,7 @@ function renderTree() {
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p200' ? 0.32 : 0.28;
+      const offsetRatio = id === 'p200' ? 0.32 : id === 'p78' ? 0.20 : 0.28;
       const hl = document.createElement('div');
       hl.className = 'house-label';
       hl.dataset.pid = id;
