@@ -877,16 +877,30 @@ function openPersonModal(id) {
       if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '기록', value: node.dates });
     } else if (node.sonInLaw?.kr) {
       const si = node.sonInLaw;
-      nameKr = si.kr; nameHj = si.hj || '';
-      badge = genLabel(node.gen);
-      if (si.dates)  rows.push({ label: '생몰연도', value: si.dates });
-      if (node.clan) rows.push({ label: '본관', value: [node.clanHj, node.clan].filter(Boolean).join(' ') });
-      if (si.post)   rows.push({ label: '관직', value: si.post });
-      const jaHo = [si.ja ? '字 ' + si.ja : '', si.ho ? '號 ' + si.ho : ''].filter(Boolean);
-      if (jaHo.length) rows.push({ label: '자·호', value: jaHo.join(' · ') });
-      if (si.father) rows.push({ label: '父', value: si.father });
-      if (si.note)   rows.push({ label: '기타', value: si.note });
-      if (node.source) rows.push({ label: '출처', value: node.source });
+      if (node.name) {
+        // 딸 이름이 있는 경우: 딸 이름을 헤더에, 사위를 배우자 행으로
+        nameKr = node.name; nameHj = '';
+        badge = genLabel(node.gen);
+        let spHtml = `<div class="pm-sp-head"><span class="pm-sp-prefix">配</span><span class="pm-sp-clan">${si.kr}</span>`;
+        if (si.hj) spHtml += `<span class="pm-sp-rank">${si.hj}</span>`;
+        spHtml += '</div>';
+        if (node.clan) spHtml += `<div class="pm-sp-detail">${[node.clanHj, node.clan].filter(Boolean).join(' ')}</div>`;
+        if (si.dates)  spHtml += `<div class="pm-sp-detail">${si.dates}</div>`;
+        rows.push({ label: '배우자', value: `<div class="pm-spouse-item">${spHtml}</div>` });
+        if (si.post)  rows.push({ label: '관직', value: si.post });
+        if (si.note)  rows.push({ label: '기타', value: si.note });
+      } else {
+        nameKr = si.kr; nameHj = si.hj || '';
+        badge = genLabel(node.gen);
+        if (si.dates)  rows.push({ label: '생몰연도', value: si.dates });
+        if (node.clan) rows.push({ label: '본관', value: [node.clanHj, node.clan].filter(Boolean).join(' ') });
+        if (si.post)   rows.push({ label: '관직', value: si.post });
+        const jaHo = [si.ja ? '字 ' + si.ja : '', si.ho ? '號 ' + si.ho : ''].filter(Boolean);
+        if (jaHo.length) rows.push({ label: '자·호', value: jaHo.join(' · ') });
+        if (si.father) rows.push({ label: '父', value: si.father });
+        if (si.note)   rows.push({ label: '기타', value: si.note });
+        if (node.source) rows.push({ label: '출처', value: node.source });
+      }
     } else {
       nameKr = node.clan || '딸'; nameHj = node.clanHj || '';
       badge = genLabel(node.gen);
