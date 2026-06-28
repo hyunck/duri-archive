@@ -349,7 +349,7 @@
 //  데이터 — 사람·연결 추가 시 이 두 객체만 수정
 // ══════════════════════════════════════════════════════════
 const NODES = {
-  p00: { kr:'김영환', hj:'金榮煥', gen:0, dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의' },
+  p00: { kr:'김영환', hj:'金榮煥', gen:0, dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', myo:'양양읍 차마리(襄陽邑車馬里) 간좌(艮坐)' },
   p11: { kr:'김여경', hj:'金如慶', gen:1, dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', spouse:[{ hj:'密陽朴氏', rank:'정부인' }] },
   p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사', spouse:[{ hj:'嘉山李氏', rank:'정부인' }] },
   p31: { kr:'김용흡', hj:'金龍翕', gen:3, dates:'정조조 가선대부', aliases:[{kr:'김용주',hj:'金龍柱'}], spouse:[{ hj:'慶州李氏', rank:'정부인', father:'후도(厚道)' }] },
@@ -891,6 +891,7 @@ function openPersonModal(id) {
     badge = genLabel(node.gen);
     if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post)  rows.push({ label: '관직', value: node.post });
+    if (node.myo)   rows.push({ label: '묘', value: node.myo });
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a =>
