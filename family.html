@@ -84,7 +84,7 @@
     /* ── 고스트(출계) 카드 ── */
     .house-label {
       position: absolute;
-      font-size: 13px;
+      font-size: 16px;
       font-family: var(--font-sans);
       font-weight: 600;
       color: rgba(255,255,255,.92);
@@ -708,7 +708,7 @@ function renderTree() {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
       const hl = document.createElement('div');
       hl.className = 'house-label';
-      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - Math.round(rowAbove * 0.42)}px; width:${CARD_W}px;`;
+      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - Math.round(rowAbove * 0.28)}px; width:${CARD_W}px;`;
       hl.textContent = node.houseLabel;
       outer.appendChild(hl);
     }
