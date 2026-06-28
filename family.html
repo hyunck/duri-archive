@@ -361,7 +361,7 @@ const NODES = {
   ] },
   p42: { kr:'김노익', hj:'金魯益', gen:4, dates:'1747년 ~ ?', spouse:[{ hj:'平山申氏' }, { hj:'慶州李氏', order:'계배' }] },
   p43: { kr:'김노경', hj:'金魯敬', gen:4, spouse:[{ hj:'延安金氏' }] },
-  p51: { kr:'김도철', hj:'金道喆', gen:5, dates:'1769년 ~ 1812년', post:'순조조 등무과 선전', aliases:[{kr:'김경희',hj:'金景喜'}], spouse:[
+  p51: { kr:'김경희', hj:'金景喜', gen:5, dates:'1769년 ~ 1812년', post:'순조조 등무과 선전', ja:'도철(道喆)', aliases:[{kr:'김도철',hj:'金道喆'}], spouse:[
     { hj:'旌善全氏', rank:'의인', dates:'1769년 ~ ?' },
     { hj:'順興安氏', order:'계배', rank:'의인', father:'윤흡(允翕)' },
   ] },
@@ -891,6 +891,7 @@ function openPersonModal(id) {
     badge = genLabel(node.gen);
     if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post)  rows.push({ label: '관직', value: node.post });
+    if (node.ja)    rows.push({ label: '자(字)', value: node.ja });
     if (node.myo)   rows.push({ label: '묘', value: node.myo });
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
