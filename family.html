@@ -84,15 +84,15 @@
     /* ── 고스트(출계) 카드 ── */
     .house-label {
       position: absolute;
-      font-size: 11px;
-      font-family: var(--font-serif);
-      color: var(--gold-600);
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      color: rgba(255,255,255,.92);
+      letter-spacing: 0.08em;
       text-align: center;
       pointer-events: none;
       white-space: nowrap;
     }
-    [data-theme="dark"] .house-label { color: var(--gold-400); }
     .person-card-ghost {
       background: transparent;
       border: 1px solid transparent;
@@ -705,9 +705,10 @@ function renderTree() {
 
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
+      const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
       const hl = document.createElement('div');
       hl.className = 'house-label';
-      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - 22}px; width:${CARD_W}px;`;
+      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - Math.round(rowAbove * 0.42)}px; width:${CARD_W}px;`;
       hl.textContent = node.houseLabel;
       outer.appendChild(hl);
     }
