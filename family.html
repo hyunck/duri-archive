@@ -419,7 +419,8 @@ const NODES = {
   p85: { kr:'김동현', hj:'金東顯', gen:8, dates:'1865년 ~ 1939년', aliases:[{kr:'김동한',hj:'金東漢'},{kr:'김동걸',hj:'金東杰'}] },
   p82g: { kr:'김동영', hj:'金東永', gen:8, ghost:true },  // 생물학적 위치 빈칸 (출계)
   p85g: { kr:'김동현', hj:'金東顯', gen:8, ghost:true },  // 김봉성 차남 출계 빈칸
-  p94g: { kr:'김주열', hj:'金周烈', gen:9, ghost:true },  // 김동영 3남 출계 빈칸
+  p94g:  { kr:'김주열', hj:'金周烈', gen:9,  ghost:true },  // 김동영 3남 출계 빈칸
+  p204g: { kr:'김택수', hj:'金澤洙', gen:12, ghost:true },  // 김진호 장남 출계 빈칸
   p91: { kr:'김봉열', hj:'金奉烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김용원',hj:'金龍源'}] },
   p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', aliases:[{kr:'김일귀',hj:'金日貴'}] },
   p93: { kr:'김학열', hj:'金鶴烈', gen:9, dates:'1877년 ~ ?', aliases:[{kr:'김도원',hj:'金道源'}], spouse:[{ hj:'坡平尹氏', dates:'1863년 ~ ?', father:'태두(泰斗)' }] },
@@ -591,7 +592,8 @@ const CHILDREN = {
   p127: ['p130','p131'],
   p96: ['p122g','p178','p123','p124','p192'],
   p121: ['p198','p199','p200','p201','p202','p203'],
-  p199: ['p204','p205','p206'],
+  p198: ['p204'],
+  p199: ['p204g','p205','p206'],
   p200: ['p207','p208','p209','p210'],
   p201: ['p211','p212'],
   p173: ['p195'],
@@ -619,7 +621,8 @@ const ARROWS = {
   p109g: 'p109',  // 출계 자리(김동식 차남) → 양자 실제 위치(김동근 아래)
   p122g: 'p122',  // 출계 자리(김재열 장남) → 양자 실제 위치(김종열 아래)
   p114g: 'p114', // 출계 자리(김상인 차남) → 양자 실제 위치(김상하 아래)
-  p94g: 'p94',   // 출계 자리(김동영 3남) → 양자 실제 위치(김동규 아래)
+  p94g:  'p94',   // 출계 자리(김동영 3남) → 양자 실제 위치(김동규 아래)
+  p204g: 'p204',  // 출계 자리(김진호 장남) → 양자 실제 위치(김강호 아래)
 };
 
 // 대(代) 라벨
@@ -978,6 +981,7 @@ function drawTree() {
     if (pid === 'p65') return;  // 양부→양자 파란색 별도 처리
     if (pid === 'p95') return;  // 양부→양자 파란색 별도 처리
     if (pid === 'p83') return;  // 양부→양자 파란색 별도 처리
+    if (pid === 'p198') return; // 양부→양자 파란색 별도 처리
     if (pid === 'p00') return; // 상촌공파 점선 별도 처리
     if (cids.length) goldMap[pid] = cids;
   });
@@ -1029,6 +1033,7 @@ function drawTree() {
     seg(svg, x2, midY, x2, r94.top - oRect.top, '#5B8DB8', null);
   })();
   drawConnections(svg, oRect, { p65: ['p114'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p198: ['p204'] }, '#5B8DB8', null);
 
   // 파란 출계 화살표 (김동영2 → 김동영1)
   drawArrows(svg, oRect, ARROWS, '#5B8DB8');
