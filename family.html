@@ -82,6 +82,17 @@
     .person-card-female .p-hj { color: #9B4F63; }
 
     /* ── 고스트(출계) 카드 ── */
+    .house-label {
+      position: absolute;
+      font-size: 11px;
+      font-family: var(--font-serif);
+      color: var(--gold-600);
+      letter-spacing: 0.14em;
+      text-align: center;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .house-label { color: var(--gold-400); }
     .person-card-ghost {
       background: transparent;
       border: 1px solid transparent;
@@ -379,7 +390,7 @@ const NODES = {
   p72: { kr:'김의성', hj:'金義聲 · 金意聲<br>· 金宜聲', gen:7, dates:'1817년 ~ 1887년', aliases:[{kr:'김의제',hj:'金義濟'}], spouse:[
     { hj:'密陽朴氏' },
     { hj:'江陵咸氏', order:'계배', dates:'1813~89년', father:'덕영(德榮)' },
-  ] },
+  ], houseLabel:'작은댁' },
   p73: { kr:'김봉성', hj:'金鳳聲', gen:7, dates:'1824년 ~ 1890년', aliases:[{kr:'김철제',hj:'金哲濟'},{kr:'김성제',hj:'金聲濟'}], spouse:[{ hj:'金海金氏', dates:'1826~86년', father:'헌진(憲鎮)' }] },
   p74: { kr:'김학성', hj:'金鶴聲', gen:7, dates:'1834년 ~ 1896년', aliases:[{kr:'김필제',hj:'金弼濟'}] },
   p75: { kr:'김치성', hj:'金致聲', gen:7, dates:'1827년 ~ 1886년', aliases:[{kr:'김치제',hj:'金致濟'}] },
@@ -690,6 +701,15 @@ function renderTree() {
                       `<span class="gen-num">${gi.label}</span>` +
                       (gi.sub ? `<span class="gen-sub">${gi.sub}</span>` : '');
       outer.appendChild(lbl);
+    }
+
+    // 집 라벨 (houseLabel 있는 노드)
+    if (node.houseLabel) {
+      const hl = document.createElement('div');
+      hl.className = 'house-label';
+      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - 22}px; width:${CARD_W}px;`;
+      hl.textContent = node.houseLabel;
+      outer.appendChild(hl);
     }
 
     // 인물 카드
