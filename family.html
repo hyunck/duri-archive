@@ -1020,17 +1020,17 @@ function drawTree() {
   drawConnections(svg, oRect, { p95: ['p122'] }, '#5B8DB8', null);
   // 김동규 → 딸 3명 (금색)
   drawConnections(svg, oRect, { p83: ['p134','p135','p136'] }, '#A87C24', null);
-  // 김동규 → 김주열: 금색 바 끝(p134)에서 p94까지 파란색
+  // 김동규 → 김주열: 금색 바에서 p94 방향 금색 수평 연장 + 수직 파란선
   (function() {
     const r134 = document.getElementById('p134')?.getBoundingClientRect();
     const r94  = document.getElementById('p94')?.getBoundingClientRect();
     const r83  = document.getElementById('p83')?.getBoundingClientRect();
     if (!r134 || !r94 || !r83) return;
-    const x1   = r134.left + r134.width / 2 - oRect.left;
-    const x2   = r94.left  + r94.width  / 2 - oRect.left;
-    const midY = (r83.bottom + r94.top) / 2 - oRect.top;
-    seg(svg, x1, midY, x2, midY, '#5B8DB8', null);
-    seg(svg, x2, midY, x2, r94.top - oRect.top, '#5B8DB8', null);
+    const midY = (r83.bottom + r134.top) / 2 - oRect.top;  // gold 바와 동일 y
+    const px83 = r83.left + r83.width / 2 - oRect.left;
+    const cx94 = r94.left + r94.width  / 2 - oRect.left;
+    seg(svg, px83, midY, cx94, midY, '#A87C24', null);                    // 금색 수평 연장
+    seg(svg, cx94, midY, cx94, r94.top - oRect.top, '#5B8DB8', null);     // 파란 수직
   })();
   drawConnections(svg, oRect, { p65: ['p114'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p198: ['p204'] }, '#5B8DB8', null);
