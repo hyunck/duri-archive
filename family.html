@@ -69,7 +69,11 @@
     .source-section { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; background: var(--bg-elevated); border: 1px solid var(--border-normal); border-radius: var(--radius-md); }
     .source-label { font-size: 13px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
     .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .source-item { font-size: 13px; color: var(--text-primary); background: var(--bg-body); border: 1px solid var(--border-normal); border-radius: var(--radius-sm); padding: 4px 12px; }
+    .source-item { font-size: 13px; color: var(--text-primary); background: var(--bg-body); border: 1px solid var(--border-normal); border-radius: var(--radius-sm); padding: 6px 12px; cursor: pointer; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; transition: var(--transition); }
+    .source-item:hover { border-color: var(--gold-600); background: var(--bg-hover); color: var(--gold-400); }
+    .source-sub { font-size: 11px; color: var(--text-muted); }
+    .pm-desc { padding: 16px 22px; color: var(--text-secondary); font-size: 14px; line-height: 1.75; min-height: 60px; }
+    .pm-desc-empty { padding: 16px 22px; color: var(--text-muted); font-size: 13px; font-style: italic; }
 
     /* ── 딸 카드 ── */
     .person-card-female {
@@ -278,15 +282,11 @@
   <div class="source-section">
     <div class="source-label">출처</div>
     <div class="source-list">
-      <span class="source-item">종가실록 (宗家實錄, 1930)</span>
-      <span class="source-item">대한제국 강원도 양양군 현남면 호적</span>
-      <span class="source-item">강원도 양양부 호구단자</span>
-      <span class="source-item">숭정3신유하이정종대왕제향세실경과정시문무전시방목<br>
-        <span style="font-size:11px;color:var(--text-muted);">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span>
-      </span>
-      <span class="source-item">경주김씨파보<br>
-        <span style="font-size:11px;color:var(--text-muted);">(慶州金氏派譜, 19세기 말)</span>
-      </span>
+      <span class="source-item" data-src="jongga">종가실록<span class="source-sub">(宗家實錄, 1930)</span></span>
+      <span class="source-item" data-src="hojuk">대한제국 강원도 양양군 현남면 호적</span>
+      <span class="source-item" data-src="hogudanja">강원도 양양부 호구단자</span>
+      <span class="source-item" data-src="bangmok">숭정3신유하이정종대왕제향세실경과정시문무전시방목<span class="source-sub">(崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년)</span></span>
+      <span class="source-item" data-src="pajibo">경주김씨파보<span class="source-sub">(慶州金氏派譜, 19세기 말)</span></span>
     </div>
   </div>
 
@@ -831,6 +831,33 @@ function openPersonModal(id) {
 function closePersonModal() {
   document.getElementById('pm-overlay').classList.remove('open');
 }
+
+// ══════════════════════════════════════════════════════════
+//  출처 팝업
+// ══════════════════════════════════════════════════════════
+const SOURCE_DESCS = {
+  jongga:    { name: '종가실록', sub: '宗家實錄, 1930', desc: '' },
+  hojuk:     { name: '대한제국 강원도 양양군 현남면 호적', sub: '', desc: '' },
+  hogudanja: { name: '강원도 양양부 호구단자', sub: '', desc: '' },
+  bangmok:   { name: '숭정3신유하이정종대왕제향세실경과정시문무전시방목', sub: '崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년', desc: '' },
+  pajibo:    { name: '경주김씨파보', sub: '慶州金氏派譜, 19세기 말', desc: '' },
+};
+
+function openSourceModal(id) {
+  const s = SOURCE_DESCS[id];
+  if (!s) return;
+  document.getElementById('pm-header').innerHTML =
+    `<div class="pm-name-kr">${s.name}</div>` +
+    (s.sub ? `<div class="pm-name-hj">${s.sub}</div>` : '');
+  document.getElementById('pm-body').innerHTML = s.desc
+    ? `<div class="pm-desc">${s.desc}</div>`
+    : `<div class="pm-desc-empty">설명이 아직 등록되지 않았습니다.</div>`;
+  document.getElementById('pm-overlay').classList.add('open');
+}
+
+document.querySelectorAll('.source-item[data-src]').forEach(el => {
+  el.addEventListener('click', () => openSourceModal(el.dataset.src));
+});
 
 document.getElementById('pm-close').addEventListener('click', closePersonModal);
 document.getElementById('pm-overlay').addEventListener('click', e => {
