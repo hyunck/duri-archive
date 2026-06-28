@@ -94,7 +94,7 @@
       white-space: nowrap;
     }
     .house-label[data-pid="p200"],
-    .house-label[data-pid="p78"],
+    .house-label[data-pid="p64"],
     .house-label[data-pid="p110"],
     .house-label[data-pid="p106"],
     .house-label[data-pid="p114"] {
@@ -368,7 +368,7 @@ const NODES = {
   p52: { kr:'김서희', hj:'金瑞喜', gen:5, dates:'? ~ 1806년', spouse:[{ hj:'鎭安金氏', father:'치억(致億)' }] },
   p53: { kr:'김철희', hj:'金喆喜', gen:5, spouse:[{ hj:'鎭安金氏' }] },
   p54: { kr:'김화희', hj:'金化喜', gen:5, spouse:[{ hj:'鎭安金氏', father:'신흥(信興)' }] },
-  p64: { kr:'김상학', hj:'金商學', gen:6, dates:'1816년 ~ 1890년' },
+  p64: { kr:'김상학', hj:'金商學', gen:6, dates:'1816년 ~ 1890년', houseLabel:'사월집' },
   p65: { kr:'김상하', hj:'金商河', gen:6, dates:'1808년 ~ 1891년' },
   p66: { kr:'김상인', hj:'金商仁', gen:6, dates:'1796년 ~ 1870년' },
   p67: { kr:'김상종', hj:'金商宗', gen:6, dates:'1811년 ~ ?' },
@@ -380,7 +380,7 @@ const NODES = {
   p120: { kr:'김해열', hj:'金海烈', gen:9, dates:'1925년 ~ ?' },
   p114: { kr:'김태제', hj:'金泰濟', gen:7, dates:'1852년 ~ ?', houseLabel:'서붓집' },
   p114g: { kr:'김태제', hj:'金泰濟', gen:7, ghost:true },
-  p78: { kr:'김재제', hj:'金在濟', gen:7, dates:'1841년 ~ 1894년', houseLabel:'사월집' },
+  p78: { kr:'김재제', hj:'金在濟', gen:7, dates:'1841년 ~ 1894년' },
   p89: { kr:'김동식', hj:'金東植', gen:8, dates:'1863년 ~ ?' },
   p106: { kr:'김동건', hj:'金東建', gen:8, dates:'1870년 ~ ?', houseLabel:'새강집' },
   p107: { kr:'김석열', hj:'金錫烈', gen:9, dates:'1891년 ~ ?' },
@@ -744,7 +744,7 @@ function renderTree() {
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p200' ? 0.32 : (id === 'p78' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : 0.28;
+      const offsetRatio = id === 'p200' ? 0.32 : (id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : 0.28;
       const hl = document.createElement('div');
       hl.className = 'house-label';
       hl.dataset.pid = id;
