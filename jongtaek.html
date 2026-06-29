@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>종택 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    /* ── 페이지 레이아웃 ── */
+    .page-wrap { max-width: 860px; margin: 0 auto; padding: 64px 40px 100px; }
+
+    /* ── 페이지 히어로 ── */
+    .page-hero { padding: 56px 40px 48px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 860px; margin: 0 auto; }
+    .page-title-ko { font-family: var(--font-serif); font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.18em; margin-top: 6px; }
+    .page-title-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; letter-spacing: 0.02em; }
+    .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
+    .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
+    .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
+    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
+
+    /* ── 섹션 ── */
+    .section { margin-top: 64px; }
+    .section + .section { margin-top: 72px; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 700;
+      color: var(--text-bright); letter-spacing: 0.04em;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-normal);
+      margin-bottom: 28px;
+    }
+    .section-title span {
+      font-size: 13px; font-weight: 400;
+      color: var(--gold-600); letter-spacing: 0.12em;
+      margin-left: 12px;
+      font-family: var(--font-serif);
+    }
+
+    /* ── 본문 텍스트 ── */
+    .body-text {
+      font-size: 15px; line-height: 2;
+      color: var(--text-primary);
+    }
+    .body-text p { margin-bottom: 18px; }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ── 이미지 블록 ── */
+    .img-block { margin: 32px 0; }
+    .img-block img {
+      width: 100%; border-radius: var(--radius-md);
+      border: 1px solid var(--border-normal);
+      display: block;
+    }
+    .img-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 32px 0; }
+    .img-block-row img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: var(--radius-md); border: 1px solid var(--border-normal);
+    }
+    .img-caption {
+      font-size: 12px; color: var(--text-muted);
+      text-align: center; margin-top: 8px; letter-spacing: 0.02em;
+    }
+
+    /* ── 이미지 플레이스홀더 ── */
+    .img-placeholder {
+      width: 100%; background: var(--bg-elevated);
+      border: 1px dashed var(--border-normal);
+      border-radius: var(--radius-md);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 13px;
+      gap: 8px; letter-spacing: 0.04em;
+    }
+    .img-placeholder.tall { aspect-ratio: 16/9; }
+    .img-placeholder.sq { aspect-ratio: 4/3; }
+    .img-placeholder-icon { font-size: 28px; opacity: 0.4; }
+
+    /* ── 강조 인용 ── */
+    .quote-block {
+      margin: 28px 0;
+      padding: 20px 24px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--gold-600);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-family: var(--font-serif);
+      font-size: 14px; line-height: 2;
+      color: var(--text-secondary);
+    }
+
+    /* ── 가옥 구조 정보 박스 ── */
+    .info-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border-normal);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      overflow: hidden; margin: 28px 0;
+    }
+    .info-cell {
+      background: var(--bg-body);
+      padding: 16px 18px;
+    }
+    .info-cell-label {
+      font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.08em; margin-bottom: 6px;
+    }
+    .info-cell-value {
+      font-size: 15px; font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    /* ── 이야기 항목 ── */
+    .story-item { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border-subtle); }
+    .story-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .story-num {
+      font-family: var(--font-serif); font-size: 11px;
+      color: var(--gold-600); letter-spacing: 0.14em;
+      margin-bottom: 10px;
+    }
+    .story-title {
+      font-size: 16px; font-weight: 700;
+      color: var(--text-bright); margin-bottom: 14px;
+    }
+
+    /* ── 지도 ── */
+    .map-section { margin-top: 72px; }
+    .map-container {
+      width: 100%; height: 420px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-normal);
+      overflow: hidden; position: relative;
+      background: var(--bg-elevated);
+    }
+    .map-container iframe { width: 100%; height: 100%; border: none; }
+    .map-info {
+      margin-top: 14px; display: flex; align-items: flex-start;
+      gap: 28px; font-size: 13px; color: var(--text-muted);
+    }
+    .map-info-item { display: flex; gap: 8px; align-items: baseline; }
+    .map-info-label { color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+    .map-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 12px; font-size: 13px;
+      color: var(--gold-600); border-bottom: 1px solid var(--gold-300);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-item" href="home.html">두리종중</a>
+    <a class="nav-item" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item active" href="jongtaek.html">종택</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <div class="page-title-ko">종택</div>
+  <div class="page-title-hanja">宗宅</div>
+  <div class="page-title-sub">강원특별자치도 양양군 현남면 두리 · 김택준 가옥</div>
+  <div class="hero-ornament">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-text">慶州金氏 桑村公派 斗里宗中</div>
+    <div class="hero-ornament-line right"></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- ① 가옥 소개 -->
+  <section class="section">
+    <h2 class="section-title">가옥 소개 <span>宗宅 沿革</span></h2>
+    <div class="body-text">
+      <p>
+        김택준 가옥은 강원특별자치도 양양군 현남면 두리(斗里)에 위치한 경주김씨 상촌공파 두리종중의 종택이다.
+        [건축 연대, 건축 주체 등 추가 예정]
+      </p>
+      <p>
+        [화재 발생 경위 및 재건 내용 추가 예정]
+      </p>
+      <p>
+        [이후 연혁, 현재 상태 등 추가 예정]
+      </p>
+    </div>
+
+    <!-- 사진 1 -->
+    <div class="img-block">
+      <div class="img-placeholder tall">
+        <div class="img-placeholder-icon">📷</div>
+        <div>종택 전경 사진</div>
+      </div>
+      <p class="img-caption">김택준 가옥 전경 · 강원특별자치도 양양군 현남면 두리</p>
+    </div>
+
+    <!-- 사진 2장 나란히 -->
+    <div class="img-block-row">
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>사진</div>
+        </div>
+      </div>
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>사진</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 가옥 구조 -->
+  <section class="section">
+    <h2 class="section-title">가옥 구조 <span>建物 構造</span></h2>
+
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="info-cell-label">소재지</div>
+        <div class="info-cell-value">양양군 현남면 두리</div>
+      </div>
+      <div class="info-cell">
+        <div class="info-cell-label">건축 연대</div>
+        <div class="info-cell-value">[추가 예정]</div>
+      </div>
+      <div class="info-cell">
+        <div class="info-cell-label">구조</div>
+        <div class="info-cell-value">[추가 예정]</div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>
+        [평면도 및 가옥 구조에 대한 설명 추가 예정. 안채, 사랑채, 행랑채 등 각 건물의 배치와 특징에 대한 서술.]
+      </p>
+      <p>
+        [각 공간의 기능과 당시 생활상에 대한 설명 추가 예정.]
+      </p>
+    </div>
+
+    <!-- 평면도 -->
+    <div class="img-block">
+      <div class="img-placeholder tall">
+        <div class="img-placeholder-icon">🗺</div>
+        <div>가옥 평면도</div>
+      </div>
+      <p class="img-caption">김택준 가옥 평면도</p>
+    </div>
+
+    <div class="img-block-row">
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>내부 사진</div>
+        </div>
+      </div>
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>내부 사진</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 전해지는 이야기 -->
+  <section class="section">
+    <h2 class="section-title">전해지는 이야기</h2>
+
+    <div class="story-item">
+      <div class="story-num">이야기 01</div>
+      <div class="story-title">[이야기 제목 추가 예정]</div>
+      <div class="body-text">
+        <p>[이야기 내용 추가 예정]</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-num">이야기 02</div>
+      <div class="story-title">[이야기 제목 추가 예정]</div>
+      <div class="body-text">
+        <p>[이야기 내용 추가 예정]</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-num">이야기 03</div>
+      <div class="story-title">[이야기 제목 추가 예정]</div>
+      <div class="body-text">
+        <p>[이야기 내용 추가 예정]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 위치 -->
+  <section class="map-section">
+    <h2 class="section-title">찾아오기</h2>
+    <div class="map-container">
+      <iframe
+        src="https://map.kakao.com/link/map/양양군%20현남면%20두리,37.9000,128.8000"
+        title="종택 위치 지도"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="map-info">
+      <div class="map-info-item">
+        <span class="map-info-label">주소</span>
+        <span>강원특별자치도 양양군 현남면 두리</span>
+      </div>
+    </div>
+    <a class="map-link" href="https://map.kakao.com/link/search/양양군 현남면 두리" target="_blank" rel="noopener">
+      카카오맵에서 보기 →
+    </a>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면 두리</span>
+        <span>문의: 사이트 관리 : 14대손</span>
+      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+      <a href="jongtaek.html">종택</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<script src="style.js" onerror="void 0"></script>
+<script>
+  // 다크모드 토글
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const update = () => {
+      const t = document.documentElement.getAttribute('data-theme');
+      btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
+    };
+    update();
+    btn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('duri-theme', next);
+      update();
+    });
+  }
+</script>
+</body>
+</html>

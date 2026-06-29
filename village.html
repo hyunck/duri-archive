@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>집성촌과 주변지리 — 두리종중 디지털 아카이브</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    .page-wrap { max-width: 860px; margin: 0 auto; padding: 64px 40px 100px; }
+
+    .page-hero { padding: 56px 40px 48px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 860px; margin: 0 auto; }
+    .page-title-ko { font-family: var(--font-serif); font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.18em; margin-top: 6px; }
+    .page-title-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; letter-spacing: 0.02em; }
+    .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
+    .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
+    .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
+    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
+
+    /* ── 섹션 ── */
+    .section { margin-top: 64px; }
+    .section + .section { margin-top: 80px; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 700;
+      color: var(--text-bright); letter-spacing: 0.04em;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-normal);
+      margin-bottom: 28px;
+    }
+    .section-title span {
+      font-size: 13px; font-weight: 400;
+      color: var(--gold-600); letter-spacing: 0.12em;
+      margin-left: 12px;
+      font-family: var(--font-serif);
+    }
+
+    /* ── 소항목 제목 ── */
+    .sub-title {
+      font-size: 16px; font-weight: 700;
+      color: var(--text-bright);
+      margin: 40px 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sub-title::before {
+      content: '';
+      display: inline-block; width: 4px; height: 16px;
+      background: var(--gold-600); border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── 본문 텍스트 ── */
+    .body-text { font-size: 15px; line-height: 2; color: var(--text-primary); }
+    .body-text p { margin-bottom: 18px; }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ── 이미지 ── */
+    .img-block { margin: 28px 0; }
+    .img-block img { width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-normal); display: block; }
+    .img-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+    .img-block-row img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-normal); }
+    .img-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 8px; letter-spacing: 0.02em; }
+
+    /* ── 플레이스홀더 ── */
+    .img-placeholder {
+      width: 100%; background: var(--bg-elevated);
+      border: 1px dashed var(--border-normal);
+      border-radius: var(--radius-md);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 13px;
+      gap: 8px; letter-spacing: 0.04em;
+    }
+    .img-placeholder.tall { aspect-ratio: 16/9; }
+    .img-placeholder.sq { aspect-ratio: 4/3; }
+    .img-placeholder-icon { font-size: 28px; opacity: 0.4; }
+
+    /* ── 인용 / 원문 ── */
+    .quote-block {
+      margin: 24px 0;
+      padding: 20px 24px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--gold-600);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-family: var(--font-serif);
+      font-size: 14px; line-height: 2.1;
+      color: var(--text-secondary);
+    }
+    .quote-source {
+      font-size: 12px; color: var(--text-muted);
+      margin-top: 10px; text-align: right; letter-spacing: 0.04em;
+    }
+
+    /* ── 구분선 ── */
+    .divider { border: none; border-top: 1px solid var(--border-subtle); margin: 48px 0; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-item" href="home.html">두리종중</a>
+    <a class="nav-item" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item active" href="village.html">집성촌과 주변지리</a>
+    <a class="nav-item disabled" href="#">종중 연혁</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+  </nav>
+</header>
+
+<div class="page-hero">
+  <div class="page-title-ko">집성촌과 주변지리</div>
+  <div class="page-title-hanja">集姓村과 周邊地理</div>
+  <div class="page-title-sub">강원특별자치도 양양군 현남면 두리(斗里) 일대</div>
+  <div class="hero-ornament">
+    <div class="hero-ornament-line"></div>
+    <div class="hero-ornament-text">慶州金氏 桑村公派 斗里宗中</div>
+    <div class="hero-ornament-line right"></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- ① 집성촌 -->
+  <section class="section">
+    <h2 class="section-title">집성촌 <span>集姓村</span></h2>
+    <div class="body-text">
+      <p>
+        두리(斗里)는 강원특별자치도 양양군 현남면에 속하는 마을로, 경주김씨 상촌공파(桑村公派) 일족이 대대로 세거(世居)해 온 집성촌이다.
+        [집성촌 형성 경위, 입향조 관련 내용 추가 예정]
+      </p>
+      <p>
+        [마을의 지리적 특성, 자연환경, 현재 현황 등 추가 예정]
+      </p>
+    </div>
+
+    <div class="img-block-row">
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>두리 마을 전경</div>
+        </div>
+      </div>
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>두리 마을 사진</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 선조묘소 / 진사청 -->
+  <section class="section">
+    <h2 class="section-title">선조 묘소와 진사청</h2>
+
+    <div class="sub-title">경주김씨 선조 묘소</div>
+    <div class="body-text">
+      <p>
+        두리 마을 인근에는 경주김씨 상촌공파 선조들의 묘소가 조성되어 있으며, 입구에 표지석이 세워져 있다.
+        [묘소 위치, 규모, 표지석 건립 경위 등 추가 예정]
+      </p>
+    </div>
+
+    <div class="sub-title">진사청 <span style="font-size:13px; font-weight:400; color:var(--text-muted); margin-left:4px;">進士廳</span></div>
+    <div class="body-text">
+      <p>
+        [진사청에 대한 설명 추가 예정. 건립 시기, 용도, 현재 상태 등.]
+      </p>
+    </div>
+
+    <div class="img-block-row">
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>선조묘소 입구 표지석</div>
+        </div>
+        <p class="img-caption">경주김씨 선조묘소 입구 표지석</p>
+      </div>
+      <div>
+        <div class="img-placeholder sq">
+          <div class="img-placeholder-icon">📷</div>
+          <div>진사청</div>
+        </div>
+        <p class="img-caption">진사청</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 불당재 -->
+  <section class="section">
+    <h2 class="section-title">불당재와 영빈대</h2>
+
+    <div class="sub-title">불당재 <span style="font-size:13px; font-weight:400; color:var(--text-muted); margin-left:4px;">佛堂峙</span></div>
+    <div class="body-text">
+      <p>
+        불당재(佛堂峙)는 두리 마을 청룡 방향에 위치한 고개로,
+        [종가실록 기록 바탕으로 설명 추가 예정. 지형적 특성, 지명 유래, 종중과의 관계 등.]
+      </p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="sub-title">불당재 각자바위</div>
+    <div class="body-text">
+      <p>
+        불당재에는 경주김씨 선조의 이름을 새긴 각자바위(刻字岩)가 남아 있다.
+        김동만(金東萬, 1867~1891)은 성품이 산수의 즐거움을 좋아하여, 두리 청룡 불당재에 이름을 새겼으며,
+        아울러 '반월(半月)', '반룡(盤龍)', '영빈대(迎賓坮)' 등의 바위 이름을 새긴 유적이 남아 있다.
+      </p>
+    </div>
+
+    <div class="quote-block">
+      辛卯 蔭 通政大夫 行 銀溪察訪 壬辰 移 桃源道察訪 性好山水之樂 於斗里靑龍佛堂峙 有刻姓啣兼 刻半月盤龍迎賓坮等岩名 遺跡
+      <div class="quote-source">— 경주김씨세보(慶州金氏世譜)</div>
+    </div>
+
+    <div class="img-block">
+      <div class="img-placeholder tall">
+        <div class="img-placeholder-icon">📷</div>
+        <div>불당재 각자바위</div>
+      </div>
+      <p class="img-caption">불당재 각자바위 · 양양군 현남면 두리</p>
+    </div>
+
+    <!-- 영빈대 -->
+    <div class="sub-title" style="margin-top:56px;">영빈대 <span style="font-size:13px; font-weight:400; color:var(--text-muted); margin-left:4px;">迎賓坮</span></div>
+    <div class="body-text">
+      <p>
+        영빈대(迎賓坮)는 불당재 일대에 자리한 바위 명소로, 각자바위에 이름이 새겨져 있다.
+        [영빈대에 대한 추가 설명, 영빈정과의 관계 등 추가 예정]
+      </p>
+      <p>
+        [영빈정(迎賓亭) 관련 내용 추가 예정. 건립 시기, 현재 상태 등.]
+      </p>
+    </div>
+
+    <div class="img-block">
+      <div class="img-placeholder tall">
+        <div class="img-placeholder-icon">📷</div>
+        <div>영빈정 사진</div>
+      </div>
+      <p class="img-caption">영빈정(迎賓亭)</p>
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면 두리</span>
+        <span>문의: 사이트 관리 : 14대손</span>
+      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+      <a href="jongtaek.html">종택</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    const update = () => {
+      const t = document.documentElement.getAttribute('data-theme');
+      btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
+    };
+    update();
+    btn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('duri-theme', next);
+      update();
+    });
+  }
+</script>
+</body>
+</html>
