@@ -1211,7 +1211,7 @@ window.addEventListener('resize', drawTree);
 //  확대/축소
 // ══════════════════════════════════════════════════════════
 let _zoom = 1;
-const ZOOM_MIN = 0.2, ZOOM_MAX = 2.0, ZOOM_STEP = 0.15;
+const ZOOM_MIN = 0.1, ZOOM_MAX = 2.0, ZOOM_STEP = 0.15;
 
 function applyZoom(z) {
   _zoom = Math.round(Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z)) * 100) / 100;
