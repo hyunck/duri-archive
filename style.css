@@ -9,8 +9,8 @@
 /* ===== CSS VARIABLES — LIGHT THEME ===== */
 :root {
   /* ── 배경 ── */
-  --bg-body:      #ffffff;
-  --bg-elevated:  #f8f7f5;
+  --bg-body:      #f8f7f5;
+  --bg-elevated:  #f0ede8;
   --bg-card:      #ffffff;
   --bg-panel:     #f8f7f5;
   --bg-hover:     #f0eeeb;
