@@ -250,10 +250,11 @@
       line-height: 2.05; margin-top: 18px;
     }
 
-    .about-panel { display: flex; flex-direction: column; gap: 20px; }
+    .about-panel { position: relative; }
     .about-hanja { display: none; }
-    .about-logo { text-align: center; }
+    .about-logo { position: absolute; top: 0; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: none; }
     .about-logo img { max-width: 260px; width: 100%; }
+    .stat-grid { position: relative; }
     .about-logo-dark { display: none; }
     [data-theme="dark"] .about-logo-light { display: none; }
     [data-theme="dark"] .about-logo-dark  { display: block; }
