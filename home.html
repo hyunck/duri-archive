@@ -251,12 +251,12 @@
     }
 
     .about-panel { display: flex; flex-direction: column; gap: 20px; }
-    .about-hanja {
-      font-family: var(--serif); font-size: 64px;
-      color: var(--gray-200);
-      line-height: 1; letter-spacing: .08em;
-      text-align: center; user-select: none;
-    }
+    .about-hanja { display: none; }
+    .about-logo { text-align: center; }
+    .about-logo img { max-width: 200px; width: 100%; }
+    .about-logo-dark { display: none; }
+    [data-theme="dark"] .about-logo-light { display: none; }
+    [data-theme="dark"] .about-logo-dark  { display: block; }
     .stat-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
     }
@@ -434,7 +434,7 @@
     [data-theme="dark"] .intro-desc    { color: rgba(212,206,200,.50); }
 
     [data-theme="dark"] .about-section  { background: var(--white); }
-    [data-theme="dark"] .about-hanja    { color: #242220; }
+
     [data-theme="dark"] .stat-card      { background: #242220; border-color: rgba(255,255,255,.07); }
     [data-theme="dark"] .stat-num       { color: #DFC070; }
 
@@ -586,7 +586,10 @@
         <p>본 사이트는 종중이 소장한 자료를 디지털 아카이브로 구축하여 후세에 전하고자 마련하였습니다.</p>
       </div>
       <div class="about-panel">
-        <div class="about-hanja">斗里<br>宗中</div>
+        <div class="about-logo">
+          <img class="about-logo-light" src="logo/logo_2(종중).png" alt="두리종중 로고">
+          <img class="about-logo-dark"  src="logo/logo_2(종중)_dark.png" alt="두리종중 로고">
+        </div>
         <div class="stat-grid">
           <div class="stat-card">
             <div class="stat-num">94</div>
