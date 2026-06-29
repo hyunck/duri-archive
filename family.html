@@ -54,6 +54,7 @@
     .p-kr { font-size: 21px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.02em; margin-bottom: 5px; }
     .p-hj { font-family: var(--font-serif); font-size: 15px; color: var(--gold-600); letter-spacing: 0.06em; line-height: 1.5; }
     .p-dates { font-size: 12px; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.02em; }
+    .p-ja { font-family: var(--font-serif); font-size: 12px; color: var(--text-muted); margin-top: 5px; letter-spacing: 0.04em; }
     .p-aliases { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 4px; }
     .p-alias { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
     .p-alias-hj { font-family: var(--font-serif); font-size: 13px; color: var(--text-muted); margin-left: 4px; letter-spacing: 0.04em; }
@@ -837,6 +838,7 @@ function renderTree() {
       let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
       if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
       if (node.post)           html += `<div class="p-dates">${node.post}</div>`;
+      if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
       if (node.aliases?.length) {
         html += '<div class="p-aliases">' +
           node.aliases.map(a =>
