@@ -361,7 +361,7 @@ const NODES = {
   ] },
   p42: { kr:'김노익', hj:'金魯益', gen:4, dates:'1747년 ~ ?', spouse:[{ hj:'平山申氏' }, { hj:'慶州李氏', order:'계배' }] },
   p43: { kr:'김노경', hj:'金魯敬', gen:4, spouse:[{ hj:'延安金氏' }] },
-  p51: { kr:'김경희', hj:'金景喜', gen:5, dates:'1769년 ~ 1812년', post:'순조조 등무과 선전', ja:'도철(道喆)', aliases:[{kr:'김도철',hj:'金道喆'}], spouse:[
+  p51: { kr:'김경희', hj:'金景喜', gen:5, dates:'1769년 ~ 1812년', post:'순조조 등무과 선전', ja:'도철(道喆)', jaSrc:'군지', aliases:[{kr:'김도철',hj:'金道喆',src:['실록','호적','단자','방목']}], spouse:[
     { hj:'旌善全氏', rank:'의인', dates:'1769년 ~ ?' },
     { hj:'順興安氏', order:'계배', rank:'의인', father:'윤흡(允翕)' },
   ] },
@@ -912,14 +912,15 @@ function openPersonModal(id) {
     badge = genLabel(node.gen);
     if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post)  rows.push({ label: '관직', value: node.post });
-    if (node.ja)    rows.push({ label: '자(字)', value: node.ja });
+    if (node.ja)    rows.push({ label: '자(字)', value: node.ja + (node.jaSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.jaSrc})</span>` : '') });
     if (node.myo)   rows.push({ label: '묘', value: node.myo });
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
-      rows.push({ label: '이명', value: node.aliases.map(a =>
-        `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>` +
-        (a.src ? ` <span style="font-size:12px;color:var(--text-muted)">(${a.src})</span>` : '')
-      ).join('<br>') });
+      rows.push({ label: '이명', value: node.aliases.map(a => {
+        const srcText = Array.isArray(a.src) ? a.src.join('·') : a.src;
+        return `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>` +
+          (srcText ? ` <span style="font-size:12px;color:var(--text-muted)">(${srcText})</span>` : '');
+      }).join('<br>') });
     }
     if (node.spouse?.length) {
       const spHtml = node.spouse.map(s => {
@@ -961,7 +962,7 @@ const SOURCE_DESCS = {
   hojuk:     { name: '대한제국 강원도 양양군 현남면 호적표', sub: '大韓帝國 江原道 襄陽郡 縣南面 戶籍表', desc: `광무호적(光武戶籍)<br><br>종가에서 소장 중인 대한제국 광무 연간 현남면 후동리(後洞里, 오늘날의 두리) 일대의 호적으로 광무 1년부터 10년까지의 15본이 있다.<br>가계도 제작 과정에서 이 호적을 참고한 경우, '호적'으로 표시하였다.` },
   hogudanja: { name: '강원도 양양부 호구단자', sub: '江原道 襄陽府 戶口單子', desc: `조선후기 강원도 양양부 현남면 원당리(元堂里, 오늘날의 두리) 김주형(金胄衡)의 호구단자로, 도광 23년(1843)과 함풍 11년(1861)의 2본이 남아 있다. 함풍 11년본을 감싼 겉표지에 '가경호적(嘉慶戶籍)'이라고 적혀 있어 가경연간의 호구단자도 있던 것으로 추정되지만 소실된 듯 하다.<br>가계도 제작 과정에서 이 호적을 참고한 경우, '단자'로 표시하였다.` },
   bangmok:   { name: '숭정3신유하이정종대왕제향세실경과정시문무전시방목', sub: '崇禎三辛酉夏以正宗大王祭享世室慶科庭試文武殿試榜目, 1801년', desc: `규장각에서 소장 중인 1801년 경좌정시 방목으로, 해당 방목에 김도철(金道喆, 김경희)의 생년과 무과시 병과 급제 사실 등의 정보와 그의 부친인 김상연(金尙演)의 정보가 같이 기재되어 있다.<br>가계도 제작 과정에서 이 호적을 참고한 경우, '방목'으로 표시하였다.` },
-  pabo:    { name: '경주김씨파보', sub: '慶州金氏派譜, 19세기 말', desc: `` },
+  pabo:    { name: '경주김씨파보', sub: '慶州金氏派譜, 19세기 말', desc: `종가에서 소장 중인 경주김씨 두리종중의 파보이다.<br>파보 속 표현을 토대로 제작 연대를 추정할 수 있는데, 1883년을 뜻하는 '당저(當宁) 계미년'이라는 표현을 통해 고종대에 제작되었음을 알 수 있다. 또, 영조(英祖)가 아닌 영종(英宗)으로 표기되어 있어 1889년 이전에 제작되었음을 알 수 있다.<br><br>위의 추정을 바탕으로 한 대략적인 제작 추정 연대는 1883년~1889년 사이이며, 가계도 제작 과정에서 이 호적을 참고한 경우, '파보'로 표시하였다.` },
   yangyang:  { name: '양양군지', sub: '襄陽郡誌', desc: `` },
   gjsebo:    { name: '경주김씨세보', sub: '慶州金氏世譜', desc: `` },
 };
