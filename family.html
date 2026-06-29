@@ -349,7 +349,7 @@
 //  데이터 — 사람·연결 추가 시 이 두 객체만 수정
 // ══════════════════════════════════════════════════════════
 const NODES = {
-  p00: { kr:'김영환', hj:'金榮煥', gen:0, dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', myo:'양양읍 차마리(襄陽邑車馬里) 간좌(艮坐)' },
+  p00: { kr:'김영환', hj:'金榮煥', gen:0, dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', myo:'양양읍(襄陽邑) 차마리(車馬里) 간좌(艮坐)' },
   p11: { kr:'김여경', hj:'金如慶', gen:1, dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', spouse:[{ hj:'密陽朴氏', rank:'정부인' }] },
   p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사', spouse:[{ hj:'嘉山李氏', rank:'정부인' }] },
   p31: { kr:'김용흡', hj:'金龍翕', gen:3, dates:'정조조 가선대부', aliases:[{kr:'김용주',hj:'金龍柱'}], spouse:[{ hj:'慶州李氏', rank:'정부인', father:'후도(厚道)' }] },
@@ -940,7 +940,7 @@ function openPersonModal(id) {
 
   // 이름 없는 딸(사위만) 제외하고 휘 항목을 맨 앞에 추가
   const skipHwi = node.gender === 'f' && node.kr === '딸' && !node.name;
-  if (!skipHwi && nameKr) rows.unshift({ label: '휘', value: nameKr });
+  if (!skipHwi && nameKr) rows.unshift({ label: '휘', value: nameKr + (nameHj ? ` <span style="font-family:var(--font-serif);color:var(--text-secondary)">${nameHj}</span>` : '') });
 
   document.getElementById('pm-header').innerHTML =
     `<div class="pm-name-kr">${nameKr}</div>` +
