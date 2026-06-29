@@ -416,7 +416,7 @@ const NODES = {
   p87: { kr:'김동익', hj:'金東谥', gen:8 },
   p100: { kr:'김지열', hj:'金之烈', gen:9 },
   p81: { kr:'김동와',  hj:'金東娃',  gen:8, dates:'1848년 ~ 1888년', aliases:[{kr:'김동주',hj:'金東炷'}] },
-  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1902년', ja:'원팔(元八)', aliases:[{kr:'김탁영',hj:'金鐸永'}], spouse:[
+  p82: { kr:'김동영', hj:'金東永', gen:8, dates:'1837년 ~ 1902년', ja:'원팔(元八)', aliases:[{kr:'김탁영',hj:'金鐸永',src:'호적'}], spouse:[
     { hj:'江陵金氏', dates:'1836년 ~ 1876년' },
     { hj:'金海金氏', order:'계배', dates:'1856년 ~ ?' },
   ] },
@@ -917,7 +917,8 @@ function openPersonModal(id) {
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a =>
-        `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>`
+        `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>` +
+        (a.src ? ` <span style="font-size:12px;color:var(--text-muted)">(${a.src})</span>` : '')
       ).join('<br>') });
     }
     if (node.spouse?.length) {
