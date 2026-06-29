@@ -1228,6 +1228,12 @@ document.getElementById('zoom-in').addEventListener('click',    () => applyZoom(
 document.getElementById('zoom-out').addEventListener('click',   () => applyZoom(_zoom - ZOOM_STEP));
 document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(1));
 
+document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
+  if (!e.ctrlKey) return;
+  e.preventDefault();
+  applyZoom(_zoom + (e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP));
+}, { passive: false });
+
 // ── 대(代) 라벨 수평 고정 ──
 function updateGenLabels() {
   const wrap = document.querySelector('.tree-scroll-wrap');
