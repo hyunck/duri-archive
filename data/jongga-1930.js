@@ -141,7 +141,7 @@ const DOC_JONGGA_1930 = {
       note: "이 페이지는 판독 가능한 텍스트가 없습니다.",
       annotations: [
         {id:"006", text: "입지상에 수정 사항이 있을 경우, 글 상단에 수정된 내용을 적고, 수정된 부분에 도장을 함께 찍어 표시해두었다. 여기서는 대괄호를 통해 수정되거나 추가된 글자를 표시하겠다."},
-        {id:"007", text: "해당 화재는 순조 4년(1804) 갑자년 3월 강원도 영동 지방에 발생했던 대형 산불로, 『조선왕조실록(朝鮮王朝實錄)』의 기사에서 그 내용을 확인할 수 있다. <br><a href=\"https://sillok.history.go.kr/id/kwa_10403012_004\" target=\"_blank\" rel=\"noopener\">https://sillok.history.go.kr/id/kwa_10403012_004</a>"},
+        {id:"007", text: "해당 화재는 순조 4년(1804) 갑자년 3월 강원도 영동 지방에 발생했던 대형 산불로, 『조선왕조실록(朝鮮王朝實錄)』의 기사에서 그 내용을 확인할 수 있다. <br><a href=\"https://sillok.history.go.kr/id/kwa_10403012_004\" target=\"_blank\" rel=\"noopener\" style=\"color:#3B82F6\">https://sillok.history.go.kr/id/kwa_10403012_004</a>"},
         {id:"008", text: "입지를 필사하면서 관아의 붉은 도장인 관인(官印)이 있던 자리에 '印'을 적어 표시해두었다."}
       ]
     },
