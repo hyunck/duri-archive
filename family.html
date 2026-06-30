@@ -937,7 +937,6 @@ function openPersonModal(id) {
     if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post)  rows.push({ label: '관직', value: node.post });
     if (node.ja)    rows.push({ label: '자(字)', value: node.ja + (node.jaSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.jaSrc})</span>` : '') });
-    if (node.myo)   rows.push({ label: '묘', value: node.myo });
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a => {
@@ -960,6 +959,7 @@ function openPersonModal(id) {
       }).join('');
       rows.push({ label: '배우자', value: spHtml });
     }
+    if (node.myo)   rows.push({ label: '묘', value: node.myo });
   }
 
   // 이름 없는 딸(사위만) 제외하고 휘 항목을 맨 앞에 추가
