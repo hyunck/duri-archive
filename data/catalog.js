@@ -42,10 +42,10 @@ const CATALOG = [
 
   // ── 호적·관문서 ──────────────────────────────────────────
   {
-    id: "hoju-1843", // 미상
+    id: "hoju-1843",
     title_hanja: "金胄衡戶口單子",
     title_korean: "김주형호구단자",
-    author: "미상",
+    author: "김주형 (金胄衡)",
     year: "1843",
     year_display: "道光23年(1843)",
     category: "호적·관문서",
@@ -54,10 +54,10 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
-    id: "hoju-1861", // 미상
+    id: "hoju-1861",
     title_hanja: "金胄衡戶口單子",
     title_korean: "김주형호구단자",
-    author: "미상",
+    author: "김주형 (金胄衡)",
     year: "1861",
     year_display: "咸豊11年(1861)",
     category: "호적·관문서",

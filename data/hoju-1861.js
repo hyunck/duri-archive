@@ -3,7 +3,7 @@ const DOC_HOJU_1861 = {
   call_number: "KJ-1861-001",
   title_hanja: "金胄衡戶口單子",
   title_korean: "김주형호구단자",
-  author: "미상",
+  author: "김주형 (金胄衡)",
   year_display: "咸豊11年(1861)",
   category: "호적·관문서",
   volume: "1張",
@@ -17,7 +17,7 @@ const DOC_HOJU_1861 = {
   bibliography: {
     "원서명": "金胄衡戶口單子",
     "현대어서명": "김주형호구단자",
-    "작성자": "미상",
+    "작성자": "김주형 (金胄衡)",
     "작성연도": "咸豊11年(1861)",
     "책권수": "1張",
     "책크기": "-",
