@@ -19,13 +19,14 @@ const CATALOG = [
   },
   {
     id: "hwasu",
-    title_hanja: "花樹○",
-    title_korean: "화수○",
-    author: "미상",
+    title_hanja: "花樹會",
+    title_korean: "화수회",
+    author: "종중 (宗中)",
     year: "",
-    year_display: "",
+    year_display: "19세기",
     category: "종중 기록",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-hwasu.html",
     classification: "史部 雜史類"
   },
   {
