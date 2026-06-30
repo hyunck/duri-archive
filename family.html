@@ -870,9 +870,13 @@ function renderTree() {
 function genLabel(gen) {
   const gi = GEN_INFO[gen];
   if (!gi) return gen + '대';
-  let s = gi.label;
-  if (gi.sub) s += ' · ' + gi.sub;
-  if (gi.pre) s = gi.pre + ' ' + s;
+  const gold = 'color:var(--gold-700);font-weight:700;';
+  let s = (gi.pre ? gi.pre + ' ' : '') + `<span style="${gold}">${gi.label}</span>`;
+  if (gi.sub) {
+    const subMatch = gi.sub.match(/gen-sub[^>]*>([^<]+)<\/span><span[^>]*gen-num[^>]*>([^<]+)<\/span>/);
+    if (subMatch) s += ` · ${subMatch[1]} <span style="${gold}">${subMatch[2]}</span>`;
+    else s += ' · ' + gi.sub.replace(/<[^>]+>/g, '');
+  }
   return s;
 }
 
