@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>국역·원문 대조 보기 — 두산정기</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    /* ===== VIEWER LAYOUT ===== */
+    body { display: flex; flex-direction: column; min-height: 100vh; overflow-y: auto; }
+
+    /* Top bar */
+    .viewer-topbar {
+      display: flex;
+      align-items: center;
+      padding: 40px 24px 0;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      transition: var(--transition);
+    }
+    .back-link:hover { color: var(--text-primary); background: var(--bg-card); }
+
+    .doc-title-bar {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .doc-title-hanja {
+      font-family: var(--font-sans);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold-400);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .doc-title-kr {
+      font-size: 16px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Page navigation */
+    .page-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .page-nav-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-normal);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 16px;
+      transition: var(--transition);
+    }
+    .page-nav-btn:hover:not(:disabled) {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+    .page-nav-btn:disabled { opacity: 0.3; pointer-events: none; }
+
+    .page-num-display {
+      font-size: 13px;
+      color: var(--text-secondary);
+      min-width: 80px;
+      text-align: center;
+    }
+    .page-num-current { color: var(--text-bright); font-weight: 600; }
+
+    /* Toggle buttons */
+    .view-toggles {
+      display: flex;
+      gap: 4px;
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      background: var(--bg-card);
+    }
+    .toggle-btn {
+      padding: 4px 12px;
+      font-size: 12px;
+      border-radius: 3px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+    .toggle-btn.active {
+      background: var(--text-primary);
+      color: #fff;
+    }
+    .toggle-btn:hover:not(.active) { color: var(--text-primary); }
+    .toggle-btn:disabled { opacity: 0.3; pointer-events: none; }
+
+    /* ===== MAIN VIEWER AREA ===== */
+    .viewer-main {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - var(--header-h));
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* ===== SIDE RAIL ===== */
+    .side-rail {
+      width: 44px;
+      flex-shrink: 0;
+      background: var(--bg-body);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 6px;
+      z-index: 10;
+    }
+    .rail-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .rail-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .rail-btn.active { background: var(--text-primary); color: #fff; }
+    .rail-divider {
+      width: 20px;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 4px 0;
+    }
+
+    /* ===== PAGE SIDEBAR ===== */
+    .page-sidebar {
+      width: 0;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: width 0.25s ease;
+      background: var(--bg-body);
+      border-right: 1px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .page-sidebar.open {
+      width: 240px;
+      border-right-color: var(--border-normal);
+    }
+    .sidebar-header {
+      flex-shrink: 0;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+    .sidebar-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold-400);
+      letter-spacing: 0.05em;
+    }
+    .sidebar-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px;
+    }
+    .sidebar-list::-webkit-scrollbar { width: 4px; }
+    .sidebar-list::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .sidebar-item:hover { background: var(--bg-hover); }
+    .sidebar-item.active {
+      background: var(--sidebar-active-bg);
+      border-color: var(--sidebar-active-border);
+    }
+    .sidebar-page-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: var(--bg-active);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .sidebar-item.active .sidebar-page-num {
+      background: var(--text-secondary);
+      color: #fff;
+    }
+    .sidebar-page-info { min-width: 0; }
+    .sidebar-page-title {
+      font-size: 12px;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sidebar-item.active .sidebar-page-title { color: var(--text-primary); }
+    .sidebar-page-badge {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-top: 2px;
+      display: inline-block;
+    }
+    .badge-map   { background: rgba(0,100,0,0.10); color: #1A7A00; }
+    .badge-blank { background: var(--bg-active); color: var(--text-muted); }
+    .badge-none  { background: var(--bg-hover);  color: var(--text-muted); }
+
+    /* ===== VIEWER CONTENT ===== */
+    .viewer-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-elevated);
+    }
+
+    .viewer-topbar {
+      background: var(--bg-body);
+      border-bottom: 1px solid var(--border-normal);
+    }
+
+    .panels-wrap {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      padding: 20px 24px;
+      gap: 0;
+      background: var(--bg-elevated);
+    }
+
+    /* Panel */
+    .panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-body);
+    }
+    .panel-left  { width: 50%; border-radius: 10px 0 0 10px; border-right: none; }
+    .panel-right { flex: 1;   border-radius: 0 10px 10px 0; border-left: none; }
+
+    .panel-header {
+      flex-shrink: 0;
+      padding: 8px 20px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-label {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .panel-label-kr    { color: var(--gold-400); }
+    .panel-label-hanja { color: var(--navy-300); }
+    .panel-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px 36px;
+    }
+    .panel-body::-webkit-scrollbar { width: 4px; }
+    .panel-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+    /* ===== CONTENT STYLES ===== */
+    .korean-content {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+    }
+    .korean-content h2 {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      color: var(--gold-600);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .hanja-content {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+      white-space: pre-wrap;
+    }
+    .hanja-content h2 {
+      font-size: 21px;
+      color: var(--navy-600);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* 사람 이름 / 지명 하이라이트 */
+    .person-name { color: #1A6FBF; }
+    .place-name  { color: #2A8A00; }
+
+    /* ===== ANNOTATIONS ===== */
+    sup.ann-ref {
+      color: var(--gold-500);
+      cursor: pointer;
+      font-size: 0.72em;
+      vertical-align: super;
+      line-height: 0;
+    }
+    sup.ann-ref:hover { color: var(--gold-300); text-decoration: underline; }
+
+    .annotation-section { margin-top: 0; }
+    .ann-divider {
+      margin: 32px 0 18px;
+      border: none;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .ann-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .ann-item {
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .ann-back-link {
+      color: var(--gold-600);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      margin-right: 8px;
+      text-decoration: none;
+      font-family: var(--font-sans);
+    }
+    .ann-back-link:hover { color: var(--gold-400); }
+
+    /* Special page notices */
+    .special-notice {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 16px;
+      text-align: center;
+      padding: 40px;
+    }
+    .special-notice-icon { font-size: 48px; opacity: 0.4; }
+    .special-notice h3 {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+    .special-notice p { font-size: 13px; color: var(--text-muted); max-width: 300px; }
+    .special-notice .open-map-btn { margin-top: 8px; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      width: 1px;
+      flex-shrink: 0;
+      background: var(--border-subtle);
+      cursor: col-resize;
+      position: relative;
+      z-index: 10;
+      user-select: none;
+      transition: background var(--transition);
+    }
+    .divider:hover,
+    .divider.dragging { background: var(--navy-500); }
+
+    .divider-grip {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-normal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: var(--transition);
+      cursor: col-resize;
+    }
+    .divider:hover .divider-grip,
+    .divider.dragging .divider-grip {
+      background: var(--navy-700);
+      border-color: var(--navy-500);
+      color: var(--text-bright);
+    }
+
+
+    /* ===== IMAGE PANEL ===== */
+    .image-panel-container {
+      flex: 1;
+      display: none;
+      background: var(--bg-elevated);
+      overflow: hidden;
+      position: relative;
+    }
+    .image-panel-container.visible { display: flex; }
+
+    /* 단면 */
+    .scan-single-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+    .scan-image-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+    }
+    .scan-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 40px;
+    }
+    .scan-placeholder svg { opacity: 0.3; }
+
+    /* 양면 — 앞 페이지 오른쪽, 뒤 페이지 왼쪽 */
+    .scan-spread-wrap {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .spread-zoom-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .spread-page {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .spread-page img {
+      display: block;
+      width: auto;
+      /* 높이는 JS에서 제어 */
+    }
+    .spread-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-align: center;
+      opacity: 0.5;
+    }
+
+    /* Zoom controls */
+    .zoom-controls {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 20;
+    }
+    .zoom-btn {
+      width: 32px; height: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .zoom-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      /* Topbar: wrap into two rows */
+      .viewer-topbar { flex-wrap: wrap; padding: 10px 12px 0; gap: 8px; row-gap: 6px; }
+      .doc-title-bar { order: -1; flex: 0 0 100%; min-width: 0; overflow: hidden; }
+      .doc-title-hanja { font-size: 17px; }
+      .doc-title-kr { font-size: 13px; }
+      .page-nav { margin-left: 0; flex-wrap: wrap; gap: 5px; }
+      .view-toggles { padding: 2px; }
+      .toggle-btn { padding: 3px 8px; font-size: 11px; }
+      .page-nav-btn { width: 28px; height: 28px; font-size: 14px; }
+      .page-num-display { min-width: 60px; font-size: 12px; }
+
+      /* Viewer layout: allow vertical scroll */
+      .viewer-main { height: auto; overflow: visible; }
+      .viewer-content { overflow: visible; }
+
+      /* Compare panels: stack vertically */
+      .panels-wrap {
+        flex-direction: column;
+        padding: 10px;
+        flex: none;
+        height: auto;
+        overflow: visible;
+        gap: 0;
+      }
+      .panel-left {
+        width: 100% !important;
+        flex: none;
+        border-radius: 10px 10px 0 0;
+        border-right: 1px solid var(--border-subtle) !important;
+        border-bottom: none !important;
+      }
+      .panel-right {
+        flex: none;
+        width: 100% !important;
+        border-radius: 0 0 10px 10px;
+        border-left: 1px solid var(--border-subtle) !important;
+        border-top: none !important;
+      }
+      .divider { display: none; }
+      .panel-body { height: 44vh; flex: none; }
+
+      /* Image mode */
+      .image-panel-container { height: 75vh; flex: none; }
+
+      /* Page sidebar: overlay instead of push */
+      .page-sidebar { transition: none; }
+      .page-sidebar.open {
+        position: fixed;
+        top: var(--header-h);
+        left: 44px;
+        bottom: 0;
+        width: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 100;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.7);
+        border-right-color: var(--border-normal);
+      }
+
+      /* Text content */
+      .korean-content, .hanja-content { font-size: 15px !important; }
+
+      /* Zoom controls */
+      .zoom-controls { bottom: 12px; right: 12px; }
+      .zoom-btn { width: 36px; height: 36px; font-size: 18px; }
+    }
+    @media (max-width: 480px) {
+      .doc-title-kr { display: none; }
+      .panel-body { height: 40vh; }
+      .image-panel-container { height: 70vh; }
+    }
+
+    /* ===== DARK MODE ===== */
+    [data-theme="dark"] .viewer-content    { background: #0d0f10; }
+    [data-theme="dark"] .viewer-topbar     { background: #181614; border-bottom-color: rgba(255,255,255,0.07); }
+    [data-theme="dark"] .panels-wrap       { background: #0d0f10; }
+    [data-theme="dark"] .image-panel-container { background: #0d0f10; }
+    [data-theme="dark"] .korean-content    { color: #C2BDB5; }
+    [data-theme="dark"] .hanja-content     { color: #C2BDB5; }
+    [data-theme="dark"] .korean-content h2 { color: var(--gold-400); }
+    [data-theme="dark"] .hanja-content h2  { color: var(--navy-300); }
+    [data-theme="dark"] .sidebar-item.active { background: rgba(46,50,104,0.35); }
+    [data-theme="dark"] .toggle-btn.active  { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .rail-btn.active    { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .sidebar-item.active .sidebar-page-num { background: var(--navy-700); color: var(--text-bright); }
+    [data-theme="dark"] .sidebar-page-num  { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .badge-map   { background: rgba(126,255,80,0.12); color: #7EFF50; }
+    [data-theme="dark"] .badge-blank { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .badge-none  { background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .person-name { color: #3CA7FF; }
+    [data-theme="dark"] .place-name  { color: #7EFF50; }
+  </style>
+</head>
+<body>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header">
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-item" href="home.html">두리종중</a>
+    <a class="nav-item active" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item" href="jongtaek.html">종택</a>
+    <a class="nav-item" href="village.html">주변 지리</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+  </nav>
+</header>
+
+<!-- ===== VIEWER MAIN ===== -->
+<div class="viewer-main">
+
+  <!-- Side Rail -->
+  <div class="side-rail">
+    <!-- Home -->
+    <a href="index.html" class="rail-btn" title="소장 문서 목록으로">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+    </a>
+
+    <div class="rail-divider"></div>
+
+    <!-- Page list toggle -->
+    <button class="rail-btn" id="sidebar-toggle-btn" title="페이지 목록" onclick="toggleSidebar()">
+      <svg id="sidebar-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9,18 15,12 9,6"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Page Sidebar -->
+  <div class="page-sidebar" id="page-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">페이지 목록</div>
+    </div>
+    <div class="sidebar-list" id="sidebar-list"></div>
+  </div>
+
+  <!-- Viewer Content -->
+  <div class="viewer-content">
+
+    <!-- TOP BAR -->
+    <div class="viewer-topbar">
+      <a class="back-link" href="detail-dusanjeongi.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,18 9,12 15,6"/>
+        </svg>
+        문서 정보로
+      </a>
+
+      <div class="doc-title-bar">
+        <span class="doc-title-hanja">斗山亭記</span>
+        <span class="doc-title-kr">두산정기</span>
+      </div>
+
+      <div class="page-nav">
+        <button class="page-nav-btn" id="btn-prev" onclick="changePage(-1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"/>
+          </svg>
+        </button>
+
+        <div class="page-num-display">
+          <span class="page-num-current" id="page-current">2</span>
+          <span> / </span>
+          <span id="page-total">38</span>
+        </div>
+
+        <button class="page-nav-btn" id="btn-next" onclick="changePage(1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"/>
+          </svg>
+        </button>
+
+        <div class="view-toggles" id="text-size-controls">
+          <button class="toggle-btn" id="text-size-down" onclick="changeTextSize(-1)" title="본문 축소" disabled>−A</button>
+          <button class="toggle-btn" id="text-size-up"   onclick="changeTextSize(1)"  title="본문 확대">+A</button>
+        </div>
+
+        <div class="view-toggles" id="spread-toggles" style="display:none;">
+          <button class="toggle-btn active" id="toggle-single" onclick="setSpreadMode(false)">단면</button>
+          <button class="toggle-btn" id="toggle-spread" onclick="setSpreadMode(true)">양면</button>
+        </div>
+
+        <div class="view-toggles" id="view-toggles">
+          <button class="toggle-btn active" id="toggle-compare" onclick="setViewMode('compare')">대조 보기</button>
+          <button class="toggle-btn" id="toggle-image" onclick="setViewMode('image')">원문 이미지</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARE MODE: split panels -->
+    <div class="panels-wrap" id="panels-wrap">
+
+      <!-- Left: Korean translation -->
+      <div class="panel panel-left" id="panel-left">
+        <div class="panel-header">
+          <span class="panel-label panel-label-kr">국역 (國譯)</span>
+          <span class="panel-sub">한글 번역</span>
+        </div>
+        <div class="panel-body" id="panel-left-body">
+          <div class="korean-content" id="korean-content"></div>
+          <div class="annotation-section" id="korean-annotations"></div>
+        </div>
+      </div>
+
+      <!-- Draggable divider -->
+      <div class="divider" id="divider">
+        <div class="divider-grip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="8,4 2,12 8,20"/>
+            <polyline points="16,4 22,12 16,20"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Right: Chinese original -->
+      <div class="panel panel-right" id="panel-right">
+        <div class="panel-header">
+          <span class="panel-label panel-label-hanja">원문 (原文)</span>
+          <span class="panel-sub">한문 원문</span>
+        </div>
+        <div class="panel-body" id="panel-right-body">
+          <div class="hanja-content" id="hanja-content"></div>
+          <div class="annotation-section" id="hanja-annotations"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE MODE: scanned image viewer -->
+    <div class="image-panel-container" id="image-panel">
+
+      <!-- 단면 -->
+      <div class="scan-single-wrap" id="scan-single-wrap">
+        <div class="scan-image-wrap" id="scan-image-wrap">
+          <div class="scan-placeholder" id="scan-placeholder">
+            <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="72" height="92" rx="4" stroke="currentColor" stroke-width="2"/>
+              <line x1="16" y1="28" x2="64" y2="28" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="16" y1="36" x2="64" y2="36" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="16" y1="44" x2="56" y2="44" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="16" y1="52" x2="60" y2="52" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="16" y1="60" x2="52" y2="60" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <p style="margin-top:8px; color: var(--text-secondary);" id="scan-placeholder-text">원문 스캔 이미지</p>
+            <p style="font-size:12px;">이미지 파일을 <code style="background:var(--bg-card); padding:2px 6px; border-radius:3px;">images/</code> 폴더에 추가해 주세요.</p>
+            <p style="font-size:11px; color:var(--text-muted);">예: <code style="background:var(--bg-card); padding:1px 5px; border-radius:3px;" id="image-filename-hint">images/dusanjeongi/page_01.png</code></p>
+          </div>
+          <img id="scan-image" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="원문 스캔 이미지"/>
+        </div>
+      </div>
+
+      <!-- 양면: 앞 페이지(오른쪽) | 뒤 페이지(왼쪽) -->
+      <div class="scan-spread-wrap" id="scan-spread-wrap" style="display:none;">
+        <div class="spread-zoom-container" id="spread-zoom-container">
+        <!-- 뒤 페이지 — 왼쪽 -->
+        <div class="spread-page" id="spread-page-left">
+          <div class="spread-placeholder" id="spread-placeholder-left">
+            <svg width="40" height="50" viewBox="0 0 80 100" fill="none"><rect x="4" y="4" width="72" height="92" rx="4" stroke="currentColor" stroke-width="3"/></svg>
+            <span id="spread-hint-left"></span>
+          </div>
+          <img id="scan-image-left" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt=""/>
+        </div>
+        <!-- 앞 페이지 — 오른쪽 -->
+        <div class="spread-page" id="spread-page-right">
+          <div class="spread-placeholder" id="spread-placeholder-right">
+            <svg width="40" height="50" viewBox="0 0 80 100" fill="none"><rect x="4" y="4" width="72" height="92" rx="4" stroke="currentColor" stroke-width="3"/></svg>
+            <span id="spread-hint-right"></span>
+          </div>
+          <img id="scan-image-right" style="display:none;" alt=""/>
+        </div>
+        </div><!-- /spread-zoom-container -->
+      </div>
+
+      <div class="zoom-controls" id="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()" title="확대">+</button>
+        <button class="zoom-btn" onclick="zoomReset()" title="원본 크기" style="font-size:11px;">1:1</button>
+        <button class="zoom-btn" onclick="zoomOut()" title="축소">−</button>
+      </div>
+    </div>
+
+
+  </div><!-- /viewer-content -->
+</div><!-- /viewer-main -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면</span>
+        <span>문의: changhyun0430@gmail.com</span>
+      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<script src="theme.js"></script>
+<script src="data/dusanjeongi.js"></script>
+<script>
+  /* ===========================
+     STATE
+  =========================== */
+  const doc = DOC_DUSANJEONGI;
+  let currentPage = 1;
+  let viewMode = 'compare'; // 'compare' | 'image'
+  let zoomLevel = 1;
+  let textSizeOffset = 0; // px, 0 = 기본 크기
+  const TEXT_SIZE_STEP = 2;
+  const TEXT_SIZE_MAX  = 12; // 18 + 12 = 30px 상한
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartLeftW = 0;
+  let sidebarOpen = false;
+  let viewSpread = false;
+
+  /* ===========================
+     INIT
+  =========================== */
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedMode = sessionStorage.getItem('viewMode');
+    if (savedMode) { viewMode = savedMode; sessionStorage.removeItem('viewMode'); }
+
+    buildSidebarList();
+    renderPage(currentPage);
+    initDivider();
+    document.getElementById('panel-left-body').addEventListener('scroll', onLeftScroll);
+    document.getElementById('panel-right-body').addEventListener('scroll', onRightScroll);
+
+    // savedMode가 있으면 버튼 상태·패널 표시를 동기화
+    if (savedMode) setViewMode(viewMode);
+  });
+
+  /* ===========================
+     PAGE RENDERING
+  =========================== */
+  function getPageData(num) {
+    return doc.pages.find(p => p.page_num === num) || null;
+  }
+
+  /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
+  function getSpreadPages(num) {
+    if (!viewSpread || num === 1 || num === doc.total_pages) return [num];
+    const start = num % 2 === 0 ? num : num - 1;
+    const end = start + 1;
+    return end < doc.total_pages ? [start, end] : [start];
+  }
+
+  function renderPage(num) {
+    // 양면 모드에서는 짝수 시작 페이지로 정규화
+    if (viewSpread && num !== 1 && num !== doc.total_pages) {
+      num = num % 2 === 0 ? num : num - 1;
+    }
+    currentPage = num;
+    const spreadNums = getSpreadPages(num);
+
+    // 페이지 카운터
+    document.getElementById('page-current').textContent =
+      spreadNums.length > 1 ? `${spreadNums[0]}–${spreadNums[1]}` : num;
+    document.getElementById('page-total').textContent = doc.total_pages;
+    document.getElementById('btn-prev').disabled = num <= 1;
+    document.getElementById('btn-next').disabled = num >= doc.total_pages;
+
+    // 사이드바 하이라이트
+    document.querySelectorAll('.sidebar-item').forEach(el => {
+      el.classList.toggle('active', spreadNums.includes(parseInt(el.dataset.page)));
+    });
+    const activeItem = document.querySelector(`.sidebar-item[data-page="${spreadNums[0]}"]`);
+    if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+
+    // 양면 렌더링
+    if (spreadNums.length > 1) {
+      renderSpreadPages(spreadNums);
+      return;
+    }
+
+    // 단면 렌더링
+    const page = getPageData(num);
+    if (!page) {
+      renderNotDigitized(num);
+      showCompareOrImage();
+      updateImageMode(null, num);
+      return;
+    }
+
+    if (page.type === 'map')        renderMapPage(page);
+    else if (page.type === 'blank') { renderBlankPage(page); showCompareOrImage(); }
+    else                            renderTextPage(page);
+
+    updateImageMode(page, num);
+  }
+
+  function renderSpreadPages(pageNums) {
+    const sep = `<div style="border-top:1px solid var(--border-subtle);margin:24px 0;"></div>`;
+    let krHtml = '', hjHtml = '';
+
+    pageNums.forEach((n, i) => {
+      const page = getPageData(n);
+      if (i > 0) { krHtml += sep; hjHtml += sep; }
+      const label = `<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;letter-spacing:0.05em;">${n}페이지</div>`;
+      krHtml += label; hjHtml += label;
+
+      if (!page) {
+        const msg = '<span style="color:var(--text-muted);font-style:italic">미입력</span>';
+        krHtml += msg; hjHtml += msg;
+      } else if (page.type === 'blank') {
+        const msg = '<span style="color:var(--text-muted);font-style:italic">빈 페이지</span>';
+        krHtml += msg; hjHtml += msg;
+      } else if (page.type === 'map') {
+        const msg = `<span style="color:var(--text-muted)">🗺️ ${page.title_korean || page.title_hanja}</span>`;
+        krHtml += msg; hjHtml += msg;
+      } else {
+        krHtml += page.korean_translation || '<span style="color:var(--text-muted);font-style:italic">국역 미준비</span>';
+        hjHtml += page.hanja_text || '<span style="color:var(--text-muted);font-style:italic">원문 미입력</span>';
+      }
+    });
+
+    document.getElementById('korean-content').innerHTML = processAnnotationRefs(krHtml);
+    document.getElementById('hanja-content').innerHTML  = processAnnotationRefs(hjHtml);
+
+    // 여러 페이지 주석 합산
+    const allAnns = pageNums.flatMap(n => (getPageData(n)?.annotations || []));
+    renderAnnotations(allAnns, 'korean-annotations');
+    renderAnnotations(allAnns, 'hanja-annotations');
+
+    showCompareOrImage();
+    const firstPage = getPageData(pageNums[0]);
+    updateImageMode(firstPage, pageNums[0]);
+  }
+
+  function renderTextPage(page) {
+    const krEl = document.getElementById('korean-content');
+    const hjEl = document.getElementById('hanja-content');
+
+    krEl.innerHTML = page.korean_translation
+      ? processAnnotationRefs(page.korean_translation)
+      : '<span style="color:var(--text-muted);font-style:italic">이 페이지의 국역 번역이 아직 준비되지 않았습니다.</span>';
+
+    hjEl.innerHTML = page.hanja_text
+      ? processAnnotationRefs(page.hanja_text)
+      : '<span style="color:var(--text-muted);font-style:italic">원문 텍스트가 입력되지 않았습니다.</span>';
+
+    renderAnnotations(page.annotations, 'korean-annotations');
+    renderAnnotations(page.annotations, 'hanja-annotations');
+    showCompareOrImage();
+  }
+
+  function renderMapPage(page) {
+    const notice = `<div class="special-notice">
+      <div class="special-notice-icon">🗺️</div>
+      <h3>${page.title_korean || page.title_hanja}</h3>
+      <p>이 페이지는 지도 이미지입니다. 텍스트 대조 보기 대신 이미지 뷰어를 이용해 주세요.</p>
+      <button class="btn btn-gold btn-sm open-map-btn" onclick="setViewMode('image')">이미지 보기</button>
+    </div>`;
+    document.getElementById('korean-content').innerHTML = notice;
+    document.getElementById('hanja-content').innerHTML = `<div class="special-notice">
+      <div style="font-family:var(--font-sans);font-size:28px;color:var(--purple-300);opacity:0.5">${page.title_hanja}</div>
+      <p style="color:var(--text-muted);font-size:13px">지도 이미지 페이지</p>
+    </div>`;
+  }
+
+  function renderBlankPage(page) {
+    const notice = `<div class="special-notice">
+      <div class="special-notice-icon" style="opacity:0.3">📄</div>
+      <h3 style="color:var(--text-muted)">빈 페이지</h3>
+      <p>${page.note || '이 페이지는 내용이 없는 빈 페이지입니다.'}</p>
+    </div>`;
+    document.getElementById('korean-content').innerHTML = notice;
+    document.getElementById('hanja-content').innerHTML = notice;
+    clearAnnotations();
+  }
+
+  function renderNotDigitized(num) {
+    const notice = `<div class="special-notice">
+      <div class="special-notice-icon" style="opacity:0.3">⏳</div>
+      <h3 style="color:var(--text-muted)">${num}페이지</h3>
+      <p>이 페이지는 아직 디지털화(번역/입력)가 진행되지 않았습니다.</p>
+    </div>`;
+    document.getElementById('korean-content').innerHTML = notice;
+    document.getElementById('hanja-content').innerHTML = notice;
+    clearAnnotations();
+  }
+
+  /* ===========================
+     ANNOTATIONS
+  =========================== */
+  // [[001]]       → 주석 참조 superscript
+  // [[인물:이름]]  → <span class="person-name">이름</span>
+  // [[지명:이름]]  → <span class="place-name">이름</span>
+  function processAnnotationRefs(text) {
+    if (!text) return text;
+    return text
+      .replace(/\[\[인물:([^\]]+)\]\]/g, (_, name) => `<span class="person-name">${name}</span>`)
+      .replace(/\[\[지명:([^\]]+)\]\]/g, (_, name) => `<span class="place-name">${name}</span>`)
+      .replace(/\[\[(\d+)\]\]/g, (_, id) => {
+        const pid = id.padStart(3, '0');
+        return `<sup class="ann-ref" id="ref-${pid}" data-ann="${pid}">${pid})</sup>`;
+      });
+  }
+
+  function renderAnnotations(annotations, panelId) {
+    const el = document.getElementById(panelId);
+    if (!el) return;
+    if (!annotations || annotations.length === 0) { el.innerHTML = ''; return; }
+    el.innerHTML = `
+      <hr class="ann-divider">
+      <div class="ann-section-title">注 · 주석</div>
+      ${annotations.map(a => {
+        const pid = String(a.id).padStart(3, '0');
+        return `<div class="ann-item" id="ann-${pid}"><a class="ann-back-link" data-target="ref-${pid}">[註 ${pid}]</a>${a.text}</div>`;
+      }).join('')}
+    `;
+  }
+
+  function clearAnnotations() {
+    document.getElementById('korean-annotations').innerHTML = '';
+    document.getElementById('hanja-annotations').innerHTML = '';
+  }
+
+  function scrollToInPanel(panelBody, targetEl) {
+    if (!panelBody || !targetEl) return;
+    const offset = targetEl.getBoundingClientRect().top - panelBody.getBoundingClientRect().top;
+    panelBody.scrollTo({ top: panelBody.scrollTop + offset - 40, behavior: 'smooth' });
+  }
+
+  // 주석 클릭 이동 (양쪽 패널 모두)
+  ['panel-left-body', 'panel-right-body'].forEach(pid => {
+    document.getElementById(pid).addEventListener('click', (e) => {
+      const ref = e.target.closest('sup.ann-ref');
+      if (ref) {
+        e.preventDefault();
+        const annId = ref.dataset.ann;
+        const target = document.getElementById('ann-' + annId)
+                    || document.getElementById('ann-' + annId);
+        scrollToInPanel(document.getElementById(pid), target);
+        return;
+      }
+      const back = e.target.closest('.ann-back-link');
+      if (back) {
+        e.preventDefault();
+        const targetEl = document.getElementById(back.dataset.target);
+        scrollToInPanel(document.getElementById(pid), targetEl);
+      }
+    });
+  });
+
+  function imgSrc(page, num) {
+    return page ? page.image : `images/dusanjeongi/page_${String(num).padStart(2,'0')}.png`;
+  }
+
+  function singleBaseH() {
+    const wrap = document.getElementById('scan-image-wrap');
+    return (wrap ? wrap.clientHeight : window.innerHeight) - 16;
+  }
+
+  function loadSingleImg(src, num) {
+    const img = document.getElementById('scan-image');
+    const wrap = document.getElementById('scan-image-wrap');
+    const placeholder = document.getElementById('scan-placeholder');
+    document.getElementById('image-filename-hint').textContent = src;
+    document.getElementById('scan-placeholder-text').textContent = `${num}페이지 원문 스캔 이미지`;
+    img.style.display = 'none';
+    img.style.transform = '';
+    img.style.height = '';
+    img.style.maxHeight = '';
+    img.style.maxWidth = '';
+    img.style.width = 'auto';
+    img.style.objectFit = '';
+    placeholder.style.display = 'flex';
+    img.src = src;
+    img.onload = () => {
+      const h = Math.round(singleBaseH() * zoomLevel);
+      img.style.height = h + 'px';
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+    };
+    img.onerror = () => { img.style.display = 'none'; placeholder.style.display = 'flex'; };
+  }
+
+  function spreadBaseH() {
+    const wrap = document.getElementById('scan-spread-wrap');
+    return (wrap ? wrap.clientHeight : window.innerHeight) - 32;
+  }
+
+  function loadSpreadImg(side, src, num) {
+    const img = document.getElementById(`scan-image-${side}`);
+    const ph  = document.getElementById(`spread-placeholder-${side}`);
+    const hint = document.getElementById(`spread-hint-${side}`);
+    img.style.display = 'none';
+    img.style.height = '';
+    img.style.maxHeight = '';
+    ph.style.display = 'flex';
+    hint.textContent = `${num}p`;
+    img.src = src;
+    img.onload = () => {
+      const h = Math.round(spreadBaseH() * zoomLevel);
+      img.style.height = h + 'px';
+      img.style.maxHeight = 'none';
+      img.style.display = 'block';
+      ph.style.display = 'none';
+    };
+    img.onerror = () => { img.style.display = 'none'; ph.style.display = 'flex'; };
+  }
+
+  function updateImageMode(page, num) {
+    const spreadNums = getSpreadPages(currentPage);
+    const isSpread = viewSpread && spreadNums.length > 1;
+
+    document.getElementById('scan-single-wrap').style.display = isSpread ? 'none' : '';
+    document.getElementById('scan-spread-wrap').style.display  = isSpread ? 'flex' : 'none';
+    document.getElementById('zoom-controls').style.display     = '';
+
+    if (isSpread) {
+      // 앞 페이지 → 오른쪽, 뒤 페이지 → 왼쪽
+      const rightNum = spreadNums[0];
+      const leftNum  = spreadNums[1];
+      loadSpreadImg('right', imgSrc(getPageData(rightNum), rightNum), rightNum);
+      loadSpreadImg('left',  imgSrc(getPageData(leftNum),  leftNum),  leftNum);
+    } else {
+      loadSingleImg(imgSrc(page, num), num);
+    }
+  }
+
+  /* ===========================
+     PAGE NAVIGATION
+  =========================== */
+  function changePage(delta) {
+    let target;
+    if (viewSpread) {
+      // 1페이지↔2페이지 전환은 1칸, 나머지는 2칸 이동
+      const step = (currentPage === 1 && delta > 0) ? 1
+                 : (currentPage === 2 && delta < 0) ? -1
+                 : 2 * delta;
+      target = currentPage + step;
+    } else {
+      target = currentPage + delta;
+    }
+    if (target < 1 || target > doc.total_pages) return;
+    zoomLevel = 1; applyZoom();
+    renderPage(target);
+    document.getElementById('panel-left-body').scrollTop = 0;
+    document.getElementById('panel-right-body').scrollTop = 0;
+  }
+
+  function setSpreadMode(spread) {
+    viewSpread = spread;
+    document.getElementById('toggle-single').classList.toggle('active', !spread);
+    document.getElementById('toggle-spread').classList.toggle('active', spread);
+    renderPage(currentPage);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    changePage(-1);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  changePage(1);
+  });
+
+  /* ===========================
+     VIEW MODE
+  =========================== */
+  /* ===========================
+     TEXT SIZE (COMPARE MODE)
+  =========================== */
+  function changeTextSize(dir) {
+    const next = textSizeOffset + dir * TEXT_SIZE_STEP;
+    textSizeOffset = Math.max(0, Math.min(TEXT_SIZE_MAX, next));
+    document.getElementById('korean-content').style.fontSize = (18 + textSizeOffset) + 'px';
+    document.getElementById('hanja-content').style.fontSize  = (18 + textSizeOffset) + 'px';
+    document.getElementById('text-size-down').disabled = textSizeOffset <= 0;
+    document.getElementById('text-size-up').disabled   = textSizeOffset >= TEXT_SIZE_MAX;
+  }
+
+  function setViewMode(mode) {
+    viewMode = mode;
+    // 대조 보기 전환 시 양면 모드 해제
+    if (mode === 'compare' && viewSpread) {
+      viewSpread = false;
+      document.getElementById('toggle-single').classList.add('active');
+      document.getElementById('toggle-spread').classList.remove('active');
+      renderPage(currentPage);
+    }
+    showCompareOrImage();
+    document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
+    document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
+    // 단면/양면 토글은 원문이미지 모드에서만, 텍스트 크기는 대조 보기에서만 표시
+    document.getElementById('spread-toggles').style.display    = mode === 'image'   ? '' : 'none';
+    document.getElementById('text-size-controls').style.display = mode === 'compare' ? '' : 'none';
+    if (mode === 'image') updateImageMode(getPageData(currentPage), currentPage);
+  }
+
+  function showCompareOrImage() {
+    document.getElementById('panels-wrap').style.display  = viewMode === 'compare' ? 'flex' : 'none';
+    document.getElementById('image-panel').classList.toggle('visible', viewMode === 'image');
+  }
+
+  /* ===========================
+     DIVIDER DRAG
+  =========================== */
+  function initDivider() {
+    const divider   = document.getElementById('divider');
+    const leftPanel = document.getElementById('panel-left');
+    const rightPanel = document.getElementById('panel-right');
+    const wrap      = document.getElementById('panels-wrap');
+
+    divider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartLeftW = leftPanel.getBoundingClientRect().width;
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const wrapW = wrap.getBoundingClientRect().width;
+      const divW  = divider.getBoundingClientRect().width;
+      const delta = e.clientX - dragStartX;
+      let newLeftW = dragStartLeftW + delta;
+      const min = wrapW * 0.2;
+      const max = wrapW * 0.8;
+      newLeftW = Math.max(min, Math.min(max, newLeftW));
+      const leftPct  = (newLeftW / wrapW) * 100;
+      const rightPct = 100 - leftPct - (divW / wrapW * 100);
+      leftPanel.style.width  = leftPct + '%';
+      rightPanel.style.width = rightPct + '%';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    });
+
+    // Touch support
+    divider.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      isDragging = true;
+      dragStartX = t.clientX;
+      dragStartLeftW = leftPanel.getBoundingClientRect().width;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const t = e.touches[0];
+      const wrapW = wrap.getBoundingClientRect().width;
+      const delta = t.clientX - dragStartX;
+      let newLeftW = dragStartLeftW + delta;
+      newLeftW = Math.max(wrapW * 0.15, Math.min(wrapW * 0.85, newLeftW));
+      leftPanel.style.width = (newLeftW / wrapW * 100) + '%';
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => { isDragging = false; });
+  }
+
+  /* ===========================
+     SCROLL SYNC
+  =========================== */
+  let syncingLeft = false, syncingRight = false;
+
+  function onLeftScroll() {
+    if (syncingLeft) return;
+    syncingRight = true;
+    const lb = document.getElementById('panel-left-body');
+    const rb = document.getElementById('panel-right-body');
+    const ratio = lb.scrollTop / (lb.scrollHeight - lb.clientHeight || 1);
+    rb.scrollTop = ratio * (rb.scrollHeight - rb.clientHeight);
+    requestAnimationFrame(() => { syncingRight = false; });
+  }
+
+  function onRightScroll() {
+    if (syncingRight) return;
+    syncingLeft = true;
+    const lb = document.getElementById('panel-left-body');
+    const rb = document.getElementById('panel-right-body');
+    const ratio = rb.scrollTop / (rb.scrollHeight - rb.clientHeight || 1);
+    lb.scrollTop = ratio * (lb.scrollHeight - lb.clientHeight);
+    requestAnimationFrame(() => { syncingLeft = false; });
+  }
+
+  /* ===========================
+     ZOOM (IMAGE MODE)
+  =========================== */
+  function zoomIn()    { const p = zoomLevel; zoomLevel = Math.min(zoomLevel * 1.3, 8);   applyZoom(p); }
+  function zoomOut()   { const p = zoomLevel; zoomLevel = Math.max(zoomLevel / 1.3, 0.3); applyZoom(p); }
+  function zoomReset() { const p = zoomLevel; zoomLevel = 1;                               applyZoom(p); }
+
+  function applyZoom(prevZoom) {
+    const isSpread = viewSpread && getSpreadPages(currentPage).length > 1;
+    if (isSpread) {
+      const wrap = document.getElementById('scan-spread-wrap');
+      const wasOverflow = prevZoom != null && prevZoom > 1;
+
+      // 확대 중일 때 스크롤 중심 비율 저장
+      let centerYFrac = 0.5, centerXFrac = 0.5;
+      if (wasOverflow && wrap.scrollHeight > wrap.clientHeight) {
+        centerYFrac = (wrap.scrollTop  + wrap.clientHeight / 2) / wrap.scrollHeight;
+        centerXFrac = (wrap.scrollLeft + wrap.clientWidth  / 2) / wrap.scrollWidth;
+      }
+
+      const baseH = wrap.clientHeight - 32;
+      const h = Math.round(baseH * zoomLevel);
+      const imgL = document.getElementById('scan-image-left');
+      const imgR = document.getElementById('scan-image-right');
+      [imgL, imgR].forEach(img => {
+        if (img && img.style.display !== 'none') {
+          img.style.height = h + 'px';
+          img.style.maxHeight = 'none';
+        }
+      });
+
+      const isOverflow = zoomLevel > 1;
+      wrap.style.alignItems    = isOverflow ? 'flex-start' : 'center';
+      wrap.style.justifyContent = isOverflow ? 'flex-start' : 'center';
+
+      if (isOverflow) {
+        // setTimeout(0)으로 브라우저 레이아웃 확정 후 스크롤 위치 설정
+        setTimeout(() => {
+          if (wasOverflow) {
+            wrap.scrollTop  = centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2;
+            wrap.scrollLeft = centerXFrac * wrap.scrollWidth  - wrap.clientWidth  / 2;
+          } else {
+            // 처음 확대 시 중앙 기준으로 시작
+            wrap.scrollTop  = (wrap.scrollHeight - wrap.clientHeight) / 2;
+            wrap.scrollLeft = (wrap.scrollWidth  - wrap.clientWidth)  / 2;
+          }
+        }, 0);
+      }
+    } else {
+      const wrap = document.getElementById('scan-image-wrap');
+      const img  = document.getElementById('scan-image');
+      const wasOverflow = prevZoom != null && prevZoom > 1;
+
+      let centerYFrac = 0.5, centerXFrac = 0.5;
+      if (wasOverflow && wrap.scrollHeight > wrap.clientHeight) {
+        centerYFrac = (wrap.scrollTop  + wrap.clientHeight / 2) / wrap.scrollHeight;
+        centerXFrac = (wrap.scrollLeft + wrap.clientWidth  / 2) / wrap.scrollWidth;
+      }
+
+      const h = Math.round(singleBaseH() * zoomLevel);
+      if (img && img.style.display !== 'none') {
+        img.style.height    = h + 'px';
+        img.style.maxHeight = 'none';
+        img.style.maxWidth  = 'none';
+        img.style.transform = '';
+      }
+
+      const isOverflow = zoomLevel > 1;
+      wrap.style.alignItems    = isOverflow ? 'flex-start' : 'center';
+      wrap.style.justifyContent = isOverflow ? 'flex-start' : 'center';
+      wrap.style.overflow      = isOverflow ? 'auto' : 'hidden';
+
+      if (isOverflow) {
+        setTimeout(() => {
+          if (wasOverflow) {
+            wrap.scrollTop  = centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2;
+            wrap.scrollLeft = centerXFrac * wrap.scrollWidth  - wrap.clientWidth  / 2;
+          } else {
+            wrap.scrollTop  = (wrap.scrollHeight - wrap.clientHeight) / 2;
+            wrap.scrollLeft = (wrap.scrollWidth  - wrap.clientWidth)  / 2;
+          }
+        }, 0);
+      }
+    }
+
+    // 확대 시 grab 커서
+    const panel = document.getElementById('image-panel');
+    if (panel && viewMode === 'image') {
+      panel.style.cursor = zoomLevel > 1 ? 'grab' : '';
+    }
+  }
+
+  document.getElementById('image-panel')?.addEventListener('wheel', (e) => {
+    if (viewMode !== 'image') return;
+    e.preventDefault();
+    e.deltaY < 0 ? zoomIn() : zoomOut();
+  }, { passive: false });
+
+  /* ===========================
+     DRAG TO PAN (IMAGE MODE)
+  =========================== */
+  let isPanning = false;
+  let panStartX = 0, panStartY = 0;
+  let panScrollLeft0 = 0, panScrollTop0 = 0;
+
+  function getPanWrap() {
+    const isSpread = viewSpread && getSpreadPages(currentPage).length > 1;
+    return document.getElementById(isSpread ? 'scan-spread-wrap' : 'scan-image-wrap');
+  }
+
+  const imagePanelEl = document.getElementById('image-panel');
+  imagePanelEl.addEventListener('mousedown', (e) => {
+    if (viewMode !== 'image' || zoomLevel <= 1) return;
+    if (e.button !== 0) return;
+    const wrap = getPanWrap();
+    isPanning = true;
+    panStartX = e.clientX;
+    panStartY = e.clientY;
+    panScrollLeft0 = wrap.scrollLeft;
+    panScrollTop0  = wrap.scrollTop;
+    imagePanelEl.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isPanning) return;
+    const wrap = getPanWrap();
+    wrap.scrollLeft = panScrollLeft0 - (e.clientX - panStartX);
+    wrap.scrollTop  = panScrollTop0  - (e.clientY - panStartY);
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isPanning) return;
+    isPanning = false;
+    imagePanelEl.style.cursor = zoomLevel > 1 ? 'grab' : '';
+  });
+
+  /* ===========================
+     PAGE SIDEBAR
+  =========================== */
+  function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    document.getElementById('page-sidebar').classList.toggle('open', sidebarOpen);
+    document.getElementById('sidebar-toggle-btn').classList.toggle('active', sidebarOpen);
+
+    // 화살표 방향 전환
+    const icon = document.getElementById('sidebar-toggle-icon');
+    if (sidebarOpen) {
+      icon.innerHTML = '<polyline points="15,18 9,12 15,6"/>';
+    } else {
+      icon.innerHTML = '<polyline points="9,18 15,12 9,6"/>';
+    }
+  }
+
+  function buildSidebarList() {
+    const list = document.getElementById('sidebar-list');
+    list.innerHTML = '';
+
+    for (let i = 1; i <= doc.total_pages; i++) {
+      const page = getPageData(i);
+      const item = document.createElement('div');
+      item.className = 'sidebar-item' + (i === currentPage ? ' active' : '');
+      item.dataset.page = i;
+
+      let badgeHTML = '';
+      if (!page) {
+        badgeHTML = '<span class="sidebar-page-badge badge-none">미입력</span>';
+      } else if (page.type === 'map') {
+        badgeHTML = '<span class="sidebar-page-badge badge-map">지도</span>';
+      } else if (page.type === 'blank') {
+        badgeHTML = '<span class="sidebar-page-badge badge-blank">빈 페이지</span>';
+      }
+
+      const title = page ? (page.title || page.title_korean || page.title_hanja || `${i}장`) : `${i}페이지`;
+
+      item.innerHTML = `
+        <div class="sidebar-page-num">${i}</div>
+        <div class="sidebar-page-info">
+          <div class="sidebar-page-title">${title}</div>
+          ${badgeHTML}
+        </div>
+      `;
+      item.addEventListener('click', () => {
+        renderPage(i);
+        document.getElementById('panel-left-body').scrollTop = 0;
+        document.getElementById('panel-right-body').scrollTop = 0;
+      });
+      list.appendChild(item);
+    }
+  }
+</script>
+</body>
+</html>

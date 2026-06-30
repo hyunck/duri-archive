@@ -594,14 +594,15 @@ const CATALOG = [
     classification: "集部 記類"
   },
   {
-    id: "dusanjeongi", // 미상
+    id: "dusanjeongi",
     title_hanja: "斗山亭記",
     title_korean: "두산정기",
-    author: "미상",
+    author: "최대수 (崔大洙)",
     year: "",
     year_display: "",
     category: "문집·기문",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-dusanjeongi.html",
     classification: "集部 記類"
   },
   {
