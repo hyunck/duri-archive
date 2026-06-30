@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김주형호구단자(1861) 金胄衡戶口單子 — 소장 문서</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    .detail-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 60px 60px;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      padding: 14px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 32px;
+    }
+    .breadcrumb a { color: var(--text-secondary); }
+    .breadcrumb a:hover { color: var(--gold-400); }
+
+    /* ===== TITLE BLOCK ===== */
+    .doc-title-block { margin-bottom: 28px; }
+    .doc-title-hanja {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--gold-400);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .doc-title-kr {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    /* ===== OVERVIEW SECTION ===== */
+    .doc-overview {
+      display: flex;
+      gap: 36px;
+      padding: 28px;
+      background: var(--bg-body);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      margin-bottom: 0;
+    }
+
+    .doc-cover {
+      flex-shrink: 0;
+      width: 180px;
+    }
+    .doc-cover img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      display: block;
+    }
+    .doc-cover-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--bg-body);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .doc-cover-placeholder-hanja {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 22px;
+      color: var(--gold-500);
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .doc-meta-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      flex: 1;
+    }
+    .overview-table tr { border-bottom: 1px solid var(--border-subtle); }
+    .overview-table tr:last-child { border-bottom: none; }
+    .overview-table td { padding: 11px 12px; vertical-align: middle; }
+    .overview-table td:first-child {
+      width: 110px;
+      color: var(--text-muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .overview-table td:last-child {
+      color: var(--text-primary);
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    }
+
+    .doc-actions {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: flex-start;
+      padding-top: 4px;
+      min-width: 160px;
+    }
+    .action-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .doc-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ===== TABS ===== */
+    .tab-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-top: 36px;
+    }
+    .tab-btn {
+      padding: 12px 28px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: var(--transition);
+      letter-spacing: 0.02em;
+    }
+    .tab-btn:hover { color: var(--text-primary); }
+    .tab-btn.active {
+      color: var(--gold-400);
+      border-bottom-color: var(--gold-600);
+    }
+
+    .tab-content { padding: 32px 0; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* 서지사항 소제목 */
+    .biblio-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .biblio-section-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: var(--gold-600);
+      border-radius: 2px;
+    }
+
+    /* 서지사항 표 */
+    .biblio-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    .biblio-table tr { border-bottom: 1px solid var(--border-subtle); }
+    .biblio-table tr:last-child { border-bottom: none; }
+    .biblio-table td { padding: 15px 16px; vertical-align: top; }
+    .biblio-table td:first-child {
+      width: 140px;
+      color: var(--text-muted);
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    .biblio-table td:last-child {
+      color: var(--text-primary);
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+    }
+    .biblio-table tr:hover td { background: var(--bg-hover); }
+
+    /* 해제 */
+    .desc-body {
+      max-width: 760px;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-primary);
+    }
+    .desc-body h3 {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 17px;
+      color: var(--gold-400);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .desc-body h3:first-child { margin-top: 0; }
+    .desc-body p { margin-bottom: 16px; }
+    .desc-body strong { color: var(--text-bright); font-weight: 600; }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .detail-wrap { padding: 0 16px 40px; }
+      .doc-title-hanja { font-size: 28px; }
+      .doc-title-kr { font-size: 16px; }
+      .doc-overview { flex-direction: column; gap: 20px; padding: 20px; }
+      .doc-cover { width: 120px; }
+      .doc-meta-block { width: 100%; }
+      .doc-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-width: auto;
+        width: 100%;
+        padding-top: 0;
+      }
+      .doc-actions .btn { flex: 1; min-width: 140px; }
+      .overview-table td:first-child { width: 80px; font-size: 13px; }
+      .overview-table td { padding: 9px 10px; font-size: 14px; }
+      .biblio-table td:first-child { width: 90px; font-size: 14px; }
+      .biblio-table td { padding: 12px 10px; }
+      .tab-btn { padding: 12px 18px; font-size: 14px; }
+      .tab-content { padding: 24px 0; }
+      .desc-body { font-size: 14px; }
+    }
+    @media (max-width: 480px) {
+      .doc-title-hanja { font-size: 22px; }
+      .breadcrumb { font-size: 12px; margin-bottom: 20px; }
+      .doc-overview { padding: 16px; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SITE HEADER ===== -->
+<header class="site-header">
+  <a href="home.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-item" href="home.html">두리종중</a>
+    <a class="nav-item active" href="index.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item" href="jongtaek.html">종택</a>
+    <a class="nav-item" href="village.html">주변 지리</a>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+  </nav>
+</header>
+
+<!-- ===== DETAIL CONTENT ===== -->
+<div class="detail-wrap">
+
+  <div class="breadcrumb">
+    <a href="index.html">소장 문서</a>
+    <span>›</span>
+    <span>김주형호구단자(1861)</span>
+  </div>
+
+  <!-- 제목 -->
+  <div class="doc-title-block">
+    <div class="doc-title-hanja">金胄衡戶口單子</div>
+    <div class="doc-title-kr">김주형호구단자 (1861)</div>
+  </div>
+
+  <!-- 개요 카드 -->
+  <div class="doc-overview">
+    <!-- 표지 이미지 -->
+    <div class="doc-cover">
+      <img src="images/hoju-1861/cover.png" alt="김주형호구단자(1861) 표지"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="doc-cover-placeholder" style="display:none">
+        <div class="doc-cover-placeholder-hanja">戶口<br>單子</div>
+      </div>
+    </div>
+
+    <!-- 핵심 서지 -->
+    <div class="doc-meta-block">
+      <table class="overview-table">
+        <tbody>
+          <tr><td>작성자</td><td>미상</td></tr>
+          <tr><td>간행연도</td><td>咸豊11年(1861)</td></tr>
+          <tr><td>책권수</td><td>1張</td></tr>
+          <tr><td>판본사항</td><td>戶口單子</td></tr>
+          <tr><td>분류</td><td>史部 政書類</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 열람 버튼 -->
+    <div class="doc-actions">
+      <div class="action-label">디지털 열람</div>
+      <a href="viewer-hoju1861.html" class="btn btn-gold">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        국역·원문 대조 보기
+      </a>
+      <button class="btn btn-ghost" id="image-view-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21,15 16,10 5,21"/>
+        </svg>
+        원문 이미지 보기
+      </button>
+    </div>
+  </div>
+
+  <!-- 탭 -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="biblio">서지사항</button>
+    <button class="tab-btn" data-tab="desc">해제</button>
+  </div>
+
+  <div class="tab-content">
+    <!-- 서지사항 -->
+    <div class="tab-pane active" id="tab-biblio">
+      <div class="biblio-section-title">상세 서지</div>
+      <table class="biblio-table">
+        <tbody>
+          <tr><td>원서명</td><td>金胄衡戶口單子</td></tr>
+          <tr><td>현대어서명</td><td>김주형호구단자</td></tr>
+          <tr><td>작성자</td><td>미상</td></tr>
+          <tr><td>작성연도</td><td>咸豊11年(1861)</td></tr>
+          <tr><td>책권수</td><td>1張</td></tr>
+          <tr><td>책크기</td><td>약 60×80cm</td></tr>
+          <tr><td>판본사항</td><td>戶口單子(호구단자)</td></tr>
+          <tr><td>분류</td><td>史部 政書類</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 해제 -->
+    <div class="tab-pane" id="tab-desc">
+      <div class="desc-body" id="desc-body"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면 두리</span>
+        <span>사이트 관리 : 14대손</span>
+      </div>
+      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="home.html">홈</a>
+      <a href="index.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<script src="theme.js"></script>
+<script src="data/hoju-1861.js"></script>
+<script>
+  document.getElementById('desc-body').innerHTML = DOC_HOJU_1861.description;
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    });
+  });
+
+  document.getElementById('image-view-btn').addEventListener('click', () => {
+    sessionStorage.setItem('viewMode', 'image');
+    location.href = 'viewer-hoju1861.html';
+  });
+</script>
+</body>
+</html>

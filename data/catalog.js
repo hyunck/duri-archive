@@ -49,7 +49,8 @@ const CATALOG = [
     year: "1843",
     year_display: "道光23年(1843)",
     category: "호적·관문서",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-hoju1843.html",
     classification: "史部 政書類"
   },
   {
@@ -60,7 +61,8 @@ const CATALOG = [
     year: "1861",
     year_display: "咸豊11年(1861)",
     category: "호적·관문서",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-hoju1861.html",
     classification: "史部 政書類"
   },
   {
