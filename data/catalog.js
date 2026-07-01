@@ -584,14 +584,15 @@ const CATALOG = [
 
   // ── 문집·기문 ────────────────────────────────────────────
   {
-    id: "yeongbindaegi", // 미상
+    id: "yeongbindaegi",
     title_hanja: "迎賓臺記",
     title_korean: "영빈대기",
-    author: "미상",
+    author: "윤두병 (尹斗炳)",
     year: "",
     year_display: "",
     category: "문집·기문",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-yeongbin.html",
     classification: "集部 記類"
   },
   {
