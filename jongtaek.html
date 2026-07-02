@@ -144,6 +144,23 @@
     .source-block-img .img-caption {
       margin-top: 6px;
     }
+    .source-view-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    .source-view-btn {
+      font-size: 12px;
+      color: var(--gold-600);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      letter-spacing: 0.04em;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .source-view-btn:hover { color: var(--gold-400); }
     .source-block-text {
       flex: 1;
       font-size: 14px;
@@ -261,25 +278,38 @@
         양양 김택준 가옥은 강원특별자치도 양양군 현남면 두리(斗里)에 위치한 경주김씨 상촌공파 두리종중의 종택으로, 조선 후기 17세기말~18세기초 사이 입향조인 김여경(金如慶)에 의해 처음 지어졌다. 김여경은 양양읍에 거주하던 상촌공파의 후손으로, 이 시기에 현남면으로 내려와 두리 일대의 숲을 개척하여 살기 시작했다.
       </p>
       <p>
-        이후 1804년(순조 4) 3월 강원도 영동지역에 발생한 대형 산불이 두리 일대까지 번지면서, 가옥이 전소하는 사건이 발생한다. 이 때의 산불은 왕에게 보고될 정도의 큰 불이었는데, 『조선왕조실록(朝鮮王朝實錄)』의 기사에 따르면 산불이 강원도 삼척에서 통천까지 200여km를 이동하며 민가 2천 6백여 호과 사찰 6곳을 불태우고 61명이 불에 타 죽었다고 전한다. 이 사건으로 두리 일대의 가옥은 물론, 종가에서 소장하던 문권(文券)과 입향조인 김여경과 그의 장남 김한태(金漢泰)의 가자(加資, 관직과 품계를 올려주는 증서), 김여경의 현손(玄孫)인 김도철(金道喆)의 홍패(御賜紅牌)까지 모두 불타게 된다. 해당 사실은 김도철이 관아에 올린 소지를 김여경의 9대손인 김규하(金圭夏)가 『종가실록(宗家實錄)』에 필사해두어 오늘날까지 전한다.
+        이후 1804년(순조 4) 3월 강원도 영동지역에 발생한 대형 산불이 두리 일대까지 번지면서, 가옥이 전소하는 사건이 발생한다. 이 때의 산불은 왕에게 보고될 정도의 큰 불이었는데, 『조선왕조실록(朝鮮王朝實錄)』의 기사에 따르면 산불이 강원도 삼척에서 통천까지 200여km를 이동하며 민가 2천 6백여 호와 사찰 6곳을 불태우고 61명이 불에 타 죽었다고 전한다. 이 사건으로 두리 일대의 가옥은 물론, 종가에 소장하던 문권(文券)과 입향조인 김여경 및 그의 장남 김한태(金漢泰)의 가자(加資, 관직과 품계를 올려주는 증서), 김여경의 현손(玄孫)인 김도철(金道喆)의 홍패(御賜紅牌)까지 모두 불타게 된다. 해당 사실은 김도철이 양양부 관아에 올린 소지를 9대손인 김규하(金圭夏)가 『종가실록(宗家實錄)』에 필사해두어 오늘날까지 전한다.
       </p>
       <div class="source-block">
         <div class="source-block-img">
-          <img src="images/jongga-1930/page_06.png" alt="종가실록 7페이지 — 김도철 소지" class="lightbox-trigger">
-          <div class="img-caption">『종가실록』 7페이지 — 김도철 소지(所志)</div>
+          <img src="images/jongga-1930/page_06.png" alt="종가실록 6페이지 — 김도철 소지" class="lightbox-trigger">
+          <div class="img-caption">『종가실록』 6페이지 — 김도철 소지(所志)</div>
+          <div class="source-view-toggle">
+            <button class="source-view-btn" id="source-toggle-btn">원문 보기</button>
+          </div>
         </div>
         <div class="source-block-text">
-          <div class="source-kr">
+          <div class="source-kr" id="source-kr">
             <p>현남면에 거주하는 김도철이 올리는 소지</p>
-            <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 집이 금년 3월 화재로 인하여 집안에 보관하던 협물과 대대로 전해오던 전답의 문서가 하나도 남김없이 모두 불타버렸사옵니다. 이에 땅의 자호(字號)와 면적(卜數)을 뒤에 기록하여 우러러 호소하오니, 굽어살피시어 훗날의 증빙이 되도록 사리를 논하여 입지(立旨)를 작성하여 발급해 주시기를 바라옵니다.</p>
+            <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 집이 금년(1804년) 3월 화재로 인하여 집안에 보관하던 협물과 대대로 전해오던 전답의 문서가 하나도 남김없이 모두 불타버렸사옵니다. 이에 땅의 자호(字號)와 면적(卜數)을 뒤에 기록하여 우러러 호소하오니, 굽어살피시어 훗날의 증빙이 되도록 사리를 논하여 입지(立旨)를 작성하여 발급해 주시기를 바라옵니다.</p>
             <p>사또 나으리(使道主)의 처분을 바랍니다. 초8일 [인]</p>
             <p>금년의 화재는 전례가 없던 큰불이었습니다.</p>
+            <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+            <p>(양양부) 관아</p>
+            <p>갑자년(1804년) 3월 일 훗날 상고할 수 있도록 입지를 작성하여 발급하도록 할 일.</p>
+            <p>뒤에 기록함</p>
+            <p>논 482마지기는 (너무 많아) 낱낱이 다 기록할 수 없는 바다. 밭 202마지기는 낱낱이 다 기록할 수 없는 바다.</p>
           </div>
-          <div class="source-hj">
+          <div class="source-hj" id="source-hj" style="display:none;">
             <p>縣南居 金道喆</p>
             <p>右謹陳所志矣段 矣身 今年 三月火災 家藏叶物 傳來田畓文券 無一餘存 而沒爲燒燼乙 仍于 字號卜數 後錄 仰訴爲去乎 參諒敎是後 憑後次 論理立旨 成給爲只爲 行下向敎是事</p>
             <p>使道主 處分 初八日 [印]</p>
             <p>今年火災 前古所無</p>
+            <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+            <p>官</p>
+            <p>甲子三月 日 後考次 立旨成給 向事</p>
+            <p>後</p>
+            <p>畓 四百八十二斗落 不可枚記 際 田 二百二斗落 不可枚記 際</p>
           </div>
         </div>
       </div>
@@ -452,6 +482,20 @@
 
 <script src="style.js" onerror="void 0"></script>
 <script>
+  // 국역/원문 토글
+  const toggleBtn = document.getElementById('source-toggle-btn');
+  const krEl = document.getElementById('source-kr');
+  const hjEl = document.getElementById('source-hj');
+  if (toggleBtn) {
+    let showingHj = false;
+    toggleBtn.addEventListener('click', () => {
+      showingHj = !showingHj;
+      krEl.style.display = showingHj ? 'none' : '';
+      hjEl.style.display = showingHj ? '' : 'none';
+      toggleBtn.textContent = showingHj ? '국역 보기' : '원문 보기';
+    });
+  }
+
   // 라이트박스
   const overlay = document.getElementById('lightbox');
   const lbImg   = document.getElementById('lightbox-img');
