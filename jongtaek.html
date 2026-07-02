@@ -342,8 +342,36 @@
         </div>
       </div>
 
+      <div class="source-block">
+        <div class="source-block-img">
+          <img src="images/jongga-1930/page_08.png" alt="종가실록 8페이지 — 김도철 소지" class="lightbox-trigger">
+          <div class="img-caption">『종가실록』 8페이지 — 김도철 소지(所志)</div>
+          <div class="source-view-toggle">
+            <button class="source-view-btn" id="source-toggle-btn-3">원문 보기</button>
+          </div>
+        </div>
+        <div class="source-block-text">
+          <div id="source-kr-3">
+            <p>현남면에 거주하는 김도철이 올리는 소지</p>
+            <p>이는 삼가 소지로 말씀드리는 일입니다. 저는 지난 신유년(1801년) 도과(道科)에 참방(합격)한 출신이온데, 임금께서 내리신 홍패(御賜紅牌)가 금년 3월 화재가 나면서 집에 보관하던 것과 아울러 불타 재가 되어버렸사옵니다. 이러한 까닭에 바야흐로 병조(兵曹)에 올라가 완문(完文, 관청의 공식 증명서)을 작성하여 처리(계료)받고자 하오니, 굽어살피시어 훗날 증빙으로 삼을 수 있도록 입지를 작성하여 발급해 주시기를 처분하여 내려주시기를 바라옵니다.</p>
+            <p>사또 나으리의 처분을 바랍니다. 초8일 [인]</p>
+            <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+            <p>(양양부) 관아</p>
+            <p>갑자년 12월 일 소지에 대하여, 증빙으로 삼을 수 있도록 입지를 작성하여 발급하도록 할 일. [인]</p>
+          </div>
+          <div class="source-hj" id="source-hj-3" style="display:none;">
+            <p>縣南居 金道喆</p>
+            <p>右謹陳所志矣段 矣身 去辛酉年 道科參榜出身 是白乎所 御賜紅牌 今年三月分火災 與家藏幷爲燒燼 是白乎 等以 方欲往 兵曹 成完文 計料 爲去乎 參商敎是後 憑準次 立旨成給爲只爲 行下向敎是事</p>
+            <p>使道主 處分 初八日 [印]</p>
+            <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+            <p>官</p>
+            <p>甲子 十二月 日 所志 憑準次 立旨成給 向事 [印]</p>
+          </div>
+        </div>
+      </div>
+
       <p>
-        [이후 연혁, 현재 상태 등 추가 예정]
+        이후 1860년의 기록에서 종가에 대해 12칸의 기와집이라 언급되어, 전소 이후 12칸의 규모로 중건되었음을 알 수 있다.
       </p>
     </div>
 
@@ -521,6 +549,19 @@
       krEl.style.display = showingHj ? 'none' : '';
       hjEl.style.display = showingHj ? '' : 'none';
       toggleBtn.textContent = showingHj ? '국역 보기' : '원문 보기';
+    });
+  }
+
+  const toggleBtn3 = document.getElementById('source-toggle-btn-3');
+  const krEl3 = document.getElementById('source-kr-3');
+  const hjEl3 = document.getElementById('source-hj-3');
+  if (toggleBtn3) {
+    let showingHj3 = false;
+    toggleBtn3.addEventListener('click', () => {
+      showingHj3 = !showingHj3;
+      krEl3.style.display = showingHj3 ? 'none' : '';
+      hjEl3.style.display = showingHj3 ? '' : 'none';
+      toggleBtn3.textContent = showingHj3 ? '국역 보기' : '원문 보기';
     });
   }
 
