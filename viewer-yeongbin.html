@@ -917,9 +917,10 @@
     // 페이지 카운터
     document.getElementById('page-current').textContent =
       spreadNums.length > 1 ? `${spreadNums[0]}–${spreadNums[1]}` : num;
-    document.getElementById('page-total').textContent = doc.total_pages;
+    const maxPage = viewMode === 'compare' ? (doc.compare_pages || doc.total_pages) : doc.total_pages;
+    document.getElementById('page-total').textContent = maxPage;
     document.getElementById('btn-prev').disabled = num <= 1;
-    document.getElementById('btn-next').disabled = num >= doc.total_pages;
+    document.getElementById('btn-next').disabled = num >= maxPage;
 
     // 사이드바 하이라이트
     document.querySelectorAll('.sidebar-item').forEach(el => {
@@ -1195,7 +1196,8 @@
     } else {
       target = currentPage + delta;
     }
-    if (target < 1 || target > doc.total_pages) return;
+    const pageLimit = viewMode === 'compare' ? (doc.compare_pages || doc.total_pages) : doc.total_pages;
+    if (target < 1 || target > pageLimit) return;
     zoomLevel = 1; applyZoom();
     renderPage(target);
     document.getElementById('panel-left-body').scrollTop = 0;
@@ -1237,8 +1239,12 @@
       viewSpread = false;
       document.getElementById('toggle-single').classList.add('active');
       document.getElementById('toggle-spread').classList.remove('active');
-      renderPage(currentPage);
     }
+    // 대조 보기 전환 시 compare_pages 초과 페이지면 1페이지로 이동
+    if (mode === 'compare' && doc.compare_pages && currentPage > doc.compare_pages) {
+      currentPage = 1;
+    }
+    renderPage(currentPage);
     showCompareOrImage();
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
     document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
@@ -1522,6 +1528,9 @@
         </div>
       `;
       item.addEventListener('click', () => {
+        if (viewMode === 'compare' && doc.compare_pages && i > doc.compare_pages) {
+          setViewMode('image');
+        }
         renderPage(i);
         document.getElementById('panel-left-body').scrollTop = 0;
         document.getElementById('panel-right-body').scrollTop = 0;

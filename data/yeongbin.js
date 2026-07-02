@@ -11,8 +11,9 @@ const DOC_YEONGBIN = {
   classification: "集部 記類",
   seal: "",
   digitized: true,
-  total_pages: 1,
-  digitized_pages: 0,
+  total_pages: 6,
+  compare_pages: 1,
+  digitized_pages: 6,
 
   bibliography: {
     "원서명": "迎賓臺記",
@@ -53,6 +54,41 @@ const DOC_YEONGBIN = {
         {id:"001", text:"당나라의 시인 이상은(李商隱)의 시구에서 유래한 표현으로, '말하지 않아도 두 사람의 마음이 서로 잘 통함'을 뜻한다."},
         {id:"002", text:"'훌륭한 벗과 함께하는 자리, 만남'이라는 뜻으로 저자가 김규하와의 만남을 공자(孔子)의 말에서 유래한 '지란지실(芝蘭之室)'에 비유하여 그와의 만남이 고상하고 유익한 일이었다고 예찬하는 수사적 표현이다."}
       ]
+    },
+    {
+      page_num: 2,
+      type: "image",
+      title: "확대 이미지 1",
+      image: "images/yeongbin/page_02.png",
+      hanja_text: "", korean_translation: "", note: "", annotations: []
+    },
+    {
+      page_num: 3,
+      type: "image",
+      title: "확대 이미지 2",
+      image: "images/yeongbin/page_03.png",
+      hanja_text: "", korean_translation: "", note: "", annotations: []
+    },
+    {
+      page_num: 4,
+      type: "image",
+      title: "확대 이미지 3",
+      image: "images/yeongbin/page_04.png",
+      hanja_text: "", korean_translation: "", note: "", annotations: []
+    },
+    {
+      page_num: 5,
+      type: "image",
+      title: "확대 이미지 4",
+      image: "images/yeongbin/page_05.png",
+      hanja_text: "", korean_translation: "", note: "", annotations: []
+    },
+    {
+      page_num: 6,
+      type: "image",
+      title: "확대 이미지 5",
+      image: "images/yeongbin/page_06.png",
+      hanja_text: "", korean_translation: "", note: "", annotations: []
     }
   ]
 };
