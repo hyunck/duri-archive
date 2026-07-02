@@ -12,7 +12,7 @@ const DOC_DUSANJEONGI = {
   seal: "",
   digitized: true,
   total_pages: 4,
-  digitized_pages: 0,
+  digitized_pages: 4,
 
   bibliography: {
     "원서명": "斗山亭記",
@@ -42,7 +42,7 @@ const DOC_DUSANJEONGI = {
       page_num: 1,
       type: "text",
       title: "1페이지 : 봉투 앞면",
-      image: "images/dusanjeongi/page_01.png",
+      image: "images/dusanjeonggi/page_01.png",
       hanja_text: `[[지명:襄陽郡縣南面⽃⾥]]
 
 [[인물:金]]斯文 [[인물:圭夏]] 座前`,
@@ -56,7 +56,7 @@ const DOC_DUSANJEONGI = {
       page_num: 2,
       type: "text",
       title: "2페이지 : 봉투 뒷면",
-      image: "images/dusanjeongi/page_02.png",
+      image: "images/dusanjeonggi/page_02.png",
       hanja_text: `[[지명:江陵新里面橋項里]][[001]]
 
 [[인물:崔大洙]] 付`,
@@ -72,7 +72,7 @@ const DOC_DUSANJEONGI = {
       page_num: 3,
       type: "text",
       title: "3페이지 : 두산정기",
-      image: "images/dusanjeongi/page_03.png",
+      image: "images/dusanjeonggi/page_03.png",
       hanja_text: `斗山亭記
 
 [[지명:峴山郡]]東南五十里有[[지명:斗里]]，山處[[지명:]]竹島上，自[[지명:縣南驛]][[002]]，山囘路轉，緣曲磵，攀小崖，行至數里，得一區，山高而谷溪泉甘，而土肥漁採之外，優有田園之樂，真幽人逸士可居之地也。友人[[인물:金圭夏]]世居其地，地勢狹，凹宗族之同居一谷者，不過數十戶，墻屋相連，殆不能容。地之以斗得名，豈以此歟。欲築小亭於山之東邊，卜詢基址，巨松蒼欝，老巖峻嶝，朝日寅賓於扶桑之界，海波隱映於[[지명:島竹]]之間，世所謂神仙洞府者，無以過矣。
@@ -108,7 +108,7 @@ const DOC_DUSANJEONGI = {
       page_num: 4,
       type: "text",
       title: "4페이지 : 동봉된 편지",
-      image: "images/dusanjeongi/page_04.png",
+      image: "images/dusanjeonggi/page_04.png",
       hanja_text: "",
       korean_translation: "",
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
