@@ -1,82 +1,185 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>종택 — 두리종중 디지털 아카이브</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
     /* ── 페이지 레이아웃 ── */
-    .page-wrap { max-width: 860px; margin: 0 auto; padding: 64px 40px 100px; }
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 40px 100px;
+    }
 
     /* ── 페이지 히어로 ── */
-    .page-hero { padding: 56px 40px 48px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 860px; margin: 0 auto; }
-    .page-title-ko { font-family: var(--font-serif); font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
-    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.18em; margin-top: 6px; }
-    .page-title-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; letter-spacing: 0.02em; }
-    .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
-    .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
-    .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
-    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
+    .page-hero {
+      padding: 56px 40px 48px;
+      border-bottom: 1px solid var(--border-normal);
+      background: var(--bg-body);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .page-title-ko {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+    }
+
+    .page-title-hanja {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      color: var(--gold-600);
+      letter-spacing: 0.18em;
+      margin-top: 6px;
+    }
+
+    .page-title-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-ornament {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-800), transparent);
+    }
+
+    .hero-ornament-line.right {
+      background: linear-gradient(90deg, transparent, var(--gold-800));
+    }
+
+    .hero-ornament-text {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      color: var(--gold-800);
+      letter-spacing: 0.18em;
+    }
 
     /* ── 섹션 ── */
-    .section { margin-top: 64px; }
-    .section + .section { margin-top: 72px; }
+    .section {
+      margin-top: 64px;
+    }
+
+    .section+.section {
+      margin-top: 72px;
+    }
+
     .section-title {
       font-family: var(--font-serif);
-      font-size: 20px; font-weight: 700;
-      color: var(--text-bright); letter-spacing: 0.04em;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border-normal);
       margin-bottom: 28px;
     }
+
     .section-title span {
-      font-size: 13px; font-weight: 400;
-      color: var(--gold-600); letter-spacing: 0.12em;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gold-600);
+      letter-spacing: 0.12em;
       margin-left: 12px;
       font-family: var(--font-serif);
     }
 
     /* ── 본문 텍스트 ── */
     .body-text {
-      font-size: 15px; line-height: 2;
+      font-size: 15px;
+      line-height: 2;
       color: var(--text-primary);
     }
-    .body-text p { margin-bottom: 18px; }
-    .body-text p:last-child { margin-bottom: 0; }
+
+    .body-text p {
+      margin-bottom: 18px;
+    }
+
+    .body-text p:last-child {
+      margin-bottom: 0;
+    }
 
     /* ── 이미지 블록 ── */
-    .img-block { margin: 32px 0; }
+    .img-block {
+      margin: 32px 0;
+    }
+
     .img-block img {
-      width: 100%; border-radius: var(--radius-md);
+      width: 100%;
+      border-radius: var(--radius-md);
       border: 1px solid var(--border-normal);
       display: block;
     }
-    .img-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 32px 0; }
-    .img-block-row img {
-      width: 100%; aspect-ratio: 4/3; object-fit: cover;
-      border-radius: var(--radius-md); border: 1px solid var(--border-normal);
+
+    .img-block-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 32px 0;
     }
+
+    .img-block-row img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-normal);
+    }
+
     .img-caption {
-      font-size: 12px; color: var(--text-muted);
-      text-align: center; margin-top: 8px; letter-spacing: 0.02em;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
     }
 
     /* ── 이미지 플레이스홀더 ── */
     .img-placeholder {
-      width: 100%; background: var(--bg-elevated);
+      width: 100%;
+      background: var(--bg-elevated);
       border: 1px dashed var(--border-normal);
       border-radius: var(--radius-md);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      color: var(--text-muted); font-size: 13px;
-      gap: 8px; letter-spacing: 0.04em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      gap: 8px;
+      letter-spacing: 0.04em;
     }
-    .img-placeholder.tall { aspect-ratio: 16/9; }
-    .img-placeholder.sq { aspect-ratio: 4/3; }
-    .img-placeholder-icon { font-size: 28px; opacity: 0.4; }
+
+    .img-placeholder.tall {
+      aspect-ratio: 16/9;
+    }
+
+    .img-placeholder.sq {
+      aspect-ratio: 4/3;
+    }
+
+    .img-placeholder-icon {
+      font-size: 28px;
+      opacity: 0.4;
+    }
 
     /* ── 강조 인용 ── */
     .quote-block {
@@ -86,42 +189,67 @@
       border-left: 3px solid var(--gold-600);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
       font-family: var(--font-serif);
-      font-size: 14px; line-height: 2;
+      font-size: 14px;
+      line-height: 2;
       color: var(--text-secondary);
     }
 
     /* ── 가옥 구조 정보 박스 ── */
     .info-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border-normal);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-normal);
       border: 1px solid var(--border-normal);
       border-radius: var(--radius-md);
-      overflow: hidden; margin: 28px 0;
+      overflow: hidden;
+      margin: 28px 0;
     }
+
     .info-cell {
       background: var(--bg-body);
       padding: 16px 18px;
     }
+
     .info-cell-label {
-      font-size: 11px; color: var(--text-muted);
-      letter-spacing: 0.08em; margin-bottom: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }
+
     .info-cell-value {
-      font-size: 15px; font-weight: 600;
+      font-size: 15px;
+      font-weight: 600;
       color: var(--text-bright);
     }
 
     /* ── 이야기 항목 ── */
-    .story-item { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border-subtle); }
-    .story-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .story-item {
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .story-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
     .story-num {
-      font-family: var(--font-serif); font-size: 11px;
-      color: var(--gold-600); letter-spacing: 0.14em;
+      font-family: var(--font-serif);
+      font-size: 11px;
+      color: var(--gold-600);
+      letter-spacing: 0.14em;
       margin-bottom: 10px;
     }
+
     .story-title {
-      font-size: 16px; font-weight: 700;
-      color: var(--text-bright); margin-bottom: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 14px;
     }
 
     /* ── 사료 블록 (이미지 + 텍스트 나란히) ── */
@@ -131,24 +259,29 @@
       margin: 28px 0;
       align-items: flex-start;
     }
+
     .source-block-img {
       flex-shrink: 0;
       width: 240px;
     }
+
     .source-block-img img {
       width: 100%;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-normal);
       display: block;
     }
+
     .source-block-img .img-caption {
       margin-top: 6px;
     }
+
     .source-view-toggle {
       display: flex;
       justify-content: flex-end;
       margin-top: 8px;
     }
+
     .source-view-btn {
       font-size: 12px;
       color: var(--gold-600);
@@ -160,29 +293,50 @@
       text-decoration: underline;
       text-underline-offset: 3px;
     }
-    .source-view-btn:hover { color: var(--gold-400); }
+
+    .source-view-btn:hover {
+      color: var(--gold-400);
+    }
+
     .source-block-text {
       flex: 1;
       font-size: 14px;
       line-height: 2;
       color: var(--text-secondary);
     }
+
     .source-block-text .source-kr {
       margin-bottom: 0;
       padding-bottom: 0;
     }
+
     .source-block-text .source-hj {
       color: var(--text-secondary);
     }
+
     @media (max-width: 640px) {
-      .source-block { flex-direction: column; }
-      .source-block-img { width: 100%; }
+      .source-block {
+        flex-direction: column;
+      }
+
+      .source-block-img {
+        width: 100%;
+      }
     }
 
     /* ── 소지 캐러셀 ── */
-    .source-carousel { position: relative; }
-    .source-slide { display: none; }
-    .source-slide.active { display: block; }
+    .source-carousel {
+      position: relative;
+    }
+
+    .source-slide {
+      display: none;
+    }
+
+    .source-slide.active {
+      display: block;
+    }
+
     .source-pagination {
       display: flex;
       justify-content: center;
@@ -190,6 +344,7 @@
       margin-bottom: 28px;
       margin-top: 20px;
     }
+
     .source-page-btn {
       width: 32px;
       height: 32px;
@@ -204,10 +359,12 @@
       align-items: center;
       justify-content: center;
     }
+
     .source-page-btn:hover {
       border-color: var(--gold-600);
       color: var(--gold-400);
     }
+
     .source-page-btn.active {
       background: var(--gold-600);
       border-color: var(--gold-600);
@@ -219,39 +376,45 @@
     .lightbox-trigger {
       cursor: zoom-in;
     }
+
     .lightbox-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.82);
+      background: rgba(0, 0, 0, 0.82);
       z-index: 9000;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
+
     .lightbox-overlay.open {
       display: flex;
     }
+
     .lightbox-overlay img {
       max-width: 90vw;
       max-height: 90vh;
       object-fit: contain;
       border-radius: var(--radius-md);
-      box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
       cursor: zoom-in;
       transform-origin: center center;
       transition: transform 0.2s ease;
       user-select: none;
       -webkit-user-drag: none;
     }
+
     .lightbox-overlay img.zoomed {
       cursor: grab;
       border-radius: 0;
     }
+
     .lightbox-overlay img.zoomed.dragging {
       cursor: grabbing;
       transition: none;
     }
+
     .lightbox-close {
       position: fixed;
       top: 20px;
@@ -259,7 +422,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.12);
       border: none;
       color: #fff;
       font-size: 20px;
@@ -270,505 +433,606 @@
       transition: background 0.15s;
       z-index: 9001;
     }
-    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* ── 테마별 로고 ── */
+    [data-theme="dark"] .logo-theme-light { display: none !important; }
+    [data-theme="dark"] .logo-theme-dark  { display: block !important; }
+
     .lightbox-hint {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255, 255, 255, 0.45);
       pointer-events: none;
       letter-spacing: 0.04em;
       z-index: 9001;
     }
 
     /* ── 지도 ── */
-    .map-section { margin-top: 72px; }
+    .map-section {
+      margin-top: 72px;
+    }
+
     .map-container {
-      width: 100%; height: 420px;
+      width: 100%;
+      height: 420px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-normal);
-      overflow: hidden; position: relative;
+      overflow: hidden;
+      position: relative;
       background: var(--bg-elevated);
     }
-    .map-container iframe { width: 100%; height: 100%; border: none; }
-    .map-info {
-      margin-top: 14px; display: flex; align-items: flex-start;
-      gap: 28px; font-size: 13px; color: var(--text-muted);
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
-    .map-info-item { display: flex; gap: 8px; align-items: baseline; }
-    .map-info-label { color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+
+    .map-info {
+      margin-top: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .map-info-item {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .map-info-label {
+      color: var(--text-secondary);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
     .map-link {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 12px; font-size: 13px;
-      color: var(--gold-600); border-bottom: 1px solid var(--gold-300);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--gold-600);
+      border-bottom: 1px solid var(--gold-300);
     }
   </style>
 </head>
+
 <body>
 
-<header class="site-header">
-  <a href="home.html" class="logo-wrap">
-    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
-    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
-  </a>
-  <nav class="site-nav">
-    <a class="nav-item" href="home.html">두리종중</a>
-    <a class="nav-item" href="index.html">소장 문서</a>
-    <a class="nav-item" href="family.html">가계도</a>
-    <a class="nav-item active" href="jongtaek.html">종택</a>
-    <a class="nav-item" href="village.html">주변 지리</a>
-    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
-  </nav>
-</header>
-
-<div class="page-hero">
-  <div class="page-title-ko">양양 김택준 가옥</div>
-</div>
-
-<div class="page-wrap">
-
-  <!-- ① 가옥 소개 -->
-  <section class="section">
-    <h2 class="section-title">가옥의 연혁 <span>沿革</span></h2>
-    <div class="body-text">
-      <p>
-        양양 김택준 가옥은 강원특별자치도 양양군 현남면 두리(斗里)에 위치한 경주김씨 상촌공파 두리종중의 종택으로, 조선 후기 17세기말~18세기초 사이 입향조인 김여경(金如慶)에 의해 처음 지어졌다. 김여경은 양양읍에 거주하던 상촌공파의 후손으로, 이 시기에 현남면으로 내려와 두리 일대의 숲을 개척하여 살기 시작했다.
-      </p>
-      <p>
-        이후 1804년(순조 4) 3월 강원도 영동지역에 발생한 대형 산불이 두리 일대까지 번지면서, 가옥이 전소하는 사건이 발생한다. 이 때의 산불은 왕에게 보고될 정도의 큰 불이었는데, 『조선왕조실록(朝鮮王朝實錄)』의 기사에 따르면 산불이 강원도 삼척에서 통천까지 200여km를 이동하며 민가 2천 6백여 호와 사찰 6곳을 불태우고 61명이 불에 타 죽었다고 전한다. 이 사건으로 가옥은 물론, 종가에 소장하던 문권(文券)과 입향조인 김여경 및 장남 김한태(金漢泰)의 가자(加資, 관직과 품계를 올려주는 증서), 김여경의 현손(玄孫)인 김도철(金道喆)의 홍패(御賜紅牌)까지 모두 불타게 된다. 선전관을 지낸 김도철이 가주(家主)일 때의 일이다. 해당 사실은 화재 직후 김도철이 양양부 관아에 올린 소지를 9대손인 김규하(金圭夏)가 『종가실록(宗家實錄)』에 필사해두어 오늘날까지 전한다.
-      </p>
-      <div class="source-carousel">
-        <!-- 슬라이드 1 -->
-        <div class="source-slide active" data-slide="1">
-          <div class="source-block">
-            <div class="source-block-img">
-              <img src="images/jongga-1930/page_06.png" alt="종가실록 6페이지 — 김도철 소지" class="lightbox-trigger">
-              <div class="img-caption">『종가실록』 6페이지 — 김도철 소지(所志)</div>
-              <div class="source-view-toggle">
-                <button class="source-view-btn" id="source-toggle-btn">원문 보기</button>
-              </div>
-            </div>
-            <div class="source-block-text">
-              <div class="source-kr" id="source-kr">
-                <p>현남면에 거주하는 김도철이 올리는 소지</p>
-                <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 집이 금년(1804년) 3월 화재로 인하여 집안에 보관하던 협물과 대대로 전해오던 전답의 문서가 하나도 남김없이 모두 불타버렸사옵니다. 이에 땅의 자호(字號)와 면적(卜數)을 뒤에 기록하여 우러러 호소하오니, 굽어살피시어 훗날의 증빙이 되도록 사리를 논하여 입지(立旨)를 작성하여 발급해 주시기를 바라옵니다.</p>
-                <p>사또 나으리(使道主)의 처분을 바랍니다. 초8일 [인]</p>
-                <p>금년의 화재는 전례가 없던 큰불이었습니다.</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>(양양부) 관아</p>
-                <p>갑자년(1804년) 3월 일 훗날 상고할 수 있도록 입지를 작성하여 발급하도록 할 일.</p>
-                <p>뒤에 기록함</p>
-                <p>논 482마지기는 (너무 많아) 낱낱이 다 기록할 수 없는 바다. 밭 202마지기는 낱낱이 다 기록할 수 없는 바다.</p>
-              </div>
-              <div class="source-hj" id="source-hj" style="display:none;">
-                <p>縣南居 金道喆</p>
-                <p>右謹陳所志矣段 矣身 今年 三月火災 家藏叶物 傳來田畓文券 無一餘存 而沒爲燒燼乙 仍于 字號卜數 後錄 仰訴爲去乎 參諒敎是後 憑後次 論理立旨 成給爲只爲 行下向敎是事</p>
-                <p>使道主 處分 初八日 [印]</p>
-                <p>今年火災 前古所無</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>官</p>
-                <p>甲子三月 日 後考次 立旨成給 向事</p>
-                <p>後</p>
-                <p>畓 四百八十二斗落 不可枚記 際 田 二百二斗落 不可枚記 際</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 슬라이드 2 -->
-        <div class="source-slide" data-slide="2">
-          <div class="source-block">
-            <div class="source-block-img">
-              <img src="images/jongga-1930/page_07.png" alt="종가실록 7페이지 — 김도철 소지" class="lightbox-trigger">
-              <div class="img-caption">『종가실록』 7페이지 — 김도철 소지(所志)</div>
-              <div class="source-view-toggle">
-                <button class="source-view-btn" id="source-toggle-btn-2">원문 보기</button>
-              </div>
-            </div>
-            <div class="source-block-text">
-              <div id="source-kr-2">
-                <p>현남면에 거주하는 김도철이 올리는 소지</p>
-                <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 고조이신 가선대부 증 한성부좌윤 겸 오위도총부부총관의 가자(加資)와 증조이신 자헌대부 행 동지중추부사의 가자, 이 두 장이 금년 3월 화재가 나면서 집에 보관하던 것과 아울러 불타 재가 되었사온 바, 이러한 연유로 우러러 호소하오니 굽어살피시어, 훗날 상고할 증빙으로 삼을 수 있도록 입지를 작성하여 발급해 주시기를 처분하여 내려주시기를 바라옵니다.</p>
-                <p>사또 나으리의 처분을 바랍니다. 초8일 [인]</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>(양양부) 관아</p>
-                <p>갑자년 12월 일 소지에 대하여, 훗날 상고할 수 있도록 입지를 작성하여 발급하도록 할 일 [인]</p>
-              </div>
-              <div class="source-hj" id="source-hj-2" style="display:none;">
-                <p>縣南居 金道喆</p>
-                <p>右謹陳所志矣段 矣身 高祖 嘉善大夫 贈 漢城府右尹 兼 五衛都摠府副摠管 加資 及 曾祖 資憲大夫 行同知中樞府事 加資 兩張 今年三月火災 與家藏幷爲燒燼 是乎所 以緣由仰訴爲去乎 參商敎是後 憑考次 立旨成給爲只爲 行下向敎是事</p>
-                <p>使道主 處分 初八日 [印]</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>官</p>
-                <p>甲子 十二月 日 所志 後考次 立旨成給 向事 [印]</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 슬라이드 3 -->
-        <div class="source-slide" data-slide="3">
-          <div class="source-block">
-            <div class="source-block-img">
-              <img src="images/jongga-1930/page_08.png" alt="종가실록 8페이지 — 김도철 소지" class="lightbox-trigger">
-              <div class="img-caption">『종가실록』 8페이지 — 김도철 소지(所志)</div>
-              <div class="source-view-toggle">
-                <button class="source-view-btn" id="source-toggle-btn-3">원문 보기</button>
-              </div>
-            </div>
-            <div class="source-block-text">
-              <div id="source-kr-3">
-                <p>현남면에 거주하는 김도철이 올리는 소지</p>
-                <p>이는 삼가 소지로 말씀드리는 일입니다. 저는 지난 신유년(1801년) 도과(道科)에 참방(합격)한 출신이온데, 임금께서 내리신 홍패(御賜紅牌)가 금년 3월 화재가 나면서 집에 보관하던 것과 아울러 불타 재가 되어버렸사옵니다. 이러한 까닭에 바야흐로 병조(兵曹)에 올라가 완문(完文, 관청의 공식 증명서)을 작성하여 처리(계료)받고자 하오니, 굽어살피시어 훗날 증빙으로 삼을 수 있도록 입지를 작성하여 발급해 주시기를 처분하여 내려주시기를 바라옵니다.</p>
-                <p>사또 나으리의 처분을 바랍니다. 초8일 [인]</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>(양양부) 관아</p>
-                <p>갑자년 12월 일 소지에 대하여, 증빙으로 삼을 수 있도록 입지를 작성하여 발급하도록 할 일. [인]</p>
-              </div>
-              <div class="source-hj" id="source-hj-3" style="display:none;">
-                <p>縣南居 金道喆</p>
-                <p>右謹陳所志矣段 矣身 去辛酉年 道科參榜出身 是白乎所 御賜紅牌 今年三月分火災 與家藏幷爲燒燼 是白乎 等以 方欲往 兵曹 成完文 計料 爲去乎 參商敎是後 憑準次 立旨成給爲只爲 行下向敎是事</p>
-                <p>使道主 處分 初八日 [印]</p>
-                <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
-                <p>官</p>
-                <p>甲子 十二月 日 所志 憑準次 立旨成給 向事 [印]</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 페이지네이션 -->
-        <div class="source-pagination">
-          <button class="source-page-btn active" data-page="1">1</button>
-          <button class="source-page-btn" data-page="2">2</button>
-          <button class="source-page-btn" data-page="3">3</button>
-        </div>
-      </div>
-
-      <p>
-        한편, 『종가실록』의 1841년 기록에서 '12칸 기와집(瓦家十二間)'이라는 언급이 등장해 화재 이후 1840년경 이전에 이미 12칸 규모로 중건되었음을 알 수 있는데, 이를 바탕으로 계산해보면 중건된 지 대략 200여년 정도 되었음을 알 수 있다. 그 이후 특별한 변화 없이 근대기로 이어진 것으로 보이는데, 광무 3년(1899년)의 호적표(戶籍表)에 '기와집 6칸(瓦 六間)'이라 기재되어 있어 의문이 생긴다. 해당 기간 사이의 특별한 기록이 없어 일부 건물의 칸 수만 기재하거나 오기재한 것으로 추정되는데, 정확한 사유는 알기 어렵다.
-      </p>
-    </div>
-
-    <!-- 겨울 사진 2장 나란히 -->
-    <div class="img-block-row" style="margin-bottom:8px;">
-      <div>
-        <img src="images/jongtaek/겨울 1.jpg" alt="겨울의 김택준 가옥" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-      </div>
-      <div>
-        <img src="images/jongtaek/겨울 2.jpg" alt="겨울의 김택준 가옥 처마" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-      </div>
-    </div>
-    <p class="img-caption">겨울의 김택준 가옥</p>
-  </section>
-
-  <!-- ② 가옥 구조 -->
-  <section class="section">
-    <h2 class="section-title">가옥 구조 <span>構造</span></h2>
-
-    <div class="info-grid">
-      <div class="info-cell">
-        <div class="info-cell-label">소재지</div>
-        <div class="info-cell-value">양양군 현남면 두리</div>
-      </div>
-      <div class="info-cell">
-        <div class="info-cell-label">건축 연대</div>
-        <div class="info-cell-value">18세기 초 초건, 1804년 이후 중건</div>
-      </div>
-      <div class="info-cell">
-        <div class="info-cell-label">구조</div>
-        <div class="info-cell-value">'H'자형의 겹집 구조</div>
-      </div>
-    </div>
-
-    <div class="body-text">
-      <p>
-        두리 마을에는 구릉지를 따라 동족의 여러 가옥들이 배치되어 있는데, 그중에서 양양 김택준 가옥은 마을의 높은 곳에 자연석으로 축대를 쌓고 그 위에 대나무숲을 배경으로 자리하고 있다. 가옥은 'H'자형의 겹집으로, 'ㅏ'자형의 안채 우측으로 'ㅣ'자형의 사랑채가 위치하고 있다. 안채는 4벌대의 자연석 기단 위에 지어졌는데, 영동지역에서 흔히 볼 수 있는 겹집의 형태이다. 안채의 전열에는 안주인이 거처하는 안방과 집안 어른이 거처하는 상방 등의 방이 있으며, 안채의 후열에는 며느리가 거처하는 뒷방과 도장방 등의 방이 있다.
-      </p>
-      <p>
-        안방의 좌측으로는 넓은 부엌이 자리하고 있는데, 뒤뜰 및 옆마당으로 넘어갈 수 있는 판문과 사우방과 안채에 불을 지필 수 있는 아궁이가 있다. 부엌 앞으로는 고방과 마구간이 있고 부엌 뒤쪽으로는 사우방(祠宇房)이 있다. 사우방은 조상의 신주를 모신 온돌방으로, 제사를 지낼 수 있는 단이 설치되어 있다. 고방은 여러 물건을 보관하던 창고로 현재는 욕실로 사용하고 있다. 판벽으로 둘러싼 마구간(외양간)은 말을 키우던 곳으로, 조상 대대로 말 사냥을 즐겨 했기에 11대손인 김철호 때까지도 말을 키웠다고 한다. 현재는 창고로 사용하고 있다.
-      </p>
-      <p>
-      </p>
-      <div class="img-block-row">
-        <div>
-          <img src="images/jongtaek/안채.jpg" alt="안채" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:30% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">김택준 가옥 안채 전면</p>
-        </div>
-        <div>
-          <img src="images/jongtaek/안채 우측면.jpg" alt="안채 우측면" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:60% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">김택준 가옥 안채(사우방 및 부엌) 우측면</p>
-        </div>
-      </div>
-      <div class="img-block">
-        <img src="images/jongtaek/평면도.png" alt="김택준 가옥 평면도" class="lightbox-trigger">
-        <p class="img-caption">김택준 가옥 평면도</p>
-      </div>
-      <p>
-        사랑채는 안채보다 후대에 지어졌는데, 자연석 세벌대 기단 위에 지어진 겹도리 팔작지붕 건물로, 팔작지붕인 전면과 달리 후면은 맞배지붕이다. 사랑채의 전면에는 2칸 규모의 사랑방이 있으며, 사랑방의 전면과 측면에 툇마루가 설치되어 있다. 사랑방 뒤로는 일을 도와주던 사람들이 거처하던 행랑방이 있으며, 사랑방과 행랑방 모두 온돌이 설치되어 있다. 행랑방 뒤로는 곡식과 여러 물건들을 보관하던 곳간 2칸이 있다. 과거에는 안채와 사랑채의 연결 부분에 온돌 흙바닥을 깔고 천장을 고미반자로 하여 상 중에 거처하는 지청이 있었으나 현재는 뒤뜰로 이동하는 통로로 사용되고 있다.
-      </p>
-      <p>
-        이 가옥에는 3개의 굴뚝이 있는데, 첫번째로 사우방을 데핀 연기가 빠져나가는 굴뚝이 사우방 북쪽에 있다. 사우방 북측 자연석과 기와 와편으로 쌓은 담장 사이로 굴뚝을 조성해 놓았으며, 담장 하부로는 옆마당으로 빠져나가는 배수로가 있다. 안채와 사랑채를 데핀 연기가 빠져나가는 굴뚝은 각각 뒤뜰과 행랑방 우측에 높게 조성되어 있다. 사랑채의 아궁이는 사랑방 좌측의 반침(책장) 하부 기단에 있다. 이 가옥에는 또 4개의 길이 있는데, 동쪽과 동남쪽의 길은 각각 작은댁과 아릇댁으로 향하는 길이다. 가옥 서남쪽의 길은 본래 집안의 여성들이 사용하던 길로 현재는 본 출입로로 사용하고 있으며, 가옥 정남쪽의 길은 본래 집안의 남성들이 사용하던 길로 현재는 사용하지 않는다.
-      </p>
-      <div class="img-block-row" style="margin-bottom:32px;">
-        <div>
-          <img src="images/jongtaek/뒤뜰.jpg" alt="뒤뜰" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">김택준 가옥 뒤뜰 전경</p>
-        </div>
-        <div>
-          <img src="images/jongtaek/사우방 북쪽 굴뚝.jpg" alt="사우방 북쪽 굴뚝" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">사우방 북측의 굴뚝</p>
-        </div>
-      </div>
-      <p>
-        가옥의 뒤뜰은 본래 부엌을 통해서만 진입할 수 있으며, 사우방과 뒷방, 도장방, 지청 역시 창호가 뒤뜰을 향하고 있어 뒤뜰로 접근할 수 있다. 뒤뜰에는 장독대와 0.5평의 냉장굴이 있으며, 곳간 2칸이 뒤뜰 방향으로 향해 있어 뒤뜰을 통해 곳간으로 접근할 수 있다. 뒤뜰 북쪽으로는 자연석으로 쌓은 단이 있는데 지금은 거의 베어내었지만 그 위쪽으로 왕대나무 밭과 대나무 밭이 있으며, 대나무 밭은 가옥의 서편에서 시작해 가옥 동북쪽 작은댁의 뒷마당까지 이어진다. 가옥 동북쪽에는 본래 작은댁의 기와집이 있었으나, 화재로 소실되어 현재는 거주하지 않는다.
-      </p>
-      <div class="img-block-row">
-        <div>
-          <img src="images/jongtaek/가옥 좌측 담장과 대나무숲.jpg" alt="가옥 좌측 담장과 대나무숲" style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:90% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">가옥 좌측 담장과 대나무숲</p>
-        </div>
-        <div>
-          <img src="images/jongtaek/부엌에서 본 뒤뜰.jpg" alt="안채 부엌에서 본 뒤뜰의 모습" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">안채 부엌에서 본 뒤뜰의 모습</p>
-        </div>
-      </div>
-      <p>
-        가옥 내부의 공간 구성은 시간의 흐름과 용도의 변화에 따라 여러번 바뀌었는데, 특히 안채의 공간 구성이 그러했다. 현재 가문의 종부(宗婦)이자, 종가를 관리하고 계신 할머니가 처음 시집 오셨던 20세기 중반의 공간 구성은 아래와 같았다.
-      </p>
-      <!-- 평면도 -->
-      <div class="img-block">
-        <img src="images/jongtaek/평면도(과거).png" alt="김택준 가옥 평면도 (20세기 중반)" class="lightbox-trigger">
-        <p class="img-caption">김택준 가옥 평면도 (20세기 중반)</p>
-      </div>
-      <p>
-        당시 안채의 전열에 안방과 상방, 일꾼방이 있었으며, 후열에는 뒷방과 며느리방/도장방 등이 있었다. 먼저 부엌 우측에 위치한 안방과 뒷방(며느리방)은 각각 안주인과 며느리가 거처하던 곳이다. 안방의 서쪽과 남쪽, 동쪽에는 각각 부엌과 마당, 상방으로 향하는 외살문이 있었으며, 뒷방과 안방 사이에는 4짝의 미닫이문이 있어 문을 떼어내어 2개의 방을 1개 방처럼 쓰는 경우도 있었다고 한다. 뒷방은 며느리가 거처하는 방으로, 서쪽과 북쪽에 각각 부엌과 뒤뜰로 향해는 외살문이 있었다.
-      </p>
-      <p>
-        상방은 집안의 제일 어른이 거처했던 방으로, 동쪽과 서쪽, 남쪽에 각각 일꾼방, 안방, 마당으로 향하는 문이 있었으며 북쪽 며느리방 방향으로 반침을 내어 책장 겸 이부장으로 사용했다고 한다. 한편, 과거에는 상방을 벽으로 나누어 상방 동쪽으로 일꾼방을 두었는데, 현재는 벽을 제거한 상태이다. 일꾼방 동쪽으로는 반침을 두어 이부장으로 활용했으며 동쪽과 남쪽에 각각 지청과 마당으로 향하는 문이 있었다. 상방 북쪽으로는 2칸 규모의 며느리방(혹은 도장방)이 있었는데, 며느리방 역시 가운데에 벽과 문을 두어 2개의 방으로 사용되었으며 북쪽에 뒤뜰로 향하는 문이 있었다.
-      </p>
-    </div>
-  </section>
-
-  <!-- ③ 전해지는 이야기 -->
-  <section class="section">
-    <h2 class="section-title">전해지는 이야기</h2>
-
-    <div class="story-item">
-      <div class="story-num">이야기 01</div>
-      <div class="story-title">사랑채의 청기와(靑瓦)</div>
-      <div class="body-text">
-        <p>전해지는 말에 따르면, 사랑채 지붕에 청기와 2장이 얹혀져 있었다고 한다. 어떤 연유에서 사가(私家)의 사랑채에 청기와가 얹혀 있었는지는 전해지지 않으나, 이 청기와는 옛날부터 사랑채 위에 얹혀져 있었다고 한다. 해당 청기와는 1996년의 사랑채 보수 과정에서 일반 평기와로 교체되었는데, 뒤늦게 해당 사실을 안 종가측에서 양양군에 말해보았지만, 이미 누군가 사버려서 되찾을 수 없었다고 한다.</p>
-      </div>
-    </div>
-
-    <div class="story-item">
-      <div class="story-num">이야기 02</div>
-      <div class="story-title">가옥과 망와(望瓦)</div>
-      <div class="body-text">
-        <p>김택준 가옥의 안채와 사랑채의 지붕마루에는 본래 다양한 망와(望瓦)가 있었다고 한다. 도깨비 문양부터 불꽃 문양의 망와 등 다양한 형태의 망와가 있었다고 전하는데, 해당 망와들은 대부분 문화재 보수 과정에서 현대식 망와로 교체되었다. 아마 망와가 너무 오래되었기 때문으로 추정된다. 현재는 사랑채 후면부 맞배지붕의 양쪽 내림마루에 유일하게 구식의 망와 2점이 남아있다.</p>
-      <div class="img-block-row">
-        <div>
-          <img src="images/jongtaek/사랑채 망와.jpg" alt="사랑채 망와" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">사랑채 후면부 내림마루의 망와</p>
-        </div>
-        <div>
-          <img src="images/jongtaek/망와.jpg" alt="망와 실측도" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;" class="lightbox-trigger">
-          <p class="img-caption">사랑채 망와 문양 실측도</p>
-        </div>
-      </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ④ 위치 -->
-  <section class="map-section">
-    <h2 class="section-title">찾아오는 길</h2>
-    <div class="map-container">
-      <iframe
-        src="https://maps.google.com/maps?q=37.973070,128.750720&t=&z=17&ie=UTF8&iwloc=near&output=embed"
-        title="종택 위치 지도"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-    <div class="map-info">
-      <div class="map-info-item">
-        <span class="map-info-label">주소</span>
-        <span>강원특별자치도 양양군 현남면 두리</span>
-      </div>
-    </div>
-    <a class="map-link" href="https://maps.google.com/maps?q=양양+김택준+가옥" target="_blank" rel="noopener">
-      구글맵에서 보기 →
+  <header class="site-header">
+    <a href="home.html" class="logo-wrap">
+      <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+      <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
     </a>
-  </section>
-
-</div><!-- /page-wrap -->
-
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-logo-block">
-      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
-      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
-    </div>
-    <div class="footer-info">
-      <div class="footer-address">
-        <span>강원특별자치도 양양군 현남면 두리</span>
-        <span>문의: 사이트 관리 : 14대손</span>
-      </div>
-      <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
-    </div>
-    <nav class="footer-links">
-      <a href="home.html">홈</a>
-      <a href="index.html">소장 문서</a>
-      <a href="family.html">가계도</a>
-      <a href="jongtaek.html">종택</a>
+    <nav class="site-nav">
+      <a class="nav-item" href="home.html">두리종중</a>
+      <a class="nav-item" href="index.html">소장 문서</a>
+      <a class="nav-item" href="family.html">가계도</a>
+      <a class="nav-item active" href="jongtaek.html">종택</a>
+      <a class="nav-item" href="village.html">주변 지리</a>
+      <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
     </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-title-ko">양양 김택준 가옥</div>
   </div>
-  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
-</footer>
 
-<!-- 라이트박스 -->
-<div class="lightbox-overlay" id="lightbox">
-  <button class="lightbox-close" id="lightbox-close">✕</button>
-  <img id="lightbox-img" src="" alt="">
-  <div class="lightbox-hint" id="lightbox-hint">클릭하여 확대 · 드래그하여 이동</div>
-</div>
+  <div class="page-wrap">
 
-<script src="style.js" onerror="void 0"></script>
-<script>
-  // 소지 캐러셀 페이지네이션
-  const slides = document.querySelectorAll('.source-slide');
-  const pageBtns = document.querySelectorAll('.source-page-btn');
+    <!-- ① 가옥 소개 -->
+    <section class="section">
+      <h2 class="section-title">가옥의 연혁 <span>沿革</span></h2>
+      <div class="body-text">
+        <p>
+          양양 김택준 가옥은 강원특별자치도 양양군 현남면 두리(斗里)에 위치한 경주김씨 상촌공파 두리종중의 종택으로, 조선 후기 17세기말~18세기초 사이 입향조인 김여경(金如慶)에 의해 처음 지어졌다.
+          김여경은 양양읍에 거주하던 상촌공파의 후손으로, 이 시기에 현남면으로 내려와 두리 일대의 숲을 개척하여 살기 시작했다.
+        </p>
+        <p>
+          이후 1804년(순조 4) 3월 강원도 영동지역에 발생한 대형 산불이 두리 일대까지 번지면서, 가옥이 전소하는 사건이 발생한다. 이 때의 산불은 왕에게 보고될 정도의 큰 불이었는데,
+          『조선왕조실록(朝鮮王朝實錄)』의 기사에 따르면 산불이 강원도 삼척에서 통천까지 200여km를 이동하며 민가 2천 6백여 호와 사찰 6곳을 불태우고 61명이 불에 타 죽었다고 전한다. 이 사건으로
+          가옥은 물론, 종가에 소장하던 문권(文券)과 입향조인 김여경 및 장남 김한태(金漢泰)의 가자(加資, 관직과 품계를 올려주는 증서), 김여경의 현손(玄孫)인 김도철(金道喆)의 홍패(御賜紅牌)까지 모두
+          불타게 된다. 선전관을 지낸 김도철이 가주(家主)일 때의 일이다. 해당 사실은 화재 직후 김도철이 양양부 관아에 올린 소지를 9대손인 김규하(金圭夏)가 『종가실록(宗家實錄)』에 필사해두어 오늘날까지
+          전한다.
+        </p>
+        <div class="source-carousel">
+          <!-- 슬라이드 1 -->
+          <div class="source-slide active" data-slide="1">
+            <div class="source-block">
+              <div class="source-block-img">
+                <img src="images/jongga-1930/page_06.png" alt="종가실록 6페이지 — 김도철 소지" class="lightbox-trigger">
+                <div class="img-caption">『종가실록』 6페이지 — 김도철 소지(所志)</div>
+                <div class="source-view-toggle">
+                  <button class="source-view-btn" id="source-toggle-btn">원문 보기</button>
+                </div>
+              </div>
+              <div class="source-block-text">
+                <div class="source-kr" id="source-kr">
+                  <p>현남면에 거주하는 김도철이 올리는 소지</p>
+                  <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 집이 금년(1804년) 3월 화재로 인하여 집안에 보관하던 협물과 대대로 전해오던 전답의 문서가 하나도 남김없이 모두
+                    불타버렸사옵니다. 이에 땅의 자호(字號)와 면적(卜數)을 뒤에 기록하여 우러러 호소하오니, 굽어살피시어 훗날의 증빙이 되도록 사리를 논하여 입지(立旨)를 작성하여 발급해 주시기를
+                    바라옵니다.</p>
+                  <p>사또 나으리(使道主)의 처분을 바랍니다. 초8일 [인]</p>
+                  <p>금년의 화재는 전례가 없던 큰불이었습니다.</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>(양양부) 관아</p>
+                  <p>갑자년(1804년) 3월 일 훗날 상고할 수 있도록 입지를 작성하여 발급하도록 할 일.</p>
+                  <p>뒤에 기록함</p>
+                  <p>논 482마지기는 (너무 많아) 낱낱이 다 기록할 수 없는 바다. 밭 202마지기는 낱낱이 다 기록할 수 없는 바다.</p>
+                </div>
+                <div class="source-hj" id="source-hj" style="display:none;">
+                  <p>縣南居 金道喆</p>
+                  <p>右謹陳所志矣段 矣身 今年 三月火災 家藏叶物 傳來田畓文券 無一餘存 而沒爲燒燼乙 仍于 字號卜數 後錄 仰訴爲去乎 參諒敎是後 憑後次 論理立旨 成給爲只爲 行下向敎是事</p>
+                  <p>使道主 處分 初八日 [印]</p>
+                  <p>今年火災 前古所無</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>官</p>
+                  <p>甲子三月 日 後考次 立旨成給 向事</p>
+                  <p>後</p>
+                  <p>畓 四百八十二斗落 不可枚記 際 田 二百二斗落 不可枚記 際</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  function goToSlide(n) {
-    slides.forEach(s => s.classList.toggle('active', s.dataset.slide === String(n)));
-    pageBtns.forEach(b => b.classList.toggle('active', b.dataset.page === String(n)));
-  }
+          <!-- 슬라이드 2 -->
+          <div class="source-slide" data-slide="2">
+            <div class="source-block">
+              <div class="source-block-img">
+                <img src="images/jongga-1930/page_07.png" alt="종가실록 7페이지 — 김도철 소지" class="lightbox-trigger">
+                <div class="img-caption">『종가실록』 7페이지 — 김도철 소지(所志)</div>
+                <div class="source-view-toggle">
+                  <button class="source-view-btn" id="source-toggle-btn-2">원문 보기</button>
+                </div>
+              </div>
+              <div class="source-block-text">
+                <div id="source-kr-2">
+                  <p>현남면에 거주하는 김도철이 올리는 소지</p>
+                  <p>이는 삼가 소지로 말씀드리는 일입니다. 저의 고조이신 가선대부 증 한성부좌윤 겸 오위도총부부총관의 가자(加資)와 증조이신 자헌대부 행 동지중추부사의 가자, 이 두 장이 금년 3월
+                    화재가 나면서 집에 보관하던 것과 아울러 불타 재가 되었사온 바, 이러한 연유로 우러러 호소하오니 굽어살피시어, 훗날 상고할 증빙으로 삼을 수 있도록 입지를 작성하여 발급해
+                    주시기를 처분하여 내려주시기를 바라옵니다.</p>
+                  <p>사또 나으리의 처분을 바랍니다. 초8일 [인]</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>(양양부) 관아</p>
+                  <p>갑자년 12월 일 소지에 대하여, 훗날 상고할 수 있도록 입지를 작성하여 발급하도록 할 일 [인]</p>
+                </div>
+                <div class="source-hj" id="source-hj-2" style="display:none;">
+                  <p>縣南居 金道喆</p>
+                  <p>右謹陳所志矣段 矣身 高祖 嘉善大夫 贈 漢城府右尹 兼 五衛都摠府副摠管 加資 及 曾祖 資憲大夫 行同知中樞府事 加資 兩張 今年三月火災 與家藏幷爲燒燼 是乎所 以緣由仰訴爲去乎 參商敎是後
+                    憑考次 立旨成給爲只爲 行下向敎是事</p>
+                  <p>使道主 處分 初八日 [印]</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>官</p>
+                  <p>甲子 十二月 日 所志 後考次 立旨成給 向事 [印]</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  pageBtns.forEach(btn => {
-    btn.addEventListener('click', () => goToSlide(Number(btn.dataset.page)));
-  });
+          <!-- 슬라이드 3 -->
+          <div class="source-slide" data-slide="3">
+            <div class="source-block">
+              <div class="source-block-img">
+                <img src="images/jongga-1930/page_08.png" alt="종가실록 8페이지 — 김도철 소지" class="lightbox-trigger">
+                <div class="img-caption">『종가실록』 8페이지 — 김도철 소지(所志)</div>
+                <div class="source-view-toggle">
+                  <button class="source-view-btn" id="source-toggle-btn-3">원문 보기</button>
+                </div>
+              </div>
+              <div class="source-block-text">
+                <div id="source-kr-3">
+                  <p>현남면에 거주하는 김도철이 올리는 소지</p>
+                  <p>이는 삼가 소지로 말씀드리는 일입니다. 저는 지난 신유년(1801년) 도과(道科)에 참방(합격)한 출신이온데, 임금께서 내리신 홍패(御賜紅牌)가 금년 3월 화재가 나면서 집에
+                    보관하던 것과 아울러 불타 재가 되어버렸사옵니다. 이러한 까닭에 바야흐로 병조(兵曹)에 올라가 완문(完文, 관청의 공식 증명서)을 작성하여 처리(계료)받고자 하오니, 굽어살피시어
+                    훗날 증빙으로 삼을 수 있도록 입지를 작성하여 발급해 주시기를 처분하여 내려주시기를 바라옵니다.</p>
+                  <p>사또 나으리의 처분을 바랍니다. 초8일 [인]</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>(양양부) 관아</p>
+                  <p>갑자년 12월 일 소지에 대하여, 증빙으로 삼을 수 있도록 입지를 작성하여 발급하도록 할 일. [인]</p>
+                </div>
+                <div class="source-hj" id="source-hj-3" style="display:none;">
+                  <p>縣南居 金道喆</p>
+                  <p>右謹陳所志矣段 矣身 去辛酉年 道科參榜出身 是白乎所 御賜紅牌 今年三月分火災 與家藏幷爲燒燼 是白乎 等以 方欲往 兵曹 成完文 計料 爲去乎 參商敎是後 憑準次 立旨成給爲只爲 行下向敎是事
+                  </p>
+                  <p>使道主 處分 初八日 [印]</p>
+                  <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+                  <p>官</p>
+                  <p>甲子 十二月 日 所志 憑準次 立旨成給 向事 [印]</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  // 국역/원문 토글 (슬라이드별)
-  [
-    ['source-toggle-btn',   'source-kr',   'source-hj'],
-    ['source-toggle-btn-2', 'source-kr-2', 'source-hj-2'],
-    ['source-toggle-btn-3', 'source-kr-3', 'source-hj-3'],
-  ].forEach(([btnId, krId, hjId]) => {
-    const tb = document.getElementById(btnId);
-    const kr = document.getElementById(krId);
-    const hj = document.getElementById(hjId);
-    if (!tb) return;
-    let showHj = false;
-    tb.addEventListener('click', () => {
-      showHj = !showHj;
-      kr.style.display = showHj ? 'none' : '';
-      hj.style.display = showHj ? '' : 'none';
-      tb.textContent = showHj ? '국역 보기' : '원문 보기';
-    });
-  });
+          <!-- 페이지네이션 -->
+          <div class="source-pagination">
+            <button class="source-page-btn active" data-page="1">1</button>
+            <button class="source-page-btn" data-page="2">2</button>
+            <button class="source-page-btn" data-page="3">3</button>
+          </div>
+        </div>
 
-  // 라이트박스 (줌 + 패닝 + 휠 확대축소)
-  const overlay = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lightbox-img');
+        <p>
+          한편, 『종가실록』의 1841년 기록에서 '12칸 기와집(瓦家十二間)'이라는 언급이 등장해 화재 이후 1840년경 이전에 이미 12칸 규모로 중건되었음을 알 수 있는데, 이를 바탕으로 계산해보면
+          중건된 지 대략 200여년 정도 되었음을 알 수 있다. 그 이후 특별한 변화 없이 근대기로 이어진 것으로 보이는데, 광무 3년(1899년)의 호적표(戶籍表)에 '기와집 6칸(瓦 六間)'이라 기재되어
+          있어 의문이 생긴다. 해당 기간 사이의 특별한 기록이 없어 일부 건물의 칸 수만 기재하거나 오기재한 것으로 추정되는데, 정확한 사유는 알기 어렵다.
+        </p>
+      </div>
 
-  const INIT_SCALE = 1.5, MIN_SCALE = 1.0, MAX_SCALE = 6.0;
-  let zoomed = false, dragging = false, moved = false;
-  let scale = INIT_SCALE, tx = 0, ty = 0, startX = 0, startY = 0;
+      <!-- 겨울 사진 2장 나란히 -->
+      <div class="img-block-row" style="margin-bottom:8px;">
+        <div>
+          <img src="images/jongtaek/겨울 1.jpg" alt="겨울의 김택준 가옥"
+            style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+            class="lightbox-trigger">
+        </div>
+        <div>
+          <img src="images/jongtaek/겨울 2.jpg" alt="겨울의 김택준 가옥 처마"
+            style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+            class="lightbox-trigger">
+        </div>
+      </div>
+      <p class="img-caption">겨울의 김택준 가옥</p>
+    </section>
 
-  function applyTransform(animate) {
-    lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
-    lbImg.style.transform = 'scale(' + scale + ') translate(' + tx + 'px, ' + ty + 'px)';
-  }
-  function enterZoom(s) {
-    scale = s; tx = 0; ty = 0; zoomed = true;
-    lbImg.classList.add('zoomed');
-    applyTransform(true);
-  }
-  function resetZoom() {
-    zoomed = false; scale = INIT_SCALE; tx = 0; ty = 0;
-    lbImg.classList.remove('zoomed', 'dragging');
-    lbImg.style.transition = 'transform 0.2s ease';
-    lbImg.style.transform = '';
-  }
-  function closeLightbox() {
-    resetZoom();
-    overlay.classList.remove('open');
-  }
+    <!-- ② 가옥 구조 -->
+    <section class="section">
+      <h2 class="section-title">가옥 구조 <span>構造</span></h2>
 
-  document.querySelectorAll('.lightbox-trigger').forEach(img => {
-    img.addEventListener('click', () => {
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      resetZoom();
-      overlay.classList.add('open');
-    });
-  });
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="info-cell-label">소재지</div>
+          <div class="info-cell-value">양양군 현남면 두리</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">건축 연대</div>
+          <div class="info-cell-value">18세기 초 초건, 1804년 이후 중건</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-cell-label">구조</div>
+          <div class="info-cell-value">'H'자형의 겹집 구조</div>
+        </div>
+      </div>
 
-  lbImg.addEventListener('click', e => {
-    if (moved) return;
-    if (!zoomed) {
-      enterZoom(INIT_SCALE);
-    } else {
-      resetZoom();
+      <div class="body-text">
+        <p>
+          두리 마을에는 구릉지를 따라 동족의 여러 가옥들이 배치되어 있는데, 그중에서 양양 김택준 가옥은 마을의 높은 곳에 자연석으로 축대를 쌓고 그 위에 대나무숲을 배경으로 자리하고 있다. 가옥은
+          'H'자형의 겹집으로, 'ㅏ'자형의 안채 우측으로 'ㅣ'자형의 사랑채가 위치하고 있다. 안채는 4벌대의 자연석 기단 위에 지어졌는데, 영동지역에서 흔히 볼 수 있는 겹집의 형태이다. 안채의 전열에는
+          안주인이 거처하는 안방과 집안 어른이 거처하는 상방 등의 방이 있으며, 안채의 후열에는 며느리가 거처하는 뒷방과 도장방 등의 방이 있다.
+        </p>
+        <p>
+          안방의 좌측으로는 넓은 부엌이 자리하고 있는데, 뒤뜰 및 옆마당으로 넘어갈 수 있는 판문과 사우방과 안채에 불을 지필 수 있는 아궁이가 있다. 부엌 앞으로는 고방과 마구간이 있고 부엌 뒤쪽으로는
+          사우방(祠宇房)이 있다. 사우방은 조상의 신주를 모신 온돌방으로, 제사를 지낼 수 있는 단이 설치되어 있다. 고방은 여러 물건을 보관하던 창고로 현재는 욕실로 사용하고 있다. 판벽으로 둘러싼
+          마구간(외양간)은 말을 키우던 곳으로, 조상 대대로 말 사냥을 즐겨 했기에 11대손인 김철호 때까지도 말을 키웠다고 한다. 현재는 창고로 사용하고 있다.
+        </p>
+        <p>
+        </p>
+        <div class="img-block-row">
+          <div>
+            <img src="images/jongtaek/안채.jpg" alt="안채"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:30% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">김택준 가옥 안채 전면</p>
+          </div>
+          <div>
+            <img src="images/jongtaek/안채 우측면.jpg" alt="안채 우측면"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:60% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">김택준 가옥 안채(사우방 및 부엌) 우측면</p>
+          </div>
+        </div>
+        <div class="img-block">
+          <img src="images/jongtaek/평면도.png" alt="김택준 가옥 평면도" class="lightbox-trigger">
+          <p class="img-caption">김택준 가옥 평면도</p>
+        </div>
+        <p>
+          사랑채는 안채보다 후대에 지어졌는데, 자연석 세벌대 기단 위에 지어진 겹도리 팔작지붕 건물로, 팔작지붕인 전면과 달리 후면은 맞배지붕이다. 사랑채의 전면에는 2칸 규모의 사랑방이 있으며, 사랑방의
+          전면과 측면에 툇마루가 설치되어 있다. 사랑방 뒤로는 일을 도와주던 사람들이 거처하던 행랑방이 있으며, 사랑방과 행랑방 모두 온돌이 설치되어 있다. 행랑방 뒤로는 곡식과 여러 물건들을 보관하던 곳간
+          2칸이 있다. 과거에는 안채와 사랑채의 연결 부분에 온돌 흙바닥을 깔고 천장을 고미반자로 하여 상 중에 거처하는 지청이 있었으나 현재는 뒤뜰로 이동하는 통로로 사용되고 있다.
+        </p>
+        <p>
+          이 가옥에는 3개의 굴뚝이 있는데, 첫번째로 사우방을 데핀 연기가 빠져나가는 굴뚝이 사우방 북쪽에 있다. 사우방 북측 자연석과 기와 와편으로 쌓은 담장 사이로 굴뚝을 조성해 놓았으며, 담장 하부로는
+          옆마당으로 빠져나가는 배수로가 있다. 안채와 사랑채를 데핀 연기가 빠져나가는 굴뚝은 각각 뒤뜰과 행랑방 우측에 높게 조성되어 있다. 사랑채의 아궁이는 사랑방 좌측의 반침(책장) 하부 기단에 있다.
+          이 가옥에는 또 4개의 길이 있는데, 동쪽과 동남쪽의 길은 각각 작은댁과 아릇댁으로 향하는 길이다. 가옥 서남쪽의 길은 본래 집안의 여성들이 사용하던 길로 현재는 본 출입로로 사용하고 있으며, 가옥
+          정남쪽의 길은 본래 집안의 남성들이 사용하던 길로 현재는 사용하지 않는다.
+        </p>
+        <div class="img-block-row" style="margin-bottom:32px;">
+          <div>
+            <img src="images/jongtaek/뒤뜰.jpg" alt="뒤뜰"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">김택준 가옥 뒤뜰 전경</p>
+          </div>
+          <div>
+            <img src="images/jongtaek/사우방 북쪽 굴뚝.jpg" alt="사우방 북쪽 굴뚝"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">사우방 북측의 굴뚝</p>
+          </div>
+        </div>
+        <p>
+          가옥의 뒤뜰은 본래 부엌을 통해서만 진입할 수 있으며, 사우방과 뒷방, 도장방, 지청 역시 창호가 뒤뜰을 향하고 있어 뒤뜰로 접근할 수 있다. 뒤뜰에는 장독대와 0.5평의 냉장굴이 있으며, 곳간
+          2칸이 뒤뜰 방향으로 향해 있어 뒤뜰을 통해 곳간으로 접근할 수 있다. 뒤뜰 북쪽으로는 자연석으로 쌓은 단이 있는데 지금은 거의 베어내었지만 그 위쪽으로 왕대나무 밭과 대나무 밭이 있으며, 대나무
+          밭은 가옥의 서편에서 시작해 가옥 동북쪽 작은댁의 뒷마당까지 이어진다. 가옥 동북쪽에는 본래 작은댁의 기와집이 있었으나, 화재로 소실되어 현재는 거주하지 않는다.
+        </p>
+        <div class="img-block-row">
+          <div>
+            <img src="images/jongtaek/가옥 좌측 담장과 대나무숲.jpg" alt="가옥 좌측 담장과 대나무숲"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;object-position:90% center;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">가옥 좌측 담장과 대나무숲</p>
+          </div>
+          <div>
+            <img src="images/jongtaek/부엌에서 본 뒤뜰.jpg" alt="안채 부엌에서 본 뒤뜰의 모습"
+              style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+              class="lightbox-trigger">
+            <p class="img-caption">안채 부엌에서 본 뒤뜰의 모습</p>
+          </div>
+        </div>
+        <p>
+          가옥 내부의 공간 구성은 시간의 흐름과 용도의 변화에 따라 여러번 바뀌었는데, 특히 안채의 공간 구성이 그러했다. 현재 가문의 종부(宗婦)이자, 종가를 관리하고 계신 할머니가 처음 시집 오셨던
+          20세기 중반의 공간 구성은 아래와 같았다.
+        </p>
+        <!-- 평면도 -->
+        <div class="img-block">
+          <img src="images/jongtaek/평면도(과거).png" alt="김택준 가옥 평면도 (20세기 중반)" class="lightbox-trigger">
+          <p class="img-caption">김택준 가옥 평면도 (20세기 중반)</p>
+        </div>
+        <p>
+          당시 안채의 전열에 안방과 상방, 일꾼방이 있었으며, 후열에는 뒷방과 며느리방/도장방 등이 있었다. 먼저 부엌 우측에 위치한 안방과 뒷방(며느리방)은 각각 안주인과 며느리가 거처하던 곳이다. 안방의
+          서쪽과 남쪽, 동쪽에는 각각 부엌과 마당, 상방으로 향하는 외살문이 있었으며, 뒷방과 안방 사이에는 4짝의 미닫이문이 있어 문을 떼어내어 2개의 방을 1개 방처럼 쓰는 경우도 있었다고 한다. 뒷방은
+          며느리가 거처하는 방으로, 서쪽과 북쪽에 각각 부엌과 뒤뜰로 향해는 외살문이 있었다.
+        </p>
+        <p>
+          상방은 집안의 제일 어른이 거처했던 방으로, 동쪽과 서쪽, 남쪽에 각각 일꾼방, 안방, 마당으로 향하는 문이 있었으며 북쪽 며느리방 방향으로 반침을 내어 책장 겸 이부장으로 사용했다고 한다. 한편,
+          과거에는 상방을 벽으로 나누어 상방 동쪽으로 일꾼방을 두었는데, 현재는 벽을 제거한 상태이다. 일꾼방 동쪽으로는 반침을 두어 이부장으로 활용했으며 동쪽과 남쪽에 각각 지청과 마당으로 향하는 문이
+          있었다. 상방 북쪽으로는 2칸 규모의 며느리방(혹은 도장방)이 있었는데, 며느리방 역시 가운데에 벽과 문을 두어 2개의 방으로 사용되었으며 북쪽에 뒤뜰로 향하는 문이 있었다.
+        </p>
+      </div>
+    </section>
+
+    <!-- ③ 전해지는 이야기 -->
+    <section class="section">
+      <h2 class="section-title">전해지는 이야기</h2>
+
+      <div class="story-item">
+        <div class="story-num">이야기 01</div>
+        <div class="story-title">사랑채의 청기와(靑瓦)</div>
+        <div class="body-text">
+          <p>전해지는 말에 따르면, 사랑채 지붕에 청기와 2장이 얹혀져 있었다고 한다. 어떤 연유에서 사가(私家)의 사랑채에 청기와가 얹혀 있었는지는 전해지지 않으나, 이 청기와는 옛날부터 사랑채 위에
+            얹혀져 있었다고 한다. 해당 청기와는 1996년의 사랑채 보수 과정에서 일반 평기와로 교체되었는데, 뒤늦게 해당 사실을 안 종가측에서 양양군에 말해보았지만, 이미 누군가 사버려서 되찾을 수
+            없었다고 한다.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-num">이야기 02</div>
+        <div class="story-title">가옥과 망와(望瓦)</div>
+        <div class="body-text">
+          <p>김택준 가옥의 안채와 사랑채의 지붕마루에는 본래 다양한 망와(望瓦)가 있었다고 한다. 도깨비 문양부터 불꽃 문양의 망와 등 다양한 형태의 망와가 있었다고 전하는데, 해당 망와들은 대부분 문화재
+            보수 과정에서 현대식 망와로 교체되었다. 아마 망와가 너무 오래되었기 때문으로 추정된다. 현재는 사랑채 후면부 맞배지붕의 양쪽 내림마루에 유일하게 구식의 망와 2점이 남아있다.</p>
+          <div class="img-block-row">
+            <div>
+              <img src="images/jongtaek/사랑채 망와.jpg" alt="사랑채 망와"
+                style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+                class="lightbox-trigger">
+              <p class="img-caption">사랑채 후면부 내림마루의 망와</p>
+            </div>
+            <div>
+              <img src="images/jongtaek/망와.jpg" alt="망와 실측도"
+                style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--border-normal);display:block;"
+                class="lightbox-trigger">
+              <p class="img-caption">사랑채 망와 문양 실측도</p>
+            </div>
+          </div>
+          <p>
+            위 망와의 문양은 벼나 조 등의 이삭으로 추정되는 식물을 중심으로 양 옆에 나비가 있는 쌍접문(雙蝶文)으로 추정되며, 식물의 네 잎 아래로 망와가 제작된 연도(을묘년, 1855년 혹은 1915년)와 날짜(3월 6일)가 양각되어 있다. 다만, 해당 망와는 기존 가옥에 있던 망와들 중 비교적 최근의 것으로 생각되는데, 망와의 제작연대 표기가 좌횡서(左橫書)로 되어 있어 1915년에 제작된 망와로 추정할 수 있다. 또한, 이를 통해 사랑채가 1915년에 지어졌거나, 1915년에 한 차례 보수가 이루어졌음을 알 수 있다.
+          </p>
+          <p>
+            아래의 종가 로고도 해당 망와의 문양과 『종가실록』의 서체를 바탕으로 제작하였다.
+          </p>
+          <div style="display:flex;justify-content:center;margin:28px 0 4px;">
+            <img src="logo/logo_1(종가).png" alt="두리종중 종가 로고" class="logo-theme-light lightbox-trigger" style="width:220px;height:220px;object-fit:contain;">
+            <img src="logo/logo_1(종가)_dark.png" alt="두리종중 종가 로고 (다크)" class="logo-theme-dark lightbox-trigger" style="width:220px;height:220px;object-fit:contain;display:none;">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ④ 위치 -->
+    <section class="map-section">
+      <h2 class="section-title">찾아오는 길</h2>
+      <div class="map-container">
+        <iframe src="https://maps.google.com/maps?q=37.973070,128.750720&t=&z=17&ie=UTF8&iwloc=near&output=embed"
+          title="종택 위치 지도" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="map-info">
+        <div class="map-info-item">
+          <span class="map-info-label">주소</span>
+          <span>강원특별자치도 양양군 현남면 두리</span>
+        </div>
+      </div>
+      <a class="map-link" href="https://maps.google.com/maps?q=양양+김택준+가옥" target="_blank" rel="noopener">
+        구글맵에서 보기 →
+      </a>
+    </section>
+
+  </div><!-- /page-wrap -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo-block">
+        <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+        <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-address">
+          <span>강원특별자치도 양양군 현남면 두리</span>
+          <span>문의: 사이트 관리 : 14대손</span>
+        </div>
+        <div class="footer-copyright">소장문서 디지털 아카이브 · 종가실록(宗家實錄) 등 소장 자료의 무단 전재·복제를 금합니다.</div>
+      </div>
+      <nav class="footer-links">
+        <a href="home.html">홈</a>
+        <a href="index.html">소장 문서</a>
+        <a href="family.html">가계도</a>
+        <a href="jongtaek.html">종택</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+  </footer>
+
+  <!-- 라이트박스 -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-hint" id="lightbox-hint">클릭하여 확대 · 드래그하여 이동</div>
+  </div>
+
+  <script src="style.js" onerror="void 0"></script>
+  <script>
+    // 소지 캐러셀 페이지네이션
+    const slides = document.querySelectorAll('.source-slide');
+    const pageBtns = document.querySelectorAll('.source-page-btn');
+
+    function goToSlide(n) {
+      slides.forEach(s => s.classList.toggle('active', s.dataset.slide === String(n)));
+      pageBtns.forEach(b => b.classList.toggle('active', b.dataset.page === String(n)));
     }
-  });
 
-  // 휠 확대/축소
-  overlay.addEventListener('wheel', e => {
-    e.preventDefault();
-    if (!zoomed) enterZoom(INIT_SCALE);
-    const delta = e.deltaY > 0 ? -0.15 : 0.15;
-    scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
-    applyTransform(false);
-  }, { passive: false });
-
-  lbImg.addEventListener('mousedown', e => {
-    if (!zoomed) return;
-    dragging = true; moved = false;
-    startX = e.clientX - tx * scale;
-    startY = e.clientY - ty * scale;
-    lbImg.classList.add('dragging');
-    e.preventDefault();
-  });
-  window.addEventListener('mousemove', e => {
-    if (!dragging) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
-    tx = dx / scale;
-    ty = dy / scale;
-    applyTransform(false);
-  });
-  window.addEventListener('mouseup', () => {
-    if (!dragging) return;
-    dragging = false;
-    lbImg.classList.remove('dragging');
-  });
-
-  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // 다크모드 토글
-  const btn = document.getElementById('theme-toggle');
-  if (btn) {
-    const update = () => {
-      const t = document.documentElement.getAttribute('data-theme');
-      btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
-    };
-    update();
-    btn.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('duri-theme', next);
-      update();
+    pageBtns.forEach(btn => {
+      btn.addEventListener('click', () => goToSlide(Number(btn.dataset.page)));
     });
-  }
-</script>
+
+    // 국역/원문 토글 (슬라이드별)
+    [
+      ['source-toggle-btn', 'source-kr', 'source-hj'],
+      ['source-toggle-btn-2', 'source-kr-2', 'source-hj-2'],
+      ['source-toggle-btn-3', 'source-kr-3', 'source-hj-3'],
+    ].forEach(([btnId, krId, hjId]) => {
+      const tb = document.getElementById(btnId);
+      const kr = document.getElementById(krId);
+      const hj = document.getElementById(hjId);
+      if (!tb) return;
+      let showHj = false;
+      tb.addEventListener('click', () => {
+        showHj = !showHj;
+        kr.style.display = showHj ? 'none' : '';
+        hj.style.display = showHj ? '' : 'none';
+        tb.textContent = showHj ? '국역 보기' : '원문 보기';
+      });
+    });
+
+    // 라이트박스 (줌 + 패닝 + 휠 확대축소)
+    const overlay = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+
+    const INIT_SCALE = 1.5, MIN_SCALE = 1.0, MAX_SCALE = 6.0;
+    let zoomed = false, dragging = false, moved = false;
+    let scale = INIT_SCALE, tx = 0, ty = 0, startX = 0, startY = 0;
+
+    function applyTransform(animate) {
+      lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+      lbImg.style.transform = 'scale(' + scale + ') translate(' + tx + 'px, ' + ty + 'px)';
+    }
+    function enterZoom(s) {
+      scale = s; tx = 0; ty = 0; zoomed = true;
+      lbImg.classList.add('zoomed');
+      applyTransform(true);
+    }
+    function resetZoom() {
+      zoomed = false; scale = INIT_SCALE; tx = 0; ty = 0;
+      lbImg.classList.remove('zoomed', 'dragging');
+      lbImg.style.transition = 'transform 0.2s ease';
+      lbImg.style.transform = '';
+    }
+    function closeLightbox() {
+      resetZoom();
+      overlay.classList.remove('open');
+    }
+
+    document.querySelectorAll('.lightbox-trigger').forEach(img => {
+      img.addEventListener('click', () => {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        resetZoom();
+        overlay.classList.add('open');
+      });
+    });
+
+    lbImg.addEventListener('click', e => {
+      if (moved) return;
+      if (!zoomed) {
+        enterZoom(INIT_SCALE);
+      } else {
+        resetZoom();
+      }
+    });
+
+    // 휠 확대/축소
+    overlay.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (!zoomed) enterZoom(INIT_SCALE);
+      const delta = e.deltaY > 0 ? -0.15 : 0.15;
+      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+      applyTransform(false);
+    }, { passive: false });
+
+    lbImg.addEventListener('mousedown', e => {
+      if (!zoomed) return;
+      dragging = true; moved = false;
+      startX = e.clientX - tx * scale;
+      startY = e.clientY - ty * scale;
+      lbImg.classList.add('dragging');
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      tx = dx / scale;
+      ty = dy / scale;
+      applyTransform(false);
+    });
+    window.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      lbImg.classList.remove('dragging');
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // 다크모드 토글
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      const update = () => {
+        const t = document.documentElement.getAttribute('data-theme');
+        btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
+      };
+      update();
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('duri-theme', next);
+        update();
+      });
+    }
+  </script>
 </body>
+
 </html>
