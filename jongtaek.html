@@ -227,6 +227,7 @@
       z-index: 9000;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
     .lightbox-overlay.open {
       display: flex;
@@ -237,6 +238,19 @@
       object-fit: contain;
       border-radius: var(--radius-md);
       box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+      cursor: zoom-in;
+      transform-origin: center center;
+      transition: transform 0.2s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-overlay img.zoomed {
+      cursor: grab;
+      border-radius: 0;
+    }
+    .lightbox-overlay img.zoomed.dragging {
+      cursor: grabbing;
+      transition: none;
     }
     .lightbox-close {
       position: fixed;
@@ -254,8 +268,20 @@
       align-items: center;
       justify-content: center;
       transition: background 0.15s;
+      z-index: 9001;
     }
     .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      pointer-events: none;
+      letter-spacing: 0.04em;
+      z-index: 9001;
+    }
 
     /* ── 지도 ── */
     .map-section { margin-top: 72px; }
@@ -609,6 +635,7 @@
 <div class="lightbox-overlay" id="lightbox">
   <button class="lightbox-close" id="lightbox-close">✕</button>
   <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-hint" id="lightbox-hint">클릭하여 확대 · 드래그하여 이동</div>
 </div>
 
 <script src="style.js" onerror="void 0"></script>
@@ -645,19 +672,87 @@
     });
   });
 
-  // 라이트박스
+  // 라이트박스 (줌 + 패닝 + 휠 확대축소)
   const overlay = document.getElementById('lightbox');
   const lbImg   = document.getElementById('lightbox-img');
+
+  const INIT_SCALE = 1.5, MIN_SCALE = 1.0, MAX_SCALE = 6.0;
+  let zoomed = false, dragging = false, moved = false;
+  let scale = INIT_SCALE, tx = 0, ty = 0, startX = 0, startY = 0;
+
+  function applyTransform(animate) {
+    lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+    lbImg.style.transform = 'scale(' + scale + ') translate(' + tx + 'px, ' + ty + 'px)';
+  }
+  function enterZoom(s) {
+    scale = s; tx = 0; ty = 0; zoomed = true;
+    lbImg.classList.add('zoomed');
+    applyTransform(true);
+  }
+  function resetZoom() {
+    zoomed = false; scale = INIT_SCALE; tx = 0; ty = 0;
+    lbImg.classList.remove('zoomed', 'dragging');
+    lbImg.style.transition = 'transform 0.2s ease';
+    lbImg.style.transform = '';
+  }
+  function closeLightbox() {
+    resetZoom();
+    overlay.classList.remove('open');
+  }
+
   document.querySelectorAll('.lightbox-trigger').forEach(img => {
     img.addEventListener('click', () => {
       lbImg.src = img.src;
       lbImg.alt = img.alt;
+      resetZoom();
       overlay.classList.add('open');
     });
   });
-  document.getElementById('lightbox-close').addEventListener('click', () => overlay.classList.remove('open'));
-  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+
+  lbImg.addEventListener('click', e => {
+    if (moved) return;
+    if (!zoomed) {
+      enterZoom(INIT_SCALE);
+    } else {
+      resetZoom();
+    }
+  });
+
+  // 휠 확대/축소
+  overlay.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (!zoomed) enterZoom(INIT_SCALE);
+    const delta = e.deltaY > 0 ? -0.15 : 0.15;
+    scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+    applyTransform(false);
+  }, { passive: false });
+
+  lbImg.addEventListener('mousedown', e => {
+    if (!zoomed) return;
+    dragging = true; moved = false;
+    startX = e.clientX - tx * scale;
+    startY = e.clientY - ty * scale;
+    lbImg.classList.add('dragging');
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+    tx = dx / scale;
+    ty = dy / scale;
+    applyTransform(false);
+  });
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    lbImg.classList.remove('dragging');
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
   // 다크모드 토글
   const btn = document.getElementById('theme-toggle');
