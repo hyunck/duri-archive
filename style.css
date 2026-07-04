@@ -110,7 +110,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* 로고 */
 .logo-wrap {
-  display: flex; flex-direction: column; gap: 5px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
   text-decoration: none;
 }
 .logo-main {
@@ -118,7 +118,7 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--text-bright); letter-spacing: 0.06em; white-space: nowrap;
 }
 .logo-hj {
-  font-size: 13px; color: var(--gold-600); letter-spacing: 0.8em;
+  font-size: 13px; color: var(--gold-600); letter-spacing: 0.52em; margin-right: -0.3em;
 }
 
 /* 내비게이션 */
