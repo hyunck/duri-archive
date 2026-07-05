@@ -11,7 +11,7 @@ const DOC_HWASU = {
   classification: "史部 雜史類",
   seal: "",
   digitized: true,
-  total_pages: 111,
+  total_pages: 110,
   digitized_pages: 0,
 
   bibliography: {
@@ -1133,16 +1133,6 @@ const DOC_HWASU = {
       type: "text",
       title: "110페이지",
       image: "images/hwasu/page_110.png",
-      hanja_text: "",
-      korean_translation: "",
-      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
-      annotations: []
-    },
-    {
-      page_num: 111,
-      type: "text",
-      title: "111페이지",
-      image: "images/hwasu/page_111.png",
       hanja_text: "",
       korean_translation: "",
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
