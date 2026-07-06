@@ -41,10 +41,10 @@ const DOC_HWASU = {
     {
       page_num: 1,
       type: "text",
-      title: "1페이지",
+      title: "1페이지 : 표지",
       image: "images/hwasu/page_001.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `花樹會`,
+      korean_translation: `화수회`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -61,10 +61,14 @@ const DOC_HWASU = {
     {
       page_num: 3,
       type: "text",
-      title: "3페이지",
+      title: "3페이지 : 을미년 문회",
       image: "images/hwasu/page_003.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `乙未十月二十日門會
+
+`,
+      korean_translation: `을미년(1895년) 10월 20일 문중 회의
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
