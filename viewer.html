@@ -318,6 +318,12 @@
     }
     .panel-body::-webkit-scrollbar { width: 4px; }
     .panel-body::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+    /* 국역(좌측) 패널은 스크롤은 되지만 스크롤바를 숨김 */
+    #panel-left-body {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #panel-left-body::-webkit-scrollbar { display: none; }
 
     /* ===== CONTENT STYLES ===== */
     .korean-content {
