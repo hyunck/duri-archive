@@ -26,7 +26,7 @@ const CATALOG = [
     year_display: "20세기 초",
     category: "종중 기록",
     digitized: true,
-    detail_url: "detail-hwasu.html",
+    detail_url: "detail-화수회.html",
     classification: "史部 雜史類"
   },
   {
@@ -51,7 +51,7 @@ const CATALOG = [
     year_display: "道光23年(1843)",
     category: "호적·관문서",
     digitized: true,
-    detail_url: "detail-hoju1843.html",
+    detail_url: "detail-김주형호구단자1843.html",
     classification: "史部 政書類"
   },
   {
@@ -63,7 +63,7 @@ const CATALOG = [
     year_display: "咸豊11年(1861)",
     category: "호적·관문서",
     digitized: true,
-    detail_url: "detail-hoju1861.html",
+    detail_url: "detail-김주형호구단자1861.html",
     classification: "史部 政書類"
   },
   {
@@ -592,7 +592,7 @@ const CATALOG = [
     year_display: "",
     category: "문집·기문",
     digitized: true,
-    detail_url: "detail-yeongbin.html",
+    detail_url: "detail-영빈대기.html",
     classification: "集部 記類"
   },
   {
@@ -604,7 +604,7 @@ const CATALOG = [
     year_display: "庚午(1930)",
     category: "문집·기문",
     digitized: true,
-    detail_url: "detail-dusanjeongi.html",
+    detail_url: "detail-두산정기.html",
     classification: "集部 記類"
   },
   {

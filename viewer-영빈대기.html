@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>국역·원문 대조 보기 — 김주형호구단자(1861)</title>
-  <meta name="description" content="김주형호구단자(1861) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
-  <link rel="canonical" href="https://두리종중.com/viewer-hoju1861.html">
+  <title>국역·원문 대조 보기 — 영빈대기</title>
+  <meta name="description" content="영빈대기(迎賓臺記) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 고문서.">
+  <link rel="canonical" href="https://두리종중.com/viewer-영빈대기.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="국역·원문 대조 보기 — 김주형호구단자(1861)">
-  <meta property="og:description" content="김주형호구단자(1861) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
-  <meta property="og:url" content="https://두리종중.com/viewer-hoju1861.html">
-  <meta property="og:image" content="https://두리종중.com/images/banner/banner.jpg">
+  <meta property="og:title" content="국역·원문 대조 보기 — 영빈대기">
+  <meta property="og:description" content="영빈대기(迎賓臺記) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 고문서.">
+  <meta property="og:url" content="https://두리종중.com/viewer-영빈대기.html">
+  <meta property="og:image" content="https://두리종중.com/images/yeongbin/cover.png">
   <meta property="og:locale" content="ko_KR">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -705,7 +705,7 @@
 
     <!-- TOP BAR -->
     <div class="viewer-topbar">
-      <a class="back-link" href="detail-hoju1861.html">
+      <a class="back-link" href="detail-영빈대기.html">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"/>
         </svg>
@@ -713,8 +713,8 @@
       </a>
 
       <div class="doc-title-bar">
-        <span class="doc-title-hanja">金胄衡戶口單子</span>
-        <span class="doc-title-kr">김주형호구단자(1861)</span>
+        <span class="doc-title-hanja">迎賓臺記</span>
+        <span class="doc-title-kr">영빈대기</span>
       </div>
 
       <div class="page-nav">
@@ -743,7 +743,6 @@
 
         <div class="view-toggles" id="spread-toggles" style="display:none;">
           <button class="toggle-btn active" id="toggle-single" onclick="setSpreadMode(false)">단면</button>
-          <button class="toggle-btn" id="toggle-spread" onclick="setSpreadMode(true)">양면</button>
         </div>
 
         <div class="view-toggles" id="view-toggles">
@@ -808,7 +807,7 @@
             </svg>
             <p style="margin-top:8px; color: var(--text-secondary);" id="scan-placeholder-text">원문 스캔 이미지</p>
             <p style="font-size:12px;">이미지 파일을 <code style="background:var(--bg-card); padding:2px 6px; border-radius:3px;">images/</code> 폴더에 추가해 주세요.</p>
-            <p style="font-size:11px; color:var(--text-muted);">예: <code style="background:var(--bg-card); padding:1px 5px; border-radius:3px;" id="image-filename-hint">images/hoju-1861/page_01.png</code></p>
+            <p style="font-size:11px; color:var(--text-muted);">예: <code style="background:var(--bg-card); padding:1px 5px; border-radius:3px;" id="image-filename-hint">images/yeongbin/page_01.png</code></p>
           </div>
           <img id="scan-image" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="원문 스캔 이미지"/>
         </div>
@@ -873,12 +872,12 @@
 </footer>
 
 <script src="theme.js"></script>
-<script src="data/hoju-1861.js"></script>
+<script src="data/영빈대기.js"></script>
 <script>
   /* ===========================
      STATE
   =========================== */
-  const doc = DOC_HOJU_1861;
+  const doc = DOC_YEONGBIN;
   let currentPage = 1;
   let viewMode = 'compare'; // 'compare' | 'image'
   let zoomLevel = 1;
@@ -934,9 +933,10 @@
     // 페이지 카운터
     document.getElementById('page-current').textContent =
       spreadNums.length > 1 ? `${spreadNums[0]}–${spreadNums[1]}` : num;
-    document.getElementById('page-total').textContent = doc.total_pages;
+    const maxPage = viewMode === 'compare' ? (doc.compare_pages || doc.total_pages) : doc.total_pages;
+    document.getElementById('page-total').textContent = maxPage;
     document.getElementById('btn-prev').disabled = num <= 1;
-    document.getElementById('btn-next').disabled = num >= doc.total_pages;
+    document.getElementById('btn-next').disabled = num >= maxPage;
 
     // 사이드바 하이라이트
     document.querySelectorAll('.sidebar-item').forEach(el => {
@@ -1122,7 +1122,7 @@
   });
 
   function imgSrc(page, num) {
-    return page ? page.image : `images/hoju-1861/page_${String(num).padStart(2,'0')}.png`;
+    return page ? page.image : `images/yeongbin/page_${String(num).padStart(2,'0')}.png`;
   }
 
   function singleBaseH() {
@@ -1212,7 +1212,8 @@
     } else {
       target = currentPage + delta;
     }
-    if (target < 1 || target > doc.total_pages) return;
+    const pageLimit = viewMode === 'compare' ? (doc.compare_pages || doc.total_pages) : doc.total_pages;
+    if (target < 1 || target > pageLimit) return;
     zoomLevel = 1; applyZoom();
     renderPage(target);
     document.getElementById('panel-left-body').scrollTop = 0;
@@ -1254,8 +1255,12 @@
       viewSpread = false;
       document.getElementById('toggle-single').classList.add('active');
       document.getElementById('toggle-spread').classList.remove('active');
-      renderPage(currentPage);
     }
+    // 대조 보기 전환 시 compare_pages 초과 페이지면 1페이지로 이동
+    if (mode === 'compare' && doc.compare_pages && currentPage > doc.compare_pages) {
+      currentPage = 1;
+    }
+    renderPage(currentPage);
     showCompareOrImage();
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
     document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
@@ -1539,6 +1544,9 @@
         </div>
       `;
       item.addEventListener('click', () => {
+        if (viewMode === 'compare' && doc.compare_pages && i > doc.compare_pages) {
+          setViewMode('image');
+        }
         renderPage(i);
         document.getElementById('panel-left-body').scrollTop = 0;
         document.getElementById('panel-right-body').scrollTop = 0;
