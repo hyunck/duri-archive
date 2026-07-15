@@ -3,395 +3,483 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>소장 문서 — 두리종중 디지털 아카이브</title>
+  <title>경주김씨 상촌공파 두리종중 소장자료</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="style.css">
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
-    /* ===== PAGE HERO ===== */
-    .page-hero {
-      position: relative;
-      padding: 52px 48px 40px;
-      border-bottom: 1px solid var(--border-normal);
-      background: url('images/banner/banner.jpg') center/cover no-repeat;
-      overflow: hidden;
+    /* ============================================================
+       RESET & ROOT
+    ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white:      #ffffff;
+      --gray-50:    #f8f7f5;
+      --gray-100:   #f0eeeb;
+      --gray-200:   #e4e1dc;
+      --gray-300:   #ccc9c3;
+      --gray-400:   #a8a49d;
+      --gray-500:   #7a7670;
+      --gray-600:   #565350;
+      --gray-700:   #3a3835;
+      --gray-800:   #2a2825;
+      --gray-900:   #1a1916;
+      --brown:      #6b5c4a;
+      --brown-mid:  #8b7355;
+      --brown-light:#b0967a;
+      --brown-pale: #d4c4ae;
+      --text:       #1a1916;
+      --text-sub:   #3d3b38;
+      --text-muted: #6e6b66;
+      --text-light: #9c9892;
+      --border:     rgba(0,0,0,0.08);
+      --border-2:   rgba(0,0,0,0.14);
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.07);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.09);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.12);
+      --radius:     2px;
+      --serif:      'Nanum Myeongjo', 'Batang', Georgia, serif;
+      --sans:       'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
     }
-    .page-hero::before {
-      content: '';
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--text); }
+    a    { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    /* ============================================================
+       HERO CAROUSEL
+    ============================================================ */
+    .hero {
+      position: relative; width: 100%;
+      height: calc(100vh - 100px); min-height: 520px;
+      overflow: hidden;
+      background: var(--gray-100);
+    }
+
+    .hero-track {
+      display: flex; height: 100%;
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .hero-slide {
+      flex: 0 0 100%; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
       position: absolute; inset: 0;
-      background: linear-gradient(to right,
-        rgba(255,255,255,.88) 0%,
-        rgba(255,255,255,.60) 55%,
-        rgba(255,255,255,.10) 100%
+      background-size: cover; background-position: center;
+      transform: scale(1.04);
+      transition: transform 9s ease-out;
+    }
+    .hero-slide:nth-child(1) .hero-bg { background-image: url('images/home-hero/hero-1.jpg'); background-color: #dedad5; }
+    .hero-slide:nth-child(2) .hero-bg { background-image: url('images/home-hero/hero-2.jpg'); background-color: #d5d8da; }
+    .hero-slide:nth-child(3) .hero-bg { background-color: #dad5cf; background-image: linear-gradient(160deg, #e3ddd7 0%, #ccc6bf 50%, #c0b9b1 100%); }
+    .hero-slide:nth-child(4) .hero-bg { background-color: #d5d8d5; background-image: linear-gradient(160deg, #dde0db 0%, #c8ccc7 50%, #bcbfba 100%); }
+
+    .hero-slide.active .hero-bg { transform: scale(1); }
+
+    /* 하단 그라디언트 오버레이 */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(0,0,0,.62) 0%,
+        rgba(0,0,0,.18) 50%,
+        rgba(0,0,0,.04) 100%
       );
     }
-    .page-hero-top {
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .page-title-ko {
-      font-size: 30px;
-      font-weight: 800;
-      color: var(--text-bright);
-      letter-spacing: 0.04em;
-    }
-    .page-title-hanja {
-      font-family: var(--font-serif);
-      font-size: 14px;
-      color: var(--gold-600);
-      letter-spacing: 0.14em;
-      margin-top: 5px;
-    }
-    .doc-count {
-      font-size: 13px;
-      color: var(--text-muted);
-      padding-top: 6px;
-    }
-    .doc-count span { color: var(--gold-700); font-weight: 700; }
-    .page-hero .doc-count { color: rgba(30,20,10,.75); text-shadow: 0 1px 4px rgba(255,255,255,.6); }
-    .page-hero .doc-count span { color: var(--gold-700); }
-    [data-theme="dark"] .page-hero .doc-count { color: rgba(255,255,255,.95); text-shadow: 0 1px 8px rgba(0,0,0,.8); }
-    [data-theme="dark"] .page-hero .doc-count span { color: #DFC070; }
 
-    /* Search bar */
-    .search-bar {
-      position: relative;
-      margin-top: 24px;
-      display: flex;
-      gap: 8px;
-      max-width: 580px;
-    }
-    .search-input-wrap { flex: 1; position: relative; }
-    .search-input-wrap svg {
-      position: absolute; left: 13px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted); pointer-events: none;
-    }
-    .search-input {
-      width: 100%;
-      background: var(--bg-body);
-      border: 1px solid var(--border-normal);
-      border-radius: var(--radius-sm);
-      color: var(--text-primary);
-      font-size: 14px;
-      font-family: var(--font-sans);
-      padding: 10px 14px 10px 40px;
-      outline: none;
-      transition: var(--transition);
-    }
-    .search-input::placeholder { color: var(--text-muted); }
-    .search-input:focus {
-      border-color: var(--gold-600);
-      background: var(--bg-body);
-      box-shadow: 0 0 0 3px rgba(107,92,74,0.08);
+    /* 상단 브라운 가는 선 */
+    .hero-top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2;
+      background: linear-gradient(90deg, transparent 0%, var(--brown-mid) 50%, transparent 100%);
+      opacity: 0.6;
     }
 
-    /* 장식 줄 */
-    .hero-ornament {
-      position: relative;
-      margin-top: 28px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    /* 슬라이드 텍스트 */
+    .hero-content {
+      position: absolute; bottom: 96px; left: 80px; right: 80px;
+      z-index: 2;
     }
-    .hero-ornament-line {
-      flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--gold-800), transparent);
+    .hero-label {
+      font-size: 11px; letter-spacing: 0.32em; color: rgba(255,220,130,.9);
+      text-transform: uppercase; margin-bottom: 14px;
     }
-    .hero-ornament-line.right {
-      background: linear-gradient(90deg, transparent, var(--gold-800));
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.6vw, 50px); font-weight: 800;
+      line-height: 1.28; color: #ffffff; margin-bottom: 18px;
+      text-shadow: 0 2px 16px rgba(0,0,0,.35);
     }
-    .hero-ornament-text {
-      font-family: var(--font-serif);
-      font-size: 11px;
-      color: var(--gold-800);
-      letter-spacing: 0.18em;
+    .hero-sub {
+      font-size: 15px; color: rgba(255,255,255,.82);
+      line-height: 1.78; max-width: 460px; font-weight: 400;
+      text-shadow: 0 1px 8px rgba(0,0,0,.3);
     }
 
-    /* ===== LAYOUT ===== */
-    .list-layout {
+    /* 이전 / 다음 */
+    .hero-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid var(--gray-300);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(6px);
+      color: var(--gray-700); font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 5;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .hero-arrow:hover {
+      background: var(--white);
+      border-color: var(--brown-mid);
+      color: var(--brown);
+    }
+    .hero-prev { left: 28px; }
+    .hero-next { right: 28px; }
+
+    /* 점 인디케이터 */
+    .hero-dots {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 10px; z-index: 5;
+    }
+    .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%; border: none;
+      background: var(--gray-300); cursor: pointer;
+      transition: background .2s, transform .2s; padding: 0;
+    }
+    .hero-dot.active { background: var(--brown-mid); transform: scale(1.5); }
+
+    /* 카운터 */
+    .hero-counter {
+      position: absolute; bottom: 40px; right: 44px;
+      font-size: 12px; color: var(--gray-400);
+      letter-spacing: 0.1em; z-index: 5;
+    }
+
+    /* 스크롤 힌트 */
+    .scroll-hint {
+      position: absolute; bottom: 24px; left: 80px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; z-index: 5; opacity: .45;
+    }
+    .scroll-hint-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--gray-500), transparent);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+    .scroll-hint-text {
+      font-size: 9px; letter-spacing: .24em; color: var(--gray-500);
+      writing-mode: vertical-rl;
+    }
+    @keyframes scrollAnim {
+      0%,100% { opacity:.45; }
+      50%      { opacity: .8; }
+    }
+
+    /* ============================================================
+       INTRO 3단
+    ============================================================ */
+    .intro-section {
+      background: var(--gray-900);
+      padding: 60px 80px;
+    }
+    .intro-grid {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      min-height: calc(100vh - var(--header-h) - 52px - 160px);
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      gap: 0 52px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .intro-sep { background: rgba(255,255,255,.1); align-self: stretch; }
+    .intro-item { text-align: center; padding: 12px 0; }
+    .intro-glyph {
+      font-family: var(--serif); font-size: 30px;
+      color: var(--brown-pale); margin-bottom: 14px; line-height: 1;
+    }
+    .intro-title {
+      font-size: 16px; font-weight: 700;
+      color: rgba(255,255,255,.9); margin-bottom: 4px;
+    }
+    .intro-hj {
+      font-family: var(--serif); font-size: 11px;
+      color: var(--brown-pale); letter-spacing: .2em; margin-bottom: 12px;
+    }
+    .intro-desc {
+      font-size: 13.5px; color: rgba(255,255,255,.5); line-height: 1.88;
     }
 
-    /* ===== SIDEBAR ===== */
-    .filter-sidebar {
-      border-right: 1px solid var(--border-subtle);
-      background: var(--bg-body);
-      padding: 22px 14px 32px;
+    /* ============================================================
+       SECTION 공통
+    ============================================================ */
+    .section    { padding: 88px 80px; }
+    .section-sm { padding: 64px 80px; }
+    .container  { max-width: 1100px; margin: 0 auto; }
+
+    .sec-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .28em;
+      color: var(--brown-mid); text-transform: uppercase; margin-bottom: 10px;
     }
-    .filter-section-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      padding: 0 10px;
-      margin-bottom: 8px;
-      margin-top: 4px;
+    .sec-title {
+      font-family: var(--serif); font-size: 26px; font-weight: 800;
+      color: var(--text); line-height: 1.35; margin-bottom: 10px;
     }
-    .filter-list { list-style: none; margin-bottom: 22px; }
-    .filter-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 7px 10px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 15px;
-      color: var(--text-primary);
-      border: 1px solid transparent;
+    .sec-divider {
+      width: 32px; height: 2px;
+      background: var(--brown-light);
     }
-    .filter-item:hover { background: var(--bg-hover); color: var(--text-bright); }
-    .filter-item.active {
-      color: var(--text-bright);
-      font-weight: 600;
-      background: var(--sidebar-active-bg);
-      border-color: var(--sidebar-active-border);
-    }
-    .filter-count {
-      font-size: 11px;
-      background: var(--bg-active);
-      color: var(--text-secondary);
-      padding: 1px 7px;
-      border-radius: 10px;
-    }
-    .filter-item.active .filter-count {
-      background: rgba(107,92,74,0.14);
-      color: var(--text-bright);
-      font-weight: 600;
-    }
-    .sidebar-divider {
-      height: 1px;
-      background: var(--border-subtle);
-      margin: 16px 10px;
-    }
-    .digitized-only {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      cursor: pointer;
-      font-size: 15px;
-      color: var(--text-primary);
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-    }
-    .digitized-only:hover { background: var(--bg-hover); color: var(--text-primary); }
-    .digitized-only input[type="checkbox"] {
-      width: 13px; height: 13px;
-      accent-color: var(--navy-400);
+    .sec-desc {
+      font-size: 14.5px; color: var(--text-muted);
+      line-height: 1.9; margin-top: 14px;
     }
 
-    /* ===== DOC LIST ===== */
-    .list-main { display: flex; flex-direction: column; }
-    .list-controls {
-      padding: 12px 32px;
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      color: var(--text-primary);
-      background: var(--bg-body);
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about-section { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
     }
-    .sort-select {
-      background: var(--bg-body);
-      border: 1px solid var(--border-normal);
-      border-radius: var(--radius-sm);
-      color: var(--text-primary);
-      font-size: 14px;
-      font-family: var(--font-sans);
-      padding: 4px 10px;
-      outline: none;
-      margin-left: auto;
+    .about-text p {
+      font-size: 14.5px; color: var(--text-sub);
+      line-height: 2.05; margin-top: 18px;
     }
 
-    .doc-list {
-      padding: 0;
-      display: flex;
-      flex-direction: column;
+    .about-panel { position: relative; }
+    .about-hanja { display: none; }
+    .about-logo { position: absolute; top: -92px; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: none; }
+    .about-logo img { max-width: 260px; width: 100%; }
+    .about-logo-dark { display: none; }
+    [data-theme="dark"] .about-logo-light { display: none; }
+    [data-theme="dark"] .about-logo-dark  { display: block; }
+    .stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      position: relative; margin-top: 132px;
     }
+    .stat-card {
+      padding: 24px 16px; text-align: center;
+      background: var(--gray-50); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .stat-num {
+      font-family: var(--serif); font-size: 32px; font-weight: 800;
+      color: var(--brown); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); }
 
-    /* ===== DOCUMENT CARD ===== */
-    .doc-card {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 24px 28px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .doc-card:first-child { border-top: 1px solid var(--border-subtle); }
-    .doc-card:hover { background: var(--bg-hover); }
+    /* ============================================================
+       QUICK LINKS
+    ============================================================ */
+    .links-section { background: var(--gray-50); }
+    .links-header { text-align: center; margin-bottom: 48px; }
 
-    .doc-card-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
+    .links-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
-    .doc-card-title {
-      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text-bright);
-      letter-spacing: 0.01em;
-    }
-
-    .doc-card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      font-size: 15px;
-      color: var(--text-primary);
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .doc-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .doc-meta-item + .doc-meta-item::before {
-      content: '';
-      display: inline-block;
-      width: 1px;
-      height: 10px;
-      background: var(--border-normal);
-      margin: 0 10px;
-    }
-    .doc-meta-key { color: var(--text-primary); }
-    .doc-meta-val { color: var(--text-primary); }
-
-
-    /* 클릭 불가 카드 */
-    .doc-card-inactive {
-      cursor: default;
-      pointer-events: none;
-      opacity: 0.72;
-    }
-    .doc-card-inactive:hover { background: var(--bg-card); }
-
-    /* ===== PAGINATION ===== */
-    .pagination {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      padding: 24px 0 32px;
-    }
-    .page-btn {
-      min-width: 34px;
-      height: 34px;
-      padding: 0 8px;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      background: var(--bg-card);
-      color: var(--text-primary);
-      font-size: 14px;
-      font-family: var(--font-sans);
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .page-btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-bright); }
-    .page-btn.active {
-      background: var(--navy-700);
-      border-color: var(--navy-600);
-      color: #fff;
-      font-weight: 700;
-    }
-    .page-btn:disabled { opacity: 0.3; cursor: default; }
-    .page-ellipsis { padding: 0 4px; color: var(--text-muted); font-size: 14px; }
-
-    /* 빈 결과 */
-    .empty-state {
-      padding: 80px 40px;
+    .link-card {
+      display: flex; flex-direction: column;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 44px 32px 36px;
       text-align: center;
-      color: var(--text-muted);
+      transition: box-shadow .25s, transform .25s, border-color .25s;
     }
-    .empty-state-icon { font-size: 44px; margin-bottom: 14px; opacity: 0.25; }
-
-    /* 모바일 필터 토글 버튼 (데스크톱에서는 숨김) */
-    .filter-mobile-btn { display: none; }
-
-    /* ===== MOBILE RESPONSIVE ===== */
-    /* ── 다크 모드 ── */
-    [data-theme="dark"] .page-hero { background: url('images/banner/banner.jpg') center/cover no-repeat; border-bottom-color: var(--gold-600); filter: brightness(0.75); }
-    [data-theme="dark"] .page-hero::before { background: linear-gradient(to right, rgba(0,0,0,.80) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.15) 100%); }
-    [data-theme="dark"] .hero-ornament-line { background: linear-gradient(90deg, var(--gold-400), transparent); }
-    [data-theme="dark"] .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-400)); }
-    [data-theme="dark"] .hero-ornament-text { color: var(--gold-300); }
-    [data-theme="dark"] .filter-sidebar { background: var(--bg-body); border-right-color: var(--border-subtle); }
-    [data-theme="dark"] .list-controls { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
-    [data-theme="dark"] .doc-card { background: var(--bg-card); border-bottom-color: var(--border-subtle); }
-    [data-theme="dark"] .doc-card:first-child { border-top-color: var(--border-subtle); }
-    [data-theme="dark"] .doc-card:hover { background: var(--bg-hover); }
-    [data-theme="dark"] .doc-card-inactive:hover { background: var(--bg-card); }
-    [data-theme="dark"] .page-btn { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-primary); }
-    [data-theme="dark"] .page-btn:hover:not(:disabled) { background: var(--bg-hover); }
-    [data-theme="dark"] .sort-select { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-primary); }
-
-    @media (max-width: 768px) {
-      .page-hero { padding: 28px 20px 24px; }
-      .page-title-ko { font-size: 24px; }
-      .page-title-hanja { font-size: 13px; }
-      .search-bar { max-width: 100%; }
-      .hero-ornament { display: none; }
-
-      .list-layout { grid-template-columns: 1fr; }
-
-      .filter-sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border-subtle);
-        padding: 0 14px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-      }
-      .filter-sidebar.open {
-        max-height: 700px;
-        padding: 16px 14px 24px;
-      }
-      .filter-mobile-btn { display: inline-flex; }
-
-      .list-controls { padding: 10px 16px; font-size: 14px; flex-wrap: wrap; }
-      .sort-select { font-size: 13px; }
-      .doc-card { padding: 16px; }
-      .doc-card-title { font-size: 18px; }
-      .doc-card-meta { font-size: 13px; }
-      .doc-meta-item + .doc-meta-item::before { margin: 0 6px; }
-      .pagination { padding: 18px 0 24px; }
+    .link-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--brown-light);
     }
-    @media (max-width: 480px) {
-      .page-title-ko { font-size: 20px; }
-      .doc-card-title { font-size: 16px; }
-      .doc-card-meta { flex-direction: column; gap: 4px; align-items: flex-start; }
-      .doc-meta-item + .doc-meta-item::before { display: none; }
+    .link-card.disabled { opacity: .42; pointer-events: none; }
+    .link-glyph {
+      font-family: var(--serif); font-size: 38px;
+      color: var(--brown-mid); margin-bottom: 16px; line-height: 1;
+    }
+    .link-kr {
+      font-family: var(--serif); font-size: 18px; font-weight: 700;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .link-hj {
+      font-family: var(--serif); font-size: 11.5px;
+      color: var(--brown-mid); letter-spacing: .18em; margin-bottom: 14px;
+    }
+    .link-desc {
+      font-size: 13.5px; color: var(--text-muted);
+      line-height: 1.75; flex: 1;
+    }
+    .link-cta {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 22px; font-size: 12px; font-weight: 700;
+      color: var(--brown); letter-spacing: .06em;
+    }
+
+    /* ============================================================
+       NOTICE / RECENT
+    ============================================================ */
+    .notice-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .notice-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .notice-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .notice-head-title {
+      font-family: var(--serif); font-size: 16px; font-weight: 700;
+      color: var(--text);
+    }
+    .notice-head a {
+      font-size: 12px; color: var(--text-muted);
+      transition: color .15s;
+    }
+    .notice-head a:hover { color: var(--brown); }
+
+    .notice-list { list-style: none; }
+    .notice-list li {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 12px; padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text-sub);
+      transition: color .15s;
+    }
+    .notice-list li:hover { color: var(--text); }
+    .notice-list li span {
+      font-size: 12px; color: var(--text-light);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .notice-empty {
+      padding: 36px 0; text-align: center;
+      font-size: 13.5px; color: var(--text-light); font-style: italic;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--gray-100);
+      color: var(--text);
+      border-color: var(--brown-mid);
+    }
+
+    /* ============================================================
+       DARK MODE — 검정/회색 베이스, 헤더만 보라, 금 포인트
+    ============================================================ */
+    [data-theme="dark"] {
+      /* 배경: 순수 다크 */
+      --white:       #181614;
+      --gray-50:     #242220;
+      --gray-100:    #2a2826;
+      --gray-200:    #383430;
+      --gray-300:    #504c48;
+      --gray-400:    #706c68;
+      --gray-500:    #908c88;
+      --gray-600:    #b0aca8;
+      --gray-700:    #c8c4c0;
+      --gray-800:    #dedad6;
+      --gray-900:    #f0ebe4;
+      /* 금색 포인트 */
+      --brown:       #C9A84C;
+      --brown-mid:   #DFC070;
+      --brown-light: #EDD490;
+      --brown-pale:  #F5E8C0;
+      /* 텍스트 */
+      --text:        #F0EBE4;
+      --text-sub:    #D4CEC8;
+      --text-muted:  #9C9690;
+      --text-light:  #6E6A64;
+      /* 보더 */
+      --border:      rgba(255,255,255,0.07);
+      --border-2:    rgba(255,255,255,0.12);
+      /* 그림자 */
+      --shadow-sm:   0 1px 4px rgba(0,0,0,0.4);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.5);
+      --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
+    }
+
+    /* 헤더: 검정 베이스에 보라 틴트만 */
+    [data-theme="dark"] .hero-overlay {
+      background: linear-gradient(to top,
+        rgba(0,0,0,.72) 0%,
+        rgba(0,0,0,.25) 45%,
+        rgba(0,0,0,.08) 100%
+      );
+    }
+    [data-theme="dark"] .hero-slide:nth-child(1) .hero-bg { background-image: url('images/home-hero/hero-1.jpg'); background-color: #1a1208; filter: brightness(0.7); }
+    [data-theme="dark"] .hero-slide:nth-child(2) .hero-bg { background-image: url('images/home-hero/hero-2.jpg'); background-color: #100e0c; filter: brightness(0.7); }
+    [data-theme="dark"] .hero-slide:nth-child(3) .hero-bg { background-color: #180f06; background-image: linear-gradient(160deg,#221506 0%,#0e0a04 60%,#060402 100%); }
+    [data-theme="dark"] .hero-slide:nth-child(4) .hero-bg { background-color: #0e100e; background-image: linear-gradient(160deg,#141610 0%,#090a08 60%,#040504 100%); }
+
+    [data-theme="dark"] .hero-title  { color: #FFFFFF; text-shadow: 0 2px 20px rgba(0,0,0,.6); }
+    [data-theme="dark"] .hero-label  { color: #DFC070; }
+    [data-theme="dark"] .hero-sub    { color: rgba(240,235,228,.80); }
+    [data-theme="dark"] .hero-arrow  { border-color: rgba(255,255,255,.22); background: rgba(0,0,0,.28); color: #fff; }
+    [data-theme="dark"] .hero-arrow:hover { background: rgba(168,124,36,.45); border-color: #A87C24; }
+    [data-theme="dark"] .hero-dot    { background: rgba(255,255,255,.28); }
+    [data-theme="dark"] .hero-dot.active { background: #DFC070; }
+    [data-theme="dark"] .hero-counter { color: rgba(255,255,255,.38); }
+    [data-theme="dark"] .scroll-hint { opacity: .42; }
+    [data-theme="dark"] .scroll-hint-line { background: linear-gradient(to bottom, rgba(255,255,255,.7), transparent); }
+    [data-theme="dark"] .scroll-hint-text { color: rgba(255,255,255,.7); }
+    [data-theme="dark"] .hero-top-bar { opacity: 1; }
+
+    [data-theme="dark"] .intro-section { background: #0f0e0c; }
+    [data-theme="dark"] .intro-title   { color: rgba(240,235,228,.92); }
+    [data-theme="dark"] .intro-desc    { color: rgba(212,206,200,.50); }
+
+    [data-theme="dark"] .about-section  { background: var(--white); }
+
+    [data-theme="dark"] .stat-card      { background: #242220; border-color: rgba(255,255,255,.07); }
+    [data-theme="dark"] .stat-num       { color: #DFC070; }
+
+    [data-theme="dark"] .links-section  { background: #1e1c1a; }
+    [data-theme="dark"] .link-card      { background: #242220; border-color: rgba(255,255,255,.07); }
+    [data-theme="dark"] .link-card:hover { border-color: #A87C24; box-shadow: 0 8px 32px rgba(0,0,0,.45); }
+    [data-theme="dark"] .link-glyph    { color: #DFC070; }
+    [data-theme="dark"] .link-cta      { color: #C9A84C; }
+
+    [data-theme="dark"] .notice-section { background: var(--white); border-top-color: rgba(255,255,255,.06); }
+    [data-theme="dark"] .notice-head    { border-bottom-color: rgba(255,255,255,.40); }
+    [data-theme="dark"] .notice-head-title { color: #D4CEC8; }
+    [data-theme="dark"] .notice-list li { border-bottom-color: rgba(255,255,255,.06); color: #9C9690; }
+    [data-theme="dark"] .notice-list li:hover { color: #F0EBE4; }
+    [data-theme="dark"] .notice-list li span { color: #6E6A64; }
+
+    /* 헤더·푸터·토글버튼 다크모드: style.css가 처리 */
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 960px) {
+      .section, .section-sm, .intro-section { padding: 56px 24px; }
+      .intro-grid { grid-template-columns: 1fr; gap: 36px; }
+      .intro-sep  { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 44px; }
+      .links-grid { grid-template-columns: 1fr; }
+      .notice-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-content { left: 24px; right: 24px; bottom: 80px; }
+      .scroll-hint  { left: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ===== SITE HEADER ===== -->
+<!-- ━━ HEADER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <header class="site-header">
   <a href="home.html" class="logo-wrap">
     <div class="logo-main">경주김씨 상촌공파 두리종중</div>
     <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
   </a>
   <nav class="site-nav">
-    <a class="nav-item" href="home.html">홈</a>
-    <a class="nav-item active" href="index.html">소장 문서</a>
+    <a class="nav-item active" href="home.html">홈</a>
+    <a class="nav-item" href="index.html">소장 문서</a>
     <a class="nav-item" href="family.html">가계도</a>
     <a class="nav-item" href="jongtaek.html">종택</a>
     <a class="nav-item" href="village.html">주변 지리</a>
@@ -399,80 +487,197 @@
   </nav>
 </header>
 
-<!-- ===== PAGE HERO ===== -->
-<div class="page-hero">
-  <div class="page-hero-top">
-    <div>
-      <div class="page-title-ko">소장 문서</div>
+<!-- ━━ HERO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="hero">
+  <div class="hero-top-bar"></div>
+
+  <div class="hero-track" id="heroTrack">
+    <div class="hero-slide active">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">강원특별자치도 유형문화유산</div>
+        <h1 class="hero-title">두리종중 종택<br>양양 김택준 가옥</h1>
+        <p class="hero-sub">강원도 양양군 현남면에 자리한 두리종가의 200여 년 된 종택입니다.</p>
+      </div>
     </div>
-    <div class="doc-count">총 <span id="total-count">1</span>건 소장</div>
-  </div>
-  <div class="search-bar">
-    <div class="search-input-wrap">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input class="search-input" type="text" id="search-input" placeholder="문서명, 저자, 연도로 검색…">
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">종중 소장 건축물</div>
+        <h1 class="hero-title">진사청<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">進士廳</span></h1>
+        <p class="hero-sub">조선 후기 양반 가문의 전통 건축 양식을 간직한 진사청의 기록을 담습니다.</p>
+      </div>
     </div>
-    <button class="btn btn-primary btn-sm" onclick="applySearch()">검색</button>
-  </div>
-  <div class="hero-ornament">
-    <div class="hero-ornament-line"></div>
-    <div class="hero-ornament-text">慶州金氏 桑村公派 斗里宗中</div>
-    <div class="hero-ornament-line right"></div>
-  </div>
-</div>
-
-<!-- ===== MAIN LAYOUT ===== -->
-<div class="list-layout">
-
-  <!-- FILTER SIDEBAR -->
-  <aside class="filter-sidebar">
-    <div class="filter-section-title">분류</div>
-    <ul class="filter-list" id="category-filters">
-      <li class="filter-item active" data-cat="all">전체 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="종중 기록">종중 기록 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="호적·관문서">호적·관문서 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="족보">족보 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="사서·전기">사서·전기 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="경전·유학">경전·유학 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="문집·기문">문집·기문 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="의서">의서 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="풍수·도가">풍수·도가 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="유서류">유서류 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="지도·도면">지도·도면 <span class="filter-count">0</span></li>
-      <li class="filter-item" data-cat="기타">기타 <span class="filter-count">0</span></li>
-    </ul>
-    <div class="sidebar-divider"></div>
-    <div class="filter-section-title">필터</div>
-    <label class="digitized-only">
-      <input type="checkbox" id="digitized-only-check">
-      디지털화 자료만 보기
-    </label>
-  </aside>
-
-  <!-- DOC LIST -->
-  <div class="list-main">
-    <div class="list-controls">
-      <button class="btn btn-ghost btn-sm filter-mobile-btn" id="filter-mobile-btn" onclick="toggleMobileFilter()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
-        </svg>
-        분류
-      </button>
-      <span id="result-count">1건의 문서</span>
-      <select class="sort-select" id="sort-select">
-        <option value="title" selected>가나다 순</option>
-        <option value="year-desc">최신 순</option>
-        <option value="year-asc">오래된 순</option>
-      </select>
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">종중 문화 유적</div>
+        <h1 class="hero-title">불당재 각자바위</h1>
+        <p class="hero-sub">선조들의 자취가 새겨진 각자바위와 주변 자연 경관의 기록을 보존합니다.</p>
+      </div>
     </div>
-    <div class="doc-list" id="doc-list"></div>
-    <div class="pagination" id="pagination"></div>
+    <div class="hero-slide">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-label">소장 고문서</div>
+        <h1 class="hero-title">종가실록<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">宗家實錄 · 1930</span></h1>
+        <p class="hero-sub">1930년 김규하가 저술한 종가실록을 포함, 조선 후기부터 일제강점기의 고문서를 열람하실 수 있습니다.</p>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- ===== FOOTER ===== -->
+  <button class="hero-arrow hero-prev" id="heroPrev">&#8249;</button>
+  <button class="hero-arrow hero-next" id="heroNext">&#8250;</button>
+
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active"></button>
+    <button class="hero-dot"></button>
+    <button class="hero-dot"></button>
+    <button class="hero-dot"></button>
+  </div>
+
+  <div class="hero-counter" id="heroCounter">01 / 04</div>
+
+  <div class="scroll-hint">
+    <div class="scroll-hint-line"></div>
+    <span class="scroll-hint-text">SCROLL</span>
+  </div>
+</section>
+
+<!-- ━━ INTRO 3단 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="intro-section">
+  <div class="intro-grid">
+    <div class="intro-item">
+      <div class="intro-glyph">宗</div>
+      <div class="intro-title">두리종중</div>
+      <div class="intro-hj">斗里宗中</div>
+      <p class="intro-desc">강원도 양양에 입향한 경주김씨 상촌공파의 후손들로 구성된 종중으로, 선조의 유산과 기록을 계승하고 있습니다.</p>
+    </div>
+    <div class="intro-sep"></div>
+    <div class="intro-item">
+      <div class="intro-glyph">文</div>
+      <div class="intro-title">고문서 아카이브</div>
+      <div class="intro-hj">古文書 Archive</div>
+      <p class="intro-desc">종가실록을 비롯한 94건의 소장 고문서를 디지털화하여 호적·족보·경전·문집 등 다양한 자료를 제공합니다.</p>
+    </div>
+    <div class="intro-sep"></div>
+    <div class="intro-item">
+      <div class="intro-glyph">譜</div>
+      <div class="intro-title">가계도</div>
+      <div class="intro-hj">家系圖</div>
+      <p class="intro-desc">입향조 김여경으로부터 14대에 걸친 가계도를 시각화하여 제공합니다. 양자 관계 및 혼인 관계도 포함됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ ABOUT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="about-section section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="sec-label">About</div>
+        <h2 class="sec-title">경주김씨 상촌공파<br>두리종중을 소개합니다</h2>
+        <div class="sec-divider"></div>
+        <p>경주김씨 상촌공파 두리종중은 조선 후기 숙종대 강원도 양양군 현남면 두리(斗里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
+        <p>입향조 김여경(金如慶)을 시조로 하여, 조선 후기~일제강점기에 걸쳐 형성된 다수의 고문서와 건축 유산을 보존하고 있습니다.</p>
+        <p>본 사이트는 종중이 소장한 자료를 디지털 아카이브로 구축하여 후세에 전하고자 마련하였습니다.</p>
+      </div>
+      <div class="about-panel">
+        <div class="about-logo">
+          <img class="about-logo-light" src="logo/logo_2(종중).png" alt="두리종중 로고">
+          <img class="about-logo-dark"  src="logo/logo_2(종중)_gold.png" alt="두리종중 로고">
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-num">94</div>
+            <div class="stat-label">소장 문서 건수</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">14</div>
+            <div class="stat-label">가계도 세대 수</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1930</div>
+            <div class="stat-label">종가실록 저술 연도</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">250+</div>
+            <div class="stat-label">가계도 등재 인물</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ QUICK LINKS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="links-section section">
+  <div class="container">
+    <div class="links-header">
+      <div class="sec-label">Quick Access</div>
+      <h2 class="sec-title">소장 자료 열람하기</h2>
+      <div class="sec-divider" style="margin:12px auto 0"></div>
+    </div>
+    <div class="links-grid">
+      <a href="index.html" class="link-card">
+        <div class="link-glyph">文</div>
+        <div class="link-kr">소장 문서</div>
+        <div class="link-hj">所藏 文書</div>
+        <p class="link-desc">종가에서 소장 중인 200여 개가 넘는 고문서를 종류별로 분류하여 카테고리별로 검색하고 원문·국역을 열람할 수 있습니다.<br>(간찰 등 아직 미분류된 문서는 제외되었습니다)</p>
+        <span class="link-cta">열람하기 →</span>
+      </a>
+      <a href="family.html" class="link-card">
+        <div class="link-glyph">譜</div>
+        <div class="link-kr">가계도</div>
+        <div class="link-hj">家系圖</div>
+        <p class="link-desc">입향조부터 14대에 이르는 경주김씨 상촌공파 두리종중의 계보를 확인합니다.</p>
+        <span class="link-cta">열람하기 →</span>
+      </a>
+      <a class="link-card" href="jongtaek.html">
+        <div class="link-glyph">宅</div>
+        <div class="link-kr">종택 안내</div>
+        <div class="link-hj">宗宅 案內</div>
+        <p class="link-desc">두리종중 종택인 양양 김택준 가옥과 진사청, 불당재 등 주변 지리를 소개합니다.</p>
+        <span class="link-cta">열람하기 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ NOTICE / RECENT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="notice-section section-sm">
+  <div class="container">
+    <div class="notice-grid">
+      <div>
+        <div class="notice-head">
+          <span class="notice-head-title">공지사항</span>
+          <a href="#">더 보기 +</a>
+        </div>
+        <ul class="notice-list">
+          <li class="notice-empty">등록된 공지사항이 없습니다.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="notice-head">
+          <span class="notice-head-title">추가된 자료</span>
+          <a href="index.html">더 보기 +</a>
+        </div>
+        <ul class="notice-list">
+          <li><a href="detail.html" style="display:contents"><span style="flex:1">종가실록 (宗家實錄)</span><span>1930년</span></a></li>
+          <li><a href="detail-dusanjeongi.html" style="display:contents"><span style="flex:1">두산정기 (斗山亭記)</span><span>1930년</span></a></li>
+          <li><a href="detail-hoju1843.html" style="display:contents"><span style="flex:1">김주형호구단자 (金胄衡戶口單子)</span><span>도광 23년 (1843)</span></a></li>
+          <li><a href="detail-hwasu.html" style="display:contents"><span style="flex:1">화수회 (花樹會)</span><span>20세기 초</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━ FOOTER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo-block">
@@ -498,186 +703,51 @@
 </footer>
 
 <script src="theme.js"></script>
-<script src="data/catalog.js"></script>
 <script>
-  let activeCategory = 'all';
-  let digitizedOnly = false;
-  let searchQuery = '';
-  let sortOrder = 'title';
-  let listPage = 1;
-  const PAGE_SIZE = 20;
+// ── 히어로 캐러셀 ────────────────────────────────────────────────
+(function () {
+  const track   = document.getElementById('heroTrack');
+  const slides  = track.querySelectorAll('.hero-slide');
+  const dots    = document.querySelectorAll('.hero-dot');
+  const counter = document.getElementById('heroCounter');
+  const total   = slides.length;
+  let cur = 0, timer;
 
-  function updateCounts() {
-    document.getElementById('total-count').textContent = CATALOG.length;
-    document.querySelectorAll('#category-filters .filter-item').forEach(item => {
-      const cat = item.dataset.cat;
-      const countEl = item.querySelector('.filter-count');
-      if (!countEl) return;
-      countEl.textContent = cat === 'all'
-        ? CATALOG.length
-        : CATALOG.filter(d => d.category === cat).length;
-    });
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' +
+                          String(total).padStart(2, '0');
   }
 
-  function renderList() {
-    let docs = [...CATALOG];
-    if (activeCategory !== 'all') docs = docs.filter(d => d.category === activeCategory);
-    if (digitizedOnly) docs = docs.filter(d => d.digitized);
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      docs = docs.filter(d =>
-        d.title_hanja.toLowerCase().includes(q) ||
-        d.title_korean.toLowerCase().includes(q) ||
-        d.author.toLowerCase().includes(q) ||
-        (d.year || '').includes(q) ||
-        (d.summary || '').toLowerCase().includes(q)
-      );
-    }
-
-    docs.sort((a, b) => {
-      // 디지털화 항목 우선
-      if (a.digitized !== b.digitized) return a.digitized ? -1 : 1;
-      // 그 다음 선택된 정렬 기준
-      if (sortOrder === 'year-desc') {
-        return (b.year || '0') > (a.year || '0') ? 1 : -1;
-      } else if (sortOrder === 'year-asc') {
-        return (a.year || '9999') > (b.year || '9999') ? 1 : -1;
-      } else {
-        return a.title_korean.localeCompare(b.title_korean, 'ko');
-      }
-    });
-
-    const list = document.getElementById('doc-list');
-    list.innerHTML = '';
-    if (docs.length === 0) {
-      list.innerHTML = `<div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <p>검색 결과가 없습니다.</p>
-      </div>`;
-      document.getElementById('result-count').textContent = '0건';
-      return;
-    }
-    const totalDocs = docs.length;
-    const totalPages = Math.ceil(totalDocs / PAGE_SIZE);
-    if (listPage > totalPages) listPage = 1;
-    const pageDocs = docs.slice((listPage - 1) * PAGE_SIZE, listPage * PAGE_SIZE);
-
-    document.getElementById('result-count').textContent = `${totalDocs}건의 문서`;
-
-    pageDocs.forEach((doc) => {
-      const titleStr = doc.title_hanja
-        ? `${doc.title_korean}(${doc.title_hanja})`
-        : doc.title_korean;
-      const yearStr = doc.year_display || doc.year || '미상';
-      const inner = `
-        <div class="doc-card-title-row">
-          <span class="doc-card-title">${titleStr}</span>
-        </div>
-        <div class="doc-card-meta">
-          <div class="doc-meta-item">
-            <span class="doc-meta-key">편저자 :</span>
-            <span class="doc-meta-val">${doc.author}</span>
-          </div>
-          <div class="doc-meta-item">
-            <span class="doc-meta-key">간행년대 :</span>
-            <span class="doc-meta-val">${yearStr}</span>
-          </div>
-          <div class="doc-meta-item">
-            <span class="doc-meta-key">사부분류 :</span>
-            <span class="doc-meta-val">${doc.classification}</span>
-          </div>
-        </div>
-      `;
-
-      let card;
-      if (doc.digitized) {
-        card = document.createElement('a');
-        card.href = doc.detail_url || 'detail.html';
-        card.className = 'doc-card';
-      } else {
-        card = document.createElement('div');
-        card.className = 'doc-card doc-card-inactive';
-      }
-      card.innerHTML = inner;
-      list.appendChild(card);
-    });
-
-    renderPagination(totalPages);
+  function startTimer() {
+    clearInterval(timer);
+    // 임시 비활성화 — 사진 준비 완료 후 아래 주석 해제
+    // timer = setInterval(() => goTo(cur + 1), 5500);
   }
 
-  function renderPagination(totalPages) {
-    const el = document.getElementById('pagination');
-    el.innerHTML = '';
-    if (totalPages <= 1) return;
+  document.getElementById('heroPrev')
+    .addEventListener('click', () => { goTo(cur - 1); startTimer(); });
+  document.getElementById('heroNext')
+    .addEventListener('click', () => { goTo(cur + 1); startTimer(); });
+  dots.forEach((d, i) =>
+    d.addEventListener('click', () => { goTo(i); startTimer(); }));
 
-    const mkBtn = (label, page, disabled, active) => {
-      const btn = document.createElement('button');
-      btn.className = 'page-btn' + (active ? ' active' : '');
-      btn.textContent = label;
-      btn.disabled = disabled;
-      if (!disabled && !active) btn.addEventListener('click', () => { listPage = page; renderList(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-      return btn;
-    };
-
-    el.appendChild(mkBtn('‹', listPage - 1, listPage === 1, false));
-
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || Math.abs(i - listPage) <= 2) pages.push(i);
-      else if (pages[pages.length - 1] !== '…') pages.push('…');
-    }
-
-    pages.forEach(p => {
-      if (p === '…') {
-        const sp = document.createElement('span');
-        sp.className = 'page-ellipsis';
-        sp.textContent = '…';
-        el.appendChild(sp);
-      } else {
-        el.appendChild(mkBtn(p, p, false, p === listPage));
-      }
-    });
-
-    el.appendChild(mkBtn('›', listPage + 1, listPage === totalPages, false));
-  }
-
-  document.getElementById('category-filters').addEventListener('click', (e) => {
-    const item = e.target.closest('.filter-item');
-    if (!item) return;
-    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    activeCategory = item.dataset.cat;
-    listPage = 1;
-    renderList();
+  // 터치 스와이프
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) { goTo(dx < 0 ? cur + 1 : cur - 1); startTimer(); }
   });
 
-  document.getElementById('digitized-only-check').addEventListener('change', (e) => {
-    digitizedOnly = e.target.checked;
-    listPage = 1;
-    renderList();
-  });
-
-  document.getElementById('sort-select').addEventListener('change', (e) => {
-    sortOrder = e.target.value;
-    listPage = 1;
-    renderList();
-  });
-
-  document.getElementById('search-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') applySearch();
-  });
-  function applySearch() {
-    searchQuery = document.getElementById('search-input').value.trim();
-    listPage = 1;
-    renderList();
-  }
-
-  function toggleMobileFilter() {
-    document.querySelector('.filter-sidebar').classList.toggle('open');
-  }
-
-  updateCounts();
-  renderList();
+  startTimer();
+})();
 </script>
+
 </body>
 </html>
