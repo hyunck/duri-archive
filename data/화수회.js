@@ -93,8 +93,26 @@ const DOC_HWASU = {
       type: "text",
       title: "4페이지",
       image: "images/hwasu/page_004.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `[[지명:西門宅]] 本文 伍拾陸兩肆錢貳分
+邊文 拾陸兩玖錢參分
+實文 柒拾參兩參錢伍分
+
+[[지명:未谷宅]] 本文 拾玖兩肆錢壹分
+邊文 伍兩捌錢貳分
+實文 貳拾伍兩貳錢參分
+
+[[지명:廣亭宅]] 本文 拾柒兩壹分
+邊文 伍兩壹錢`,
+      korean_translation: `[[지명:서문댁(西門宅)]] 본문(本文, 빌려준 원금) 56냥 4전 2분
+변문(邊文, 이자) 16냥 9전 3분
+실문(實文, 실제로 받아야 할 금액(원리합계)) 73냥 3전 5분
+
+[[지명:미곡댁(未谷宅)]] 본문 19냥 4전 1분
+변문 5냥 8전 2분
+실문 25냥 2전 3분
+
+[[지명:광정댁(廣亭宅)]] 본문 17냥 1분
+변문 5냥 1전`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -103,8 +121,20 @@ const DOC_HWASU = {
       type: "text",
       title: "5페이지",
       image: "images/hwasu/page_005.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `實文 貳拾貳兩壹錢壹分
+
+[[지명:大宅]] 留置文 柒兩玖錢柒分 內
+[[지명:城隍洞]]田 結卜 五卜六束 價 壹兩捌錢 除
+實文 陸兩壹錢柒分
+
+門中 [手決]`,
+      korean_translation: `([[지명:광정댁]]) 실문 22냥 1전 1분
+
+[[지명:큰집(大宅)]]에 유치(留置)해 둔 돈 7냥 9전 7분 중
+[[지명:성황동]] 밭 결복(結卜) 5부(卜) 6속(束)의 값 1냥 8전을 제한,
+실문 6냥 1전 7분
+
+문중(門中) [수결]`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -113,8 +143,12 @@ const DOC_HWASU = {
       type: "text",
       title: "6페이지",
       image: "images/hwasu/page_006.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `
+
+`,
+      korean_translation: `
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -123,8 +157,12 @@ const DOC_HWASU = {
       type: "text",
       title: "7페이지",
       image: "images/hwasu/page_007.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `
+
+`,
+      korean_translation: `
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -133,8 +171,12 @@ const DOC_HWASU = {
       type: "text",
       title: "8페이지",
       image: "images/hwasu/page_008.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `
+
+`,
+      korean_translation: `
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
