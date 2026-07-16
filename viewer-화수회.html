@@ -69,6 +69,7 @@
       gap: 8px;
       margin-left: auto;
     }
+    .page-nav-primary { display: flex; align-items: center; gap: 8px; }
     .page-nav-btn {
       width: 32px;
       height: 32px;
@@ -166,6 +167,8 @@
       background: var(--border-subtle);
       margin: 4px 0;
     }
+    .mobile-sidebar-tab { display: none; }
+    .topbar-break { display: none; }
 
     /* ===== PAGE SIDEBAR ===== */
     .page-sidebar {
@@ -558,12 +561,17 @@
 
     /* ===== MOBILE RESPONSIVE ===== */
     @media (max-width: 768px) {
-      /* Topbar: wrap into two rows */
-      .viewer-topbar { flex-wrap: wrap; padding: 10px 12px 0; gap: 8px; row-gap: 6px; }
+      /* Topbar: wrap into rows - 문서정보/대조보기 한 줄, 페이지이동/텍스트크기 한 줄 */
+      .viewer-topbar { flex-wrap: wrap; justify-content: space-between; padding: 10px 12px 0; gap: 8px; row-gap: 6px; }
       .doc-title-bar { order: -1; flex: 0 0 100%; min-width: 0; overflow: hidden; }
       .doc-title-hanja { font-size: 17px; }
       .doc-title-kr { font-size: 13px; }
-      .page-nav { margin-left: 0; flex-wrap: wrap; gap: 5px; }
+      .page-nav { display: contents; }
+      .back-link { order: 1; }
+      #view-toggles { order: 2; }
+      .topbar-break { display: block; flex: 0 0 100%; height: 0; order: 3; }
+      .page-nav-primary { order: 4; }
+      #text-size-controls, #spread-toggles { order: 5; }
       .view-toggles { padding: 2px; }
       .toggle-btn { padding: 3px 8px; font-size: 11px; }
       .page-nav-btn { width: 28px; height: 28px; font-size: 14px; }
@@ -602,12 +610,35 @@
       /* Image mode */
       .image-panel-container { height: 75vh; flex: none; }
 
+      /* Side rail: 전체 바 대신 화면 왼쪽에 살짝 튀어나온 화살표 탭만 노출 */
+      .side-rail { display: none; }
+      .mobile-sidebar-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 56px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-normal);
+        border-left: none;
+        border-radius: 0 10px 10px 0;
+        color: var(--text-secondary);
+        z-index: 101;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.14);
+        transition: left 0.25s ease;
+      }
+      .mobile-sidebar-tab.active { left: 240px; }
+
       /* Page sidebar: overlay instead of push */
       .page-sidebar { transition: none; }
       .page-sidebar.open {
         position: fixed;
         top: var(--header-h);
-        left: 44px;
+        left: 0;
         bottom: 0;
         width: 240px;
         overflow-y: auto;
@@ -628,6 +659,8 @@
       .doc-title-kr { display: none; }
       .panel-body { height: 40vh; }
       .image-panel-container { height: 70vh; }
+      .mobile-sidebar-tab.active { left: min(78vw, 260px); }
+      .page-sidebar.open { width: min(78vw, 260px); }
     }
 
     /* ===== DARK MODE ===== */
@@ -711,6 +744,13 @@
     </button>
   </div>
 
+  <!-- Mobile page list tab (모바일 전용, 화면 왼쪽 가장자리에 살짝 튀어나온 화살표) -->
+  <button class="mobile-sidebar-tab" id="mobile-sidebar-toggle-btn" title="페이지 목록" onclick="toggleSidebar()">
+    <svg id="mobile-sidebar-toggle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9,18 15,12 9,6"/>
+    </svg>
+  </button>
+
   <!-- Page Sidebar -->
   <div class="page-sidebar" id="page-sidebar">
     <div class="sidebar-header">
@@ -736,24 +776,28 @@
         <span class="doc-title-kr">화수회</span>
       </div>
 
+      <div class="topbar-break"></div>
+
       <div class="page-nav">
-        <button class="page-nav-btn" id="btn-prev" onclick="changePage(-1)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15,18 9,12 15,6"/>
-          </svg>
-        </button>
+        <div class="page-nav-primary">
+          <button class="page-nav-btn" id="btn-prev" onclick="changePage(-1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+          </button>
 
-        <div class="page-num-display">
-          <span class="page-num-current" id="page-current">2</span>
-          <span> / </span>
-          <span id="page-total">38</span>
+          <div class="page-num-display">
+            <span class="page-num-current" id="page-current">2</span>
+            <span> / </span>
+            <span id="page-total">38</span>
+          </div>
+
+          <button class="page-nav-btn" id="btn-next" onclick="changePage(1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"/>
+            </svg>
+          </button>
         </div>
-
-        <button class="page-nav-btn" id="btn-next" onclick="changePage(1)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9,18 15,12 9,6"/>
-          </svg>
-        </button>
 
         <div class="view-toggles" id="text-size-controls">
           <button class="toggle-btn" id="text-size-down" onclick="changeTextSize(-1)" title="본문 축소" disabled>−A</button>
@@ -1520,14 +1564,15 @@
     sidebarOpen = !sidebarOpen;
     document.getElementById('page-sidebar').classList.toggle('open', sidebarOpen);
     document.getElementById('sidebar-toggle-btn').classList.toggle('active', sidebarOpen);
+    const mobileTab = document.getElementById('mobile-sidebar-toggle-btn');
+    if (mobileTab) mobileTab.classList.toggle('active', sidebarOpen);
 
     // 화살표 방향 전환
+    const points = sidebarOpen ? '15,18 9,12 15,6' : '9,18 15,12 9,6';
     const icon = document.getElementById('sidebar-toggle-icon');
-    if (sidebarOpen) {
-      icon.innerHTML = '<polyline points="15,18 9,12 15,6"/>';
-    } else {
-      icon.innerHTML = '<polyline points="9,18 15,12 9,6"/>';
-    }
+    if (icon) icon.innerHTML = '<polyline points="' + points + '"/>';
+    const mobileIcon = document.getElementById('mobile-sidebar-toggle-icon');
+    if (mobileIcon) mobileIcon.innerHTML = '<polyline points="' + points + '"/>';
   }
 
   function buildSidebarList() {
