@@ -1510,9 +1510,12 @@ function applyZoom(z) {
   document.getElementById('zoom-level').textContent = Math.round(_zoom * 100) + '%';
 }
 
+// 모바일 환경에서는 기본(초기화) 확대 배율을 100% 대신 50%로
+const DEFAULT_ZOOM = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
+
 document.getElementById('zoom-in').addEventListener('click',    () => applyZoom(_zoom + ZOOM_STEP));
 document.getElementById('zoom-out').addEventListener('click',   () => applyZoom(_zoom - ZOOM_STEP));
-document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(1));
+document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(DEFAULT_ZOOM));
 
 document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
   if (!e.ctrlKey) return;
@@ -1533,6 +1536,9 @@ document.querySelector('.tree-scroll-wrap').addEventListener('scroll', updateGen
 // applyZoom 후에도 라벨 위치 갱신
 const _origApplyZoom = applyZoom;
 applyZoom = function(z) { _origApplyZoom(z); updateGenLabels(); };
+
+// 초기 확대 배율 적용 (모바일 50% / 데스크탑 100%)
+applyZoom(DEFAULT_ZOOM);
 
 // ── 드래그 팬 ──
 let _hasDragged = false;  // 카드 클릭 핸들러에서 드래그 여부 확인용
