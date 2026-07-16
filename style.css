@@ -121,6 +121,9 @@ button { cursor: pointer; font-family: inherit; }
   font-size: 13px; color: var(--gold-600); letter-spacing: 0.52em; margin-right: -0.3em;
 }
 
+/* 헤더 우측 영역 (내비게이션 + 다크모드 토글 + 햄버거) */
+.header-right { display: flex; align-items: center; }
+
 /* 내비게이션 */
 .site-nav { display: flex; align-items: center; gap: 36px; }
 .nav-item {
@@ -280,6 +283,93 @@ button { cursor: pointer; font-family: inherit; }
   border-color: var(--gold-600);
 }
 
+/* ===== HAMBURGER BUTTON (모바일 전용) ===== */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-normal);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.hamburger-btn span {
+  display: block; width: 16px; height: 1.5px;
+  background: var(--text-secondary);
+  border-radius: 1px;
+  transition: var(--transition);
+}
+.hamburger-btn:hover { border-color: var(--gold-600); }
+.hamburger-btn:hover span { background: var(--text-primary); }
+
+/* ===== MOBILE MENU (오른쪽 슬라이드 패널) ===== */
+.mobile-menu-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 9500;
+}
+.mobile-menu-overlay.open { opacity: 1; visibility: visible; }
+
+.mobile-menu-panel {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(78vw, 320px);
+  background: #ffffff;
+  box-shadow: -6px 0 28px rgba(0,0,0,0.18);
+  z-index: 9600;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+}
+.mobile-menu-panel.open { transform: translateX(0); }
+
+.mobile-menu-header {
+  display: flex; align-items: center; justify-content: flex-end;
+  height: 64px; flex-shrink: 0;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-normal);
+}
+.mobile-menu-close {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border: none; background: transparent;
+  font-size: 18px; color: var(--text-secondary);
+  cursor: pointer; transition: var(--transition);
+}
+.mobile-menu-close:hover { color: var(--text-primary); }
+
+.mobile-menu-nav { display: flex; flex-direction: column; padding: 8px 0; overflow-y: auto; }
+.mobile-menu-item {
+  padding: 18px 24px;
+  font-size: 16px; font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+.mobile-menu-item:hover { background: var(--bg-hover); }
+.mobile-menu-item.active { color: var(--gold-700); font-weight: 700; }
+
+body.mobile-menu-locked { overflow: hidden; }
+
+[data-theme="dark"] .mobile-menu-panel { background: #1e1d2a; box-shadow: -6px 0 28px rgba(0,0,0,0.55); }
+[data-theme="dark"] .mobile-menu-overlay { background: rgba(0,0,0,0.62); }
+[data-theme="dark"] .mobile-menu-header { border-bottom-color: rgba(255,255,255,0.08); }
+[data-theme="dark"] .mobile-menu-close { color: #C0BEB8; }
+[data-theme="dark"] .mobile-menu-close:hover { color: #F0EBE4; }
+[data-theme="dark"] .mobile-menu-item { color: #C0BEB8; border-bottom-color: rgba(255,255,255,0.06); }
+[data-theme="dark"] .mobile-menu-item:hover { background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .mobile-menu-item.active { color: #DFC070; }
+[data-theme="dark"] .hamburger-btn span { background: #C0BEB8; }
+[data-theme="dark"] .hamburger-btn:hover span { background: #F0EBE4; }
+
 /* ===== DARK MODE — 검정/회색 베이스, 보라+금 포인트 ===== */
 [data-theme="dark"] {
   /* 배경: 순수 다크 */
@@ -369,13 +459,12 @@ button { cursor: pointer; font-family: inherit; }
 @media (max-width: 768px) {
   .site-header { padding: 0 16px; gap: 8px; }
   .logo-main {
-    font-size: 13px; max-width: 140px;
+    font-size: 14px; max-width: 200px;
     overflow: hidden; text-overflow: ellipsis;
   }
   .logo-hj { display: none; }
-  .site-nav { gap: 12px; }
-  .nav-item.disabled { display: none; }
-  .nav-item { font-size: 12px; }
+  .site-nav { display: none; }
+  .hamburger-btn { display: flex; }
   .theme-toggle-btn { width: 28px; height: 28px; }
   .footer-inner { flex-direction: column; gap: 24px; padding: 28px 20px; }
   .footer-logo-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-right: 0; padding-bottom: 20px; }
@@ -384,8 +473,8 @@ button { cursor: pointer; font-family: inherit; }
 
 @media (max-width: 400px) {
   .site-header { padding: 0 10px; gap: 6px; }
-  .logo-main { font-size: 12px; max-width: 108px; }
-  .site-nav { gap: 8px; }
-  .nav-item { font-size: 11px; }
+  .logo-main { font-size: 12px; max-width: 150px; }
   .theme-toggle-btn { width: 26px; height: 26px; }
+  .hamburger-btn { width: 28px; height: 28px; margin-left: 6px; }
+  .mobile-menu-panel { width: min(82vw, 300px); }
 }

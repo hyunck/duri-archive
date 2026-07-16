@@ -273,15 +273,34 @@
     <div class="logo-main">경주김씨 상촌공파 두리종중</div>
     <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
   </a>
-  <nav class="site-nav">
+  <div class="header-right">
+    <nav class="site-nav">
     <a class="nav-item" href="index.html">홈</a>
     <a class="nav-item active" href="catalog.html">소장 문서</a>
     <a class="nav-item" href="family.html">가계도</a>
     <a class="nav-item" href="jongtaek.html">종택</a>
     <a class="nav-item" href="village.html">주변 지리</a>
+    </nav>
     <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
-  </nav>
+    <button class="hamburger-btn" id="mobile-menu-open" aria-label="메뉴 열기" aria-controls="mobile-menu-panel">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu-panel" id="mobile-menu-panel">
+  <div class="mobile-menu-header">
+    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="메뉴 닫기">✕</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a class="mobile-menu-item" href="index.html">홈</a>
+    <a class="mobile-menu-item active" href="catalog.html">소장 문서</a>
+    <a class="mobile-menu-item" href="family.html">가계도</a>
+    <a class="mobile-menu-item" href="jongtaek.html">종택</a>
+    <a class="mobile-menu-item" href="village.html">주변 지리</a>
+  </nav>
+</aside>
 
 <!-- ===== DETAIL CONTENT ===== -->
 <div class="detail-wrap">
@@ -401,6 +420,7 @@
 </footer>
 
 <script src="theme.js"></script>
+<script src="mobile-menu.js"></script>
 <script src="data/두산정기.js"></script>
 <script>
   document.getElementById('desc-body').innerHTML = DOC_DUSANJEONGI.description;
