@@ -313,6 +313,21 @@
       color: var(--text-muted);
       margin-left: auto;
     }
+    .mobile-lang-toggle {
+      display: none;
+      align-items: center;
+      gap: 3px;
+      margin-left: auto;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-hover);
+      border: 1px solid var(--border-normal);
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+    .mobile-lang-toggle:hover { color: var(--text-primary); border-color: var(--gold-600); }
 
     .panel-body {
       flex: 1;
@@ -562,7 +577,7 @@
     /* ===== MOBILE RESPONSIVE ===== */
     @media (max-width: 768px) {
       /* Topbar: wrap into rows - 문서정보/대조보기 한 줄, 페이지이동/텍스트크기 한 줄 */
-      .viewer-topbar { flex-wrap: wrap; justify-content: space-between; padding: 10px 12px 0; gap: 8px; row-gap: 6px; }
+      .viewer-topbar { flex-wrap: wrap; justify-content: space-between; padding: 10px 12px 16px; gap: 8px; row-gap: 6px; }
       .doc-title-bar { order: -1; flex: 0 0 100%; min-width: 0; overflow: hidden; }
       .doc-title-hanja { font-size: 17px; }
       .doc-title-kr { font-size: 13px; }
@@ -605,7 +620,10 @@
         border-top: none !important;
       }
       .divider { display: none; }
-      .panel-body { height: 44vh; flex: none; }
+      .panel-sub { display: none; }
+      .mobile-lang-toggle { display: inline-flex; }
+      .panel.mobile-hidden { display: none; }
+      .panel-body { height: 64vh; flex: none; }
 
       /* Image mode */
       .image-panel-container { height: 75vh; flex: none; }
@@ -823,6 +841,7 @@
         <div class="panel-header">
           <span class="panel-label panel-label-kr">국역 (國譯)</span>
           <span class="panel-sub">한글 번역</span>
+          <button class="mobile-lang-toggle" id="mobile-lang-toggle-left" onclick="toggleMobileLang()">원문 보기</button>
         </div>
         <div class="panel-body" id="panel-left-body">
           <div class="korean-content" id="korean-content"></div>
@@ -841,10 +860,11 @@
       </div>
 
       <!-- Right: Chinese original -->
-      <div class="panel panel-right" id="panel-right">
+      <div class="panel panel-right mobile-hidden" id="panel-right">
         <div class="panel-header">
           <span class="panel-label panel-label-hanja">원문 (原文)</span>
           <span class="panel-sub">한문 원문</span>
+          <button class="mobile-lang-toggle" id="mobile-lang-toggle-right" onclick="toggleMobileLang()">국역 보기</button>
         </div>
         <div class="panel-body" id="panel-right-body">
           <div class="hanja-content" id="hanja-content"></div>
@@ -1555,6 +1575,14 @@
     isPanning = false;
     imagePanelEl.style.cursor = zoomLevel > 1 ? 'grab' : '';
   });
+
+  /* ===========================
+     MOBILE 국역/원문 전환
+  =========================== */
+  function toggleMobileLang() {
+    document.getElementById('panel-left').classList.toggle('mobile-hidden');
+    document.getElementById('panel-right').classList.toggle('mobile-hidden');
+  }
 
   /* ===========================
      PAGE SIDEBAR
