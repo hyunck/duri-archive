@@ -590,6 +590,7 @@ const NODES = {
   p232: { kr:'김노홍', hj:'金魯弘', gen:4, dates:'1793년 ~ ?', aliases:[{kr:'김상홍',hj:'金尙弘'}], myo:'인구역(獜丘驛) 간촌(間村) 서쪽 기슭(西麓) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)이 있다(有).', spouse:[{ hj:'延日鄭氏', dates:'1790년 ~ ?', father:'은상(殷尙)' }] },
   p233: { kr:'김중희', hj:'金重喜', gen:5, dates:'1812년 ~ 1868년', ja:'문숙(文叔)', myo:'후동(後洞) 서쪽 기슭(西麓) 묘좌(卯坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)이 있다(有).', spouse:[{ hj:'金海金氏', dates:'1807년 ~ 1883년', father:'근득(根得)' }] },
   p236: { kr:'김상혁', hj:'金商赫', gen:6, dates:'1845년 ~ ?', ja:'윤삼(允三)', spouse:[{ hj:'寧越辛氏', dates:'1843년 ~ ?', father:'황(潢)' }] },
+  p236g: { kr:'김상혁', hj:'金商赫', gen:6, ghost:true },  // 김석희(p234) 장남, 김중희(p233)에게 출계
   p234: { kr:'김석희', hj:'金碩喜', gen:5, dates:'1827년 ~ 1887년', ja:'문집(文集)', myo:'아버지 묘(김노홍, 考墓) 뒷 기슭(後麓) 건좌(乾坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', spouse:[
     { hj:'延安金氏', dates:'1824년 ~ ?' },
     { hj:'羅州丁氏', order:'계배', dates:'1845년 ~ ?' },
@@ -806,6 +807,7 @@ const CHILDREN = {
   p222: ['p223','p232'],
   p232: ['p233','p234'],
   p233: ['p236'],
+  p234: ['p236g'],
   p223: ['p224'],
   p224: ['p225','p226','p228'],
   p228: ['p229','p230','p231'],
@@ -896,6 +898,7 @@ const ARROWS = {
   p94g:  'p94',   // 출계 자리(김동영 3남) → 양자 실제 위치(김동규 아래)
   p204g: 'p204',  // 출계 자리(김진호 장남) → 양자 실제 위치(김강호 아래)
   p227g: 'p227',  // 출계 자리(김상승 장남) → 양자 실제 위치(김상영 아래)
+  p236g: 'p236',  // 출계 자리(김석희 장남) → 양자 실제 위치(김중희 아래)
 };
 
 // 대(代) 라벨
@@ -1300,6 +1303,7 @@ function drawTree() {
     if (pid === 'p95') return;  // 양부→양자 파란색 별도 처리
     if (pid === 'p83') return;  // 양부→양자 파란색 별도 처리
     if (pid === 'p198') return; // 양부→양자 파란색 별도 처리
+    if (pid === 'p233') return; // 양부→양자 파란색 별도 처리
     if (pid === 'p00') return; // 상촌공파 점선 별도 처리
     if (cids.length) goldMap[pid] = cids;
   });
@@ -1352,6 +1356,7 @@ function drawTree() {
   })();
   drawConnections(svg, oRect, { p65: ['p114'] }, '#5B8DB8', null);
   drawConnections(svg, oRect, { p198: ['p204'] }, '#5B8DB8', null);
+  drawConnections(svg, oRect, { p233: ['p236'] }, '#5B8DB8', null);
 
   // 파란 출계 화살표 (김동영2 → 김동영1)
   drawArrows(svg, oRect, ARROWS, '#5B8DB8');
