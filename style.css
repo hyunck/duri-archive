@@ -457,6 +457,7 @@ body.mobile-menu-locked { overflow: hidden; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  :root { --header-h: 60px; }
   .site-header { padding: 0 16px; gap: 8px; }
   .logo-main {
     font-size: 14px; max-width: 200px;
@@ -472,6 +473,7 @@ body.mobile-menu-locked { overflow: hidden; }
 }
 
 @media (max-width: 400px) {
+  :root { --header-h: 54px; }
   .site-header { padding: 0 10px; gap: 6px; }
   .logo-main { font-size: 12px; max-width: 150px; }
   .theme-toggle-btn { width: 26px; height: 26px; }
