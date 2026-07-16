@@ -350,6 +350,7 @@
       line-height: 1.7;
       color: var(--text-primary);
       white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
     .korean-content h2 {
       font-family: var(--font-sans);
@@ -367,6 +368,7 @@
       color: var(--text-primary);
       letter-spacing: 0.04em;
       white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
     .hanja-content h2 {
       font-size: 21px;
@@ -409,6 +411,7 @@
       line-height: 1.9;
       color: var(--text-secondary);
       margin-bottom: 8px;
+      overflow-wrap: anywhere;
     }
     .ann-back-link {
       color: var(--gold-600);
@@ -608,22 +611,20 @@
       .panel-left {
         width: 100% !important;
         flex: none;
-        border-radius: 10px 10px 0 0;
-        border-right: 1px solid var(--border-subtle) !important;
-        border-bottom: none !important;
+        border-radius: 10px !important;
+        border: 1px solid var(--border-subtle) !important;
       }
       .panel-right {
         flex: none;
         width: 100% !important;
-        border-radius: 0 0 10px 10px;
-        border-left: 1px solid var(--border-subtle) !important;
-        border-top: none !important;
+        border-radius: 10px !important;
+        border: 1px solid var(--border-subtle) !important;
       }
       .divider { display: none; }
       .panel-sub { display: none; }
       .mobile-lang-toggle { display: inline-flex; }
       .panel.mobile-hidden { display: none; }
-      .panel-body { height: 64vh; flex: none; }
+      .panel-body { height: 78vh; flex: none; overflow-x: hidden; }
 
       /* Image mode */
       .image-panel-container { height: 75vh; flex: none; }
@@ -675,7 +676,7 @@
     }
     @media (max-width: 480px) {
       .doc-title-kr { display: none; }
-      .panel-body { height: 40vh; }
+      .panel-body { height: 74vh; }
       .image-panel-container { height: 70vh; }
       .mobile-sidebar-tab.active { left: min(78vw, 260px); }
       .page-sidebar.open { width: min(78vw, 260px); }
