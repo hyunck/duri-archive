@@ -275,7 +275,7 @@ button { cursor: pointer; font-family: inherit; }
   cursor: pointer;
   transition: var(--transition);
   flex-shrink: 0;
-  margin-left: 8px;
+  margin-left: 24px;
 }
 .theme-toggle-btn:hover {
   background: var(--bg-hover);
@@ -466,7 +466,7 @@ body.mobile-menu-locked { overflow: hidden; }
   .logo-hj { display: none; }
   .site-nav { display: none; }
   .hamburger-btn { display: flex; }
-  .theme-toggle-btn { width: 28px; height: 28px; }
+  .theme-toggle-btn { width: 28px; height: 28px; margin-left: 8px; }
   .footer-inner { flex-direction: column; gap: 24px; padding: 28px 20px; }
   .footer-logo-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-right: 0; padding-bottom: 20px; }
   .footer-address span { display: block; margin-right: 0; }
