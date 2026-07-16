@@ -624,7 +624,7 @@
       .panel-sub { display: none; }
       .mobile-lang-toggle { display: inline-flex; }
       .panel.mobile-hidden { display: none; }
-      .panel-body { height: 78vh; flex: none; overflow-x: hidden; }
+      .panel-body { max-height: 78vh; height: auto; flex: none; overflow-x: hidden; }
 
       /* Image mode */
       .image-panel-container { height: 75vh; flex: none; }
@@ -676,7 +676,7 @@
     }
     @media (max-width: 480px) {
       .doc-title-kr { display: none; }
-      .panel-body { height: 74vh; }
+      .panel-body { max-height: 74vh; height: auto; }
       .image-panel-container { height: 70vh; }
       .mobile-sidebar-tab.active { left: min(78vw, 260px); }
       .page-sidebar.open { width: min(78vw, 260px); }
