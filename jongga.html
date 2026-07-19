@@ -532,6 +532,23 @@
     overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLightbox(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
   })();
+
+  // 다크모드 토글
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    function update() {
+      var t = document.documentElement.getAttribute('data-theme');
+      btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
+    }
+    update();
+    btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('duri-theme', next);
+      update();
+    });
+  })();
   </script>
 
 </body>
