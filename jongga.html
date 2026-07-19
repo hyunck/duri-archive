@@ -163,6 +163,64 @@
     .mp-kr { font-size: 13px; font-weight: 700; color: var(--text-bright); line-height: 1.4; }
     .mp-hj { font-size: 10px; color: var(--text-secondary); font-family: var(--font-serif); margin-top: 3px; line-height: 1.4; }
     .mp-ja { font-size: 9px; color: var(--gold-600); margin-top: 3px; line-height: 1.3; }
+
+    /* ── 라이트박스 ── */
+    .lightbox-trigger { cursor: zoom-in; }
+    .lightbox-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82); z-index: 9000;
+      align-items: center; justify-content: center; overflow: hidden;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay img {
+      max-width: 90vw; max-height: 90vh; object-fit: contain;
+      border-radius: var(--radius-md); box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+      cursor: zoom-in; transform-origin: center center;
+      transition: transform 0.2s ease; user-select: none; -webkit-user-drag: none;
+    }
+    .lightbox-overlay img.zoomed { cursor: grab; border-radius: 0; }
+    .lightbox-overlay img.zoomed.dragging { cursor: grabbing; transition: none; }
+    .lightbox-close {
+      position: fixed; top: 20px; right: 24px; width: 36px; height: 36px;
+      border-radius: 50%; background: rgba(255,255,255,0.12); border: none;
+      color: #fff; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s; z-index: 9001;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+    .lightbox-hint {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; color: rgba(255,255,255,0.45); pointer-events: none;
+      letter-spacing: 0.04em; z-index: 9001;
+    }
+
+    /* ── 파보 이미지 행 ── */
+    .pabo-img-row {
+      display: flex;
+      gap: 16px;
+      margin: 24px 0 8px;
+    }
+    .pabo-img-row img {
+      flex: 1;
+      width: 0;
+      min-width: 0;
+      max-height: 460px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border-normal);
+      background: var(--bg-elevated);
+    }
+    .pabo-img-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 600px) {
+      .pabo-img-row { flex-direction: column; }
+      .pabo-img-row img { width: 100%; height: auto; max-height: 320px; }
+    }
   </style>
 </head>
 
@@ -223,9 +281,16 @@
         <p>
           두리종중은 오랜 옛날부터 태사공의 9세손인 상촌공의 후손으로 전해져 왔다. 하지만 김여경 윗대의 계보가 실전되어 그 선조가 누구인지를 알 수 없는 실정인데, 1804년(순조 4) 영동지방에 발생한 대형 산불로 종가를 비롯해 종가 소장 문서가 모두 불타 버린 것이 그 원인으로 추정된다. 현재 종가에는 1894년경에 제작된 것으로 추정되는 『경주김씨파보(慶州金氏派譜)』와 20세기 중엽에 제작된 『경주김씨세보(慶州金氏世譜)』 두 책이 전하는데, 김여경 윗대의 계보가 두 책에 다르게 기재되어 있다.
 
-          <br><br> 파보에서는 '宙' 장에 김여경의 부친으로 영환(榮煥) 두 자만 기재되어 있을 뿐 그 이상의 정보는 전하지 않는다. 그 이전 장인 '宇' 장에는 태사공의 17세손 김홍욱(金弘郁)과 김홍필(金弘弼) 등 그 형제들이 기재되어 있으며, 그 밑으로 김홍욱의 장남 김세진(金世珍)과 김세진의 자녀가 4남 김두벽(金斗壁)까지만 기재되어 있다. '宇' 장의 인물 배치는 다른 족보의 것을 그대로 모사한 듯 다소 이상하게 배치되어 있으며, 김홍필의 자식, 김홍욱의 차남 및 딸들과 같이 기재할 필요가 없는 인물들은 기재를 생략하였다. 어떤 목적에서 이와 같이 인물을 배치하였는지는 알 수 없다.
+          <br><br> 파보에서는 '宙' 장에 김여경의 부친으로 영환(榮煥) 두 자만 기재되어 있을 뿐 그 이상의 정보는 전하지 않는다. 그 이전 장인 '宇' 장에는 태사공의 17세손 김홍욱(金弘郁)과 김홍필(金弘弼) 등 그 형제들이 기재되어 있으며, 그 밑으로 김홍욱의 장남 김세진(金世珍)과 김세진의 자녀가 4남 김두벽(金斗壁)까지만 기재되어 있다. '宇' 장의 인물 배치는 다른 족보의 것을 그대로 모사한 듯 다소 이상하게 배치되어 있으며, 김홍필의 자식, 김홍욱의 차남 및 딸들과 같이 기재할 필요가 없는 인물들은 기재를 생략하였다. 어떤 목적에서 이와 같이 인물을 배치하였는지는 알 수 없다.        </p>
 
-          <br><br> 세보에서는 반대로 김여경 윗대의 계보가 상세하게 적혀 있다. 세보에서는 김여경의 부친인 김영환을 판관공 김영년(金永年)의 손자 김맹견(金孟堅)의 3남 김홍(金泓)의 후손으로 기록하고 있다. 세보에는 김홍의 3남 김원성(金原誠)의 장남으로 김용(金鏞), 자(字)는 취중(就中)으로 기재해 놓았으며, 그 밑으로 장남 김여안(金汝顔, 자 일복(一復)), 차남 김여증(金汝曾, 자 일관(一貫)), 삼남 김여맹(金汝孟, 자 일규(一揆))이 기재되어 있다. 이어서 삼남 김여맹의 자식으로 장남 김식(金栻), 차남 김계(金棨), 삼남 김비(金棐), 사남 김역(金櫟), 5남 김야(金椰)가 기재되어 있으며, 삼남 김비의 아들로 김영환이 기록되어 있다. 이를 가계도로 보면 아래와 같다.
+        <div class="pabo-img-row">
+          <img src="images/jongga/파보_p4.png" alt="파보 宙 장" class="lightbox-trigger">
+          <img src="images/jongga/파보_p3.png" alt="파보 宇 장" class="lightbox-trigger">
+        </div>
+        <p class="pabo-img-caption">파보 &#x5B99; 장과 &#x5B87; 장</p>
+
+        <p>
+          세보에서는 반대로 김여경 윗대의 계보가 상세하게 적혀 있다. 세보에서는 김여경의 부친인 김영환을 판관공 김영년(金永年)의 손자 김맹견(金孟堅)의 3남 김홍(金泓)의 후손으로 기록하고 있다. 세보에는 김홍의 3남 김원성(金原誠)의 장남으로 김용(金鏞), 자(字)는 취중(就中)으로 기재해 놓았으며, 그 밑으로 장남 김여안(金汝顔, 자 일복(一復)), 차남 김여증(金汝曾, 자 일관(一貫)), 삼남 김여맹(金汝孟, 자 일규(一揆))이 기재되어 있다. 이어서 삼남 김여맹의 자식으로 장남 김식(金栻), 차남 김계(金棨), 삼남 김비(金棐), 사남 김역(金櫟), 5남 김야(金椰)가 기재되어 있으며, 삼남 김비의 아들로 김영환이 기록되어 있다. 이를 가계도로 보면 아래와 같다.
         </p>
         <div class="sebo-tree-wrap" role="img" aria-label="세보 소재 계보도: 김홍에서 김여경까지">
           <div class="sebo-tree-caption">▸ 세보(世譜) 소재 계보 · 김홍(金泓) → 김여경(金如慶)</div>
@@ -373,6 +438,98 @@
         cs.forEach(function (c) { seg(cx(c.col), mid, cx(c.col), cT); });
       }
     });
+  })();
+  </script>
+
+  <!-- 라이트박스 -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&#x2715;</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-hint">클릭하여 확대 &middot; 드래그하여 이동</div>
+  </div>
+
+  <script>
+  (function () {
+    var overlay = document.getElementById('lightbox');
+    var lbImg   = document.getElementById('lightbox-img');
+    var INIT_SCALE = 1.5, MIN_SCALE = 1.0, MAX_SCALE = 6.0;
+    var zoomed = false, dragging = false, moved = false;
+    var scale = INIT_SCALE, tx = 0, ty = 0, startX = 0, startY = 0;
+
+    function applyTransform(animate) {
+      lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+      lbImg.style.transform = 'scale(' + scale + ') translate(' + tx + 'px,' + ty + 'px)';
+    }
+    function enterZoom(s) {
+      scale = s; tx = 0; ty = 0; zoomed = true;
+      lbImg.classList.add('zoomed'); applyTransform(true);
+    }
+    function resetZoom() {
+      zoomed = false; scale = INIT_SCALE; tx = 0; ty = 0;
+      lbImg.classList.remove('zoomed', 'dragging');
+      lbImg.style.transition = 'transform 0.2s ease';
+      lbImg.style.transform = '';
+    }
+    function closeLightbox() { resetZoom(); overlay.classList.remove('open'); }
+
+    document.querySelectorAll('.lightbox-trigger').forEach(function (img) {
+      img.addEventListener('click', function () {
+        lbImg.src = img.src; lbImg.alt = img.alt;
+        resetZoom(); overlay.classList.add('open');
+      });
+    });
+
+    lbImg.addEventListener('click', function (e) {
+      if (moved) return;
+      if (!zoomed) { enterZoom(INIT_SCALE); } else { resetZoom(); }
+    });
+
+    overlay.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      if (!zoomed) enterZoom(INIT_SCALE);
+      var delta = e.deltaY > 0 ? -0.15 : 0.15;
+      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
+      applyTransform(false);
+    }, { passive: false });
+
+    lbImg.addEventListener('pointerdown', function (e) {
+      if (!zoomed) return;
+      dragging = true; moved = false;
+      startX = e.clientX - tx * scale; startY = e.clientY - ty * scale;
+      lbImg.classList.add('dragging'); lbImg.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      tx = dx / scale; ty = dy / scale; applyTransform(false);
+    });
+    window.addEventListener('pointerup', function () {
+      if (!dragging) return; dragging = false; lbImg.classList.remove('dragging');
+    });
+
+    /* 핀치 확대/축소 */
+    var pinchStartDist = 0, pinchStartScale = 1;
+    function touchDist(t) { return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY); }
+    overlay.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 2) {
+        e.preventDefault(); dragging = false;
+        if (!zoomed) enterZoom(INIT_SCALE);
+        pinchStartDist = touchDist(e.touches); pinchStartScale = scale;
+      }
+    }, { passive: false });
+    overlay.addEventListener('touchmove', function (e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * touchDist(e.touches) / pinchStartDist));
+        applyTransform(false);
+      }
+    }, { passive: false });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeLightbox(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
   })();
   </script>
 
