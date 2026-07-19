@@ -579,8 +579,8 @@ const NODES = {
   p00: { kr:'김영환', hj:'金榮煥', gen:0, hwiSrc:['파보','세보'] },
   // 김영환(p00) 생몰연도/관직/묘 설명 — 2026-07-17에 화면 표시에서 제거, 추후 필요시 위 객체에 다시 합칠 것:
   // dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', myo:'양양읍(襄陽邑) 차마리(車馬里) 간좌(艮坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>'
-  p11: { kr:'김여경', hj:'金如慶', gen:1, hwiSrc:['실록','파보','세보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', aliases:[{kr:'김여경',hj:'金如瓊',src:'울진장씨 대동보'}], spouse:[{ hj:'密陽朴氏', rank:'정부인' }] },
-  p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'嘉山李氏', rank:'정부인' }] },
+  p11: { kr:'김여경', hj:'金如慶', gen:1, hwiSrc:['실록','파보','세보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김여경',hj:'金如瓊',src:'울진장씨 대동보'}], spouse:[{ hj:'密陽朴氏', rank:'정부인' }] },
+  p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'嘉山李氏', rank:'정부인' }] },
   p235: { kr:'김한익', hj:'金漢翊', gen:2, myo:'대산묘(大山墓) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br><br>두리(斗里) 뒷 기슭(後麓) 근선허(近仙墟) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[
     { hj:'延日鄭氏' },
     { hj:'密陽朴氏', order:'계배' },
@@ -1156,7 +1156,7 @@ function renderTree() {
       card.className = 'person-card';
       let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
       if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
-      if (node.post)           html += `<div class="p-dates">${node.post}</div>`;
+      if (node.post && !node.postHideOnCard) html += `<div class="p-dates">${node.post}</div>`;
       if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
       if (node.ho)              html += `<div class="p-ja">號 ${node.ho}</div>`;
       if (node.aliases?.length) {
@@ -1262,8 +1262,13 @@ function openPersonModal(id) {
   } else {
     nameKr = node.kr; nameHj = node.hj;
     badge = genLabel(node.gen);
-    if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
-    if (node.post)  rows.push({ label: '관직', value: node.post + (node.postSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc})</span>` : '') });
+    if (node.dates && !node.postHideOnCard) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
+    if (node.post && node.postHideOnCard) {
+      const _pSrc = Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc;
+      rows.push({ label: '관직', value: node.dates + '<br>' + node.post + (_pSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${ _pSrc})</span>` : '') });
+    } else if (node.post) {
+      rows.push({ label: '관직', value: node.post + (node.postSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc})</span>` : '') });
+    }
     if (node.ja)    rows.push({ label: '자(字)', value: node.ja + (node.jaSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.jaSrc})</span>` : '') });
     if (node.ho)    rows.push({ label: '호(號)', value: node.ho + (node.hoSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.hoSrc})</span>` : '') });
     if (node.note)  rows.push({ label: '기타', value: node.note });
