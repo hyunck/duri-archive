@@ -737,7 +737,7 @@ const NODES = {
   p150: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'임대선', hj:'林大善' }, clan:'평택 임씨' },
   p151: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'곽장한', hj:'郭章漢' }, clan:'현풍 곽씨' },
   p152: { kr:'김병제', hj:'金秉濟', gen:7, dates:'1847년 ~ 1888년', ja:'이옥(理玉)', jaSrc:'파보' },
-  p153: { kr:'김동만', hj:'金東萬', gen:8, dates:'1867년 ~ 1930년', post:'蔭至 통정대부 행 은계도찰방, 移 도원도찰방', note:'경주김씨세보에 다음과 같이 기록함<br>신묘년(1891년)에 음직으로(蔭) 통정대부(정3품) 행 도원도찰방(桃源道察訪)에 올랐고, 임진년(1892년)에 도원도찰방(桃源道察訪)으로 옮겼다. 성품이 산수의 즐거움을 좋아하여, 두리 청룡 불당재에 이름을 새겼으며, 아울러 \'반월(半月)\', \'반룡(盤龍)\', \'영빈대(迎賓坮)\' 등의 바위 이름을 새긴 유적이 남아 있다.<br><br>辛卯 蔭 通政大夫 行 銀溪察訪 壬辰 移 桃源道察訪 性好山水之樂 於斗里靑龍佛堂峙 有刻姓啣兼 刻半月盤龍迎賓坮等岩名 遺跡' },
+  p153: { kr:'김동만', hj:'金東萬', gen:8, dates:'1867년 ~ 1930년', post:'蔭至 통정대부 행 은계도찰방, 移 도원도찰방', ja:'영수(永壽)', ho:'사헌(思軒)', note:'경주김씨세보에 다음과 같이 기록함<br>신묘년(1891년)에 음직으로(蔭) 통정대부(정3품) 행 도원도찰방(桃源道察訪)에 올랐고, 임진년(1892년)에 도원도찰방(桃源道察訪)으로 옮겼다. 성품이 산수의 즐거움을 좋아하여, 두리 청룡 불당재에 이름을 새겼으며, 아울러 \'반월(半月)\', \'반룡(盤龍)\', \'영빈대(迎賓坮)\' 등의 바위 이름을 새긴 유적이 남아 있다.<br><br>辛卯 蔭 通政大夫 行 銀溪察訪 壬辰 移 桃源道察訪 性好山水之樂 於斗里靑龍佛堂峙 有刻姓啣兼 刻半月盤龍迎賓坮等岩名 遺跡' },
   p154: { kr:'김성열', hj:'金成烈', gen:9, dates:'1889년 ~ ?', ja:'조반(祖般)', jaSrc:'파보' },
   p155: { kr:'김대열', hj:'金大烈', gen:9, dates:'1891년 ~ ?' },
   p156: { kr:'김화열', hj:'金和烈', gen:9, dates:'1894년? ~ ?' },
@@ -1157,6 +1157,7 @@ function renderTree() {
       if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
       if (node.post)           html += `<div class="p-dates">${node.post}</div>`;
       if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
+      if (node.ho)              html += `<div class="p-ja">號 ${node.ho}</div>`;
       if (node.aliases?.length) {
         html += '<div class="p-aliases">' +
           node.aliases.map(a =>
@@ -1263,6 +1264,7 @@ function openPersonModal(id) {
     if (node.dates) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post)  rows.push({ label: '관직', value: node.post + (node.postSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc})</span>` : '') });
     if (node.ja)    rows.push({ label: '자(字)', value: node.ja + (node.jaSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.jaSrc})</span>` : '') });
+    if (node.ho)    rows.push({ label: '호(號)', value: node.ho + (node.hoSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.hoSrc})</span>` : '') });
     if (node.note)  rows.push({ label: '기타', value: node.note });
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a => {
