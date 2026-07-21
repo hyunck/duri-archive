@@ -998,6 +998,7 @@ const GEN_INFO = {
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
 const ANCESTOR_H = 360; // 윗대 패널 높이 (px)
+const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
 const PAD_L  = 92;    // 왼쪽 (대 라벨 영역)
@@ -1589,13 +1590,15 @@ function initAncestors() {
 
   const p00CX = parseInt(p00El.style.left, 10) + CARD_W / 2;
 
-  // ── main-tree-wrap: 기존 카드·라벨 전체 래핑 (처음엔 top:0)
+  // ── main-tree-wrap: 기존 카드·라벨 전체 래핑
+  // TOP_RESERVE만큼 아래로 내려 토글 버튼·점선 공간 확보
   const mainWrap = document.createElement('div');
   mainWrap.id = 'main-tree-wrap';
-  mainWrap.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + TREE_H + 'px;';
+  mainWrap.style.cssText = 'position:absolute; top:' + TOP_RESERVE + 'px; left:0; width:' + TREE_W + 'px; height:' + TREE_H + 'px;';
   const svgEl = document.getElementById('tree-svg');
   Array.from(outer.children).filter(el => el !== svgEl).forEach(el => mainWrap.appendChild(el));
   outer.appendChild(mainWrap);
+  outer.style.height = (TREE_H + TOP_RESERVE) + 'px';
 
   // ── ancestor-section (초기: 숨김)
   const section = document.createElement('div');
@@ -1638,25 +1641,45 @@ function initAncestors() {
   // svg → section → mainWrap 순으로 outer 안에 배치
   outer.insertBefore(section, mainWrap);
 
-  // ── 토글 버튼 (scrollWrap 바로 위 삽입)
-  const toggleRow = document.createElement('div');
-  toggleRow.id = 'ancestor-toggle-row';
-  toggleRow.style.cssText = 'text-align:right; padding:0 8px 6px;';
+  // ── 토글 버튼: mainWrap 안, 점선 바로 위에 배치
+  // 점선은 mainWrap 기준 PAD_T(=20)에서 위로 36px → top:-16 (mainWrap 내)
+  // 버튼(28px 높이)을 점선 바로 위에 붙임 → top:-44 (mainWrap 내)
+  // outer 기준: TOP_RESERVE + (-44) = 6px → 스크롤 영역 내 표시 가능
   const btn = document.createElement('button');
   btn.id = 'ancestor-toggle-btn';
-  btn.textContent = '+ 윗대 계보';
-  btn.style.cssText = 'background:var(--bg-elevated); border:1px solid var(--gold-600,#A87C24); color:var(--gold-600,#A87C24); border-radius:6px; padding:4px 12px; font-size:13px; cursor:pointer; font-family:var(--font-sans);';
-  toggleRow.appendChild(btn);
-  scrollWrap.parentNode.insertBefore(toggleRow, scrollWrap);
+  btn.textContent = '+';
+  btn.title = '윗대 계보 펼치기';
+  btn.style.cssText = [
+    'position:absolute',
+    'left:' + (p00CX - 14) + 'px',
+    'top:-44px',
+    'width:28px',
+    'height:28px',
+    'border-radius:50%',
+    'border:2px solid var(--gold-600,#A87C24)',
+    'background:var(--bg-elevated)',
+    'color:var(--gold-600,#A87C24)',
+    'font-size:18px',
+    'font-weight:700',
+    'line-height:1',
+    'cursor:pointer',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'z-index:10',
+    'padding:0',
+  ].join(';');
+  mainWrap.appendChild(btn);
 
   // ── 토글 상태
   var _open = false;
   function _setAncestor(open) {
     _open = open;
     section.style.display  = open ? 'block' : 'none';
-    mainWrap.style.top     = open ? ANCESTOR_H + 'px' : '0px';
-    outer.style.height     = (TREE_H + (open ? ANCESTOR_H : 0)) + 'px';
-    btn.textContent        = open ? '− 윗대 계보 접기' : '+ 윗대 계보';
+    mainWrap.style.top     = (open ? ANCESTOR_H : 0) + TOP_RESERVE + 'px';
+    outer.style.height     = (TREE_H + TOP_RESERVE + (open ? ANCESTOR_H : 0)) + 'px';
+    btn.textContent        = open ? '−' : '+';
+    btn.title              = open ? '윗대 계보 접기' : '윗대 계보 펼치기';
     applyZoom(_zoom);
     if (open) scrollWrap.scrollTop = 0;
     drawTree();
@@ -1713,8 +1736,9 @@ function applyZoom(z) {
   outer.style.transformOrigin = 'top left';
   const _aS = document.getElementById('ancestor-section');
   const _aH = (_aS && _aS.style.display !== 'none') ? ANCESTOR_H : 0;
+  const _topRes = document.getElementById('main-tree-wrap') ? TOP_RESERVE : 0;
   scaleWrap.style.width  = (TREE_W * scale) + 'px';
-  scaleWrap.style.height = ((TREE_H + _aH) * scale) + 'px';
+  scaleWrap.style.height = ((TREE_H + _aH + _topRes) * scale) + 'px';
   document.getElementById('zoom-level').textContent = Math.round(_zoom * 100) + '%';
 }
 
