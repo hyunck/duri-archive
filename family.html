@@ -577,22 +577,34 @@
 // ══════════════════════════════════════════════════════════
 const NODES = {
   p00: { kr:'김영환', hj:'金榮煥', gen:0, hwiSrc:['파보','세보'], dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', postSrc:'세보', myo:'양양읍(襄陽邑) 차마리(車馬里) 간좌(艮坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[{ hj:'강릉 崔氏', rank:'贈 숙부인', dates:'1649년 ~ ?' }] },
-  p11: { kr:'김여경', hj:'金如瓊', gen:1, hwiSrc:['울진장씨대동보','정유보','기묘보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김여경',hj:'金如慶',src:'실록, 파보, 세보'}], spouse:[{ hj:'밀양 朴氏', rank:'정부인' }] },
+  p11: { kr:'김여경', hj:'金如瓊', gen:1, hwiSrc:['울진장씨대동보','정유보','기묘보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', datesCard:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김여경',hj:'金如慶',src:'실록, 파보, 세보'}], spouse:[{ hj:'밀양 朴氏', rank:'정부인' }] },
   p279: { kr:'김여선', hj:'金如璇', gen:1, dates:'1673년 ~ ?', post:'贈 가선대부', myo:'부소치(扶蘇峙) 월내(月乃) 선영(先塋) 좌(坐)', spouse:[{ hj:'평산 申氏', rank:'贈 숙부인', dates:'1675년 ~ ?' }] },
   p280: { kr:'김여진', hj:'金如珍', gen:1, dates:'1677년 ~ 1838년', myo:'서면(西面) 윤화동(倫化洞) 남산(南山) 경좌(庚坐)', spouse:[{ hj:'경주 李氏', dates:'1672년 ~ 1733년', father:'석제(碩悌)' }] },
   p281: { kr:'김여기', hj:'金如璣', gen:1, dates:'1679년 ~ ?', myo:'상왕도(上旺道) 조내동(鳥乃洞) 계좌(癸坐)', spouse:[{ hj:'울진 林氏', dates:'1678년 ~ ?', father:'춘업(春業)' }] },
   p282: { kr:'김여탁', hj:'金如琢', gen:1, dates:'1680년 ~ ?', myo:'강현면(降峴面) 산동(山洞) 곤좌(坤坐)', spouse:[{ hj:'경주 李氏', dates:'1678년 ~ ?' }, { hj:'전주 李氏', order:'계배', dates:'1693년 ~ ?' }] },
   p283: { kr:'김여주', hj:'金如珠', gen:1, dates:'1684년 ~ ?', post:'壽 가선대부', myo:'차마리(車馬里) 초막동(草幕洞) 간좌(艮坐)', spouse:[{ hj:'경주 李氏', rank:'정부인', father:'연원(延元)' }, { hj:'김해 金氏', rank:'정부인', order:'계배', father:'이인(利寅)' }] },
   p284: { kr:'김여련', hj:'金如璉', gen:1, dates:'1687년 ~ 1756년', myo:'화일리(禾日里) 건좌(乾坐)', spouse:[{ hj:'김해 金氏', dates:'1688년 ~ 1754년', father:'인재(寅在)' }] },
+  p291g: { kr:'김세환', hj:'金世煥', gen:0, ancestorOnly:true, ghost:true },
   p291: { kr:'김세환', hj:'金世煥', gen:0, ancestorOnly:true, myo:'도직동(道直洞) 어머니 묘 아래(先妣墓下) 유좌(酉坐) 원(原)', spouse:[{ hj:'가평 李氏' }] },
   p292: { kr:'김시환', hj:'金時煥', gen:0, ancestorOnly:true, post:'贈 가선대부', dates:'1645년 ~ 1733년', myo:'서면(西面) 원당동(元堂洞) 경좌(庚坐)', spouse:[{ hj:'경주 李氏', dates:'1648년 ~ 1734년', father:'인화(仁華)' }] },
+  p293: { kr:'김호은', hj:'金好垠', gen:-4, ancestorOnly:true, hwiSrc:'기묘보', aliases:[{kr:'실휘(失諱)', src:'정유보'}], dates:'1519년 ~ ?', myo:'청양군(靑陽郡) 장평면(長坪面) 죽림(竹林) 산(山) 설단(設壇)', spouse:[{ hj:'광산 金氏', dates:'1520년 ~ ?' }] },
+  p294: { kr:'김필정', hj:'金弼定', gen:-3, ancestorOnly:true, hwiSrc:'기묘보', aliases:[{kr:'실휘(失諱)', src:'정유보'}], dates:'1575년 ~ 1631년', myo:'청양군(靑陽郡) 장평면(長坪面) 죽림리(竹林里) 설단(設壇)', spouse:[{ hj:'죽산 朴氏', dates:'1574년 ~ 1639년' }] },
+  p295: { kr:'김귀은', hj:'金貴垠', gen:-4, ancestorOnly:true, dates:'1554년 ~ 1618년', myo:'통천(通川) 답전면(踏錢面) 흡곡성(歙谷城) 북점정곡(北店亭谷) 유좌(酉坐)', spouse:[{ hj:'경주 李氏', dates:'1555년 ~ 1646년', father:'재향(在享)' }] },
+  p296: { kr:'김필화', hj:'金弼華', gen:-3, ancestorOnly:true, dates:'1578년 ~ 1650년', myo:'통천군(通川郡) 앞의(前) 흡곡성(歙谷城) 북점정곡(北店亭谷) 유좌(酉坐)', spouse:[{ hj:'강릉 咸氏', dates:'1581년 ~ 1648년', father:'유덕(有德)' }] },
+  p298: { kr:'김칭', hj:'金偁', gen:-7, ancestorOnly:true, ja:'중립(重立)', ho:'송곡(松谷)', dates:'1442년 ~ 1513년', post:'등과(登科) 통훈대부 장흥부사 贈 참판', myo:'선산(先山) 아래(下) 동원(同原) 동좌(同坐)', spouse:[{ hj:'파평 尹氏', rank:'贈 정부인', father:'훈(壎)', fatherPost:'목사', grandfather:'희제(希齊)', grandfatherPost:'참의 贈 찬성', greatGrandfather:'곤(坤)', greatGrandfatherPost:'이조판서(吏判)' }] },
+  p303: { kr:'딸', gen:-6, gender:'f', ancestorOnly:true, sonInLaw:{ kr:'오녕', hj:'吳寧', post:'절제사', father:'종하(宗夏)', fatherPost:'참봉(參奉)' }, clan:'함양 오씨' },
+  p302: { kr:'김양수', hj:'金良秀', gen:-6, ancestorOnly:true, ja:'천순(天順)', dates:'1464년 ~ ?', post:'통훈대부 공산판관', myo:'아버지묘(考墓) 왼쪽 기슭(左麓) 백보(百步) 내(內) 임좌(壬坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表)이 있다(有).', spouse:[{ hj:'고성 李氏', father:'의(儀)', fatherPost:'부사(府使)', grandfather:'비(埤)', grandfatherPost:'동지중추부사(同中樞)', greatGrandfather:'원(原)', greatGrandfatherPost:'좌의정(左議政) 철성부원군(鐵城府院君) 양헌공(襄憲公)', matGrandfather:'광주 노씨 노처중(盧處中)', matGrandfatherPost:'직장(直長)' },{ hj:'상산 黃氏', order:'계실', father:'석경(碩卿)', fatherPost:'贈 참의(參議)', grandfather:'효원(孝源)', grandfatherPost:'좌리공신(佐理功臣) 좌찬성(左贊成) 상산군(商山君)', greatGrandfather:'사간(士幹)', greatGrandfatherPost:'학유(學諭) 贈 영의정(領相) 상평부원군(商平府院君)', matGrandfather:'은풍 신씨 신명지(申命之)', matGrandfatherPost:'군사(郡事)' }] },
+  p301: { kr:'김양언', hj:'金良彦', gen:-6, ancestorOnly:true, ja:'사윤(士贇)', dates:'1462년 ~ 1534년', post:'병오년(1486년)에 진사시에 합격하여 왕자사부를 거쳐 관직에 나아갔다. 중종개옥(중종반정) 때 호조좌랑으로 정국원종공신에 녹훈되었으며, (최종적으로) 통훈대부 청송부사에 이르렀다.<br>丙午進士官由 王子師傳 中宗改玉以戶曹佐郞錄 靖國原從勳至通訓大夫靑松府使', postCard:'정국원종훈록<br>통훈대부 청송부사', myo:'대자동(大慈洞) 선영(先塋) 측면에(側) 갑좌(甲坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表)이 있다(有).', spouse:[{ hj:'풍덕 張氏', dates:'1460년 ~ 1523년', father:'선(璿)', fatherPost:'훈련참군(訓鍊參軍)', grandfather:'신보(信輔)', grandfatherPost:'진사(進士)', greatGrandfather:'맹희(孟禧)', greatGrandfatherPost:'贈 사복정(司僕正)', matGrandfather:'서산 송씨 송휴명(宋休明)', matGrandfatherPost:'진사(進士)' }] },
+  p300: { kr:'김희', hj:'金憘', gen:-7, ancestorOnly:true, ja:'정통(正綂)', dates:'1439년 ~ 1494년', post:'등제(登第) 통훈대부 장단부사 贈 승정원도승지', myo:'고양(高陽) 대자동(大慈洞) 관산(舘山) 갑좌(甲坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 장명등(長明燈), 표석(表)이 있다(有).', spouse:[{ hj:'전주 李氏', rank:'贈 숙부인', father:'태종대왕(太宗大王) 제4남(第四男) 근녕군(謹寧君) 희의공(僖懿公) 농(禯)', matGrandfather:'하양 허씨 허지혜(許之惠)', matGrandfatherPost:'관찰사(觀察使) 贈 찬성(贊成)' }] },
+  p299: { kr:'김영원', hj:'金永源', gen:-8, ancestorOnly:true, ja:'선화(善華)', ho:'퇴와(退窩)', dates:'1415년 ~ 1447년', post:'감찰, 경상도사, 병조좌랑 등을 역임하여 무공랑(정6품 문산계) 수 호조좌랑에 이르렀으며, 손자 양필로 인한 추은(推恩)으로, 호조참의(종2품)를 증직받았다.<br>監察慶尙都事兵曹佐郞等職至務功郎守戶曹佐郞以孫良弼推恩 贈戶曹參議', postCard:'무공랑 守 호조좌랑<br>贈 호조참의', myo:'금천(衿川) 신림리(新林里) 오좌(午坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表石)이 있다(有).', spouse:[{ hj:'삼척 金氏', rank:'贈 숙부인', dates:'1414년 ~ 1476년', father:'계(啓)', fatherPost:'제용판관(濟用判官)', grandfather:'충민(忠敏)', grandfatherPost:'한성부윤(漢城府尹)', greatGrandfather:'위(偉)', greatGrandfatherPost:'지양주사(知養州事)', matGrandfather:'능성 具氏 구성량(具成亮)', matGrandfatherPost:'판안동부사(判安東府事)' }] },
+  p297: { kr:'김양필', hj:'金良弼', gen:-6, ancestorOnly:true, post:'강동현령(江東縣令) 至 가선대부 북병사(北兵使)', myo:'서흥(瑞興) 화회면(禾回面) 낙촌(洛村) 곡장동(曲庄洞) 간좌(艮坐)', spouse:[{ hj:'의령 南氏', rank:'정부인', father:'유재(有梓)', matGrandfather:'남양 洪氏 홍맹부(洪孟阜)', matGrandfatherPost:'직장(直長)' }] },
   p290: { kr:'김직', hj:'金直', gen:-5, ancestorOnly:true, ja:'계호(繼浩)', myo:'실전(失傳)', note:'김양필의 서자다.', spouse:[{ hj:'광산 金氏' }] },
   p289: { kr:'김덕은', hj:'金德垠', gen:-4, ancestorOnly:true, dates:'1517년 ~ ?', myo:'실전(失傳)', spouse:[{ hj:'전주 李氏', dates:'1516년 ~ ?' }] },
   p288: { kr:'김필숭', hj:'金弼崇', gen:-3, ancestorOnly:true, dates:'1541년 ~ ?', myo:'실전(失傳)', spouse:[{ hj:'정선 全氏', dates:'1543년 ~ ?' }] },
   p286: { kr:'김언빈', hj:'金彦賓', gen:-2, ancestorOnly:true, dates:'1570년 ~ ?', myo:'양양면(襄陽面) 교동(校洞) 간좌(艮坐)<br>지석(誌石)이 있다(有).', spouse:[{ hj:'진안 金氏', dates:'1571년 ~ ?' }] },
   p287: { kr:'김생백', hj:'金生白', gen:-1, ancestorOnly:true, post:'장임랑', dates:'1595년 ~ ?', myo:'도직동(道直洞) 어머니 묘 아래(先妣墓下) 자좌(子坐)', spouse:[{ hj:'평창 李氏', dates:'1594년 ~ ?' }] },
   p285: { kr:'김윤백', hj:'金允白', gen:-1, ancestorOnly:true, dates:'1598년 ~ 1679년', post:'인조조 이등공신 贈 통정대부', myo:'도유동(道踰洞) 건좌(乾坐)<br>(묘 앞에) 상석(石床)이 있다(有).', spouse:[{ hj:'진주 河氏', rank:'숙부인', dates:'1615년 ~ 1679년', father:'응담(應淡)' }] },
-  p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'가산 李氏', rank:'정부인' }] },
+  p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', datesCard:'숙종조 蔭至 자헌대부<br>동지중추부사', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'가산 李氏', rank:'정부인' }] },
   p235: { kr:'김한익', hj:'金漢翊', gen:2, myo:'대산묘(大山墓) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br><br>두리(斗里) 뒷 기슭(後麓) 근선허(近仙墟) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[
     { hj:'연일 鄭氏' },
     { hj:'밀양 朴氏', order:'계배' },
@@ -750,7 +762,7 @@ const NODES = {
   p150: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'임대선', hj:'林大善' }, clan:'평택 임씨' },
   p151: { kr:'딸', gen:8, gender:'f', sonInLaw:{ kr:'곽장한', hj:'郭章漢' }, clan:'현풍 곽씨' },
   p152: { kr:'김병제', hj:'金秉濟', gen:7, dates:'1847년 ~ 1888년', ja:'이옥(理玉)', jaSrc:'파보', spouse:[{ hj:'해주 吳氏', dates:'1843년 ~ ?', father:'진영(晉泳)' }, { hj:'순흥 安氏', order:'계배', dates:'1848년 ~ ?', father:'성윤(聖潤)' }] },
-  p153: { kr:'김동만', hj:'金東萬', gen:8, dates:'1867년 ~ 1930년', post:'蔭至 통정대부 행 은계도찰방, 移 도원도찰방', ja:'영수(永壽)', ho:'사헌(思軒)', note:'경주김씨세보에 다음과 같이 기록함<br>신묘년(1891년)에 음직으로(蔭) 통정대부(정3품) 행 도원도찰방(桃源道察訪)에 올랐고, 임진년(1892년)에 도원도찰방(桃源道察訪)으로 옮겼다. 성품이 산수의 즐거움을 좋아하여, 두리 청룡 불당재에 이름을 새겼으며, 아울러 \'반월(半月)\', \'반룡(盤龍)\', \'영빈대(迎賓坮)\' 등의 바위 이름을 새긴 유적이 남아 있다.<br><br>辛卯 蔭 通政大夫 行 銀溪察訪 壬辰 移 桃源道察訪 性好山水之樂 於斗里靑龍佛堂峙 有刻姓啣兼 刻半月盤龍迎賓坮等岩名 遺跡', spouse:[{ hj:'경주 李氏', dates:'1865년 ~ ?' }] },
+  p153: { kr:'김동만', hj:'金東萬', gen:8, dates:'1867년 ~ 1930년', post:'蔭至 통정대부 행 은계도찰방, 移 도원도찰방', ja:'영수(永壽)', ho:'사헌(思軒)', note:'경주김씨세보에 다음과 같이 기록함<br>신묘년(1891년)에 음직으로(蔭) 통정대부(정3품) 행 은계도찰방(銀溪道察訪)에 올랐고, 임진년(1892년)에 도원도찰방(桃源道察訪)으로 옮겼다. 성품이 산수의 즐거움을 좋아하여, 두리 청룡 불당재에 이름을 새겼으며, 아울러 \'반월(半月)\', \'반룡(盤龍)\', \'영빈대(迎賓坮)\' 등의 바위 이름을 새긴 유적이 남아 있다.<br><br>辛卯 蔭 通政大夫 行 銀溪察訪 壬辰 移 桃源道察訪 性好山水之樂 於斗里靑龍佛堂峙 有刻姓啣兼 刻半月盤龍迎賓坮等岩名 遺跡', spouse:[{ hj:'경주 李氏', dates:'1865년 ~ ?' }] },
   p154: { kr:'김성열', hj:'金成烈', gen:9, dates:'1889년 ~ ?', ja:'조반(祖般)', jaSrc:'파보' },
   p155: { kr:'김대열', hj:'金大烈', gen:9, dates:'1891년 ~ ?' },
   p156: { kr:'김화열', hj:'金和烈', gen:9, dates:'1894년? ~ ?' },
@@ -979,10 +991,14 @@ const ARROWS = {
   p204g: 'p204',  // 출계 자리(김진호 장남) → 양자 실제 위치(김강호 아래)
   p227g: 'p227',  // 출계 자리(김상승 장남) → 양자 실제 위치(김상영 아래)
   p236g: 'p236',  // 출계 자리(김석희 장남) → 양자 실제 위치(김중희 아래)
+  p291g: 'p291',  // 출계 자리(김윤백 장남) → 양자 실제 위치(김생백 아래)
 };
 
 // 대(代) 라벨
 const GEN_INFO = {
+  '-8':{label:'11세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">3세</span>'},
+  '-7':{label:'12세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">4세</span>'},
+  '-6':{label:'13세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">5세</span>'},
   '-5':{label:'14세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">6세</span>'},
   '-4':{label:'15세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">7세</span>'},
   '-3':{label:'16세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">8세</span>'},
@@ -1008,7 +1024,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const ANCESTOR_H = 1320; // 윗대 패널 높이 (px)
+const ANCESTOR_H = 2540; // 윗대 패널 높이 (px)
 const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
@@ -1086,6 +1102,10 @@ const TREE_H = genTopY(maxGen) + 160 + PAD_B;
 // ══════════════════════════════════════════════════════════
 //  렌더링 (카드 + 대 라벨 DOM 생성)
 // ══════════════════════════════════════════════════════════
+function stripCardSrc(html) {
+  if (!html) return '';
+  return html.replace(/<span[^>]*>[^<]*<\/span>/g, '').replace(/(?:<br>\s*)+$/, '').trim();
+}
 function renderTree() {
   const outer = document.getElementById('tree-outer');
   outer.style.width  = TREE_W + 'px';
@@ -1149,7 +1169,7 @@ function renderTree() {
       if (node.kr !== '딸') {
         // 이름이 있는 딸: 텍스트는 일반 카드와 동일, 스타일만 여성 적용
         html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
-        if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
+        if (node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
         if (node.aliases?.length) {
           html += '<div class="p-aliases">' +
             node.aliases.map(a =>
@@ -1174,14 +1194,14 @@ function renderTree() {
         html += `<div class="p-kr">${siKr}</div>`;
         if (siHj) html += `<div class="p-hj">${siHj}</div>`;
         if (node.sonInLaw?.kr && node.clan) html += `<div class="p-dates">${node.clan}</div>`;
-        if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
+        if (node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
       }
       card.innerHTML = html;
     } else {
       card.className = 'person-card';
       let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
-      if (node.dates)          html += `<div class="p-dates">${node.dates}</div>`;
-      if (node.post && !node.postHideOnCard) html += `<div class="p-dates">${node.post}</div>`;
+      if (node.dates)          html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
+      if ((node.postCard ?? node.post) && !node.postHideOnCard) html += `<div class="p-dates">${node.postCard ?? node.post}</div>`;
       if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
       if (node.ho)              html += `<div class="p-ja">號 ${node.ho}</div>`;
       if (node.aliases?.length) {
@@ -1299,7 +1319,7 @@ function openPersonModal(id) {
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a => {
         const srcText = Array.isArray(a.src) ? a.src.join('·') : a.src;
-        return `${a.kr} <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>` +
+        return `${a.kr}${a.hj ? ` <span style="font-family:var(--font-serif);color:var(--text-secondary)">${a.hj}</span>` : ''}` +
           (srcText ? ` <span style="font-size:12px;color:var(--text-muted)">(${srcText})</span>` : '');
       }).join('<br>') });
     }
@@ -1311,7 +1331,10 @@ function openPersonModal(id) {
         sh += '</div>';
         const det = [];
         if (s.dates)  det.push(s.dates);
-        if (s.father) det.push('父 ' + s.father);
+        if (s.father) det.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
+        if (s.grandfather) det.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
+        if (s.greatGrandfather) det.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
+        if (s.matGrandfather) det.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
         if (det.length) sh += `<div class="pm-sp-detail">${det.join(' · ')}</div>`;
         return `<div class="pm-spouse-item">${sh}</div>`;
       }).join('');
@@ -1411,7 +1434,12 @@ function drawTree() {
   drawConnections(svg, oRect, goldMap, '#A87C24', null);
 
   // 상촌공파 → 두리종중 입향조 연결 (실선)
-  drawConnections(svg, oRect, { p00: ['p279','p280','p281','p282','p11','p283','p284'] }, '#A87C24', null);
+  const _sonsVis = document.getElementById('ancestor-section')?.style.display !== 'none';
+  if (_sonsVis) {
+    drawConnections(svg, oRect, { p00: ['p279','p280','p281','p282','p11','p283','p284'] }, '#A87C24', null);
+  } else {
+    drawConnections(svg, oRect, { p00: ['p11'] }, '#A87C24', null);
+  }
 
   // 김영환 위로 점선 — 윗대 패널 상태에 따라 처리
   const p00El = document.getElementById('p00');
@@ -1421,8 +1449,10 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p290: ['p289'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
-      drawConnections(svg, oRect, { p285: ['p291', 'p292', 'p00'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p299: ['p300', 'p298'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p297: ['p290'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p293: ['p294'], p295: ['p296'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p285: ['p291g', 'p292', 'p00'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p287: ['p291'] }, '#5B8DB8', null);
     } else {
       seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
     }
@@ -1518,6 +1548,8 @@ function drawArrows(svg, oRect, map, color) {
     if (!fEl || !tEl) return;
     const fRect = fEl.getBoundingClientRect();
     const tRect = tEl.getBoundingClientRect();
+    if (fRect.width === 0 && fRect.height === 0) return;
+    if (tRect.width === 0 && tRect.height === 0) return;
     const fCX = (fRect.left + fRect.right) / 2;
     const tCX = (tRect.left + tRect.right) / 2;
 
@@ -1601,13 +1633,16 @@ function initAncestors() {
   if (!outer || !scrollWrap || !p00El) return;
 
   const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
-  const sBaekCX  = p00CX - COL_W;           // 김생백 중심 (김윤백 왼쪽 1열)
-  const eonBinCX = (sBaekCX + p00CX) / 2;   // 김언빈 중심 (두 자녀 사이)
-  const CTOP_5   = 40;   // gen -5 행 top (김직)
-  const CTOP_4   = 290;  // gen -4 행 top (김덕은)
-  const CTOP_3   = 540;  // gen -3 행 top (김필숭)
-  const CTOP_2   = 790;  // gen -2 행 top (김언빈)
-  const CTOP_1   = 1040; // gen -1 행 top (김생백, 김윤백)
+  const sBaekCX  = p00CX - 3 * COL_W;       // 김생백 중심 (김윤백 왼쪽 3열)
+  const eonBinCX = p00CX;                     // 김언빈·윗대 중심 (김윤백 바로 위)
+  const CTOP_8   = 40;   // gen -8 행 top (김영원)
+  const CTOP_7   = 390;  // gen -7 행 top (김칭)
+  const CTOP_6   = 740;  // gen -6 행 top (김양필)
+  const CTOP_5   = 1090; // gen -5 행 top (김직)
+  const CTOP_4   = 1390; // gen -4 행 top (김덕은)
+  const CTOP_3   = 1690; // gen -3 행 top (김필숭)
+  const CTOP_2   = 1990; // gen -2 행 top (김언빈)
+  const CTOP_1   = 2275; // gen -1 행 top (김생백, 김윤백)
 
   // ── main-tree-wrap
   const mainWrap = document.createElement('div');
@@ -1630,10 +1665,23 @@ function initAncestors() {
     card.id = id;
     card.className = 'person-card';
     card.style.cssText = 'position:absolute; left:' + (cx - CARD_W / 2) + 'px; top:' + top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
-    var ch = '<div class="p-kr">' + nd.kr + '</div><div class="p-hj">' + nd.hj + '</div>';
-    if (nd.ja)    ch += '<div class="p-ja">字 ' + nd.ja + '</div>';
-    if (nd.dates) ch += '<div class="p-dates">' + nd.dates + '</div>';
-    if (nd.post)  ch += '<div class="p-dates">' + nd.post  + '</div>';
+    var ch;
+    if (nd.gender === 'f') {
+      card.className = 'person-card person-card-female';
+      var siKr = nd.sonInLaw && nd.sonInLaw.kr ? nd.sonInLaw.kr : (nd.clan || '사위 미상');
+      var siHj = nd.sonInLaw && nd.sonInLaw.hj ? nd.sonInLaw.hj : '';
+      ch = '<div class="p-kr">' + siKr + '</div>';
+      if (siHj) ch += '<div class="p-hj">' + siHj + '</div>';
+      if (nd.sonInLaw && nd.sonInLaw.kr && nd.clan) ch += '<div class="p-dates">' + nd.clan + '</div>';
+      if (nd.sonInLaw && nd.sonInLaw.post) ch += '<div class="p-dates">' + nd.sonInLaw.post + '</div>';
+    } else {
+      ch = '<div class="p-kr">' + nd.kr + '</div><div class="p-hj">' + nd.hj + '</div>';
+    }
+    if (nd.gender !== 'f') {
+      if (nd.ja)    ch += '<div class="p-ja">字 ' + nd.ja + '</div>';
+      if (nd.dates) ch += '<div class="p-dates">' + (nd.datesCard ?? nd.dates) + '</div>';
+      if ((nd.postCard ?? nd.post) && !nd.postHideOnCard) ch += '<div class="p-dates">' + (nd.postCard ?? nd.post) + '</div>';
+    }
     if (nd.spouse && nd.spouse.length) {
       ch += '<div class="p-spouses">' +
         nd.spouse.map(function(s) {
@@ -1653,15 +1701,26 @@ function initAncestors() {
     return card;
   }
 
+  section.appendChild(makeACard('p300', eonBinCX - 2 * COL_W, CTOP_7));  // 김희
+  section.appendChild(makeACard('p301', eonBinCX - 3 * COL_W, CTOP_6));  // 김양언
+  section.appendChild(makeACard('p302', eonBinCX - 2 * COL_W, CTOP_6));  // 김양수
+  section.appendChild(makeACard('p303', eonBinCX - COL_W, CTOP_6));  // 장녀(오녕 처)
+  section.appendChild(makeACard('p299', eonBinCX, CTOP_8));  // 김영원
+  section.appendChild(makeACard('p298', eonBinCX, CTOP_7));  // 김칭
+  section.appendChild(makeACard('p297', eonBinCX, CTOP_6));  // 김양필
   section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직
   section.appendChild(makeACard('p289', eonBinCX, CTOP_4));  // 김덕은
+  section.appendChild(makeACard('p293', eonBinCX + COL_W, CTOP_4));  // 김호은(차남)
+  section.appendChild(makeACard('p295', eonBinCX + 2 * COL_W, CTOP_4));  // 김귀은(삼남)
   section.appendChild(makeACard('p288', eonBinCX, CTOP_3));  // 김필숭
+  section.appendChild(makeACard('p294', eonBinCX + COL_W, CTOP_3));  // 김필정
+  section.appendChild(makeACard('p296', eonBinCX + 2 * COL_W, CTOP_3));  // 김필화
   section.appendChild(makeACard('p286', eonBinCX, CTOP_2));  // 김언빈
   section.appendChild(makeACard('p287', sBaekCX,  CTOP_1));  // 김생백
   section.appendChild(makeACard('p285', p00CX,    CTOP_1));  // 김윤백
 
   // 대수 라벨
-  [{ gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }].forEach(function(info) {
+  [{ gen:'-8', top: CTOP_8 + 16 }, { gen:'-7', top: CTOP_7 + 16 }, { gen:'-6', top: CTOP_6 + 16 }, { gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }].forEach(function(info) {
     var gi = GEN_INFO[info.gen];
     if (!gi) return;
     var lbl = document.createElement('div');
@@ -1679,12 +1738,12 @@ function initAncestors() {
   // 김세환·김시환: mainWrap 안에 p00와 같은 행에 배치 (초기 숨김)
   var _p00Left = parseInt(p00El.style.left, 10);
   var _p00Top  = parseInt(p00El.style.top,  10);
-  ['p291','p292'].forEach(function(sid, i) {
+  ['p291','p291g','p292'].forEach(function(sid, i) {
     var nd2 = NODES[sid];
     var sc = document.createElement('div');
     sc.id = sid;
-    sc.className = 'person-card';
-    sc.style.cssText = 'position:absolute; display:none; left:' + (_p00Left - (2 - i) * COL_W) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+    sc.className = 'person-card' + (nd2.ghost ? ' person-card-ghost' : '');
+    sc.style.cssText = 'position:absolute; display:none; left:' + (_p00Left - (3 - i) * COL_W) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
     var ch2 = '<div class="p-kr">' + nd2.kr + '</div><div class="p-hj">' + nd2.hj + '</div>';
     if (nd2.ja)    ch2 += '<div class="p-ja">字 ' + nd2.ja + '</div>';
     if (nd2.dates) ch2 += '<div class="p-dates">' + nd2.dates + '</div>';
@@ -1740,7 +1799,11 @@ function initAncestors() {
   function _setAncestor(open) {
     _open = open;
     section.style.display  = open ? 'block' : 'none';
-    ['p291','p292'].forEach(function(sid) {
+    ['p291','p291g','p292'].forEach(function(sid) {
+      var el = document.getElementById(sid);
+      if (el) el.style.display = open ? 'block' : 'none';
+    });
+    ['p279','p280','p281','p282','p283','p284'].forEach(function(sid) {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
@@ -1757,6 +1820,10 @@ function initAncestors() {
 
 renderTree();
 initAncestors();
+['p279','p280','p281','p282','p283','p284'].forEach(function(sid) {
+  var el = document.getElementById(sid);
+  if (el) el.style.display = 'none';
+});
 
 let _drawn = false;
 function _onceDraw() {
