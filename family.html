@@ -577,7 +577,7 @@
 // ══════════════════════════════════════════════════════════
 const NODES = {
   p00: { kr:'김영환', hj:'金榮煥', gen:0, hwiSrc:['파보','세보'], dates:'1650년 ~ 1709년', post:'현종조 贈 통정대부 공조참의', postSrc:'세보', myo:'양양읍(襄陽邑) 차마리(車馬里) 간좌(艮坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[{ hj:'강릉 崔氏', rank:'贈 숙부인', dates:'1649년 ~ ?' }] },
-  p11: { kr:'김여경', hj:'金如瓊', gen:1, hwiSrc:['울진장씨대동보','정유보','기묘보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', datesCard:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김여경',hj:'金如慶',src:'실록, 파보, 세보'}], spouse:[{ hj:'밀양 朴氏', rank:'정부인' }] },
+  p11: { kr:'김여경', hj:'金如瓊', gen:1, birth:'1682년 ~ ?', hwiSrc:['울진장씨대동보','정유보','기묘보'], dates:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', datesCard:'숙종조 贈 가선대부 한성부<br>좌윤 겸 오위도총부 부총관', myo:'양양(襄陽) 현남면(縣南面) 성황동(城隍洞) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br>(묘 앞에) 상석(石床)과 표석(表石)이 있다(有).<br><br>후포매리(後浦梅里) 우정동(友定洞) 신좌(辛坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span><br><br>2005년 9월 23일(음력 8월 20일)<br>大문중, 고속도로 공사로 화장하여 현장에 뿌림', post:'동지중추부사', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김여경',hj:'金如慶',src:'실록, 파보, 세보'}], spouse:[{ hj:'밀양 朴氏', rank:'정부인' }] },
   p279: { kr:'김여선', hj:'金如璇', gen:1, dates:'1673년 ~ ?', post:'贈 가선대부', myo:'부소치(扶蘇峙) 월내(月乃) 선영(先塋) 좌(坐)', spouse:[{ hj:'평산 申氏', rank:'贈 숙부인', dates:'1675년 ~ ?' }] },
   p280: { kr:'김여진', hj:'金如珍', gen:1, dates:'1677년 ~ 1838년', myo:'서면(西面) 윤화동(倫化洞) 남산(南山) 경좌(庚坐)', spouse:[{ hj:'경주 李氏', dates:'1672년 ~ 1733년', father:'석제(碩悌)' }] },
   p281: { kr:'김여기', hj:'金如璣', gen:1, dates:'1679년 ~ ?', myo:'상왕도(上旺道) 조내동(鳥乃洞) 계좌(癸坐)', spouse:[{ hj:'울진 林氏', dates:'1678년 ~ ?', father:'춘업(春業)' }] },
@@ -1200,6 +1200,7 @@ function renderTree() {
     } else {
       card.className = 'person-card';
       let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+      if (node.birth)          html += `<div class="p-dates">${node.birth}</div>`;
       if (node.dates)          html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
       if ((node.postCard ?? node.post) && !node.postHideOnCard) html += `<div class="p-dates">${node.postCard ?? node.post}</div>`;
       if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
@@ -1307,6 +1308,7 @@ function openPersonModal(id) {
   } else {
     nameKr = node.kr; nameHj = node.hj;
     badge = genLabel(node.gen);
+    if (node.birth) rows.push({ label: '생몰연도', value: node.birth });
     if (node.dates && !node.postHideOnCard) rows.push({ label: /년.*[~?]/.test(node.dates) ? '생몰연도' : '관직', value: node.dates });
     if (node.post && node.postHideOnCard) {
       const _pSrc = Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc;
