@@ -1651,7 +1651,7 @@ function initAncestors() {
   btn.title = '윗대 계보 펼치기';
   btn.style.cssText = [
     'position:absolute',
-    'left:' + (p00CX - 14) + 'px',
+    'left:' + (p00CX - 13.5) + 'px',
     'top:-44px',
     'width:28px',
     'height:28px',
@@ -1739,12 +1739,12 @@ function applyZoom(z) {
   const _topRes = document.getElementById('main-tree-wrap') ? TOP_RESERVE : 0;
   scaleWrap.style.width  = (TREE_W * scale) + 'px';
   scaleWrap.style.height = ((TREE_H + _aH + _topRes) * scale) + 'px';
-  document.getElementById('zoom-level').textContent = Math.round(_zoom * 100) + '%';
+  document.getElementById('zoom-level').textContent = Math.round((_zoom / 0.8) * 100) + '%';
 }
 
 document.getElementById('zoom-in').addEventListener('click',    () => applyZoom(_zoom + ZOOM_STEP));
 document.getElementById('zoom-out').addEventListener('click',   () => applyZoom(_zoom - ZOOM_STEP));
-document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(1));
+document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(0.8));
 
 document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
   if (!e.ctrlKey) return;
@@ -1768,7 +1768,23 @@ applyZoom = function(z) { _origApplyZoom(z); updateGenLabels(); };
 
 // 초기 배율 적용: 논리적으로는 데스크탑·모바일 모두 "100%"이지만,
 // 모바일은 MOBILE_SCALE(0.5)이 곱해져 실제 화면에는 절반 크기로 렌더링됨
-applyZoom(1);
+applyZoom(0.8);
+
+// 초기 로딩 시 p00(김영환) 박스를 viewport 정중앙에 배치
+setTimeout(function() {
+  const p00El = document.getElementById('p00');
+  const wrap  = document.querySelector('.tree-scroll-wrap');
+  if (!p00El || !wrap) return;
+  const scale  = effectiveScale();
+  const cardL  = parseInt(p00El.style.left, 10);
+  const cardT  = parseInt(p00El.style.top,  10);
+  const cardH  = p00El.offsetHeight || 160;
+  // mainWrap은 TOP_RESERVE만큼 아래에 있으므로 outer 기준 top 보정
+  const cx = (cardL + CARD_W / 2) * scale;
+  const cy = (TOP_RESERVE + cardT + cardH / 2) * scale;
+  wrap.scrollLeft = cx - wrap.clientWidth  / 2;
+  wrap.scrollTop  = cy - wrap.clientHeight / 2;
+}, 0);
 
 // ── 드래그 팬 ──
 let _hasDragged = false;  // 카드 클릭 핸들러에서 드래그 여부 확인용
