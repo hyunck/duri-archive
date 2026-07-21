@@ -1008,7 +1008,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const ANCESTOR_H = 1560; // 윗대 패널 높이 (px)
+const ANCESTOR_H = 1320; // 윗대 패널 높이 (px)
 const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
@@ -1602,14 +1602,12 @@ function initAncestors() {
 
   const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
   const sBaekCX  = p00CX - COL_W;           // 김생백 중심 (김윤백 왼쪽 1열)
-  const seHwanCX = p00CX - 2 * COL_W;       // 김세환 중심 (장남, 2열 왼쪽)
   const eonBinCX = (sBaekCX + p00CX) / 2;   // 김언빈 중심 (두 자녀 사이)
   const CTOP_5   = 40;   // gen -5 행 top (김직)
   const CTOP_4   = 290;  // gen -4 행 top (김덕은)
   const CTOP_3   = 540;  // gen -3 행 top (김필숭)
   const CTOP_2   = 790;  // gen -2 행 top (김언빈)
   const CTOP_1   = 1040; // gen -1 행 top (김생백, 김윤백)
-  const CTOP_0   = 1310; // gen 0 행 top (김세환, 김시환)
 
   // ── main-tree-wrap
   const mainWrap = document.createElement('div');
@@ -1655,8 +1653,6 @@ function initAncestors() {
     return card;
   }
 
-  section.appendChild(makeACard('p291', seHwanCX, CTOP_0));  // 김세환
-  section.appendChild(makeACard('p292', sBaekCX,  CTOP_0));  // 김시환
   section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직
   section.appendChild(makeACard('p289', eonBinCX, CTOP_4));  // 김덕은
   section.appendChild(makeACard('p288', eonBinCX, CTOP_3));  // 김필숭
@@ -1665,7 +1661,7 @@ function initAncestors() {
   section.appendChild(makeACard('p285', p00CX,    CTOP_1));  // 김윤백
 
   // 대수 라벨
-  [{ gen:0, top: CTOP_0 + 16 }, { gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }].forEach(function(info) {
+  [{ gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }].forEach(function(info) {
     var gi = GEN_INFO[info.gen];
     if (!gi) return;
     var lbl = document.createElement('div');
@@ -1679,6 +1675,38 @@ function initAncestors() {
 
   // svg → section → mainWrap 순으로 outer 안에 배치
   outer.insertBefore(section, mainWrap);
+
+  // 김세환·김시환: mainWrap 안에 p00와 같은 행에 배치 (초기 숨김)
+  var _p00Left = parseInt(p00El.style.left, 10);
+  var _p00Top  = parseInt(p00El.style.top,  10);
+  ['p291','p292'].forEach(function(sid, i) {
+    var nd2 = NODES[sid];
+    var sc = document.createElement('div');
+    sc.id = sid;
+    sc.className = 'person-card';
+    sc.style.cssText = 'position:absolute; display:none; left:' + (_p00Left - (2 - i) * COL_W) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+    var ch2 = '<div class="p-kr">' + nd2.kr + '</div><div class="p-hj">' + nd2.hj + '</div>';
+    if (nd2.ja)    ch2 += '<div class="p-ja">字 ' + nd2.ja + '</div>';
+    if (nd2.dates) ch2 += '<div class="p-dates">' + nd2.dates + '</div>';
+    if (nd2.post)  ch2 += '<div class="p-dates">' + nd2.post  + '</div>';
+    if (nd2.spouse && nd2.spouse.length) {
+      ch2 += '<div class="p-spouses">' +
+        nd2.spouse.map(function(s) {
+          var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
+          var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
+          if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
+          sh += '</div>';
+          var dtl = [];
+          if (s.dates)  dtl.push(s.dates);
+          if (s.father) dtl.push('父 ' + s.father);
+          if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          return '<div class="p-spouse">' + sh + '</div>';
+        }).join('') + '</div>';
+    }
+    sc.innerHTML = ch2;
+    sc.addEventListener('click', (function(id){ return function() { if (_hasDragged) return; openPersonModal(id); }; })(sid));
+    mainWrap.appendChild(sc);
+  });
 
   // ── 토글 버튼
   const btn = document.createElement('button');
@@ -1712,6 +1740,10 @@ function initAncestors() {
   function _setAncestor(open) {
     _open = open;
     section.style.display  = open ? 'block' : 'none';
+    ['p291','p292'].forEach(function(sid) {
+      var el = document.getElementById(sid);
+      if (el) el.style.display = open ? 'block' : 'none';
+    });
     mainWrap.style.top     = (open ? ANCESTOR_H : 0) + TOP_RESERVE + 'px';
     outer.style.height     = (TREE_H + TOP_RESERVE + (open ? ANCESTOR_H : 0)) + 'px';
     btn.textContent        = open ? '−' : '+';
