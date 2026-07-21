@@ -850,7 +850,7 @@ const NODES = {
 
 // 부모 → [자식, ...] (장자 먼저)
 const CHILDREN = {
-  p00: ['p279','p280','p281','p282','p11','p283','p284'],
+  p00: ['p11'],
   p11: ['p21','p235'],
   p235: ['p270'],
   p270: ['p271','p272'],
@@ -1049,6 +1049,11 @@ const CX_OVERRIDE = {};
   const p82CX = PAD_L + (colS['p82'] + colE['p82']) / 2 * COL_W;
   const gap = COL_W;
   ['p139','p138','p137'].forEach((id, i) => { CX_OVERRIDE[id] = p82CX - gap * (i + 1); });
+
+  // 김영환 형제들 — 김여경(p11) 좌우에 밀착 배치 (CHILDREN 미포함, 레이아웃 독립)
+  const p11CX = PAD_L + (colS['p11'] + colE['p11']) / 2 * COL_W;
+  ['p282','p281','p280','p279'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX - COL_W * (i + 1); });
+  ['p283','p284'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX + COL_W * (i + 1); });
 })();
 
 // 카드 중심 x, 상단 y
