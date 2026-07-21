@@ -584,6 +584,7 @@ const NODES = {
   p282: { kr:'김여탁', hj:'金如琢', gen:1, dates:'1680년 ~ ?', myo:'강현면(降峴面) 산동(山洞) 곤좌(坤坐)', spouse:[{ hj:'경주 李氏', dates:'1678년 ~ ?' }, { hj:'전주 李氏', order:'계배', dates:'1693년 ~ ?' }] },
   p283: { kr:'김여주', hj:'金如珠', gen:1, dates:'1684년 ~ ?', post:'壽 가선대부', myo:'차마리(車馬里) 초막동(草幕洞) 간좌(艮坐)', spouse:[{ hj:'경주 李氏', rank:'정부인', father:'연원(延元)' }, { hj:'김해 金氏', rank:'정부인', order:'계배', father:'이인(利寅)' }] },
   p284: { kr:'김여련', hj:'金如璉', gen:1, dates:'1687년 ~ 1756년', myo:'화일리(禾日里) 건좌(乾坐)', spouse:[{ hj:'김해 金氏', dates:'1688년 ~ 1754년', father:'인재(寅在)' }] },
+  p285: { kr:'김윤백', hj:'金允白', gen:-1, ancestorOnly:true, dates:'1598년 ~ 1679년', post:'인조조 이등공신 贈 통정대부', myo:'도유동(道踰洞) 건좌(乾坐)<br>(묘 앞에) 상석(石床)이 있다(有).', spouse:[{ hj:'진주 河氏', rank:'숙부인', dates:'1615년 ~ 1679년', father:'응담(應淡)' }] },
   p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'가산 李氏', rank:'정부인' }] },
   p235: { kr:'김한익', hj:'金漢翊', gen:2, myo:'대산묘(大山墓) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br><br>두리(斗里) 뒷 기슭(後麓) 근선허(近仙墟) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[
     { hj:'연일 鄭氏' },
@@ -975,6 +976,7 @@ const ARROWS = {
 
 // 대(代) 라벨
 const GEN_INFO = {
+  '-1':{label:'18세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">10세</span>'},
   0:{label:'19세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">11세</span>'},
   1:{label:'1대', pre:'입향조', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">12세</span>'},
   2:{label:'2대',sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">13세</span>'},
@@ -995,6 +997,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
+const ANCESTOR_H = 360; // 윗대 패널 높이 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
 const PAD_L  = 92;    // 왼쪽 (대 라벨 영역)
@@ -1080,6 +1083,7 @@ function renderTree() {
 
   Object.keys(NODES).forEach(id => {
     const node = NODES[id];
+    if (node.ancestorOnly) return; // ancestor-section에서 별도 렌더링
     const cx   = nodeCX(id);
     const ty   = nodeTY(id);
 
@@ -1397,13 +1401,18 @@ function drawTree() {
   // 상촌공파 → 두리종중 입향조 연결 (실선)
   drawConnections(svg, oRect, { p00: ['p279','p280','p281','p282','p11','p283','p284'] }, '#A87C24', null);
 
-  // 김영환 위로 점선 (상위 계보 존재 표시)
+  // 김영환 위로 점선 — 윗대 패널 상태에 따라 처리
   const p00El = document.getElementById('p00');
   if (p00El) {
     const p00Rect = p00El.getBoundingClientRect();
     const cx = p00Rect.left + p00Rect.width / 2 - oRect.left;
     const ty = p00Rect.top - oRect.top;
-    seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
+    const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
+    if (_aVis) {
+      seg(svg, cx, ty, cx, ANCESTOR_H * effectiveScale(), '#A87C24', '7 4');
+    } else {
+      seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
+    }
   }
 
   // 김지성 → 딸들 (금색)
@@ -1568,7 +1577,95 @@ function seg(svg, x1, y1, x2, y2, color = '#A87C24', dash = null) {
 // ══════════════════════════════════════════════════════════
 //  초기화
 // ══════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════
+//  윗대 계보 토글 패널
+// ══════════════════════════════════════════════════════════
+function initAncestors() {
+  const outer      = document.getElementById('tree-outer');
+  const scrollWrap = document.querySelector('.tree-scroll-wrap');
+  const p00El      = document.getElementById('p00');
+  if (!outer || !scrollWrap || !p00El) return;
+
+  const p00CX = parseInt(p00El.style.left, 10) + CARD_W / 2;
+
+  // ── main-tree-wrap: 기존 카드·라벨 전체 래핑 (처음엔 top:0)
+  const mainWrap = document.createElement('div');
+  mainWrap.id = 'main-tree-wrap';
+  mainWrap.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + TREE_H + 'px;';
+  const svgEl = document.getElementById('tree-svg');
+  Array.from(outer.children).filter(el => el !== svgEl).forEach(el => mainWrap.appendChild(el));
+  outer.appendChild(mainWrap);
+
+  // ── ancestor-section (초기: 숨김)
+  const section = document.createElement('div');
+  section.id = 'ancestor-section';
+  section.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + ANCESTOR_H + 'px; display:none;';
+
+  // 김윤백 카드 생성
+  const nd   = NODES['p285'];
+  const CTOP = 40;
+  const card = document.createElement('div');
+  card.id = 'p285';
+  card.className = 'person-card';
+  card.style.cssText = 'position:absolute; left:' + (p00CX - CARD_W / 2) + 'px; top:' + CTOP + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+  let ch = '<div class="p-kr">' + nd.kr + '</div><div class="p-hj">' + nd.hj + '</div>';
+  if (nd.dates) ch += '<div class="p-dates">' + nd.dates + '</div>';
+  if (nd.post)  ch += '<div class="p-dates">' + nd.post  + '</div>';
+  if (nd.spouse && nd.spouse.length) {
+    ch += '<div class="p-spouses">' +
+      nd.spouse.map(function(s) {
+        var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
+        var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
+        if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
+        sh += '</div>';
+        var dtl = [];
+        if (s.dates)  dtl.push(s.dates);
+        if (s.father) dtl.push('父 ' + s.father);
+        if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+        return '<div class="p-spouse">' + sh + '</div>';
+      }).join('') + '</div>';
+  }
+  card.innerHTML = ch;
+  card.addEventListener('click', function() { if (_hasDragged) return; openPersonModal('p285'); });
+  section.appendChild(card);
+
+  // 세로 점선 (카드 하단 → 섹션 하단)
+  const vline = document.createElement('div');
+  vline.style.cssText = 'position:absolute; left:' + (p00CX - 1) + 'px; top:' + (CTOP + 150) + 'px; width:2px; bottom:0; border-left:2px dashed #A87C24; pointer-events:none;';
+  section.appendChild(vline);
+
+  // svg → section → mainWrap 순으로 outer 안에 배치
+  outer.insertBefore(section, mainWrap);
+
+  // ── 토글 버튼 (scrollWrap 바로 위 삽입)
+  const toggleRow = document.createElement('div');
+  toggleRow.id = 'ancestor-toggle-row';
+  toggleRow.style.cssText = 'text-align:right; padding:0 8px 6px;';
+  const btn = document.createElement('button');
+  btn.id = 'ancestor-toggle-btn';
+  btn.textContent = '+ 윗대 계보';
+  btn.style.cssText = 'background:var(--bg-elevated); border:1px solid var(--gold-600,#A87C24); color:var(--gold-600,#A87C24); border-radius:6px; padding:4px 12px; font-size:13px; cursor:pointer; font-family:var(--font-sans);';
+  toggleRow.appendChild(btn);
+  scrollWrap.parentNode.insertBefore(toggleRow, scrollWrap);
+
+  // ── 토글 상태
+  var _open = false;
+  function _setAncestor(open) {
+    _open = open;
+    section.style.display  = open ? 'block' : 'none';
+    mainWrap.style.top     = open ? ANCESTOR_H + 'px' : '0px';
+    outer.style.height     = (TREE_H + (open ? ANCESTOR_H : 0)) + 'px';
+    btn.textContent        = open ? '− 윗대 계보 접기' : '+ 윗대 계보';
+    applyZoom(_zoom);
+    if (open) scrollWrap.scrollTop = 0;
+    drawTree();
+  }
+  btn.addEventListener('click', function(e) { e.stopPropagation(); _setAncestor(!_open); });
+}
+
 renderTree();
+initAncestors();
 
 let _drawn = false;
 function _onceDraw() {
@@ -1614,8 +1711,10 @@ function applyZoom(z) {
   const scale = effectiveScale();
   outer.style.transform       = `scale(${scale})`;
   outer.style.transformOrigin = 'top left';
+  const _aS = document.getElementById('ancestor-section');
+  const _aH = (_aS && _aS.style.display !== 'none') ? ANCESTOR_H : 0;
   scaleWrap.style.width  = (TREE_W * scale) + 'px';
-  scaleWrap.style.height = (TREE_H * scale) + 'px';
+  scaleWrap.style.height = ((TREE_H + _aH) * scale) + 'px';
   document.getElementById('zoom-level').textContent = Math.round(_zoom * 100) + '%';
 }
 
