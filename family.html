@@ -584,6 +584,8 @@ const NODES = {
   p282: { kr:'김여탁', hj:'金如琢', gen:1, dates:'1680년 ~ ?', myo:'강현면(降峴面) 산동(山洞) 곤좌(坤坐)', spouse:[{ hj:'경주 李氏', dates:'1678년 ~ ?' }, { hj:'전주 李氏', order:'계배', dates:'1693년 ~ ?' }] },
   p283: { kr:'김여주', hj:'金如珠', gen:1, dates:'1684년 ~ ?', post:'壽 가선대부', myo:'차마리(車馬里) 초막동(草幕洞) 간좌(艮坐)', spouse:[{ hj:'경주 李氏', rank:'정부인', father:'연원(延元)' }, { hj:'김해 金氏', rank:'정부인', order:'계배', father:'이인(利寅)' }] },
   p284: { kr:'김여련', hj:'金如璉', gen:1, dates:'1687년 ~ 1756년', myo:'화일리(禾日里) 건좌(乾坐)', spouse:[{ hj:'김해 金氏', dates:'1688년 ~ 1754년', father:'인재(寅在)' }] },
+  p286: { kr:'김언빈', hj:'金彦賓', gen:-2, ancestorOnly:true, dates:'1570년 ~ ?', myo:'양양면(襄陽面) 교동(校洞) 간좌(艮坐)<br>지석(誌石)이 있다(有).', spouse:[{ hj:'진안 金氏', dates:'1571년 ~ ?' }] },
+  p287: { kr:'김생백', hj:'金生白', gen:-1, ancestorOnly:true, post:'장임랑', dates:'1595년 ~ ?', myo:'도직동(道直洞) 선비묘하(先妣墓下) 자좌(子坐)', spouse:[{ hj:'평창 李氏', dates:'1594년 ~ ?' }] },
   p285: { kr:'김윤백', hj:'金允白', gen:-1, ancestorOnly:true, dates:'1598년 ~ 1679년', post:'인조조 이등공신 贈 통정대부', myo:'도유동(道踰洞) 건좌(乾坐)<br>(묘 앞에) 상석(石床)이 있다(有).', spouse:[{ hj:'진주 河氏', rank:'숙부인', dates:'1615년 ~ 1679년', father:'응담(應淡)' }] },
   p21: { kr:'김한태', hj:'金漢泰', gen:2, dates:'숙종조 蔭至 자헌대부<br>동지중추부사 <span style="font-size:12px;color:var(--text-muted)">(파보)</span>', hwiSrc:['실록','파보','세보'], myo:'아버지 묘(김여경, 考墓) 서쪽(西邊) 해좌(亥坐)<br>(묘 앞에) 상석(石床)과 망주석(望柱), 표석(表石)이 있다(有).', post:'자헌대부', postSrc:'울진장씨 대동보', postHideOnCard:true, aliases:[{kr:'김준태',hj:'金俊泰',src:'울진장씨 대동보'}], spouse:[{ hj:'가산 李氏', rank:'정부인' }] },
   p235: { kr:'김한익', hj:'金漢翊', gen:2, myo:'대산묘(大山墓) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(파보)</span><br><br>두리(斗里) 뒷 기슭(後麓) 근선허(近仙墟) 자좌(子坐) <span style="font-size:12px;color:var(--text-muted)">(세보)</span>', spouse:[
@@ -976,6 +978,7 @@ const ARROWS = {
 
 // 대(代) 라벨
 const GEN_INFO = {
+  '-2':{label:'17세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">9세</span>'},
   '-1':{label:'18세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">10세</span>'},
   0:{label:'19세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">11세</span>'},
   1:{label:'1대', pre:'입향조', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">12세</span>'},
@@ -997,7 +1000,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const ANCESTOR_H = 360; // 윗대 패널 높이 (px)
+const ANCESTOR_H = 480; // 윗대 패널 높이 (px)
 const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
@@ -1410,6 +1413,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
+      drawConnections(svg, oRect, { p286: ['p287', 'p285'] }, '#A87C24', '7 4');
       const p285El = document.getElementById('p285');
       const lineTop = p285El ? p285El.getBoundingClientRect().bottom - oRect.top : ANCESTOR_H * effectiveScale();
       seg(svg, cx, ty, cx, lineTop, '#A87C24', '7 4');
@@ -1590,10 +1594,13 @@ function initAncestors() {
   const p00El      = document.getElementById('p00');
   if (!outer || !scrollWrap || !p00El) return;
 
-  const p00CX = parseInt(p00El.style.left, 10) + CARD_W / 2;
+  const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
+  const sBaekCX  = p00CX - COL_W;           // 김생백 중심 (김윤백 왼쪽 1열)
+  const eonBinCX = (sBaekCX + p00CX) / 2;   // 김언빈 중심 (두 자녀 사이)
+  const CTOP_2   = 30;   // gen -2 행 top
+  const CTOP_1   = 240;  // gen -1 행 top
 
-  // ── main-tree-wrap: 기존 카드·라벨 전체 래핑
-  // TOP_RESERVE만큼 아래로 내려 토글 버튼·점선 공간 확보
+  // ── main-tree-wrap
   const mainWrap = document.createElement('div');
   mainWrap.id = 'main-tree-wrap';
   mainWrap.style.cssText = 'position:absolute; top:' + TOP_RESERVE + 'px; left:0; width:' + TREE_W + 'px; height:' + TREE_H + 'px;';
@@ -1607,55 +1614,57 @@ function initAncestors() {
   section.id = 'ancestor-section';
   section.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + ANCESTOR_H + 'px; display:none;';
 
-  // 김윤백 카드 생성
-  const nd   = NODES['p285'];
-  const CTOP = 40;
-  const card = document.createElement('div');
-  card.id = 'p285';
-  card.className = 'person-card';
-  card.style.cssText = 'position:absolute; left:' + (p00CX - CARD_W / 2) + 'px; top:' + CTOP + 'px; width:' + CARD_W + 'px; cursor:pointer;';
-  let ch = '<div class="p-kr">' + nd.kr + '</div><div class="p-hj">' + nd.hj + '</div>';
-  if (nd.dates) ch += '<div class="p-dates">' + nd.dates + '</div>';
-  if (nd.post)  ch += '<div class="p-dates">' + nd.post  + '</div>';
-  if (nd.spouse && nd.spouse.length) {
-    ch += '<div class="p-spouses">' +
-      nd.spouse.map(function(s) {
-        var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
-        var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
-        if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
-        sh += '</div>';
-        var dtl = [];
-        if (s.dates)  dtl.push(s.dates);
-        if (s.father) dtl.push('父 ' + s.father);
-        if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
-        return '<div class="p-spouse">' + sh + '</div>';
-      }).join('') + '</div>';
-  }
-  card.innerHTML = ch;
-  card.addEventListener('click', function() { if (_hasDragged) return; openPersonModal('p285'); });
-  section.appendChild(card);
-
-  // gen -1 대수 라벨 (ancestor-section 내부, 섹션이 보일 때만 표시)
-  const gi = GEN_INFO['-1'];
-  if (gi) {
-    const aLbl = document.createElement('div');
-    aLbl.id = 'ancestor-gen-label';
-    aLbl.className = 'gen-label-abs';
-    aLbl.style.cssText = 'left:0; top:' + (CTOP + 16) + 'px; width:' + (PAD_L - 4) + 'px;';
-    aLbl.innerHTML = (gi.pre ? '<span class="gen-sub">' + gi.pre + '</span>' : '') +
-                     '<span class="gen-num">' + gi.label + '</span>' +
-                     (gi.sub ? gi.sub : '');
-    section.appendChild(aLbl);
+  // 인물 카드 생성 헬퍼
+  function makeACard(id, cx, top) {
+    const nd = NODES[id];
+    const card = document.createElement('div');
+    card.id = id;
+    card.className = 'person-card';
+    card.style.cssText = 'position:absolute; left:' + (cx - CARD_W / 2) + 'px; top:' + top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+    var ch = '<div class="p-kr">' + nd.kr + '</div><div class="p-hj">' + nd.hj + '</div>';
+    if (nd.dates) ch += '<div class="p-dates">' + nd.dates + '</div>';
+    if (nd.post)  ch += '<div class="p-dates">' + nd.post  + '</div>';
+    if (nd.myo)   ch += '<div class="p-myo">'   + nd.myo   + '</div>';
+    if (nd.spouse && nd.spouse.length) {
+      ch += '<div class="p-spouses">' +
+        nd.spouse.map(function(s) {
+          var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
+          var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
+          if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
+          sh += '</div>';
+          var dtl = [];
+          if (s.dates)  dtl.push(s.dates);
+          if (s.father) dtl.push('父 ' + s.father);
+          if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          return '<div class="p-spouse">' + sh + '</div>';
+        }).join('') + '</div>';
+    }
+    card.innerHTML = ch;
+    card.addEventListener('click', function() { if (_hasDragged) return; openPersonModal(id); });
+    return card;
   }
 
-  // 세로 점선: 카드 하단 → 섹션 하단 (SVG drawTree에서 처리하므로 div 불필요)
+  section.appendChild(makeACard('p286', eonBinCX, CTOP_2));  // 김언빈
+  section.appendChild(makeACard('p287', sBaekCX,  CTOP_1));  // 김생백
+  section.appendChild(makeACard('p285', p00CX,    CTOP_1));  // 김윤백
+
+  // 대수 라벨
+  [{ gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }].forEach(function(info) {
+    var gi = GEN_INFO[info.gen];
+    if (!gi) return;
+    var lbl = document.createElement('div');
+    lbl.className = 'gen-label-abs';
+    lbl.style.cssText = 'left:0; top:' + info.top + 'px; width:' + (PAD_L - 4) + 'px;';
+    lbl.innerHTML = (gi.pre ? '<span class="gen-sub">' + gi.pre + '</span>' : '') +
+                    '<span class="gen-num">' + gi.label + '</span>' +
+                    (gi.sub ? gi.sub : '');
+    section.appendChild(lbl);
+  });
+
   // svg → section → mainWrap 순으로 outer 안에 배치
   outer.insertBefore(section, mainWrap);
 
-  // ── 토글 버튼: mainWrap 안, 점선 바로 위에 배치
-  // 점선은 mainWrap 기준 PAD_T(=20)에서 위로 36px → top:-16 (mainWrap 내)
-  // 버튼(28px 높이)을 점선 바로 위에 붙임 → top:-44 (mainWrap 내)
-  // outer 기준: TOP_RESERVE + (-44) = 6px → 스크롤 영역 내 표시 가능
+  // ── 토글 버튼
   const btn = document.createElement('button');
   btn.id = 'ancestor-toggle-btn';
   btn.textContent = '+';
