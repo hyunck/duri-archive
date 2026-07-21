@@ -1718,7 +1718,7 @@ window.addEventListener('resize', drawTree);
 // MOBILE_SCALE: 모바일 전용으로 항상 곱해지는 축소 배율(예전 "50%"로 보이던 크기가
 // 이제 모바일의 "100%" 기준이 됨) — 데스크탑에서는 항상 1이라 영향 없음.
 let _zoom = 1;
-const ZOOM_MIN = 0.08, ZOOM_MAX = 1.6, ZOOM_STEP = 0.04;
+const ZOOM_MIN = 0.12, ZOOM_MAX = 1.92, ZOOM_STEP = 0.12;
 const MOBILE_SCALE = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
 
 // 실제 #tree-outer에 걸리는 CSS scale 배율(= 논리적 _zoom × 모바일 기본 축소분).
