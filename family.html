@@ -1744,14 +1744,26 @@ function applyZoom(z) {
   document.getElementById('zoom-level').textContent = Math.round((_zoom / 0.8) * 100) + '%';
 }
 
-document.getElementById('zoom-in').addEventListener('click',    () => applyZoom(_zoom + ZOOM_STEP));
-document.getElementById('zoom-out').addEventListener('click',   () => applyZoom(_zoom - ZOOM_STEP));
+// viewport 중심을 유지하며 줌 (버튼/휠 공통)
+function zoomAroundCenter(newZ) {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  const oldScale = effectiveScale();
+  const cx = (wrap.scrollLeft + wrap.clientWidth  / 2) / oldScale;
+  const cy = (wrap.scrollTop  + wrap.clientHeight / 2) / oldScale;
+  applyZoom(newZ);
+  const newScale = effectiveScale();
+  wrap.scrollLeft = cx * newScale - wrap.clientWidth  / 2;
+  wrap.scrollTop  = cy * newScale - wrap.clientHeight / 2;
+}
+
+document.getElementById('zoom-in').addEventListener('click',    () => zoomAroundCenter(_zoom + ZOOM_STEP));
+document.getElementById('zoom-out').addEventListener('click',   () => zoomAroundCenter(_zoom - ZOOM_STEP));
 document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(0.8));
 
 document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
   if (!e.ctrlKey) return;
   e.preventDefault();
-  applyZoom(_zoom + (e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP));
+  zoomAroundCenter(_zoom + (e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP));
 }, { passive: false });
 
 // ── 대(代) 라벨 수평 고정 ──
