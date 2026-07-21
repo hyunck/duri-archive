@@ -1410,7 +1410,9 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      seg(svg, cx, ty, cx, ANCESTOR_H * effectiveScale(), '#A87C24', '7 4');
+      const p285El = document.getElementById('p285');
+      const lineTop = p285El ? p285El.getBoundingClientRect().bottom - oRect.top : ANCESTOR_H * effectiveScale();
+      seg(svg, cx, ty, cx, lineTop, '#A87C24', '7 4');
     } else {
       seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
     }
@@ -1633,11 +1635,20 @@ function initAncestors() {
   card.addEventListener('click', function() { if (_hasDragged) return; openPersonModal('p285'); });
   section.appendChild(card);
 
-  // 세로 점선 (카드 하단 → 섹션 하단)
-  const vline = document.createElement('div');
-  vline.style.cssText = 'position:absolute; left:' + (p00CX - 1) + 'px; top:' + (CTOP + 150) + 'px; width:2px; bottom:0; border-left:2px dashed #A87C24; pointer-events:none;';
-  section.appendChild(vline);
+  // gen -1 대수 라벨 (ancestor-section 내부, 섹션이 보일 때만 표시)
+  const gi = GEN_INFO['-1'];
+  if (gi) {
+    const aLbl = document.createElement('div');
+    aLbl.id = 'ancestor-gen-label';
+    aLbl.className = 'gen-label-abs';
+    aLbl.style.cssText = 'left:0; top:' + (CTOP + 16) + 'px; width:' + (PAD_L - 4) + 'px;';
+    aLbl.innerHTML = (gi.pre ? '<span class="gen-sub">' + gi.pre + '</span>' : '') +
+                     '<span class="gen-num">' + gi.label + '</span>' +
+                     (gi.sub ? gi.sub : '');
+    section.appendChild(aLbl);
+  }
 
+  // 세로 점선: 카드 하단 → 섹션 하단 (SVG drawTree에서 처리하므로 div 불필요)
   // svg → section → mainWrap 순으로 outer 안에 배치
   outer.insertBefore(section, mainWrap);
 
