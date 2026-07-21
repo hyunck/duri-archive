@@ -1000,7 +1000,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const ANCESTOR_H = 480; // 윗대 패널 높이 (px)
+const ANCESTOR_H = 680; // 윗대 패널 높이 (px)
 const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
@@ -1597,8 +1597,8 @@ function initAncestors() {
   const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
   const sBaekCX  = p00CX - COL_W;           // 김생백 중심 (김윤백 왼쪽 1열)
   const eonBinCX = (sBaekCX + p00CX) / 2;   // 김언빈 중심 (두 자녀 사이)
-  const CTOP_2   = 30;   // gen -2 행 top
-  const CTOP_1   = 240;  // gen -1 행 top
+  const CTOP_2   = 40;   // gen -2 행 top
+  const CTOP_1   = 360;  // gen -1 행 top
 
   // ── main-tree-wrap
   const mainWrap = document.createElement('div');
