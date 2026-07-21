@@ -1728,7 +1728,9 @@ const MOBILE_SCALE = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
 function effectiveScale() { return _zoom * MOBILE_SCALE; }
 
 function applyZoom(z) {
-  _zoom = Math.round(Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z)) / ZOOM_STEP) * ZOOM_STEP;
+  const ZOOM_BASE = 0.8;
+  const _z = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
+  _zoom = Math.round((_z - ZOOM_BASE) / ZOOM_STEP) * ZOOM_STEP + ZOOM_BASE;
   const outer     = document.getElementById('tree-outer');
   const scaleWrap = document.getElementById('tree-scale-wrap');
   const scale = effectiveScale();
