@@ -113,14 +113,15 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
-    id: "jise-myeonggi", // 미상
+    id: "jise-myeonggi", // 필사본
     title_hanja: "地稅名寄帳 斗里",
     title_korean: "지세명기장 두리",
     author: "미상",
     year: "",
-    year_display: "근대",
+    year_display: "근대기",
     category: "호적·관문서",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-지세명기장두리.html",
     classification: "史部 政書類"
   },
   {
