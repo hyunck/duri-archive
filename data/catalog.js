@@ -943,13 +943,14 @@ const CATALOG = [
 
   {
     id: "yundo-24", // 목판본 낱장 1장
+    detail_url: "detail-24층윤도.html",
     title_hanja: "二十四層輪圖",
     title_korean: "24층 윤도",
     author: "미상",
     year: "",
     year_display: "",
     category: "풍수·도가",
-    digitized: false,
+    digitized: true,
     classification: "子部 術數類"
   },
 
