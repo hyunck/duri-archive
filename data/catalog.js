@@ -754,7 +754,7 @@ const CATALOG = [
     category: "문집·기문",
     digitized: true,
     detail_url: "detail-둔암선생유적유산록.html",
-    note: "갑오보(甲午譜) 서문 책의 맨 뒷장에 합철. 둔암(遯庵) 김홍(金泓) 관련 추정.",
+    note: "갑오보(甲午譜) 서문 책의 맨 뒷장에 끼워져 있던 문서.",
     classification: "集部 別集類"
   },
 
