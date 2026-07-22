@@ -941,6 +941,18 @@ const CATALOG = [
     classification: "子部 術數類"
   },
 
+  {
+    id: "yundo-24", // 목판본 낱장 1장
+    title_hanja: "二十四層輪圖",
+    title_korean: "24층 윤도",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "풍수·도가",
+    digitized: false,
+    classification: "子部 術數類"
+  },
+
   // ── 유서류 ───────────────────────────────────────────────
   {
     id: "samun-yuchwi", // 미상
