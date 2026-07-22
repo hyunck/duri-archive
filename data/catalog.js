@@ -744,6 +744,20 @@ const CATALOG = [
     classification: "集部 別集類"
   },
 
+  {
+    id: "dunam-yusan", // 필사본 낱장 8장
+    title_hanja: "遯庵先生遺蹟 逰山錄",
+    title_korean: "둔암선생유적 유산록",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-둔암선생유적유산록.html",
+    note: "갑오보(甲午譜) 서문 책의 맨 뒷장에 합철. 둔암(遯庵) 김홍(金泓) 관련 추정.",
+    classification: "集部 別集類"
+  },
+
   // ── 의서 ─────────────────────────────────────────────────
   {
     id: "bangyak-hapyeon", // 미상
