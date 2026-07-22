@@ -745,7 +745,7 @@ const CATALOG = [
   },
 
   {
-    id: "dunam-yusan", // 필사본 낱장 8장
+    id: "dunam-yusan", // 필사본 1冊
     title_hanja: "遯庵先生遺蹟 逰山錄",
     title_korean: "둔암선생유적 유산록",
     author: "미상",
