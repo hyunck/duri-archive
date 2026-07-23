@@ -66,7 +66,7 @@
     ============================================================ */
     .hero {
       position: relative; width: 100%;
-      height: 100vh; min-height: 520px;
+      height: calc(100vh - 100px); min-height: 520px;
       overflow: hidden;
       background: var(--gray-100);
     }
@@ -133,9 +133,10 @@
     .hero-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
       width: 48px; height: 48px; border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.22);
-      color: #ffffff; font-size: 20px;
+      border: 1px solid var(--gray-300);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(6px);
+      color: var(--gray-700); font-size: 20px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; z-index: 5;
       transition: background .2s, border-color .2s, color .2s;
@@ -470,85 +471,6 @@
       .hero-content { left: 24px; right: 24px; bottom: 80px; }
       .scroll-hint  { left: 24px; }
     }
-
-    /* ============================================================
-       홈 전용: 헤더를 히어로 이미지 위 반투명 고정 오버레이
-    ============================================================ */
-    .site-header {
-      position: fixed;
-      left: 0; right: 0;
-      background: rgba(0, 0, 0, 0.22);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
-    }
-    .site-header::after { opacity: 0.25; }
-    .logo-main  { color: #ffffff; transition: color 0.35s; }
-    .logo-hj    { color: rgba(223, 192, 112, 0.9); }
-    .nav-item   { color: rgba(255, 255, 255, 0.82); transition: color 0.35s; }
-    .nav-item.active, .nav-item:hover { color: #ffffff; }
-    .theme-toggle-btn {
-      color: rgba(255, 255, 255, 0.78);
-      border-color: rgba(255, 255, 255, 0.28);
-      background: transparent;
-    }
-    .theme-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(255, 255, 255, 0.55);
-      color: #ffffff;
-    }
-    .hamburger-btn span { background: #ffffff; }
-
-    /* 스크롤 후 불투명 전환 */
-    .site-header:hover,
-    .site-header.header-scrolled {
-      background: #ffffff;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-bottom-color: rgba(0, 0, 0, 0.08);
-      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-    }
-    .site-header:hover::after,
-    .site-header.header-scrolled::after { opacity: 0.5; }
-    /* 라이트모드: 호버/스크롤 후 텍스트 검정으로 */
-    .site-header:hover .logo-main,
-    .site-header.header-scrolled .logo-main { color: #1a1916 !important; }
-    .site-header:hover .logo-hj,
-    .site-header.header-scrolled .logo-hj   { color: #8b7355 !important; }
-    .site-header:hover .nav-item,
-    .site-header.header-scrolled .nav-item  { color: #3d3b38 !important; }
-    .site-header:hover .nav-item.active,
-    .site-header.header-scrolled .nav-item.active { color: #1a1916 !important; }
-    .site-header:hover .theme-toggle-btn,
-    .site-header.header-scrolled .theme-toggle-btn {
-      color: #6e6b66 !important; border-color: rgba(0,0,0,0.14) !important; background: transparent !important;
-    }
-    .site-header:hover .hamburger-btn span,
-    .site-header.header-scrolled .hamburger-btn span { background: #1a1916 !important; }
-    /* 다크모드: 호버/스크롤 시 색 변화 없이 투명 상태 유지 */
-    [data-theme="dark"] .site-header:hover,
-    [data-theme="dark"] .site-header.header-scrolled {
-      background: rgba(0, 0, 0, 0.22) !important;
-      border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-      box-shadow: none !important;
-    }
-    [data-theme="dark"] .site-header:hover::after,
-    [data-theme="dark"] .site-header.header-scrolled::after { opacity: 0.25 !important; }
-    [data-theme="dark"] .site-header:hover .logo-main,
-    [data-theme="dark"] .site-header.header-scrolled .logo-main { color: #ffffff !important; }
-    [data-theme="dark"] .site-header:hover .logo-hj,
-    [data-theme="dark"] .site-header.header-scrolled .logo-hj { color: rgba(223,192,112,0.9) !important; }
-    [data-theme="dark"] .site-header:hover .nav-item,
-    [data-theme="dark"] .site-header.header-scrolled .nav-item { color: rgba(255,255,255,0.82) !important; }
-    [data-theme="dark"] .site-header:hover .nav-item.active,
-    [data-theme="dark"] .site-header.header-scrolled .nav-item.active { color: #ffffff !important; }
-    [data-theme="dark"] .site-header:hover .theme-toggle-btn,
-    [data-theme="dark"] .site-header.header-scrolled .theme-toggle-btn {
-      color: rgba(255,255,255,0.78) !important; border-color: rgba(255,255,255,0.28) !important; background: transparent !important;
-    }
-    [data-theme="dark"] .site-header:hover .hamburger-btn span,
-    [data-theme="dark"] .site-header.header-scrolled .hamburger-btn span { background: #ffffff !important; }
-
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
@@ -615,7 +537,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 소장 건축물</div>
-        <h1 class="hero-title">종중의 삶</h1>
+        <h1 class="hero-title">진사청<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">進士廳</span></h1>
         <p class="hero-sub">조선 후기 양반 가문의 전통 건축 양식을 간직한 진사청의 기록을 담습니다.</p>
       </div>
     </div>
@@ -624,7 +546,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 문화 유적</div>
-        <h1 class="hero-title">종중의 유적</h1>
+        <h1 class="hero-title">불당재 각자바위</h1>
         <p class="hero-sub">선조들의 자취가 새겨진 각자바위와 주변 자연 경관의 기록을 보존합니다.</p>
       </div>
     </div>
@@ -633,7 +555,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">소장 고문서</div>
-        <h1 class="hero-title">종중의 기록</h1>
+        <h1 class="hero-title">종가실록<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">宗家實錄 · 1930</span></h1>
         <p class="hero-sub">1930년 김규하가 저술한 종가실록을 포함, 조선 후기부터 일제강점기의 고문서를 열람하실 수 있습니다.</p>
       </div>
     </div>
@@ -691,7 +613,7 @@
         <div class="sec-label">About</div>
         <h2 class="sec-title">경주김씨 상촌공파<br>두리종중을 소개합니다</h2>
         <div class="sec-divider"></div>
-        <p>경주김씨 상촌공파 두리종중은 조선 후기인 18세기 초 강원도 양양군 현남면 두리(斗里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
+        <p>경주김씨 상촌공파 두리종중은 조선 후기 숙종대 강원도 양양군 현남면 두리(斗里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
         <p>입향조 김여경(金如慶)을 시조로 하여, 조선 후기~일제강점기에 걸쳐 형성된 다수의 고문서와 건축 유산을 보존하고 있습니다.</p>
         <p>본 사이트는 종중이 소장한 자료를 디지털 아카이브로 구축하여 후세에 전하고자 마련하였습니다.</p>
       </div>
@@ -892,17 +814,5 @@
 })();
 </script>
 
-<script>
-// ── 스크롤 시 헤더 불투명 전환 ──
-(function () {
-  var hdr  = document.querySelector('.site-header');
-  var hero = document.querySelector('.hero');
-  function check() {
-    hdr.classList.toggle('header-scrolled', window.scrollY > hero.offsetHeight - 80);
-  }
-  window.addEventListener('scroll', check, { passive: true });
-  check();
-})();
-</script>
 </body>
 </html>
