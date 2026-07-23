@@ -95,9 +95,9 @@
     .hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top,
-        rgba(0,0,0,.62) 0%,
-        rgba(0,0,0,.18) 50%,
-        rgba(0,0,0,.04) 100%
+        rgba(0,0,0,.38) 0%,
+        rgba(0,0,0,.08) 50%,
+        rgba(0,0,0,.02) 100%
       );
     }
 
@@ -110,8 +110,14 @@
 
     /* 슬라이드 텍스트 */
     .hero-content {
-      position: absolute; bottom: 96px; left: 80px; right: 80px;
+      position: absolute; bottom: 80px; left: 80px;
       z-index: 2;
+      max-width: 520px;
+      background: rgba(0, 0, 0, 0.46);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 32px 44px 36px;
+      border-radius: 3px;
     }
     .hero-label {
       font-size: 11px; letter-spacing: 0.32em; color: rgba(255,220,130,.9);
@@ -414,9 +420,9 @@
     /* 헤더: 검정 베이스에 보라 틴트만 */
     [data-theme="dark"] .hero-overlay {
       background: linear-gradient(to top,
-        rgba(0,0,0,.72) 0%,
-        rgba(0,0,0,.25) 45%,
-        rgba(0,0,0,.08) 100%
+        rgba(0,0,0,.42) 0%,
+        rgba(0,0,0,.10) 45%,
+        rgba(0,0,0,.04) 100%
       );
     }
     [data-theme="dark"] .hero-bg { filter: brightness(0.7); }
@@ -468,7 +474,7 @@
       .about-grid { grid-template-columns: 1fr; gap: 44px; }
       .links-grid { grid-template-columns: 1fr; }
       .notice-grid { grid-template-columns: 1fr; gap: 44px; }
-      .hero-content { left: 24px; right: 24px; bottom: 80px; }
+      .hero-content { left: 24px; right: 24px; bottom: 72px; max-width: none; padding: 24px 28px 28px; }
       .scroll-hint  { left: 24px; }
     }
   </style>
@@ -537,7 +543,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 소장 건축물</div>
-        <h1 class="hero-title">진사청<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">進士廳</span></h1>
+        <h1 class="hero-title">종중의 삶</h1>
         <p class="hero-sub">조선 후기 양반 가문의 전통 건축 양식을 간직한 진사청의 기록을 담습니다.</p>
       </div>
     </div>
@@ -546,7 +552,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 문화 유적</div>
-        <h1 class="hero-title">불당재 각자바위</h1>
+        <h1 class="hero-title">종중의 유적</h1>
         <p class="hero-sub">선조들의 자취가 새겨진 각자바위와 주변 자연 경관의 기록을 보존합니다.</p>
       </div>
     </div>
@@ -555,7 +561,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">소장 고문서</div>
-        <h1 class="hero-title">종가실록<br><span style="font-size:.68em;color:rgba(255,255,255,.55)">宗家實錄 · 1930</span></h1>
+        <h1 class="hero-title">종중의 기록</h1>
         <p class="hero-sub">1930년 김규하가 저술한 종가실록을 포함, 조선 후기부터 일제강점기의 고문서를 열람하실 수 있습니다.</p>
       </div>
     </div>
