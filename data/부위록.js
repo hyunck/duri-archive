@@ -46,8 +46,25 @@ const DOC_BUWI = {
       type: "text",
       title: "2페이지",
       image: "images/부위록/page_02.png",
-      hanja_text: ``,
-      korean_translation: ``,
+      hanja_text: `初終
+
+一門咸集
+
+[[지명:湖亭宅]] 粥壱笼
+[[지명:福洞宅]] 粥壱笼
+[[지명:舟村宅]] 粥壱笼
+[[지명:南面宅]] 粥壱笼
+[[지명:二宅]] 粥壱笼`,
+      korean_translation: `초종
+
+온 집안이 함께 모였다.
+
+[[지명:호정댁]] 죽 한 채롱
+[[지명:복동댁]] 죽 한 채롱
+[[지명:주촌댁]] 죽 한 채롱
+[[지명:남면댁]] 죽 한 채롱
+[[지명:이댁]] 죽 한 채롱
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -56,7 +73,9 @@ const DOC_BUWI = {
       type: "text",
       title: "3페이지",
       image: "images/부위록/page_03.png",
-      hanja_text: ``,
+      hanja_text: `
+
+`,
       korean_translation: ``,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
