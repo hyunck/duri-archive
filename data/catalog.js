@@ -121,7 +121,7 @@ const CATALOG = [
     author: "미상",
     year: "",
     year_display: "근대기",
-    category: "호적·관문서",
+    category: "종중 기록",
     digitized: true,
     detail_url: "detail-지세명기장두리.html",
     classification: "史部 政書類"
@@ -961,7 +961,7 @@ const CATALOG = [
   {
     id: "yundo-24", // 목판본 낱장 1장
     detail_url: "detail-24층윤도.html",
-    title_hanja: "二十四層輪圖",
+    title_hanja: "輪圖",
     title_korean: "윤도",
     author: "미상",
     year: "",

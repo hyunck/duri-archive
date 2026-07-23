@@ -1,7 +1,7 @@
 const DOC_YUNDO24 = {
   id: "yundo-24",
   call_number: "KJ-YD24-001",
-  title_hanja: "二十四層輪圖",
+  title_hanja: "輪圖",
   title_korean: "윤도",
   author: "미상",
   year_display: "",
@@ -15,7 +15,7 @@ const DOC_YUNDO24 = {
   digitized_pages: 1,
 
   bibliography: {
-    "원서명": "二十四層輪圖",
+    "원서명": "輪圖",
     "현대어서명": "윤도",
     "작성자": "미상",
     "작성연도": "-",
