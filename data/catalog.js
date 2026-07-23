@@ -154,8 +154,8 @@ const CATALOG = [
   // ── 족보 ────────────────────────────────────────────────
   {
     id: "gyerim-pabo", // 미상
-    title_hanja: "鷄林金氏始祖記 · 慶州金氏派譜",
-    title_korean: "계림김씨시조기 · 경주김씨파보",
+    title_hanja: "慶州金氏派譜",
+    title_korean: "경주김씨파보",
     author: "미상",
     year: "",
     year_display: "1883~1889년 추정",
