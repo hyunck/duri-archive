@@ -500,6 +500,7 @@
     .hamburger-btn span { background: #ffffff; }
 
     /* 스크롤 후 불투명 전환 */
+    .site-header:hover,
     .site-header.header-scrolled {
       background: #ffffff;
       backdrop-filter: none;
@@ -507,21 +508,31 @@
       border-bottom-color: rgba(0, 0, 0, 0.08);
       box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
     }
+    .site-header:hover::after,
     .site-header.header-scrolled::after { opacity: 0.5; }
+    .site-header:hover .logo-main,
     .site-header.header-scrolled .logo-main { color: var(--text); }
+    .site-header:hover .logo-hj,
     .site-header.header-scrolled .logo-hj   { color: var(--brown-mid); }
+    .site-header:hover .nav-item,
     .site-header.header-scrolled .nav-item  { color: var(--text-sub); }
+    .site-header:hover .nav-item.active,
     .site-header.header-scrolled .nav-item.active { color: var(--text); }
+    .site-header:hover .theme-toggle-btn,
     .site-header.header-scrolled .theme-toggle-btn {
       color: var(--text-muted); border-color: var(--border-2); background: transparent;
     }
+    .site-header:hover .hamburger-btn span,
     .site-header.header-scrolled .hamburger-btn span { background: var(--text); }
+    [data-theme="dark"] .site-header:hover,
     [data-theme="dark"] .site-header.header-scrolled {
       background: #181614;
       border-bottom-color: rgba(255, 255, 255, 0.08);
     }
-    [data-theme="dark"] .site-header.header-scrolled .logo-main { color: var(--brown-mid); }
-    [data-theme="dark"] .site-header.header-scrolled .nav-item  { color: rgba(240, 235, 228, 0.75); }
+    [data-theme="dark"] .site-header:hover .logo-main,
+    .site-header.header-scrolled .logo-main { color: var(--brown-mid); }
+    [data-theme="dark"] .site-header:hover .nav-item,
+    .site-header.header-scrolled .nav-item  { color: rgba(240, 235, 228, 0.75); }
 
   </style>
   <!-- Google tag (gtag.js) -->
