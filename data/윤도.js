@@ -33,7 +33,7 @@ const DOC_YUNDO24 = {
       page_num: 1,
       type: "text",
       title: "윤도",
-      image: "images/24층윤도/page_01.png",
+      image: "images/윤도/page_01.png",
       hanja_text: "",
       korean_translation: "",
       annotations: []

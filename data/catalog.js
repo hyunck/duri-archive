@@ -960,7 +960,7 @@ const CATALOG = [
 
   {
     id: "yundo-24", // 목판본 낱장 1장
-    detail_url: "detail-24층윤도.html",
+    detail_url: "detail-윤도.html",
     title_hanja: "輪圖",
     title_korean: "윤도",
     author: "미상",
