@@ -31,8 +31,8 @@ const CATALOG = [
   },
   {
     id: "buwi-rok",
-    title_hanja: "賻慰(義)錄",
-    title_korean: "부위(의)록",
+    title_hanja: "賻慰錄",
+    title_korean: "부위록",
     author: "미상",
     year: "",
     year_display: "丙申年 6月",
