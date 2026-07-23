@@ -35,7 +35,7 @@ const CATALOG = [
     title_korean: "부위록",
     author: "미상",
     year: "",
-    year_display: "丙申年 6月",
+    year_display: "미상",
     category: "종중 기록",
     digitized: true,
     detail_url: "detail-부위록.html",
@@ -962,7 +962,7 @@ const CATALOG = [
     id: "yundo-24", // 목판본 낱장 1장
     detail_url: "detail-24층윤도.html",
     title_hanja: "二十四層輪圖",
-    title_korean: "24층 윤도",
+    title_korean: "윤도",
     author: "미상",
     year: "",
     year_display: "",

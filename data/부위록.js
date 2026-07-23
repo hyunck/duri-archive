@@ -3,7 +3,7 @@ const DOC_BUWI = {
   title_hanja: "賻慰錄",
   title_korean: "부위록",
   author: "미상",
-  year_display: "丙申年 6月",
+  year_display: "미상",
   category: "종중 기록",
   volume: "1冊",
   size: "-",
@@ -17,7 +17,7 @@ const DOC_BUWI = {
     "원서명": "賻慰錄",
     "현대어서명": "부위록",
     "작성자": "미상",
-    "작성연도": "丙申年 6月",
+    "작성연도": "미상",
     "책권수": "1冊",
     "책크기": "-",
     "판본사항": "필사본(筆寫本)",
@@ -30,10 +30,14 @@ const DOC_BUWI = {
     {
       page_num: 1,
       type: "text",
-      title: "1페이지",
+      title: "1페이지 : 표지",
       image: "images/부위록/page_01.png",
-      hanja_text: ``,
-      korean_translation: ``,
+      hanja_text: `賻慰(儀)錄
+
+丙申六月十一日午時皐復`,
+      korean_translation: `부위(의)록
+
+병신년(1896년) 6월 11일 오(午)시 고복(皐復)`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
