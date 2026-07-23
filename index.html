@@ -525,16 +525,29 @@
     }
     .site-header:hover .hamburger-btn span,
     .site-header.header-scrolled .hamburger-btn span { background: #1a1916 !important; }
-    /* 다크모드 */
+    /* 다크모드: 호버/스크롤 시 색 변화 없이 투명 상태 유지 */
     [data-theme="dark"] .site-header:hover,
     [data-theme="dark"] .site-header.header-scrolled {
-      background: #181614;
-      border-bottom-color: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.22) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: none !important;
     }
+    [data-theme="dark"] .site-header:hover::after,
+    [data-theme="dark"] .site-header.header-scrolled::after { opacity: 0.25 !important; }
     [data-theme="dark"] .site-header:hover .logo-main,
-    [data-theme="dark"] .site-header.header-scrolled .logo-main { color: #DFC070 !important; }
+    [data-theme="dark"] .site-header.header-scrolled .logo-main { color: #ffffff !important; }
+    [data-theme="dark"] .site-header:hover .logo-hj,
+    [data-theme="dark"] .site-header.header-scrolled .logo-hj { color: rgba(223,192,112,0.9) !important; }
     [data-theme="dark"] .site-header:hover .nav-item,
-    [data-theme="dark"] .site-header.header-scrolled .nav-item  { color: rgba(240,235,228,0.75) !important; }
+    [data-theme="dark"] .site-header.header-scrolled .nav-item { color: rgba(255,255,255,0.82) !important; }
+    [data-theme="dark"] .site-header:hover .nav-item.active,
+    [data-theme="dark"] .site-header.header-scrolled .nav-item.active { color: #ffffff !important; }
+    [data-theme="dark"] .site-header:hover .theme-toggle-btn,
+    [data-theme="dark"] .site-header.header-scrolled .theme-toggle-btn {
+      color: rgba(255,255,255,0.78) !important; border-color: rgba(255,255,255,0.28) !important; background: transparent !important;
+    }
+    [data-theme="dark"] .site-header:hover .hamburger-btn span,
+    [data-theme="dark"] .site-header.header-scrolled .hamburger-btn span { background: #ffffff !important; }
 
   </style>
   <!-- Google tag (gtag.js) -->
@@ -678,7 +691,7 @@
         <div class="sec-label">About</div>
         <h2 class="sec-title">경주김씨 상촌공파<br>두리종중을 소개합니다</h2>
         <div class="sec-divider"></div>
-        <p>경주김씨 상촌공파 두리종중은 조선 후기 숙종대 강원도 양양군 현남면 두리(斗里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
+        <p>경주김씨 상촌공파 두리종중은 조선 후기인 18세기 초 강원도 양양군 현남면 두리(斗里)에 입향한 경주김씨 상촌공파의 후예들로 이루어진 문중입니다.</p>
         <p>입향조 김여경(金如慶)을 시조로 하여, 조선 후기~일제강점기에 걸쳐 형성된 다수의 고문서와 건축 유산을 보존하고 있습니다.</p>
         <p>본 사이트는 종중이 소장한 자료를 디지털 아카이브로 구축하여 후세에 전하고자 마련하였습니다.</p>
       </div>
