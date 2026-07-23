@@ -766,7 +766,7 @@
   function startTimer() {
     clearInterval(timer);
     // 임시 비활성화 — 사진 준비 완료 후 아래 주석 해제
-    timer = setInterval(() => goTo(cur + 1), 5500);
+    timer = setInterval(() => goTo(cur + 1), 10000);
   }
 
   document.getElementById('heroPrev')
