@@ -170,7 +170,7 @@ const CATALOG = [
     author: "미상",
     year: "",
     year_display: "",
-    category: "족보",
+    category: "유서류",
     digitized: false,
     classification: "史部 譜牒類"
   },
