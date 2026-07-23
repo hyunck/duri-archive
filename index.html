@@ -88,10 +88,6 @@
       transform: scale(1.04);
       transition: transform 9s ease-out;
     }
-    .hero-slide:nth-child(1) .hero-bg { background-image: url('images/home-hero/hero-1.jpg'); background-color: #dedad5; }
-    .hero-slide:nth-child(2) .hero-bg { background-image: url('images/home-hero/hero-2.jpg'); background-color: #d5d8da; }
-    .hero-slide:nth-child(3) .hero-bg { background-image: url('images/home-hero/hero-3.jpg'); background-color: #dad5cf; }
-    .hero-slide:nth-child(4) .hero-bg { background-image: url('images/home-hero/hero-4.jpg'); background-color: #d5d8d5; }
 
     .hero-slide.active .hero-bg { transform: scale(1); }
 
@@ -423,10 +419,7 @@
         rgba(0,0,0,.08) 100%
       );
     }
-    [data-theme="dark"] .hero-slide:nth-child(1) .hero-bg { background-image: url('images/home-hero/hero-1.jpg'); background-color: #1a1208; filter: brightness(0.7); }
-    [data-theme="dark"] .hero-slide:nth-child(2) .hero-bg { background-image: url('images/home-hero/hero-2.jpg'); background-color: #100e0c; filter: brightness(0.7); }
-    [data-theme="dark"] .hero-slide:nth-child(3) .hero-bg { background-image: url('images/home-hero/hero-3.jpg'); background-color: #180f06; filter: brightness(0.7); }
-    [data-theme="dark"] .hero-slide:nth-child(4) .hero-bg { background-image: url('images/home-hero/hero-4.jpg'); background-color: #0e100e; filter: brightness(0.7); }
+    [data-theme="dark"] .hero-bg { filter: brightness(0.7); }
 
     [data-theme="dark"] .hero-title  { color: #FFFFFF; text-shadow: 0 2px 20px rgba(0,0,0,.6); }
     [data-theme="dark"] .hero-label  { color: #DFC070; }
@@ -531,7 +524,7 @@
 
   <div class="hero-track" id="heroTrack">
     <div class="hero-slide active">
-      <div class="hero-bg"></div>
+      <div class="hero-bg" style="background-image:url('images/home-hero/hero-1.jpg');background-color:#dedad5"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">강원특별자치도 유형문화유산</div>
@@ -540,7 +533,7 @@
       </div>
     </div>
     <div class="hero-slide">
-      <div class="hero-bg"></div>
+      <div class="hero-bg" style="background-image:url('images/home-hero/hero-2.jpg');background-color:#d5d8da"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 소장 건축물</div>
@@ -549,7 +542,7 @@
       </div>
     </div>
     <div class="hero-slide">
-      <div class="hero-bg"></div>
+      <div class="hero-bg" style="background-image:url('images/home-hero/hero-3.jpg');background-color:#dad5cf"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">종중 문화 유적</div>
@@ -558,7 +551,7 @@
       </div>
     </div>
     <div class="hero-slide">
-      <div class="hero-bg"></div>
+      <div class="hero-bg" style="background-image:url('images/home-hero/hero-4.jpg');background-color:#d5d8d5"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-label">소장 고문서</div>
