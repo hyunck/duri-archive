@@ -30,6 +30,18 @@ const CATALOG = [
     classification: "史部 雜史類"
   },
   {
+    id: "buwi-rok",
+    title_hanja: "賻慰(義)錄",
+    title_korean: "부위(의)록",
+    author: "미상",
+    year: "",
+    year_display: "丙申年 6月",
+    category: "종중 기록",
+    digitized: true,
+    detail_url: "detail-부위록.html",
+    classification: "史部 雜史類"
+  },
+  {
     id: "munhyeonrok",
     title_hanja: "東國文獻錄",
     title_korean: "동국문헌록",
@@ -101,17 +113,7 @@ const CATALOG = [
     digitized: false,
     classification: "史部 政書類"
   },
-  {
-    id: "buwi-rok", // 미상
-    title_hanja: "賻慰(義)錄",
-    title_korean: "부위(의)록",
-    author: "미상",
-    year: "",
-    year_display: "丙申年 6月",
-    category: "호적·관문서",
-    digitized: false,
-    classification: "史部 政書類"
-  },
+
   {
     id: "jise-myeonggi", // 필사본
     title_hanja: "地稅名寄帳 斗里",
