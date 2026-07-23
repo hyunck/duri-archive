@@ -743,29 +743,63 @@
 <script src="theme.js"></script>
 <script src="mobile-menu.js"></script>
 <script>
-// ── 히어로 캐러셀 ────────────────────────────────────────────────
+// ── 히어로 캐러셀 (클론 무한루프) ───────────────────────────────
 (function () {
-  const track   = document.getElementById('heroTrack');
-  const slides  = track.querySelectorAll('.hero-slide');
-  const dots    = document.querySelectorAll('.hero-dot');
-  const counter = document.getElementById('heroCounter');
-  const total   = slides.length;
-  let cur = 0, timer;
+  const track  = document.getElementById('heroTrack');
+  const slides = Array.from(track.querySelectorAll('.hero-slide'));
+  const dots   = document.querySelectorAll('.hero-dot');
+  const ctr    = document.getElementById('heroCounter');
+  const total  = slides.length;
+  let timer;
 
-  function goTo(n) {
-    slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
-    cur = (n + total) % total;
-    slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
-    track.style.transform = `translateX(-${cur * 100}%)`;
-    counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' +
-                          String(total).padStart(2, '0');
+  // [clone-last | slide0 | slide1 | ... | slide(n-1) | clone-first]
+  // 4→1 전환 시 역방향 모션 없이 자연스럽게 오른쪽으로 넘어가도록
+  const cloneLast  = slides[total - 1].cloneNode(true);
+  const cloneFirst = slides[0].cloneNode(true);
+  track.insertBefore(cloneLast, track.firstChild);
+  track.appendChild(cloneFirst);
+
+  let pos = 1;  // 트랙 위치 (1 = slide0)
+  let cur = 0;  // 논리 인덱스 (0 ~ total-1)
+
+  function setPos(p, animate) {
+    track.style.transition = animate
+      ? 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1)'
+      : 'none';
+    track.style.transform = `translateX(-${p * 100}%)`;
+    pos = p;
+    Array.from(track.children).forEach((s, i) =>
+      s.classList.toggle('active', i === p)
+    );
   }
+
+  function updateUI(idx) {
+    cur = idx;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    ctr.textContent = String(idx + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+
+  setPos(1, false);
+  updateUI(0);
+
+  function goTo(logicalIdx) {
+    const next = ((logicalIdx % total) + total) % total;
+    let targetPos;
+    if (logicalIdx >= total) targetPos = total + 1; // clone-first(맨 끝)로 이동
+    else if (logicalIdx < 0) targetPos = 0;          // clone-last(맨 앞)로 이동
+    else                     targetPos = logicalIdx + 1;
+    setPos(targetPos, true);
+    updateUI(next);
+  }
+
+  // 클론 위치 전환 완료 후 실제 슬라이드로 순간 이동
+  track.addEventListener('transitionend', () => {
+    if (pos === total + 1) setPos(1,     false);
+    else if (pos === 0)    setPos(total, false);
+  });
 
   function startTimer() {
     clearInterval(timer);
-    // 임시 비활성화 — 사진 준비 완료 후 아래 주석 해제
     timer = setInterval(() => goTo(cur + 1), 10000);
   }
 
@@ -776,7 +810,6 @@
   dots.forEach((d, i) =>
     d.addEventListener('click', () => { goTo(i); startTimer(); }));
 
-  // 터치 스와이프
   let tx = 0;
   track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend',   e => {
