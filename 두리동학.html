@@ -405,7 +405,7 @@
           <button class="map-btn"        onclick="setMapType('HYBRID',    this)">하이브리드</button>
           <button class="map-btn"        onclick="setMapType('TERRAIN',   this)">지형도</button>
         </div>
-        <button class="map-overlay-btn map-reset-btn" onclick="resetView()">마을 전체 보기</button>
+        <button class="map-overlay-btn map-reset-btn" onclick="resetView()">두리동학 전체 보기</button>
       </div>
 
       <!-- 지도 본체 -->
@@ -595,8 +595,8 @@ var LOCATIONS = [
 var COLOR = { gold: '#A87C24', red: '#c84040', green: '#2d7a2d', blue: '#3a7aba' };
 
 /* ── 두리마을 중심 좌표 — 실제 위치로 수정 ★ ── */
-var CENTER_LAT  = 37.9728083671351;
-var CENTER_LNG  = 128.751487913737;
+var CENTER_LAT  = 37.972923966909796;
+var CENTER_LNG  = 128.75148030567917;
 var DEFAULT_ZOOM = 16;   // '마을 전체 보기' 줌 (1~21)
 var INIT_ZOOM    = 18;   // 초기 로딩 줌
 
@@ -707,10 +707,10 @@ function setMapType(type, btn) {
   btn.classList.add('active');
 }
 
-/* ── 마을 전체 보기 ── */
+/* ── 두리동학 전체 보기 ── */
 function resetView() {
   if (!map) return;
-  map.setCenter(new naver.maps.LatLng(CENTER_LAT, CENTER_LNG));
+  map.setCenter(new naver.maps.LatLng(37.97348435018621, 128.75362166816078));
   map.setZoom(DEFAULT_ZOOM);
 }
 
