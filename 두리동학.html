@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>두리동학 — 두리마을 지도</title>
+  <meta name="description" content="경주김씨 상촌공파 두리종중 세거지 강원특별자치도 양양군 현남면 두리마을의 지도. 종택·진사청·청룡등 등 주요 지점을 위성·지적도로 확인할 수 있습니다.">
+  <link rel="canonical" href="https://두리종중.com/두리동학.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="두리동학 — 두리마을 지도">
+  <meta property="og:description" content="경주김씨 상촌공파 두리종중 세거지 두리마을의 종택·진사청·청룡등 등 주요 지점 지도.">
+  <meta property="og:url" content="https://두리종중.com/두리동학.html">
+  <meta property="og:image" content="https://두리종중.com/images/jongtaek/안채.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    /* ── 페이지 레이아웃 ── */
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 64px 40px 100px;
+    }
+
+    /* ── 페이지 히어로 ── */
+    .page-hero {
+      padding: 56px 40px 32px;
+      border-bottom: 1px solid var(--border-normal);
+      background: var(--bg-body);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-title-ko {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+    }
+
+    .page-title-hanja {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      color: var(--gold-600);
+      letter-spacing: 0.18em;
+      margin-top: 6px;
+    }
+
+    .page-title-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-ornament {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-800), transparent);
+    }
+
+    .hero-ornament-line.right {
+      background: linear-gradient(90deg, transparent, var(--gold-800));
+    }
+
+    .hero-ornament-text {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      color: var(--gold-800);
+      letter-spacing: 0.18em;
+    }
+
+    /* ── 섹션 ── */
+    .section {
+      margin-top: 64px;
+    }
+
+    .section + .section {
+      margin-top: 72px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-bright);
+      letter-spacing: 0.04em;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-normal);
+      margin-bottom: 24px;
+    }
+
+    .section-title span {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gold-600);
+      letter-spacing: 0.12em;
+      margin-left: 12px;
+      font-family: var(--font-serif);
+    }
+
+    /* ── 본문 텍스트 ── */
+    .body-text {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-primary);
+    }
+
+    .body-text p { margin-bottom: 18px; }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ── 지도 컨트롤 ── */
+    .map-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .map-btn-group {
+      display: flex;
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .map-btn {
+      padding: 7px 15px;
+      font-size: 13px;
+      font-family: var(--font-sans, 'Pretendard', sans-serif);
+      background: var(--bg-body);
+      border: none;
+      border-right: 1px solid var(--border-normal);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
+    }
+
+    .map-btn:last-child { border-right: none; }
+
+    .map-btn.active {
+      background: var(--gold-600);
+      color: #fff;
+    }
+
+    .map-btn:hover:not(.active) { background: var(--bg-elevated); }
+
+    .map-overlay-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .map-overlay-btn {
+      padding: 7px 13px;
+      font-size: 12px;
+      font-family: var(--font-sans, 'Pretendard', sans-serif);
+      background: var(--bg-body);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+
+    .map-overlay-btn.active {
+      background: var(--bg-elevated);
+      border-color: var(--gold-600);
+      color: var(--gold-600);
+    }
+
+    .map-overlay-btn:hover:not(.active) { background: var(--bg-elevated); }
+
+    .map-reset-btn {
+      margin-left: auto;
+    }
+
+    /* ── 지도 본체 ── */
+    .map-container {
+      width: 100%;
+      height: 65vh;
+      min-height: 500px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-normal);
+      overflow: hidden;
+      background: var(--bg-elevated);
+      position: relative;
+    }
+
+    .map-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .map-placeholder-icon { font-size: 36px; opacity: 0.35; }
+
+    .map-placeholder code {
+      font-size: 12px;
+      background: var(--bg-body);
+      border: 1px solid var(--border-normal);
+      border-radius: 4px;
+      padding: 2px 7px;
+      color: var(--gold-600);
+    }
+
+    /* ── 범례 ── */
+    .map-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.gold  { background: #A87C24; }
+    .legend-dot.red   { background: #c84040; }
+    .legend-dot.green { background: #2d7a2d; }
+    .legend-dot.blue  { background: #3a7aba; }
+
+    /* ── API 키 안내 ── */
+    .api-notice {
+      padding: 11px 15px;
+      background: rgba(168, 124, 36, 0.07);
+      border: 1px solid rgba(168, 124, 36, 0.22);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    /* ── 지점 목록 ── */
+    .location-list {
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .location-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .location-item:last-child { border-bottom: none; }
+    .location-item:hover { background: var(--bg-elevated); }
+
+    .location-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .location-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 3px;
+    }
+
+    .location-name .loc-hanja {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--gold-600);
+      margin-left: 7px;
+      font-family: var(--font-serif);
+    }
+
+    .location-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap { padding: 40px 20px 80px; }
+      .page-hero { padding: 40px 20px 24px; }
+      .map-container { height: 55vw; min-height: 320px; }
+      .map-controls { gap: 6px; }
+      .map-reset-btn { margin-left: 0; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y8SZ52M48J');
+  </script>
+  <!--
+    ★ 카카오 지도 API 키 설정 ★
+    아래 YOUR_KAKAO_APP_KEY 를 카카오 개발자센터(developers.kakao.com)에서
+    발급받은 'JavaScript 앱 키'로 교체하세요.
+    도메인 설정: 두리종중.com / localhost 등록 필요
+  -->
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&autoload=false">
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+  <a href="index.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <div class="header-right">
+    <nav class="site-nav">
+      <a class="nav-item" href="index.html">홈</a>
+      <a class="nav-item active" href="두리동학.html">두리동학</a>
+      <a class="nav-item" href="jongga.html">두리종중</a>
+      <a class="nav-item" href="catalog.html">소장 문서</a>
+      <a class="nav-item" href="family.html">가계도</a>
+      <a class="nav-item" href="jongtaek.html">종택</a>
+    </nav>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+    <button class="hamburger-btn" id="mobile-menu-open" aria-label="메뉴 열기" aria-controls="mobile-menu-panel">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu-panel" id="mobile-menu-panel">
+  <div class="mobile-menu-header">
+    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="메뉴 닫기">✕</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a class="mobile-menu-item" href="index.html">홈</a>
+    <a class="mobile-menu-item active" href="두리동학.html">두리동학</a>
+    <a class="mobile-menu-item" href="jongga.html">두리종중</a>
+    <a class="mobile-menu-item" href="catalog.html">소장 문서</a>
+    <a class="mobile-menu-item" href="family.html">가계도</a>
+    <a class="mobile-menu-item" href="jongtaek.html">종택</a>
+  </nav>
+</aside>
+
+  <div class="page-hero">
+    <div class="page-title-ko">두리동학</div>
+    <div class="page-title-hanja">斗里洞壑</div>
+    <div class="page-title-sub">강원특별자치도 양양군 현남면 두리마을</div>
+    <div class="hero-ornament">
+      <div class="hero-ornament-line"></div>
+      <div class="hero-ornament-text">斗里宗中 世居地</div>
+      <div class="hero-ornament-line right"></div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- 지도 섹션 -->
+    <section class="section" style="margin-top:40px;">
+      <h2 class="section-title">두리마을 지도 <span>地圖</span></h2>
+
+      <div id="api-notice" class="api-notice" style="display:none;">
+        📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_KAKAO_APP_KEY</code>를
+        <a href="https://developers.kakao.com" target="_blank" rel="noopener" style="color:var(--gold-600);">카카오 개발자센터</a>에서
+        발급받은 JavaScript 앱 키로 교체해주세요.
+      </div>
+
+      <!-- 지도 타입 · 레이어 컨트롤 -->
+      <div class="map-controls">
+        <div class="map-btn-group">
+          <button class="map-btn active" id="btn-roadmap"  onclick="setMapType('ROADMAP',  this)">일반지도</button>
+          <button class="map-btn"        id="btn-skyview"  onclick="setMapType('SKYVIEW',  this)">위성지도</button>
+          <button class="map-btn"        id="btn-hybrid"   onclick="setMapType('HYBRID',   this)">하이브리드</button>
+        </div>
+        <div class="map-overlay-group">
+          <button class="map-overlay-btn" id="btn-terrain"   onclick="toggleLayer('terrain')">지형도</button>
+          <button class="map-overlay-btn" id="btn-cadastral" onclick="toggleLayer('cadastral')">지적도</button>
+        </div>
+        <button class="map-overlay-btn map-reset-btn" onclick="resetView()">마을 전체 보기</button>
+      </div>
+
+      <!-- 지도 본체 -->
+      <div id="map" class="map-container">
+        <div class="map-placeholder" id="map-placeholder">
+          <div class="map-placeholder-icon">🗺</div>
+          <div>지도를 불러오는 중…</div>
+          <div style="font-size:12px;color:var(--text-muted);">
+            API 키 미설정 시: <code>YOUR_KAKAO_APP_KEY</code> 교체 필요
+          </div>
+        </div>
+      </div>
+
+      <!-- 범례 -->
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-dot gold"></span>종택 · 부속 건물</div>
+        <div class="legend-item"><span class="legend-dot red"></span>가문원 댁</div>
+        <div class="legend-item"><span class="legend-dot green"></span>산 · 자연 지형</div>
+        <div class="legend-item"><span class="legend-dot blue"></span>유적 · 기타</div>
+      </div>
+    </section>
+
+    <!-- 주요 지점 목록 -->
+    <section class="section">
+      <h2 class="section-title">주요 지점 <span>主要地點</span></h2>
+      <div class="location-list" id="location-list">
+        <!-- JS로 렌더링 -->
+      </div>
+    </section>
+
+  </div><!-- /page-wrap -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+        <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-address">
+          <span>강원특별자치도 양양군 현남면 두리</span>
+          <span>사이트 관리: 14대손</span>
+        </div>
+        <div class="footer-copyright">이 사이트의 모든 콘텐츠의 무단 전재·복제를 금합니다. 단, 학술 연구·교육·정보 전달 등 비영리 목적의 활용은 자유롭게 허용됩니다.</div>
+      </div>
+      <nav class="footer-links">
+        <a href="index.html">홈</a>
+        <a href="두리동학.html">두리동학</a>
+        <a href="jongga.html">두리종중</a>
+        <a href="catalog.html">소장 문서</a>
+        <a href="family.html">가계도</a>
+        <a href="jongtaek.html">종택</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+  </footer>
+
+  <script src="mobile-menu.js" onerror="void 0"></script>
+  <script src="theme.js" onerror="void 0"></script>
+
+<script>
+/* ================================================================
+   두리동학 — 주요 지점 데이터
+   ★ 좌표(lat/lng)는 실제 위치로 수정 필요 ★
+   구글 지도 등에서 위치 우클릭 → '이 위치의 좌표 복사' 사용
+================================================================ */
+var LOCATIONS = [
+  /* ── 종택·부속 건물 (gold) ── */
+  {
+    name: '종택 (김택준 가옥)',
+    hanja: '宗宅',
+    type: 'gold',
+    lat: 37.9144, lng: 128.6825,   // ← 실제 좌표로 수정
+    desc: '경주김씨 두리종중 종택. 강원특별자치도 유형문화유산 (양양 김택준 가옥).'
+  },
+  {
+    name: '진사청',
+    hanja: '進士廳',
+    type: 'gold',
+    lat: 37.9146, lng: 128.6830,   // ← 실제 좌표로 수정
+    desc: '종택 경내의 진사청.'
+  },
+  /* ── 가문원 댁 (red) ── */
+  {
+    name: '가문원 댁 1',
+    hanja: '',
+    type: 'red',
+    lat: 37.9140, lng: 128.6820,   // ← 실제 좌표로 수정
+    desc: ''
+  },
+  {
+    name: '가문원 댁 2',
+    hanja: '',
+    type: 'red',
+    lat: 37.9138, lng: 128.6835,   // ← 실제 좌표로 수정
+    desc: ''
+  },
+  /* ── 산·자연 지형 (green) ── */
+  {
+    name: '청룡등',
+    hanja: '靑龍嶝',
+    type: 'green',
+    lat: 37.9165, lng: 128.6845,   // ← 실제 좌표로 수정
+    desc: '두리마을 배후 산등성이. 풍수상 청룡(靑龍)에 해당하는 능선.'
+  },
+  {
+    name: '불당재',
+    hanja: '',
+    type: 'green',
+    lat: 37.9180, lng: 128.6855,   // ← 실제 좌표로 수정
+    desc: '불당재 각자바위가 있는 고개.'
+  },
+  /* ── 유적·기타 (blue) ── */
+  {
+    name: '영빈대',
+    hanja: '迎賓臺',
+    type: 'blue',
+    lat: 37.9150, lng: 128.6815,   // ← 실제 좌표로 수정
+    desc: '영빈대기(迎賓臺記)에 기록된 장소.'
+  }
+];
+
+/* ================================================================
+   색상 매핑
+================================================================ */
+var COLOR = { gold: '#A87C24', red: '#c84040', green: '#2d7a2d', blue: '#3a7aba' };
+
+/* ================================================================
+   지도 초기화
+================================================================ */
+var map = null;
+var activeOverlays = {};
+/* ★ 두리마을 중심 좌표 — 실제 위치로 수정 ★ */
+var CENTER_LAT = 37.9144;
+var CENTER_LNG = 128.6825;
+var DEFAULT_LEVEL = 4;
+
+function markerSvg(color) {
+  return 'data:image/svg+xml,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 28 40">' +
+    '<path d="M14 0C6.3 0 0 6.3 0 14c0 9.8 14 26 14 26S28 23.8 28 14C28 6.3 21.7 0 14 0z" fill="' + color + '"/>' +
+    '<circle cx="14" cy="14" r="5.5" fill="rgba(255,255,255,0.9)"/>' +
+    '</svg>'
+  );
+}
+
+function initMap() {
+  var placeholder = document.getElementById('map-placeholder');
+
+  if (typeof kakao === 'undefined' || typeof kakao.maps === 'undefined') {
+    document.getElementById('api-notice').style.display = 'block';
+    if (placeholder) placeholder.innerHTML =
+      '<div class="map-placeholder-icon">🔑</div>' +
+      '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 24px;">' +
+      'API 키를 설정하면 지도가 표시됩니다.<br>' +
+      '<code style="font-size:11px;">YOUR_KAKAO_APP_KEY</code> 를 교체해주세요.' +
+      '</div>';
+    renderList();
+    return;
+  }
+
+  kakao.maps.load(function () {
+    if (placeholder) placeholder.style.display = 'none';
+
+    var mapOption = {
+      center: new kakao.maps.LatLng(CENTER_LAT, CENTER_LNG),
+      level: DEFAULT_LEVEL,
+      minLevel: 1
+    };
+    map = new kakao.maps.Map(document.getElementById('map'), mapOption);
+
+    /* 기본 컨트롤 */
+    map.addControl(new kakao.maps.ZoomControl(),    kakao.maps.ControlPosition.RIGHT);
+    map.addControl(new kakao.maps.ScaleControl(),   kakao.maps.ControlPosition.BOTTOMLEFT);
+
+    /* 마커 추가 */
+    LOCATIONS.forEach(function (loc, i) { addMarker(loc, i); });
+
+    /* 지점 목록 렌더링 */
+    renderList();
+  });
+}
+
+function addMarker(loc, idx) {
+  if (!map) return;
+  var color  = COLOR[loc.type] || '#A87C24';
+  var imgSrc = markerSvg(color);
+  var imgSize = new kakao.maps.Size(28, 40);
+  var imgOpts = { offset: new kakao.maps.Point(14, 40) };
+  var markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOpts);
+
+  var marker = new kakao.maps.Marker({
+    map: map,
+    position: new kakao.maps.LatLng(loc.lat, loc.lng),
+    title: loc.name,
+    image: markerImg
+  });
+
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  var bgColor = isDark ? '#1e1d2a' : '#ffffff';
+  var textColor = isDark ? '#f0ebe4' : '#1a1916';
+  var mutedColor = isDark ? '#a0a8b8' : '#6e6b66';
+  var hanjaColor = '#A87C24';
+
+  var iwContent =
+    '<div style="padding:10px 14px;min-width:140px;max-width:220px;' +
+    'font-family:Pretendard,\'Malgun Gothic\',sans-serif;background:' + bgColor + ';border-radius:6px;">' +
+    '<div style="font-weight:700;font-size:14px;color:' + textColor + ';margin-bottom:3px;">' + loc.name + '</div>' +
+    (loc.hanja ? '<div style="font-size:11px;color:' + hanjaColor + ';margin-bottom:6px;letter-spacing:.12em;">' + loc.hanja + '</div>' : '') +
+    (loc.desc  ? '<div style="font-size:12px;color:' + mutedColor + ';line-height:1.65;">' + loc.desc + '</div>' : '') +
+    '</div>';
+
+  var iw = new kakao.maps.InfoWindow({ content: iwContent, removable: true });
+
+  kakao.maps.event.addListener(marker, 'click', function () {
+    iw.open(map, marker);
+  });
+
+  loc._marker = marker;
+  loc._iw    = iw;
+}
+
+/* ── 지도 타입 변경 ── */
+function setMapType(type, btn) {
+  if (!map) return;
+  var types = {
+    ROADMAP: kakao.maps.MapTypeId.ROADMAP,
+    SKYVIEW: kakao.maps.MapTypeId.SKYVIEW,
+    HYBRID:  kakao.maps.MapTypeId.HYBRID
+  };
+  map.setMapTypeId(types[type]);
+  document.querySelectorAll('.map-btn').forEach(function (b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+/* ── 오버레이 토글 ── */
+function toggleLayer(layer) {
+  if (!map) return;
+  var ids = {
+    terrain:   kakao.maps.MapTypeId.TERRAIN,
+    cadastral: kakao.maps.MapTypeId.USE_DISTRICT
+  };
+  var btn = document.getElementById('btn-' + layer);
+  if (activeOverlays[layer]) {
+    map.removeOverlayMapTypeId(ids[layer]);
+    delete activeOverlays[layer];
+    btn.classList.remove('active');
+  } else {
+    map.addOverlayMapTypeId(ids[layer]);
+    activeOverlays[layer] = true;
+    btn.classList.add('active');
+  }
+}
+
+/* ── 마을 전체 보기 ── */
+function resetView() {
+  if (!map) return;
+  map.setCenter(new kakao.maps.LatLng(CENTER_LAT, CENTER_LNG));
+  map.setLevel(DEFAULT_LEVEL);
+}
+
+/* ── 지점 목록 렌더링 ── */
+function renderList() {
+  var el = document.getElementById('location-list');
+  if (!el) return;
+  el.innerHTML = LOCATIONS.map(function (loc, i) {
+    var color = COLOR[loc.type] || '#A87C24';
+    return '<div class="location-item" onclick="focusMarker(' + i + ')">' +
+      '<span class="location-dot" style="background:' + color + '"></span>' +
+      '<div>' +
+        '<div class="location-name">' + loc.name +
+          (loc.hanja ? '<span class="loc-hanja">' + loc.hanja + '</span>' : '') +
+        '</div>' +
+        (loc.desc ? '<div class="location-desc">' + loc.desc + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── 지점 클릭 시 지도 이동 ── */
+function focusMarker(idx) {
+  var loc = LOCATIONS[idx];
+  if (!map) return;
+  map.setCenter(new kakao.maps.LatLng(loc.lat, loc.lng));
+  map.setLevel(2);
+  if (loc._iw && loc._marker) loc._iw.open(map, loc._marker);
+}
+
+/* ── 초기화 실행 ── */
+initMap();
+</script>
+
+</body>
+</html>
