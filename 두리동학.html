@@ -602,7 +602,9 @@ var INIT_ZOOM    = 18;   // 초기 로딩 줌
 
 var map = null;
 var cadastralLayer = null;
-var openIw = null;   // 현재 열린 인포윈도우
+var openIw = null;        // 현재 열린 인포윈도우
+var activeParcel = null;  // 현재 표시 중인 필지 폴리곤
+var VWORLD_KEY = '139292A5-E78E-3D18-8E13-6B63B66CE5C9';
 
 /* ── SVG 마커 아이콘 ── */
 function markerIcon(color) {
@@ -686,8 +688,12 @@ function addMarker(loc, idx) {
 
   naver.maps.Event.addListener(marker, 'click', function () {
     if (openIw && openIw !== iw) openIw.close();
-    if (iw.getMap()) { iw.close(); openIw = null; }
-    else             { iw.open(map, marker); openIw = iw; }
+    if (iw.getMap()) {
+      iw.close(); openIw = null; clearParcel();
+    } else {
+      iw.open(map, marker); openIw = iw;
+      fetchParcel(loc.address || null);
+    }
   });
 
   loc._marker = marker;
@@ -755,6 +761,59 @@ function focusMarker(idx) {
     loc._iw.open(map, loc._marker);
     openIw = loc._iw;
   }
+  fetchParcel(loc.address || null);
+}
+
+/* ── VWorld 필지 폴리곤 ── */
+function clearParcel() {
+  if (activeParcel) { activeParcel.setMap(null); activeParcel = null; }
+}
+
+function fetchParcel(address) {
+  clearParcel();
+  if (!address || !map) return;
+
+  /* "두리 66" → bnnm=두리, mnnm=66, slno=0
+     "두리 66-1" → bnnm=두리, mnnm=66, slno=1 */
+  var parts  = address.trim().split(' ');
+  var bnnm   = parts[0];
+  var jparts = (parts[1] || '').split('-');
+  var mnnm   = jparts[0] || '0';
+  var slno   = jparts[1] || '0';
+
+  var filter = 'BNNM:EQ:' + bnnm + ';AND:LNBR_MNNM:EQ:' + mnnm +
+               (slno !== '0' ? ';AND:LNBR_SLNO:EQ:' + slno : '');
+
+  var url = 'https://api.vworld.kr/req/data'
+    + '?service=data&request=GetFeature&data=LP_PA_CBND_BUBUN'
+    + '&key='    + VWORLD_KEY
+    + '&geometry=true&attribute=true&crs=EPSG:4326'
+    + '&domain=' + encodeURIComponent(location.origin)
+    + '&attrFilter=' + encodeURIComponent(filter)
+    + '&size=1';
+
+  fetch(url)
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var fc = data && data.response && data.response.result && data.response.result.featureCollection;
+      if (!fc || !fc.features || fc.features.length === 0) return;
+      var geom = fc.features[0].geometry;
+      /* MultiPolygon 또는 Polygon 모두 처리 */
+      var rings = geom.type === 'MultiPolygon' ? geom.coordinates[0] : geom.coordinates;
+      var paths = rings.map(function (ring) {
+        return ring.map(function (c) { return new naver.maps.LatLng(c[1], c[0]); });
+      });
+      activeParcel = new naver.maps.Polygon({
+        map:            map,
+        paths:          paths,
+        strokeColor:    '#A87C24',
+        strokeOpacity:  1,
+        strokeWeight:   2,
+        fillColor:      '#A87C24',
+        fillOpacity:    0.28
+      });
+    })
+    .catch(function (e) { console.warn('VWorld 필지 조회 실패:', e); });
 }
 
 /* ── 초기화 실행 ── */
