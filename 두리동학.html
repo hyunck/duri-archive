@@ -479,14 +479,16 @@ var LOCATIONS = [
     hanja: '宗宅',
     type: 'gold',
     lat: 37.9730286967622, lng: 128.750738667033,
-    desc: '경주김씨 두리종중 종택. 강원특별자치도 유형문화유산 (양양 김택준 가옥).'
+    desc: '경주김씨 두리종중 종택. 강원특별자치도 유형문화유산 (양양 김택준 가옥).',
+    address: '현남면 두리 66'
   },
   {
     name: '진사청',
     hanja: '進士廳',
     type: 'gold',
     lat: 37.9708176552692, lng: 128.752217365637,
-    desc: '문중 제사를 지내는 마루 건물이다.'
+    desc: '문중 제사를 지내는 마루 건물이다.',
+    address: '현남면 창리 125'
   },
   /* ── 가문원 댁 (red) ── */
   {
@@ -494,84 +496,96 @@ var LOCATIONS = [
     hanja: '沙月宅',
     type: 'red',
     lat: 37.9730587018937, lng: 128.751899555196,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 76'
   },
   {
     name: '작은댁 (둘째집) (김동규 가옥 터)',
     hanja: '二宅',
     type: 'red',
     lat: 37.9733307415701, lng: 128.75087807735,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 68'
   },
   {
     name: '복동댁 (김성제 가옥 터)',
     hanja: '福洞宅',
     type: 'red',
     lat: 37.9735854091377, lng: 128.750944441925,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 70'
   },
   {
     name: '아릇댁 (김홍열 가옥)',
     hanja: '',
     type: 'red',
     lat: 37.973179897598, lng: 128.751026300704,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 67'
   },
   {
     name: '강릉댁 (김상열 가옥 터)',
     hanja: '',
     type: 'red',
     lat: 37.973129087587, lng: 128.751552777328,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 75'
   },
   {
     name: '갓바우댁 (김무열 가옥)',
     hanja: '',
     type: 'red',
     lat: 37.9733674314893, lng: 128.75110017425,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 69'
   },
   {
     name: '동녘댁 (김봉열 가옥)',
     hanja: '',
     type: 'red',
     lat: 37.9724478847999, lng: 128.751383073209,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 61'
   },
   {
     name: '김희열 가옥 터',
     hanja: '',
     type: 'red',
     lat: 37.9727245682117, lng: 128.751682906251,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 80'
   },
   {
     name: '김공열 가옥 터',
     hanja: '',
     type: 'red',
     lat: 37.9728058835379, lng: 128.751261510349,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 62'
   },
   {
     name: '김동연 가옥 터',
     hanja: '',
     type: 'red',
     lat: 37.9734086996071, lng: 128.751595497769,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 74'
   },
   {
     name: '김동수 가옥 터',
     hanja: '',
     type: 'red',
     lat: 37.9726163960735, lng: 128.751548670933,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 79'
   },
   {
     name: '김상교 가옥 터',
     hanja: '',
     type: 'red',
     lat: 37.9735861120284, lng: 128.751272314348,
-    desc: ''
+    desc: '',
+    address: '현남면 두리 71'
   },
   /* ── 산·자연 지형 (green) ── */
   {
@@ -579,7 +593,8 @@ var LOCATIONS = [
     hanja: '佛堂峙',
     type: 'green',
     lat: 37.972650206857, lng: 128.752423441817,
-    desc: '종가의 청룡등으로, 영빈대와 불당, 각자바위 등이 있다.'
+    desc: '종가의 청룡등으로, 영빈대와 불당, 각자바위 등이 있다.',
+    address: ['두리 82', '두리 88-1']
   },
   /* ── 유적·기타 (blue) ── */
   {
@@ -603,7 +618,7 @@ var INIT_ZOOM    = 18;   // 초기 로딩 줌
 var map = null;
 var cadastralLayer = null;
 var openIw = null;        // 현재 열린 인포윈도우
-var activeParcel = null;  // 현재 표시 중인 필지 폴리곤
+var activeParcelList = []; // 현재 표시 중인 필지 폴리곤 목록
 var VWORLD_KEY = '139292A5-E78E-3D18-8E13-6B63B66CE5C9';
 
 /* ── SVG 마커 아이콘 ── */
@@ -766,27 +781,26 @@ function focusMarker(idx) {
 
 /* ── VWorld 필지 폴리곤 ── */
 function clearParcel() {
-  if (activeParcel) { activeParcel.setMap(null); activeParcel = null; }
+  activeParcelList.forEach(function (p) { p.setMap(null); });
+  activeParcelList = [];
 }
 
-function fetchParcel(address) {
-  clearParcel();
-  if (!address || !map) return;
+/* '현남면 두리 66' 또는 '두리 66-1' 모두 파싱
+   → 뒤에서 두 토큰 사용 (앞의 읍·면 prefix 무시) */
+function parseJibun(addr) {
+  var t = addr.trim().split(/\s+/);
+  var bnnm  = t[t.length - 2];
+  var jpart = t[t.length - 1].split('-');
+  return { bnnm: bnnm, mnnm: jpart[0], slno: jpart[1] || '0' };
+}
 
-  /* "두리 66" → bnnm=두리, mnnm=66, slno=0
-     "두리 66-1" → bnnm=두리, mnnm=66, slno=1 */
-  var parts  = address.trim().split(' ');
-  var bnnm   = parts[0];
-  var jparts = (parts[1] || '').split('-');
-  var mnnm   = jparts[0] || '0';
-  var slno   = jparts[1] || '0';
-
-  var filter = 'BNNM:EQ:' + bnnm + ';AND:LNBR_MNNM:EQ:' + mnnm +
-               (slno !== '0' ? ';AND:LNBR_SLNO:EQ:' + slno : '');
-
+function fetchOneParcel(addr) {
+  var p = parseJibun(addr);
+  var filter = 'BNNM:EQ:' + p.bnnm + ';AND:LNBR_MNNM:EQ:' + p.mnnm +
+               (p.slno !== '0' ? ';AND:LNBR_SLNO:EQ:' + p.slno : '');
   var url = 'https://api.vworld.kr/req/data'
     + '?service=data&request=GetFeature&data=LP_PA_CBND_BUBUN'
-    + '&key='    + VWORLD_KEY
+    + '&key=' + VWORLD_KEY
     + '&geometry=true&attribute=true&crs=EPSG:4326'
     + '&domain=' + encodeURIComponent(location.origin)
     + '&attrFilter=' + encodeURIComponent(filter)
@@ -797,23 +811,30 @@ function fetchParcel(address) {
     .then(function (data) {
       var fc = data && data.response && data.response.result && data.response.result.featureCollection;
       if (!fc || !fc.features || fc.features.length === 0) return;
-      var geom = fc.features[0].geometry;
-      /* MultiPolygon 또는 Polygon 모두 처리 */
+      var geom  = fc.features[0].geometry;
       var rings = geom.type === 'MultiPolygon' ? geom.coordinates[0] : geom.coordinates;
       var paths = rings.map(function (ring) {
         return ring.map(function (c) { return new naver.maps.LatLng(c[1], c[0]); });
       });
-      activeParcel = new naver.maps.Polygon({
-        map:            map,
-        paths:          paths,
-        strokeColor:    '#A87C24',
-        strokeOpacity:  1,
-        strokeWeight:   2,
-        fillColor:      '#A87C24',
-        fillOpacity:    0.28
-      });
+      activeParcelList.push(new naver.maps.Polygon({
+        map:           map,
+        paths:         paths,
+        strokeColor:   '#A87C24',
+        strokeOpacity: 1,
+        strokeWeight:  2,
+        fillColor:     '#A87C24',
+        fillOpacity:   0.28
+      }));
     })
-    .catch(function (e) { console.warn('VWorld 필지 조회 실패:', e); });
+    .catch(function (e) { console.warn('VWorld 필지 조회 실패 (' + addr + '):', e); });
+}
+
+function fetchParcel(address) {
+  clearParcel();
+  if (!address || !map) return;
+  /* 단일 문자열 또는 배열 모두 지원 */
+  var list = Array.isArray(address) ? address : [address];
+  list.forEach(fetchOneParcel);
 }
 
 /* ── 초기화 실행 ── */
