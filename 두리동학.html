@@ -187,6 +187,40 @@
       margin-left: auto;
     }
 
+    /* ── 지도 내부 토글 버튼 ── */
+    .map-inner-controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .map-inner-btn {
+      padding: 6px 11px;
+      font-size: 12px;
+      font-family: var(--font-sans, 'Pretendard', sans-serif);
+      background: rgba(255, 255, 255, 0.93);
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-radius: 6px;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+      text-align: left;
+    }
+
+    .map-inner-btn.active {
+      background: rgba(40, 40, 40, 0.85);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .map-inner-btn:hover:not(.active) { background: rgba(240, 240, 240, 0.97); }
+
     /* ── 지도 본체 ── */
     .map-container {
       width: 100%;
@@ -240,6 +274,17 @@
       gap: 7px;
       font-size: 12px;
       color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
+    }
+
+    .legend-item.hidden {
+      opacity: 0.32;
+    }
+
+    .legend-item.hidden .legend-dot {
+      filter: grayscale(1);
     }
 
     .legend-dot {
@@ -249,10 +294,15 @@
       flex-shrink: 0;
     }
 
-    .legend-dot.gold  { background: #A87C24; }
-    .legend-dot.red   { background: #c84040; }
-    .legend-dot.green { background: #2d7a2d; }
-    .legend-dot.blue  { background: #3a7aba; }
+    .legend-dot.gold   { background: #A87C24; }
+    .legend-dot.red    { background: #c84040; }
+    .legend-dot.orange { background: #D4621A; }
+    .legend-dot.purple { background: #2563EB; }
+    .legend-dot.teal   { background: #1A8A80; }
+    .legend-dot.green  { background: #2d7a2d; }
+    .legend-dot.blue   { background: #3a7aba; }
+    .legend-dot.black  { background: #7B44B0; }
+    .legend-dot.pink   { background: #C44071; }
 
     /* ── API 키 안내 ── */
     .api-notice {
@@ -405,11 +455,16 @@
           <button class="map-btn"        onclick="setMapType('HYBRID',      this)">하이브리드</button>
           <button class="map-btn"        onclick="setMapType('CADASTRAL',  this)">지적편집도</button>
         </div>
-        <button class="map-overlay-btn map-reset-btn" onclick="resetView()">두리동학 전체 보기</button>
+        <button class="map-overlay-btn map-reset-btn" onclick="duriView()">두리 보기</button>
+        <button class="map-overlay-btn" onclick="resetView()">두리동학 전체 보기</button>
       </div>
 
       <!-- 지도 본체 -->
       <div id="map" class="map-container">
+        <div class="map-inner-controls">
+          <button class="map-inner-btn" id="btn-toggle-markers" onclick="toggleMarkers(this)">마커 숨기기</button>
+          <button class="map-inner-btn" id="btn-toggle-parcels" onclick="toggleAllParcels(this)">전체 필지 보기</button>
+        </div>
         <div class="map-placeholder" id="map-placeholder">
           <div class="map-placeholder-icon">🗺</div>
           <div>지도를 불러오는 중…</div>
@@ -421,10 +476,15 @@
 
       <!-- 범례 -->
       <div class="map-legend">
-        <div class="legend-item"><span class="legend-dot gold"></span>종택 · 부속 건물</div>
-        <div class="legend-item"><span class="legend-dot red"></span>문중 댁</div>
-        <div class="legend-item"><span class="legend-dot green"></span>청룡등</div>
-        <div class="legend-item"><span class="legend-dot blue"></span>유적 · 기타</div>
+        <div class="legend-item" data-type="gold"   onclick="toggleType('gold')"  ><span class="legend-dot gold"  ></span>종택</div>
+        <div class="legend-item" data-type="black"  onclick="toggleType('black')" ><span class="legend-dot black" ></span>문중땅</div>
+        <div class="legend-item" data-type="orange" onclick="toggleType('orange')"><span class="legend-dot orange"></span>차종가</div>
+        <div class="legend-item" data-type="purple" onclick="toggleType('purple')"><span class="legend-dot purple"></span>복동댁</div>
+        <div class="legend-item" data-type="teal"   onclick="toggleType('teal')"  ><span class="legend-dot teal"  ></span>작은댁</div>
+        <div class="legend-item" data-type="pink"   onclick="toggleType('pink')"  ><span class="legend-dot pink"  ></span>김학제댁</div>
+        <div class="legend-item hidden" data-type="red"    onclick="toggleType('red')"   ><span class="legend-dot red"   ></span>문중 댁</div>
+        <div class="legend-item" data-type="green"  onclick="toggleType('green')" ><span class="legend-dot green" ></span>청룡등</div>
+        <div class="legend-item" data-type="blue"   onclick="toggleType('blue')"  ><span class="legend-dot blue"  ></span>유적 · 기타</div>
       </div>
     </section>
 
@@ -480,40 +540,89 @@ var LOCATIONS = [
     type: 'gold',
     lat: 37.9730286967622, lng: 128.750738667033,
     desc: '경주김씨 두리종중 종택. 강원특별자치도 유형문화유산 (양양 김택준 가옥).',
-    address: '현남면 두리 66'
+    parcels: [
+      [37.9725274679796,128.752922142944],   // 두리 88
+      [37.972650206857,128.752423441817],   // 두리 88-1
+      [37.9723049288813,128.752622228264],   // 두리 87
+      [37.9723466966042,128.752448997891],   // 두리 86
+      [37.9726995220729,128.751985468492],   // 두리 82
+      [37.9728083671351,128.751487913737],   // 두리 78
+      [37.9730286967622,128.750738667033],   // 두리 66
+      [37.9728615593534,128.750934525788],   // 두리 65
+      [37.9719612935866,128.750733222869],   // 두리 58
+      [37.9728023635367,128.750414882844],    // 두리 산54
+      [37.9733350030156,128.75063419377],    // 두리 산54-1
+      [37.9718716888587,128.750586117228]    // 두리 산54-2
+    ]
   },
   {
     name: '진사청',
     hanja: '進士廳',
-    type: 'gold',
+    type: 'black',
     lat: 37.9708176552692, lng: 128.752217365637,
     desc: '문중 제사를 지내는 마루 건물이다.',
-    address: '현남면 창리 125'
+    parcels: [
+      [37.9708176552692,128.752217365637],   // 창리 125
+      [37.9706739294912,128.752335139831],   // 창리 125-1
+      [37.9703666097647,128.75221733832],   // 창리 125-2
+      [37.9705053595286,128.75202843829],   // 창리 125-3
+      [37.9706021352747,128.752201999922],   // 창리 125-4
+      [37.9706343781868,128.752377782768],   // 창리 125-5
+      [37.970713570638,128.751881358285],   // 창리 125-6
+      [37.9706470475646,128.752126028719],   // 창리 125-7
+      [37.9706051160211,128.75217123244],   // 창리 125-8
+      [37.9700317042835,128.752300410786],   // 창리 79-1
+      [37.9698520414428,128.75247217757],   // 창리 79-2
+      [37.9697533824259,128.752660776804],   // 창리 79-3
+      [37.9696060057514,128.752751492712],   // 창리 79-4
+      [37.9696750450923,128.752936455488],   // 창리 78
+      [37.9711239386483,128.75192707279],   // 창리 산1
+      [37.9709300684529,128.753493292297],   // 창리 산2
+    ]
   },
   /* ── 가문원 댁 (red) ── */
   {
     name: '차종가 사월댁 (김동식 가옥 터)',
     hanja: '沙月宅',
-    type: 'red',
+    type: 'orange',
     lat: 37.9730587018937, lng: 128.751899555196,
     desc: '',
-    address: '현남면 두리 76'
+    parcels: [
+      [37.9730587018937,128.751899555196],   // 두리 76
+      [37.9744587051293,128.756300619774],    // 두리 산40
+      [37.9736643678902,128.752827990963],    // 두리 산26
+      [37.9746056356844,128.752834676748]    // 두리 산26-1
+    ]
   },
   {
-    name: '작은댁 (둘째집) (김동규 가옥 터)',
+    name: '작은댁 (둘째집) (김주열 가옥 터)',
     hanja: '二宅',
-    type: 'red',
+    type: 'teal',
     lat: 37.9733307415701, lng: 128.75087807735,
     desc: '',
-    address: '현남면 두리 68'
+    parcels: [
+      [37.9722888220304,128.751702021962],   // 두리 85
+      [37.9724207600485,128.751776850591],   // 두리 84
+      [37.9725575152519,128.751860897829],   // 두리 83
+      [37.9733307415701,128.75087807735],   // 두리 68
+      [37.9712174596276,128.754397522301],    // 두리 40
+      [37.9711900748871,128.755019331883],    // 두리 40-2
+      [37.971537364639,128.75200938914],   // 두리 산52
+      [37.9718005730343,128.753358217722],    // 두리 산51
+      [37.9716976918357,128.754518313118],    // 두리 산50
+      [37.9716670121322,128.755753068607]    // 두리 산46
+    ]
   },
   {
     name: '복동댁 (김성제 가옥 터)',
     hanja: '福洞宅',
-    type: 'red',
+    type: 'purple',
     lat: 37.9735854091377, lng: 128.750944441925,
     desc: '',
-    address: '현남면 두리 70'
+    parcels: [
+      [37.9735854091377,128.750944441925],   // 두리 70
+      [37.9739356881859,128.749677068939]    // 두리 산23
+    ]
   },
   {
     name: '아릇댁 (김홍열 가옥)',
@@ -546,6 +655,17 @@ var LOCATIONS = [
     lat: 37.9724478847999, lng: 128.751383073209,
     desc: '',
     address: '현남면 두리 61'
+  },
+  {
+    name: '김학제 가옥 터',
+    hanja: '',
+    type: 'pink',
+    lat: 37.9717069240773, lng: 128.75119135529,
+    desc: '',
+    parcels: [
+      [37.9717069240773,128.75119135529],   // 두리 54
+      [37.9714863731024,128.751332342282]    // 두리 산53
+    ]
   },
   {
     name: '김희열 가옥 터',
@@ -594,7 +714,7 @@ var LOCATIONS = [
     type: 'green',
     lat: 37.972650206857, lng: 128.752423441817,
     desc: '종가의 청룡등으로, 영빈대와 불당, 각자바위 등이 있다.',
-    address: ['두리 82', '두리 88-1']
+    address: '현남면 두리 82'
   },
   /* ── 유적·기타 (blue) ── */
   {
@@ -607,7 +727,7 @@ var LOCATIONS = [
 ];
 
 /* ── 색상 매핑 ── */
-var COLOR = { gold: '#A87C24', red: '#c84040', green: '#2d7a2d', blue: '#3a7aba' };
+var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071' };
 
 /* ── 두리마을 중심 좌표 — 실제 위치로 수정 ★ ── */
 var CENTER_LAT  = 37.972923966909796;
@@ -618,8 +738,21 @@ var INIT_ZOOM    = 18;   // 초기 로딩 줌
 var map = null;
 var cadastralLayer = null;
 var openIw = null;        // 현재 열린 인포윈도우
-var activeParcelList = []; // 현재 표시 중인 필지 폴리곤 목록
-var VWORLD_KEY = '139292A5-E78E-3D18-8E13-6B63B66CE5C9';
+var activeParcelList = [];   // 개별 클릭 필지
+var allParcelsList   = [];   // 전체 필지 보기
+var allParcelsActive = false;
+var markersVisible   = true;
+var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true };
+var VWORLD_KEY = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+  ? '7669B1E3-55F0-3E6A-A190-E3FED57A8C23'   // 라이브 서버용
+  : '139292A5-E78E-3D18-8E13-6B63B66CE5C9';  // 두리종중.com용
+
+/* ── VWorld 필지 폴리곤 좌표 보정 ──
+   VWorld 구 지적 좌표계와 네이버 지도 좌표계의 오프셋 보정값.
+   양수 → 북/동 이동, 음수 → 남/서 이동.
+   종택(66번지) 필지를 기준으로 네이버 지적편집도 경계선과 맞을 때까지 조정. */
+var PARCEL_LAT_OFFSET = -0.000015;   // 위도 보정 (+북 / -남)
+var PARCEL_LNG_OFFSET = 0.000034;   // 경도 보정 (+동 / -서)
 
 /* ── SVG 마커 아이콘 ── */
 function markerIcon(color) {
@@ -707,11 +840,12 @@ function addMarker(loc, idx) {
       iw.close(); openIw = null; clearParcel();
     } else {
       iw.open(map, marker); openIw = iw;
-      fetchParcel(loc.address || null);
+      fetchParcel(loc);
     }
   });
 
   loc._marker = marker;
+  if (typeVisible[loc.type] === false) marker.setVisible(false);
   loc._iw     = iw;
 }
 
@@ -738,6 +872,120 @@ function setMapType(type, btn) {
 
   document.querySelectorAll('.map-btn').forEach(function (b) { b.classList.remove('active'); });
   btn.classList.add('active');
+}
+
+/* ── 두리 보기 (초기 줌으로 복귀) ── */
+/* ── 마커 on/off ── */
+function toggleMarkers(btn) {
+  markersVisible = !markersVisible;
+  LOCATIONS.forEach(function (loc) {
+    if (loc._marker) loc._marker.setVisible(markersVisible && typeVisible[loc.type] !== false);
+  });
+  btn.textContent = markersVisible ? '마커 숨기기' : '마커 보이기';
+  btn.classList.toggle('active', !markersVisible);
+}
+
+/* ── 전체 필지 on/off ── */
+function toggleAllParcels(btn) {
+  if (allParcelsActive) {
+    allParcelsList.forEach(function (item) { item.poly.setMap(null); });
+    allParcelsList = [];
+    allParcelsActive = false;
+    btn.textContent = '전체 필지 보기';
+    btn.classList.remove('active');
+  } else {
+    allParcelsActive = true;
+    btn.textContent = '전체 필지 숨기기';
+    btn.classList.add('active');
+    LOCATIONS.forEach(function (loc) {
+      if (loc.type === 'blue' || !map) return;
+      var color = COLOR[loc.type] || '#A87C24';
+      if (Array.isArray(loc.parcels)) {
+        loc.parcels.forEach(function (pt) { fetchAllParcelByPoint(pt[0], pt[1], color, loc.type); });
+      } else {
+        fetchAllParcelByPoint(loc.lat, loc.lng, color, loc.type);
+      }
+    });
+  }
+}
+
+function fetchAllParcelByPoint(lat, lng, color, type) {
+  var vwDomain = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+    ? location.host : 'xn--hu1br5h25o9pa.com';
+  var cbName = '_vwall_' + Date.now() + '_' + Math.round(Math.random() * 99999);
+  window[cbName] = function (data) {
+    delete window[cbName];
+    var sc = document.getElementById(cbName);
+    if (sc) sc.parentNode.removeChild(sc);
+    if (!allParcelsActive) return;
+    var fc = data && data.response && data.response.result && data.response.result.featureCollection;
+    if (!fc || !fc.features || fc.features.length === 0) return;
+    var geom  = fc.features[0].geometry;
+    var rings = geom.type === 'MultiPolygon' ? geom.coordinates[0] : geom.coordinates;
+    var paths = rings.map(function (ring) {
+      return ring.map(function (c) {
+        return new naver.maps.LatLng(c[1] + PARCEL_LAT_OFFSET, c[0] + PARCEL_LNG_OFFSET);
+      });
+    });
+    var poly = new naver.maps.Polygon({
+      map: typeVisible[type] !== false ? map : null, paths: paths,
+      strokeColor: color, strokeOpacity: 1, strokeWeight: 2,
+      fillColor: color, fillOpacity: 0.28
+    });
+    allParcelsList.push({ poly: poly, type: type });
+  };
+  var sc = document.createElement('script');
+  sc.id  = cbName;
+  sc.src = 'https://api.vworld.kr/req/data'
+    + '?service=data&request=GetFeature&data=LP_PA_CBND_BUBUN'
+    + '&key=' + VWORLD_KEY
+    + '&geometry=true&attribute=true&crs=EPSG:4326'
+    + '&domain=' + encodeURIComponent(vwDomain)
+    + '&geomFilter=' + encodeURIComponent('POINT(' + lng + ' ' + lat + ')')
+    + '&spatialFilter=INTERSECTS&size=1&callback=' + cbName;
+  sc.onerror = function () {
+    delete window[cbName];
+    if (sc.parentNode) sc.parentNode.removeChild(sc);
+  };
+  document.head.appendChild(sc);
+}
+
+/* ── 범례 레이어 토글 (포토샵 레이어처럼) ── */
+function toggleType(type) {
+  typeVisible[type] = !typeVisible[type];
+  var show = typeVisible[type];
+
+  // 범례 항목 시각적 상태
+  var el = document.querySelector('[data-type="' + type + '"]');
+  if (el) el.classList.toggle('hidden', !show);
+
+  // 해당 타입 마커 on/off (전체 마커가 숨겨진 상태면 그대로 hidden 유지)
+  LOCATIONS.forEach(function (loc) {
+    if (loc.type === type && loc._marker) {
+      loc._marker.setVisible(show && markersVisible);
+    }
+  });
+
+  // 전체 필지 목록에서 해당 타입 on/off
+  allParcelsList.forEach(function (item) {
+    if (item.type === type) item.poly.setMap(show ? map : null);
+  });
+
+  // 개별 클릭 필지 중 해당 타입이면 숨기기
+  if (!show) {
+    activeParcelList.forEach(function (item) {
+      if (item.type === type) item.poly.setMap(null);
+    });
+    activeParcelList = activeParcelList.filter(function (item) {
+      return item.type !== type;
+    });
+  }
+}
+
+function duriView() {
+  if (!map) return;
+  map.setCenter(new naver.maps.LatLng(CENTER_LAT, CENTER_LNG));
+  map.setZoom(INIT_ZOOM);
 }
 
 /* ── 두리동학 전체 보기 ── */
@@ -776,65 +1024,78 @@ function focusMarker(idx) {
     loc._iw.open(map, loc._marker);
     openIw = loc._iw;
   }
-  fetchParcel(loc.address || null);
+  fetchParcel(loc);
 }
 
 /* ── VWorld 필지 폴리곤 ── */
 function clearParcel() {
-  activeParcelList.forEach(function (p) { p.setMap(null); });
+  activeParcelList.forEach(function (item) { item.poly.setMap(null); });
   activeParcelList = [];
 }
 
-/* '현남면 두리 66' 또는 '두리 66-1' 모두 파싱
-   → 뒤에서 두 토큰 사용 (앞의 읍·면 prefix 무시) */
-function parseJibun(addr) {
-  var t = addr.trim().split(/\s+/);
-  var bnnm  = t[t.length - 2];
-  var jpart = t[t.length - 1].split('-');
-  return { bnnm: bnnm, mnnm: jpart[0], slno: jpart[1] || '0' };
+/* 공통: JSONP 콜백으로 폴리곤 그리기 */
+function drawParcelFromData(data, color, type) {
+  var fc = data && data.response && data.response.result && data.response.result.featureCollection;
+  if (!fc || !fc.features || fc.features.length === 0) return;
+  var geom  = fc.features[0].geometry;
+  var rings = geom.type === 'MultiPolygon' ? geom.coordinates[0] : geom.coordinates;
+  var paths = rings.map(function (ring) {
+    return ring.map(function (c) {
+      return new naver.maps.LatLng(c[1] + PARCEL_LAT_OFFSET, c[0] + PARCEL_LNG_OFFSET);
+    });
+  });
+  var poly = new naver.maps.Polygon({
+    map: map, paths: paths,
+    strokeColor: color, strokeOpacity: 1, strokeWeight: 2,
+    fillColor: color, fillOpacity: 0.28
+  });
+  activeParcelList.push({ poly: poly, type: type });
 }
 
-function fetchOneParcel(addr) {
-  var p = parseJibun(addr);
-  var filter = 'BNNM:EQ:' + p.bnnm + ';AND:LNBR_MNNM:EQ:' + p.mnnm +
-               (p.slno !== '0' ? ';AND:LNBR_SLNO:EQ:' + p.slno : '');
-  var url = 'https://api.vworld.kr/req/data'
+/* GPS 공간 검색 — 단일 필지용 */
+function fetchParcelByPoint(lat, lng, color, type) {
+  var vwDomain = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+    ? location.host
+    : 'xn--hu1br5h25o9pa.com';
+
+  var cbName = '_vw_' + Date.now() + '_' + Math.round(Math.random() * 9999);
+
+  window[cbName] = function (data) {
+    delete window[cbName];
+    var sc = document.getElementById(cbName);
+    if (sc) sc.parentNode.removeChild(sc);
+    drawParcelFromData(data, color, type);
+  };
+
+  var sc = document.createElement('script');
+  sc.id  = cbName;
+  sc.src = 'https://api.vworld.kr/req/data'
     + '?service=data&request=GetFeature&data=LP_PA_CBND_BUBUN'
     + '&key=' + VWORLD_KEY
     + '&geometry=true&attribute=true&crs=EPSG:4326'
-    + '&domain=' + encodeURIComponent(location.origin)
-    + '&attrFilter=' + encodeURIComponent(filter)
-    + '&size=1';
-
-  fetch(url)
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var fc = data && data.response && data.response.result && data.response.result.featureCollection;
-      if (!fc || !fc.features || fc.features.length === 0) return;
-      var geom  = fc.features[0].geometry;
-      var rings = geom.type === 'MultiPolygon' ? geom.coordinates[0] : geom.coordinates;
-      var paths = rings.map(function (ring) {
-        return ring.map(function (c) { return new naver.maps.LatLng(c[1], c[0]); });
-      });
-      activeParcelList.push(new naver.maps.Polygon({
-        map:           map,
-        paths:         paths,
-        strokeColor:   '#A87C24',
-        strokeOpacity: 1,
-        strokeWeight:  2,
-        fillColor:     '#A87C24',
-        fillOpacity:   0.28
-      }));
-    })
-    .catch(function (e) { console.warn('VWorld 필지 조회 실패 (' + addr + '):', e); });
+    + '&domain=' + encodeURIComponent(vwDomain)
+    + '&geomFilter=' + encodeURIComponent('POINT(' + lng + ' ' + lat + ')')
+    + '&spatialFilter=INTERSECTS'
+    + '&size=1'
+    + '&callback=' + cbName;
+  sc.onerror = function () {
+    delete window[cbName];
+    if (sc.parentNode) sc.parentNode.removeChild(sc);
+    console.warn('[VWorld] JSONP 실패 (공간검색):', lat, lng);
+  };
+  document.head.appendChild(sc);
 }
 
-function fetchParcel(address) {
+function fetchParcel(loc) {
   clearParcel();
-  if (!address || !map) return;
-  /* 단일 문자열 또는 배열 모두 지원 */
-  var list = Array.isArray(address) ? address : [address];
-  list.forEach(fetchOneParcel);
+  if (!loc || loc.type === 'blue' || !map) return;
+  if (typeVisible[loc.type] === false) return;
+  var color = COLOR[loc.type] || '#A87C24';
+  if (Array.isArray(loc.parcels)) {
+    loc.parcels.forEach(function (pt) { fetchParcelByPoint(pt[0], pt[1], color, loc.type); });
+  } else {
+    fetchParcelByPoint(loc.lat, loc.lng, color, loc.type);
+  }
 }
 
 /* ── 초기화 실행 ── */
