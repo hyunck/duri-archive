@@ -402,8 +402,8 @@
         <div class="map-btn-group">
           <button class="map-btn"        onclick="setMapType('NORMAL',    this)">일반지도</button>
           <button class="map-btn active" onclick="setMapType('SATELLITE', this)">위성지도</button>
-          <button class="map-btn"        onclick="setMapType('HYBRID',    this)">하이브리드</button>
-          <button class="map-btn"        onclick="setMapType('TERRAIN',   this)">지형도</button>
+          <button class="map-btn"        onclick="setMapType('HYBRID',      this)">하이브리드</button>
+          <button class="map-btn"        onclick="setMapType('CADASTRAL',  this)">지적편집도</button>
         </div>
         <button class="map-overlay-btn map-reset-btn" onclick="resetView()">두리동학 전체 보기</button>
       </div>
@@ -601,6 +601,7 @@ var DEFAULT_ZOOM = 16;   // '마을 전체 보기' 줌 (1~21)
 var INIT_ZOOM    = 18;   // 초기 로딩 줌
 
 var map = null;
+var cadastralLayer = null;
 var openIw = null;   // 현재 열린 인포윈도우
 
 /* ── SVG 마커 아이콘 ── */
@@ -696,13 +697,24 @@ function addMarker(loc, idx) {
 /* ── 지도 타입 변경 ── */
 function setMapType(type, btn) {
   if (!map) return;
-  var types = {
-    NORMAL:    naver.maps.MapTypeId.NORMAL,
-    SATELLITE: naver.maps.MapTypeId.SATELLITE,
-    HYBRID:    naver.maps.MapTypeId.HYBRID,
-    TERRAIN:   naver.maps.MapTypeId.TERRAIN
-  };
-  map.setMapTypeId(types[type]);
+
+  /* 지적편집도 레이어 해제 (다른 타입으로 전환 시) */
+  if (cadastralLayer) { cadastralLayer.setMap(null); }
+
+  if (type === 'CADASTRAL') {
+    /* 지적편집도: HYBRID 기반 위에 CadastralLayer 오버레이 */
+    map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
+    if (!cadastralLayer) { cadastralLayer = new naver.maps.CadastralLayer(); }
+    cadastralLayer.setMap(map);
+  } else {
+    var types = {
+      NORMAL:    naver.maps.MapTypeId.NORMAL,
+      SATELLITE: naver.maps.MapTypeId.SATELLITE,
+      HYBRID:    naver.maps.MapTypeId.HYBRID
+    };
+    map.setMapTypeId(types[type]);
+  }
+
   document.querySelectorAll('.map-btn').forEach(function (b) { b.classList.remove('active'); });
   btn.classList.add('active');
 }
