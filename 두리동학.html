@@ -332,13 +332,13 @@
     gtag('config', 'G-Y8SZ52M48J');
   </script>
   <!--
-    ★ 카카오 지도 API 키 설정 ★
-    아래 YOUR_KAKAO_APP_KEY 를 카카오 개발자센터(developers.kakao.com)에서
-    발급받은 'JavaScript 앱 키'로 교체하세요.
-    도메인 설정: 두리종중.com / localhost 등록 필요
+    ★ 네이버 지도 API 클라이언트 ID 설정 ★
+    아래 YOUR_NAVER_CLIENT_ID 를 네이버 클라우드 플랫폼(console.ncloud.com)에서
+    발급받은 'Application 클라이언트 ID'로 교체하세요.
+    서비스 URL 등록: 두리종중.com / localhost 등록 필요
   -->
   <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93aba2310ab495b50b7421f69b74040c&autoload=false">
+    src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_NAVER_CLIENT_ID">
   </script>
 </head>
 
@@ -398,21 +398,18 @@
       <h2 class="section-title">두리마을 지도 <span>地圖</span></h2>
 
       <div id="api-notice" class="api-notice" style="display:none;">
-        📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_KAKAO_APP_KEY</code>를
-        <a href="https://developers.kakao.com" target="_blank" rel="noopener" style="color:var(--gold-600);">카카오 개발자센터</a>에서
-        발급받은 JavaScript 앱 키로 교체해주세요.
+        📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_NAVER_CLIENT_ID</code>를
+        <a href="https://console.ncloud.com" target="_blank" rel="noopener" style="color:var(--gold-600);">네이버 클라우드 플랫폼</a>에서
+        발급받은 클라이언트 ID로 교체해주세요.
       </div>
 
       <!-- 지도 타입 · 레이어 컨트롤 -->
       <div class="map-controls">
         <div class="map-btn-group">
-          <button class="map-btn active" id="btn-roadmap"  onclick="setMapType('ROADMAP',  this)">일반지도</button>
-          <button class="map-btn"        id="btn-skyview"  onclick="setMapType('SKYVIEW',  this)">위성지도</button>
-          <button class="map-btn"        id="btn-hybrid"   onclick="setMapType('HYBRID',   this)">하이브리드</button>
-        </div>
-        <div class="map-overlay-group">
-          <button class="map-overlay-btn" id="btn-terrain"   onclick="toggleLayer('terrain')">지형도</button>
-          <button class="map-overlay-btn" id="btn-cadastral" onclick="toggleLayer('cadastral')">지적도</button>
+          <button class="map-btn active" onclick="setMapType('NORMAL',    this)">일반지도</button>
+          <button class="map-btn"        onclick="setMapType('SATELLITE', this)">위성지도</button>
+          <button class="map-btn"        onclick="setMapType('HYBRID',    this)">하이브리드</button>
+          <button class="map-btn"        onclick="setMapType('TERRAIN',   this)">지형도</button>
         </div>
         <button class="map-overlay-btn map-reset-btn" onclick="resetView()">마을 전체 보기</button>
       </div>
@@ -423,7 +420,7 @@
           <div class="map-placeholder-icon">🗺</div>
           <div>지도를 불러오는 중…</div>
           <div style="font-size:12px;color:var(--text-muted);">
-            API 키 미설정 시: <code>YOUR_KAKAO_APP_KEY</code> 교체 필요
+            API 키 미설정 시: <code>YOUR_NAVER_CLIENT_ID</code> 교체 필요
           </div>
         </div>
       </div>
@@ -479,7 +476,7 @@
 /* ================================================================
    두리동학 — 주요 지점 데이터
    ★ 좌표(lat/lng)는 실제 위치로 수정 필요 ★
-   구글 지도 등에서 위치 우클릭 → '이 위치의 좌표 복사' 사용
+   구글 지도에서 위치 우클릭 → '이 위치의 좌표 복사' 사용
 ================================================================ */
 var LOCATIONS = [
   /* ── 종택·부속 건물 (gold) ── */
@@ -537,143 +534,126 @@ var LOCATIONS = [
   }
 ];
 
-/* ================================================================
-   색상 매핑
-================================================================ */
+/* ── 색상 매핑 ── */
 var COLOR = { gold: '#A87C24', red: '#c84040', green: '#2d7a2d', blue: '#3a7aba' };
 
-/* ================================================================
-   지도 초기화
-================================================================ */
-var map = null;
-var activeOverlays = {};
-/* ★ 두리마을 중심 좌표 — 실제 위치로 수정 ★ */
-var CENTER_LAT = 37.9144;
-var CENTER_LNG = 128.6825;
-var DEFAULT_LEVEL = 4;
+/* ── 두리마을 중심 좌표 — 실제 위치로 수정 ★ ── */
+var CENTER_LAT  = 37.9144;
+var CENTER_LNG  = 128.6825;
+var DEFAULT_ZOOM = 15;   // 네이버: 숫자 클수록 확대 (1~21)
 
-function markerSvg(color) {
-  return 'data:image/svg+xml,' + encodeURIComponent(
+var map = null;
+var openIw = null;   // 현재 열린 인포윈도우
+
+/* ── SVG 마커 아이콘 ── */
+function markerIcon(color) {
+  var svg =
     '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 28 40">' +
     '<path d="M14 0C6.3 0 0 6.3 0 14c0 9.8 14 26 14 26S28 23.8 28 14C28 6.3 21.7 0 14 0z" fill="' + color + '"/>' +
     '<circle cx="14" cy="14" r="5.5" fill="rgba(255,255,255,0.9)"/>' +
-    '</svg>'
-  );
+    '</svg>';
+  return {
+    content: '<div style="cursor:pointer;">' + svg + '</div>',
+    anchor: new naver.maps.Point(14, 40)
+  };
 }
 
+/* ── 지도 초기화 ── */
 function initMap() {
   var placeholder = document.getElementById('map-placeholder');
 
-  if (typeof kakao === 'undefined' || typeof kakao.maps === 'undefined') {
+  if (typeof naver === 'undefined' || typeof naver.maps === 'undefined') {
     document.getElementById('api-notice').style.display = 'block';
     if (placeholder) placeholder.innerHTML =
       '<div class="map-placeholder-icon">🔑</div>' +
       '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 24px;">' +
       'API 키를 설정하면 지도가 표시됩니다.<br>' +
-      '<code style="font-size:11px;">YOUR_KAKAO_APP_KEY</code> 를 교체해주세요.' +
+      '<code style="font-size:11px;">YOUR_NAVER_CLIENT_ID</code> 를 교체해주세요.' +
       '</div>';
     renderList();
     return;
   }
 
-  kakao.maps.load(function () {
-    if (placeholder) placeholder.style.display = 'none';
+  if (placeholder) placeholder.style.display = 'none';
 
-    var mapOption = {
-      center: new kakao.maps.LatLng(CENTER_LAT, CENTER_LNG),
-      level: DEFAULT_LEVEL,
-      minLevel: 1
-    };
-    map = new kakao.maps.Map(document.getElementById('map'), mapOption);
-
-    /* 기본 컨트롤 */
-    map.addControl(new kakao.maps.ZoomControl(),    kakao.maps.ControlPosition.RIGHT);
-    map.addControl(new kakao.maps.ScaleControl(),   kakao.maps.ControlPosition.BOTTOMLEFT);
-
-    /* 마커 추가 */
-    LOCATIONS.forEach(function (loc, i) { addMarker(loc, i); });
-
-    /* 지점 목록 렌더링 */
-    renderList();
+  map = new naver.maps.Map('map', {
+    center:     new naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
+    zoom:       DEFAULT_ZOOM,
+    minZoom:    6,
+    maxZoom:    21,
+    mapTypeId:  naver.maps.MapTypeId.NORMAL,
+    zoomControl: true,
+    zoomControlOptions: { position: naver.maps.Position.RIGHT_CENTER },
+    scaleControl: true,
+    scaleControlOptions: { position: naver.maps.Position.BOTTOM_LEFT },
+    mapTypeControl: false
   });
+
+  LOCATIONS.forEach(function (loc, i) { addMarker(loc, i); });
+  renderList();
 }
 
+/* ── 마커 추가 ── */
 function addMarker(loc, idx) {
-  if (!map) return;
   var color  = COLOR[loc.type] || '#A87C24';
-  var imgSrc = markerSvg(color);
-  var imgSize = new kakao.maps.Size(28, 40);
-  var imgOpts = { offset: new kakao.maps.Point(14, 40) };
-  var markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOpts);
 
-  var marker = new kakao.maps.Marker({
-    map: map,
-    position: new kakao.maps.LatLng(loc.lat, loc.lng),
-    title: loc.name,
-    image: markerImg
+  var marker = new naver.maps.Marker({
+    map:      map,
+    position: new naver.maps.LatLng(loc.lat, loc.lng),
+    icon:     markerIcon(color),
+    title:    loc.name
   });
 
-  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  var bgColor = isDark ? '#1e1d2a' : '#ffffff';
-  var textColor = isDark ? '#f0ebe4' : '#1a1916';
+  var isDark     = document.documentElement.getAttribute('data-theme') === 'dark';
+  var bgColor    = isDark ? '#1e1d2a' : '#ffffff';
+  var textColor  = isDark ? '#f0ebe4' : '#1a1916';
   var mutedColor = isDark ? '#a0a8b8' : '#6e6b66';
-  var hanjaColor = '#A87C24';
 
   var iwContent =
     '<div style="padding:10px 14px;min-width:140px;max-width:220px;' +
-    'font-family:Pretendard,\'Malgun Gothic\',sans-serif;background:' + bgColor + ';border-radius:6px;">' +
+    'font-family:Pretendard,Malgun Gothic,sans-serif;background:' + bgColor + ';' +
+    'border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);">' +
     '<div style="font-weight:700;font-size:14px;color:' + textColor + ';margin-bottom:3px;">' + loc.name + '</div>' +
-    (loc.hanja ? '<div style="font-size:11px;color:' + hanjaColor + ';margin-bottom:6px;letter-spacing:.12em;">' + loc.hanja + '</div>' : '') +
-    (loc.desc  ? '<div style="font-size:12px;color:' + mutedColor + ';line-height:1.65;">' + loc.desc + '</div>' : '') +
+    (loc.hanja ? '<div style="font-size:11px;color:#A87C24;margin-bottom:5px;letter-spacing:.1em;">' + loc.hanja + '</div>' : '') +
+    (loc.desc  ? '<div style="font-size:12px;color:' + mutedColor + ';line-height:1.6;">' + loc.desc + '</div>' : '') +
     '</div>';
 
-  var iw = new kakao.maps.InfoWindow({ content: iwContent, removable: true });
+  var iw = new naver.maps.InfoWindow({
+    content:         iwContent,
+    borderWidth:     0,
+    backgroundColor: 'transparent',
+    pixelOffset:     new naver.maps.Point(0, -8)
+  });
 
-  kakao.maps.event.addListener(marker, 'click', function () {
-    iw.open(map, marker);
+  naver.maps.Event.addListener(marker, 'click', function () {
+    if (openIw && openIw !== iw) openIw.close();
+    if (iw.getMap()) { iw.close(); openIw = null; }
+    else             { iw.open(map, marker); openIw = iw; }
   });
 
   loc._marker = marker;
-  loc._iw    = iw;
+  loc._iw     = iw;
 }
 
 /* ── 지도 타입 변경 ── */
 function setMapType(type, btn) {
   if (!map) return;
   var types = {
-    ROADMAP: kakao.maps.MapTypeId.ROADMAP,
-    SKYVIEW: kakao.maps.MapTypeId.SKYVIEW,
-    HYBRID:  kakao.maps.MapTypeId.HYBRID
+    NORMAL:    naver.maps.MapTypeId.NORMAL,
+    SATELLITE: naver.maps.MapTypeId.SATELLITE,
+    HYBRID:    naver.maps.MapTypeId.HYBRID,
+    TERRAIN:   naver.maps.MapTypeId.TERRAIN
   };
   map.setMapTypeId(types[type]);
   document.querySelectorAll('.map-btn').forEach(function (b) { b.classList.remove('active'); });
   btn.classList.add('active');
 }
 
-/* ── 오버레이 토글 ── */
-function toggleLayer(layer) {
-  if (!map) return;
-  var ids = {
-    terrain:   kakao.maps.MapTypeId.TERRAIN,
-    cadastral: kakao.maps.MapTypeId.USE_DISTRICT
-  };
-  var btn = document.getElementById('btn-' + layer);
-  if (activeOverlays[layer]) {
-    map.removeOverlayMapTypeId(ids[layer]);
-    delete activeOverlays[layer];
-    btn.classList.remove('active');
-  } else {
-    map.addOverlayMapTypeId(ids[layer]);
-    activeOverlays[layer] = true;
-    btn.classList.add('active');
-  }
-}
-
 /* ── 마을 전체 보기 ── */
 function resetView() {
   if (!map) return;
-  map.setCenter(new kakao.maps.LatLng(CENTER_LAT, CENTER_LNG));
-  map.setLevel(DEFAULT_LEVEL);
+  map.setCenter(new naver.maps.LatLng(CENTER_LAT, CENTER_LNG));
+  map.setZoom(DEFAULT_ZOOM);
 }
 
 /* ── 지점 목록 렌더링 ── */
@@ -694,13 +674,17 @@ function renderList() {
   }).join('');
 }
 
-/* ── 지점 클릭 시 지도 이동 ── */
+/* ── 지점 목록 클릭 → 지도 이동 ── */
 function focusMarker(idx) {
   var loc = LOCATIONS[idx];
   if (!map) return;
-  map.setCenter(new kakao.maps.LatLng(loc.lat, loc.lng));
-  map.setLevel(2);
-  if (loc._iw && loc._marker) loc._iw.open(map, loc._marker);
+  map.setCenter(new naver.maps.LatLng(loc.lat, loc.lng));
+  map.setZoom(18);
+  if (loc._iw && loc._marker) {
+    if (openIw && openIw !== loc._iw) openIw.close();
+    loc._iw.open(map, loc._marker);
+    openIw = loc._iw;
+  }
 }
 
 /* ── 초기화 실행 ── */
