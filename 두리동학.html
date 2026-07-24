@@ -352,8 +352,8 @@
   <div class="header-right">
     <nav class="site-nav">
       <a class="nav-item" href="index.html">홈</a>
-      <a class="nav-item active" href="두리동학.html">두리동학</a>
       <a class="nav-item" href="jongga.html">두리종중</a>
+      <a class="nav-item active" href="두리동학.html">두리동학</a>
       <a class="nav-item" href="catalog.html">소장 문서</a>
       <a class="nav-item" href="family.html">가계도</a>
       <a class="nav-item" href="jongtaek.html">종택</a>
@@ -372,8 +372,8 @@
   </div>
   <nav class="mobile-menu-nav">
     <a class="mobile-menu-item" href="index.html">홈</a>
-    <a class="mobile-menu-item active" href="두리동학.html">두리동학</a>
     <a class="mobile-menu-item" href="jongga.html">두리종중</a>
+    <a class="mobile-menu-item active" href="두리동학.html">두리동학</a>
     <a class="mobile-menu-item" href="catalog.html">소장 문서</a>
     <a class="mobile-menu-item" href="family.html">가계도</a>
     <a class="mobile-menu-item" href="jongtaek.html">종택</a>
@@ -382,20 +382,14 @@
 
   <div class="page-hero">
     <div class="page-title-ko">두리동학</div>
-    <div class="page-title-hanja">斗里洞壑</div>
-    <div class="page-title-sub">강원특별자치도 양양군 현남면 두리마을</div>
-    <div class="hero-ornament">
-      <div class="hero-ornament-line"></div>
-      <div class="hero-ornament-text">斗里宗中 世居地</div>
-      <div class="hero-ornament-line right"></div>
-    </div>
+    <div class="page-title-sub">강원특별자치도 양양군 현남면 두리</div>
   </div>
 
   <div class="page-wrap">
 
     <!-- 지도 섹션 -->
     <section class="section" style="margin-top:40px;">
-      <h2 class="section-title">두리마을 지도 <span>地圖</span></h2>
+      <h2 class="section-title">두리동학 지도</h2>
 
       <div id="api-notice" class="api-notice" style="display:none;">
         📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_NAVER_CLIENT_ID</code>를
@@ -436,7 +430,7 @@
 
     <!-- 주요 지점 목록 -->
     <section class="section">
-      <h2 class="section-title">주요 지점 <span>主要地點</span></h2>
+      <h2 class="section-title">주요 사적</h2>
       <div class="location-list" id="location-list">
         <!-- JS로 렌더링 -->
       </div>
@@ -459,8 +453,8 @@
       </div>
       <nav class="footer-links">
         <a href="index.html">홈</a>
-        <a href="두리동학.html">두리동학</a>
         <a href="jongga.html">두리종중</a>
+        <a href="두리동학.html">두리동학</a>
         <a href="catalog.html">소장 문서</a>
         <a href="family.html">가계도</a>
         <a href="jongtaek.html">종택</a>
@@ -492,26 +486,26 @@ var LOCATIONS = [
     hanja: '進士廳',
     type: 'gold',
     lat: 37.9708176552692, lng: 128.752217365637,
-    desc: '종택 경내의 진사청.'
+    desc: '문중 제사를 지내는 마루 건물이다.'
   },
   /* ── 가문원 댁 (red) ── */
   {
-    name: '사월댁 (김동식 가)',
-    hanja: '',
+    name: '차종가 사월댁 (김동식 가옥 터)',
+    hanja: '沙月宅',
     type: 'red',
     lat: 37.9730587018937, lng: 128.751899555196,
     desc: ''
   },
   {
-    name: '작은댁 (김주열 가)',
-    hanja: '',
+    name: '작은댁 (김동규 가옥 터)',
+    hanja: '小宅',
     type: 'red',
     lat: 37.9733307415701, lng: 128.75087807735,
     desc: ''
   },
   {
-    name: '복동댁 (김성제 가)',
-    hanja: '',
+    name: '복동댁 (김성제 가옥 터)',
+    hanja: '福洞宅',
     type: 'red',
     lat: 37.9735854091377, lng: 128.750944441925,
     desc: ''
@@ -519,15 +513,15 @@ var LOCATIONS = [
   /* ── 산·자연 지형 (green) ── */
   {
     name: '청룡등 (불당재)',
-    hanja: '靑龍嶝',
+    hanja: '靑龍嶝 佛堂峙',
     type: 'green',
     lat: 37.972650206857, lng: 128.752423441817,
-    desc: '두리마을 배후 산등성이. 풍수상 청룡(靑龍)에 해당하는 능선. 불당재 각자바위가 있는 고개.'
+    desc: '종가의 청룡등으로, 영빈대와 불당, 각자바위 등이 있다.'
   },
   /* ── 유적·기타 (blue) ── */
   {
     name: '경주김씨 선조 묘소 입구',
-    hanja: '',
+    hanja: '慶州金氏先祖墓所入口石',
     type: 'blue',
     lat: 37.969777160344975, lng: 128.75296022055983,
     desc: '경주김씨 선조 묘소 입구 표지석.'
