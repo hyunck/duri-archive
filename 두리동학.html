@@ -912,7 +912,7 @@ function toggleAllParcels(btn) {
 
 function fetchAllParcelByPoint(lat, lng, color, type) {
   var vwDomain = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
-    ? location.host : location.hostname;
+    ? location.host : '두리종중.com';
   var cbName = '_vwall_' + Date.now() + '_' + Math.round(Math.random() * 99999);
   window[cbName] = function (data) {
     delete window[cbName];
