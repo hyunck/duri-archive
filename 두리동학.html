@@ -486,7 +486,7 @@
         <div class="legend-item" data-type="amber"  onclick="toggleType('amber')" ><span class="legend-dot amber" ></span>둘째댁</div>
         <div class="legend-item" data-type="pink"   onclick="toggleType('pink')"  ><span class="legend-dot pink"  ></span>김학제댁</div>
         <div class="legend-item hidden" data-type="red"    onclick="toggleType('red')"   ><span class="legend-dot red"   ></span>문중 댁</div>
-        <div class="legend-item" data-type="slate"  onclick="toggleType('slate')" ><span class="legend-dot slate" ></span>외인</div>
+        <div class="legend-item hidden" data-type="slate"  onclick="toggleType('slate')" ><span class="legend-dot slate" ></span>외인</div>
         <div class="legend-item" data-type="green"  onclick="toggleType('green')" ><span class="legend-dot green" ></span>청룡등</div>
         <div class="legend-item" data-type="blue"   onclick="toggleType('blue')"  ><span class="legend-dot blue"  ></span>유적 · 기타</div>
       </div>
@@ -823,7 +823,7 @@ var activeParcelList = [];   // 개별 클릭 필지
 var allParcelsList   = [];   // 전체 필지 보기
 var allParcelsActive = false;
 var markersVisible   = true;
-var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, slate: true };
+var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, slate: false };
 var VWORLD_KEY = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
   ? '7669B1E3-55F0-3E6A-A190-E3FED57A8C23'   // 라이브 서버용
   : '139292A5-E78E-3D18-8E13-6B63B66CE5C9';  // 두리종중.com용
