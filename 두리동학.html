@@ -488,6 +488,13 @@
       </div>
     </section>
 
+    <!-- ── 지도 아래 설명 텍스트 (직접 편집) ── -->
+    <section class="section">
+      <div class="body-text">
+        <p></p>
+      </div>
+    </section>
+
     <!-- 주요 지점 목록 -->
     <section class="section">
       <h2 class="section-title">주요 사적</h2>
@@ -535,7 +542,7 @@
 var LOCATIONS = [
   /* ── 종택·부속 건물 (gold) ── */
   {
-    name: '종택 (김택준 가옥)',
+    name: '종택 (김규하 가옥)',
     hanja: '宗宅',
     type: 'gold',
     lat: 37.9730286967622, lng: 128.750738667033,
@@ -586,7 +593,7 @@ var LOCATIONS = [
     hanja: '沙月宅',
     type: 'orange',
     lat: 37.9730587018937, lng: 128.751899555196,
-    desc: '',
+    desc: `차종가(次宗)로, 1842년(임인년) 상학(商學)공 때에 분가하였다. 사월댁의 집터와 '두리 산40'의 산은 종가의 의무로써 이때 분급해준 것이며, 집터 뒤의 산비탈(두리 산26, 산26-1)은 1846년 종가의 막대한 빚을 갚기 위해 7대손 의성(義聲)공이 복동댁의 중희(重喜)공, 사월댁의 상학공과 협의하여 사월댁에 나누어 판매한 것이다.`,
     parcels: [
       [37.9730587018937,128.751899555196],   // 두리 76
       [37.9744587051293,128.756300619774],    // 두리 산40
@@ -820,12 +827,11 @@ function addMarker(loc, idx) {
   var mutedColor = isDark ? '#a0a8b8' : '#6e6b66';
 
   var iwContent =
-    '<div style="padding:10px 14px;min-width:140px;max-width:220px;' +
+    '<div style="padding:10px 14px;min-width:120px;max-width:200px;' +
     'font-family:Pretendard,Malgun Gothic,sans-serif;background:' + bgColor + ';' +
     'border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);">' +
     '<div style="font-weight:700;font-size:14px;color:' + textColor + ';margin-bottom:3px;">' + loc.name + '</div>' +
-    (loc.hanja ? '<div style="font-size:11px;color:#A87C24;margin-bottom:5px;letter-spacing:.1em;">' + loc.hanja + '</div>' : '') +
-    (loc.desc  ? '<div style="font-size:12px;color:' + mutedColor + ';line-height:1.6;">' + loc.desc + '</div>' : '') +
+    (loc.hanja ? '<div style="font-size:11px;color:#A87C24;letter-spacing:.1em;">' + loc.hanja + '</div>' : '') +
     '</div>';
 
   var iw = new naver.maps.InfoWindow({
