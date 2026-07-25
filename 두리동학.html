@@ -303,6 +303,8 @@
     .legend-dot.blue   { background: #3a7aba; }
     .legend-dot.black  { background: #7B44B0; }
     .legend-dot.pink   { background: #C44071; }
+    .legend-dot.amber  { background: #8A8228; }
+    .legend-dot.slate  { background: #404038; }
 
     /* ── API 키 안내 ── */
     .api-notice {
@@ -481,8 +483,10 @@
         <div class="legend-item" data-type="orange" onclick="toggleType('orange')"><span class="legend-dot orange"></span>차종가</div>
         <div class="legend-item" data-type="purple" onclick="toggleType('purple')"><span class="legend-dot purple"></span>복동댁</div>
         <div class="legend-item" data-type="teal"   onclick="toggleType('teal')"  ><span class="legend-dot teal"  ></span>작은댁</div>
+        <div class="legend-item" data-type="amber"  onclick="toggleType('amber')" ><span class="legend-dot amber" ></span>둘째댁</div>
         <div class="legend-item" data-type="pink"   onclick="toggleType('pink')"  ><span class="legend-dot pink"  ></span>김학제댁</div>
         <div class="legend-item hidden" data-type="red"    onclick="toggleType('red')"   ><span class="legend-dot red"   ></span>문중 댁</div>
+        <div class="legend-item" data-type="slate"  onclick="toggleType('slate')" ><span class="legend-dot slate" ></span>외인</div>
         <div class="legend-item" data-type="green"  onclick="toggleType('green')" ><span class="legend-dot green" ></span>청룡등</div>
         <div class="legend-item" data-type="blue"   onclick="toggleType('blue')"  ><span class="legend-dot blue"  ></span>유적 · 기타</div>
       </div>
@@ -492,7 +496,7 @@
     <section class="section">
       <div class="body-text">
         <p>
-          위 두리동학 지도는 1930년에 제작된 『종가실록(宗家實錄)』의 「두리동학전체도(斗里洞壑全體圖)」와 비슷한 시기에 제작된 것으로 추정되는 『지세명기장(地稅名寄帳)』을 참고하여 제작되었습니다. 지도상의 필지와 인명 역시 이 시기의 것을 따랐으며, 현재의 가옥 소유주 및 필지 소유 상태와는 차이가 있습니다. 지도에는 논과 밭을 제외한 각 집안이 소유한 산비탈과 집터만을 표기했습니다.
+          위 두리동학 지도는 1930년에 제작된 『종가실록(宗家實錄)』의 「두리동학전체도(斗里洞壑全體圖)」와 비슷한 시기에 제작된 것으로 추정되는 『지세명기장(地稅名寄帳)』을 참고하여 제작되었습니다. 지도상의 필지와 인명 역시 이 시기의 것을 따랐으며, 현재의 가옥 소유주 및 필지 소유 상태와는 차이가 있습니다. 지도에 각 집안이 소유한 산비탈과 집터 등을 표기했습니다.
         </p>
       </div>
     </section>
@@ -557,8 +561,14 @@ var LOCATIONS = [
       [37.9726995220729,128.751985468492],   // 두리 82
       [37.9728083671351,128.751487913737],   // 두리 78
       [37.9730286967622,128.750738667033],   // 두리 66
-      [37.9728615593534,128.750934525788],   // 두리 65
+      [37.9728615593534,128.750934525788],   // 두리 65 (밭)
       [37.9719612935866,128.750733222869],   // 두리 58
+      [37.971951,128.752441],   // 두리 47
+      [37.971998,128.751896],   // 두리 47-1
+      //[37.972236,128.753733],   // 두리 44
+      //[37.972499,128.754134],   // 두리 43
+      //[37.972277,128.755291],   // 두리 37
+      [37.971569,128.755139],   // 두리 38
       [37.9728023635367,128.750414882844],    // 두리 산54
       [37.9733350030156,128.75063419377],    // 두리 산54-1
       [37.9718716888587,128.750586117228]    // 두리 산54-2
@@ -595,8 +605,10 @@ var LOCATIONS = [
     hanja: '沙月宅',
     type: 'orange',
     lat: 37.9730587018937, lng: 128.751899555196,
-    desc: `차종가(次宗)로, 1842년(임인년) 상학(商學)공 때에 분가하였다. 사월댁의 집터와 '두리 산40'의 산은 종가의 의무로써 이때 분급해준 것이며, 집터 뒤의 산비탈(두리 산26, 산26-1)은 1846년 종가의 막대한 빚을 갚기 위해 7대손 의성(義聲)공이 복동댁의 중희(重喜)공, 사월댁의 상학공과 협의하여 사월댁에 나누어 판매한 것이다. 현재는 사월댁의 가옥이 남아 있지 않으며, 집터에는 다른 사람이 거주하고 있다.`,
+    desc: `차종가(次宗)로, 1842년(임인년) 상학(商學)공 때에 분가하였다. 사월댁의 집터와 '두리 산40'의 산은 종가의 의무로써 이때 분급해준 것이며, 집터 뒤의 산비탈(두리 산26, 산26-1)은 1846년(병오년) 종가의 막대한 빚을 갚기 위해 7대손 의성(義聲)공이 복동댁의 중희(重喜)공, 사월댁의 상학공과 협의하여 사월댁에 나누어 판매한 것이다. 현재는 사월댁의 가옥이 남아 있지 않으며, 집터에는 다른 사람이 거주하고 있다.`,
     parcels: [
+      [37.971926,128.751422],    // 두리 53 (밭)
+      [37.971929,128.751623],   // 두리 51
       [37.9730587018937,128.751899555196],   // 두리 76
       [37.9744587051293,128.756300619774],    // 두리 산40
       [37.9736643678902,128.752827990963],    // 두리 산26
@@ -604,11 +616,11 @@ var LOCATIONS = [
     ]
   },
   {
-    name: '작은댁 (둘째집) (김주열 가옥 터)',
-    hanja: '二宅',
+    name: '작은댁 (김주열 가옥 터)',
+    hanja: '小宅',
     type: 'teal',
     lat: 37.9733307415701, lng: 128.75087807735,
-    desc: '',
+    desc: `6대손 김주형(金胄衡)의 차남 김의성의 집안으로,`,
     parcels: [
       [37.9722888220304,128.751702021962],   // 두리 85
       [37.9724207600485,128.751776850591],   // 두리 84
@@ -623,6 +635,18 @@ var LOCATIONS = [
     ]
   },
   {
+    name: '둘째댁 (김재열 가옥 터)',
+    hanja: '二宅',
+    type: 'amber',
+    lat: 37.9728058, lng: 128.75113,
+    desc: ``,
+    parcels: [
+      [37.9728058,128.75113],   // 두리 64
+      [37.973016,128.751163],    // 두리 63 (밭)
+      //[37.971926,128.751422]    // 두리 52 (밭)
+    ]
+  },
+  {
     name: '복동댁 (김성제 가옥 터)',
     hanja: '福洞宅',
     type: 'purple',
@@ -630,6 +654,8 @@ var LOCATIONS = [
     desc: '',
     parcels: [
       [37.9735854091377,128.750944441925],   // 두리 70
+      [37.973939,128.751312],    // 두리 103 (밭)
+      [37.974358,128.750110,],    // 두리 149 (밭)
       [37.9739356881859,128.749677068939]    // 두리 산23
     ]
   },
@@ -639,7 +665,11 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.973179897598, lng: 128.751026300704,
     desc: '',
-    address: '현남면 두리 67'
+    parcels: [
+      [37.973179897598,128.751026300704],   // 두리 67
+      [37.972014,128.751710],    // 두리 48 (밭)
+      [37.971760,128.751982]    // 두리 49 (밭)
+    ]
   },
   {
     name: '강릉댁 (김상열 가옥 터)',
@@ -647,7 +677,11 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.973129087587, lng: 128.751552777328,
     desc: '',
-    address: '현남면 두리 75'
+    parcels: [
+      [37.97312908758,128.751552777328],   // 두리 75
+      [37.973208,128.751386]    // 두리 73 (밭)
+
+    ]
   },
   {
     name: '갓바우댁 (김무열 가옥)',
@@ -682,7 +716,10 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.9727245682117, lng: 128.751682906251,
     desc: '',
-    address: '현남면 두리 80'
+    parcels: [
+      [37.972835,128.751734],   // 두리 81
+      [37.9727245682117,128.751682906251]    // 두리 80
+    ]
   },
   {
     name: '김공열 가옥 터',
@@ -690,7 +727,10 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.9728058835379, lng: 128.751261510349,
     desc: '',
-    address: '현남면 두리 62'
+    parcels: [
+      [37.9728058835379,128.751261510349],   // 두리 62
+      [37.972178,128.753402]    // 두리 45 (밭)
+    ]
   },
   {
     name: '김동연 가옥 터',
@@ -698,7 +738,11 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.9734086996071, lng: 128.751595497769,
     desc: '',
-    address: '현남면 두리 74'
+    parcels: [
+      [37.9734086996071,128.751595497769],   // 두리 74
+      [37.973635,128.751572],    // 두리 102 (밭)
+      [37.974002,128.751695]    // 두리 102-1 (밭)
+    ]
   },
   {
     name: '김동수 가옥 터',
@@ -714,7 +758,35 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.9735861120284, lng: 128.751272314348,
     desc: '',
-    address: '현남면 두리 71'
+    parcels: [
+      [37.973654,128.751266],   // 두리 71
+      [37.972971,128.751517],    // 두리 77
+      [37.973068,128.752687]    // 두리 89
+    ]
+  },
+  {
+    name: '김성열 가옥 터',
+    hanja: '',
+    type: 'red',
+    lat: 37.971884, lng: 128.751129,
+    desc: '',
+    address: '현남면 두리 55'
+  },
+  {
+    name: '김영제 밭',
+    hanja: '',
+    type: 'red',
+    lat: 37.973269, lng: 128.751336,
+    desc: '',
+    address: '현남면 두리 72'
+  },
+  {
+    name: '백봉화 논',
+    hanja: '',
+    type: 'slate',
+    lat: 37.972194, lng: 128.753165,
+    desc: '',
+    address: '현남면 두리 46'
   },
   /* ── 산·자연 지형 (green) ── */
   {
@@ -722,7 +794,7 @@ var LOCATIONS = [
     hanja: '佛堂峙',
     type: 'green',
     lat: 37.972650206857, lng: 128.752423441817,
-    desc: '종가의 청룡등으로 영빈대와 불당, 각자바위 등이 있으며, 두리에 처음 정착한 이래로 종가의 소유였다. 불당재를 둘러싼 산(두리 86~88)은 본래 서붓집 태제(泰濟)공의 장남 동윤(東允)씨 소유의 땅이었으나, 종가에서 사들여 종가의 소유가 되었다. 다만, 20세기 말 종가의 재정 문제로 불당재 매각까지 거론하자 문중에서 이를 사들여 불당재는 현재 문중의 소유로 되어있다.',
+    desc: '종가의 청룡등으로 영빈대와 불당, 각자바위 등이 있으며, 두리에 처음 정착한 이래로 종가의 소유였다. 불당재를 둘러싼 산(두리 86~88)은 본래 서붓집 태제(泰濟)공의 장남 동윤(東允)씨 소유의 땅이었으나, 1928년(무진년) 10월에 종가에서 사들여 종가의 소유가 되었다. 다만, 20세기 말 종가의 재정 문제로 불당재 매각까지 거론하자 문중에서 이를 사들여 불당재는 현재 문중의 소유로 되어있다.',
     address: '현남면 두리 82'
   },
   /* ── 유적·기타 (blue) ── */
@@ -736,7 +808,7 @@ var LOCATIONS = [
 ];
 
 /* ── 색상 매핑 ── */
-var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071' };
+var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071', amber: '#8A8228', slate: '#404038' };
 
 /* ── 두리마을 중심 좌표 — 실제 위치로 수정 ★ ── */
 var CENTER_LAT  = 37.972923966909796;
@@ -751,7 +823,7 @@ var activeParcelList = [];   // 개별 클릭 필지
 var allParcelsList   = [];   // 전체 필지 보기
 var allParcelsActive = false;
 var markersVisible   = true;
-var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true };
+var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, slate: true };
 var VWORLD_KEY = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
   ? '7669B1E3-55F0-3E6A-A190-E3FED57A8C23'   // 라이브 서버용
   : '139292A5-E78E-3D18-8E13-6B63B66CE5C9';  // 두리종중.com용
