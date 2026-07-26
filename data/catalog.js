@@ -79,6 +79,18 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
+    id: "junhoju-1861",
+    title_hanja: "金胄衡準戶口, 1861",
+    title_korean: "김주형준호구",
+    author: "김주형 (金胄衡)",
+    year: "1861",
+    year_display: "咸豊11年(1861)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구1861.html",
+    classification: "史部 政書類"
+  },
+  {
     id: "hojeok-yangyang", // 미상
     title_hanja: "江原道襄陽郡縣南面戶籍",
     title_korean: "강원도 양양군 현남면 호적",
