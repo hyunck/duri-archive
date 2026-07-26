@@ -1013,17 +1013,22 @@
     return doc.pages.find(p => p.page_num === num) || null;
   }
 
-  /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
+  function totalPagesForMode() {
+    if (viewMode === 'image') return doc.image_pages || doc.total_pages;
+    return doc.compare_pages || doc.total_pages;
+  }
+
+    /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
   function getSpreadPages(num) {
-    if (!viewSpread || num === 1 || num === doc.total_pages) return [num];
+    if (!viewSpread || num === 1 || num === totalPagesForMode()) return [num];
     const start = num % 2 === 0 ? num : num - 1;
     const end = start + 1;
-    return end < doc.total_pages ? [start, end] : [start];
+    return end < totalPagesForMode() ? [start, end] : [start];
   }
 
   function renderPage(num) {
     // 양면 모드에서는 짝수 시작 페이지로 정규화
-    if (viewSpread && num !== 1 && num !== doc.total_pages) {
+    if (viewSpread && num !== 1 && num !== totalPagesForMode()) {
       num = num % 2 === 0 ? num : num - 1;
     }
     currentPage = num;
@@ -1032,9 +1037,9 @@
     // 페이지 카운터
     document.getElementById('page-current').textContent =
       spreadNums.length > 1 ? `${spreadNums[0]}–${spreadNums[1]}` : num;
-    document.getElementById('page-total').textContent = doc.total_pages;
+    document.getElementById('page-total').textContent = totalPagesForMode();
     document.getElementById('btn-prev').disabled = num <= 1;
-    document.getElementById('btn-next').disabled = num >= doc.total_pages;
+    document.getElementById('btn-next').disabled = num >= totalPagesForMode();
 
     // 사이드바 하이라이트
     document.querySelectorAll('.sidebar-item').forEach(el => {
@@ -1310,7 +1315,7 @@
     } else {
       target = currentPage + delta;
     }
-    if (target < 1 || target > doc.total_pages) return;
+    if (target < 1 || target > totalPagesForMode()) return;
     zoomLevel = 1; applyZoom();
     renderPage(target);
     document.getElementById('panel-left-body').scrollTop = 0;
@@ -1347,12 +1352,12 @@
 
   function setViewMode(mode) {
     viewMode = mode;
-    // 대조 보기 전환 시 양면 모드 해제
+    buildSidebarList();
+    if (currentPage > totalPagesForMode()) currentPage = 1;
     if (mode === 'compare' && viewSpread) {
       viewSpread = false;
       document.getElementById('toggle-single').classList.add('active');
       document.getElementById('toggle-spread').classList.remove('active');
-      renderPage(currentPage);
     }
     showCompareOrImage();
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
@@ -1360,7 +1365,7 @@
     // 단면/양면 토글은 원문이미지 모드에서만, 텍스트 크기는 대조 보기에서만 표시
     document.getElementById('spread-toggles').style.display    = mode === 'image'   ? '' : 'none';
     document.getElementById('text-size-controls').style.display = mode === 'compare' ? '' : 'none';
-    if (mode === 'image') updateImageMode(getPageData(currentPage), currentPage);
+    renderPage(currentPage);
   }
 
   function showCompareOrImage() {
@@ -1621,7 +1626,7 @@
     const list = document.getElementById('sidebar-list');
     list.innerHTML = '';
 
-    for (let i = 1; i <= doc.total_pages; i++) {
+    for (let i = 1; i <= totalPagesForMode(); i++) {
       const page = getPageData(i);
       const item = document.createElement('div');
       item.className = 'sidebar-item' + (i === currentPage ? ' active' : '');

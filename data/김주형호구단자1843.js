@@ -11,8 +11,10 @@ const DOC_HOJU_1843 = {
   classification: "史部 政書類",
   seal: "",
   digitized: true,
-  total_pages: 1,
-  digitized_pages: 0,
+  total_pages: 4,
+  compare_pages: 1,
+  image_pages: 4,
+  digitized_pages: 1,
 
   bibliography: {
     "원서명": "金胄衡戶口單子",
@@ -39,7 +41,7 @@ const DOC_HOJU_1843 = {
       page_num: 1,
       type: "text",
       title: "1페이지",
-      image: "images/hoju-1843/page_01.png",
+      image: "images/김주형호구단자(1843)/page_01.png",
       hanja_text: `道光二十三年正月 日 [[지명:江原道襄陽府]]
 考癸卯式成籍戶口帳內住[[지명:縣南面元堂里]][[001]]
 
@@ -97,6 +99,24 @@ const DOC_HOJU_1843 = {
         {id:"006", text: `대월(?~1802)의 소생 한복(汗福)과 한매(汗每)는 『종가실록』 1804년 갑자년의 기록에서 '한복(漢卜)'과 '한매(漢梅)'로 기재되어 있다. 또한, 『종가실록』에서는 대월의 셋째 소생으로 여종 한점(漢点)이 등장하나 위 기록에서는 기재되어 있지 않다.`},
         {id:"007", text: `『종가실록』 1804년의 기록에서 정단(丁丹)은 '신단(辛丹)'으로 등장하며, 같은 기록에서 계분(啓分)은 '석분(石分)'으로 기재되어 있다.`},
       ]
+    },
+    {
+      page_num: 2,
+      type: "text",
+      title: "2페이지",
+      image: "images/김주형호구단자(1843)/page_02.png",
+    },
+    {
+      page_num: 3,
+      type: "text",
+      title: "3페이지",
+      image: "images/김주형호구단자(1843)/page_03.png",
+    },
+    {
+      page_num: 4,
+      type: "text",
+      title: "4페이지",
+      image: "images/김주형호구단자(1843)/page_04.png",
     }
   ]
 };
