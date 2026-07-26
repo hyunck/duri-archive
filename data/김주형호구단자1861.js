@@ -39,7 +39,7 @@ const DOC_HOJU_1861 = {
       page_num: 1,
       type: "text",
       title: "1페이지",
-      image: "images/hoju-1861/page_01.png",
+      image: "images/김주형호구단자(1861)/page_01.png",
       hanja_text: "",
       korean_translation: "",
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
