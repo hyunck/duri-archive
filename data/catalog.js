@@ -117,13 +117,13 @@ const CATALOG = [
   {
     id: "byeoksamun-bu",
     title_hanja: "闢四門有天下一家氣象 賦",
-    title_korean: "벽사문천하일가기상 부",
+    title_korean: "벽사문유천하일가기상 부",
     author: "미상",
     year: "",
     year_display: "미상",
     category: "호적·관문서",
     digitized: true,
-    detail_url: "detail-벽사문천하일가기상부.html",
+    detail_url: "detail-벽사문유천하일가기상부.html",
     classification: "史部 政書類"
   },
     {
