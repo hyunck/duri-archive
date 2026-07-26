@@ -480,3 +480,30 @@ body.mobile-menu-locked { overflow: hidden; }
   .hamburger-btn { width: 28px; height: 28px; margin-left: 6px; }
   .mobile-menu-panel { width: min(82vw, 300px); }
 }
+
+/* ── 두리종중 드롭다운 메뉴 ── */
+.nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown-btn { cursor: default; display: flex; align-items: center; gap: 4px; }
+.nav-dropdown-btn .dropdown-arrow { font-size: 9px; opacity: 0.5; transition: transform 0.2s; display: inline-block; margin-left: 2px; }
+.nav-dropdown:hover .nav-dropdown-btn .dropdown-arrow { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+  background: var(--bg-body); border: 1px solid var(--border-normal);
+  border-radius: var(--radius-md, 8px); box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  min-width: 110px; padding: 6px 0; z-index: 200; white-space: nowrap;
+}
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-item {
+  display: block; padding: 9px 20px; font-size: 14px; font-weight: 500;
+  color: var(--text-secondary); letter-spacing: 0.03em; transition: color 0.15s; text-decoration: none;
+}
+.nav-dropdown-item:hover { color: var(--text-bright); background: var(--bg-hover); }
+.nav-dropdown-item.active { color: var(--gold-700); }
+.mobile-menu-sub { padding-left: 36px; font-size: 14px; }
+.mobile-menu-sub.active { color: var(--gold-700); font-weight: 700; }
+[data-theme="dark"] .nav-dropdown-menu { background: #1e1d2a; box-shadow: 0 6px 24px rgba(0,0,0,0.45); }
+[data-theme="dark"] .nav-dropdown-item { color: #C0BEB8; }
+[data-theme="dark"] .nav-dropdown-item:hover { color: #F0EBE4; background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .nav-dropdown-item.active { color: #DFC070; }
+[data-theme="dark"] .mobile-menu-sub { color: #C0BEB8; }
+[data-theme="dark"] .mobile-menu-sub.active { color: #DFC070; }
