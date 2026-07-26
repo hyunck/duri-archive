@@ -834,12 +834,6 @@
           <button class="toggle-btn" id="text-size-down" onclick="changeTextSize(-1)" title="본문 축소" disabled>−A</button>
           <button class="toggle-btn" id="text-size-up"   onclick="changeTextSize(1)"  title="본문 확대">+A</button>
         </div>
-
-        <div class="view-toggles" id="spread-toggles" style="display:none;">
-          <button class="toggle-btn active" id="toggle-single" onclick="setSpreadMode(false)">단면</button>
-          <button class="toggle-btn" id="toggle-spread" onclick="setSpreadMode(true)">양면</button>
-        </div>
-
         <div class="view-toggles" id="view-toggles">
           <button class="toggle-btn active" id="toggle-compare" onclick="setViewMode('compare')">대조 보기</button>
           <button class="toggle-btn" id="toggle-image" onclick="setViewMode('image')">원문 이미지</button>
@@ -1363,7 +1357,6 @@
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
     document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
     // 단면/양면 토글은 원문이미지 모드에서만, 텍스트 크기는 대조 보기에서만 표시
-    document.getElementById('spread-toggles').style.display    = mode === 'image'   ? '' : 'none';
     document.getElementById('text-size-controls').style.display = mode === 'compare' ? '' : 'none';
     renderPage(currentPage);
   }
