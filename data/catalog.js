@@ -611,6 +611,18 @@ const CATALOG = [
     classification: "集部 記類"
   },
   {
+    id: "mundan",
+    title_hanja: "文丹",
+    title_korean: "문단",
+    author: "미상",
+    year: "",
+    year_display: "미상",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-문단.html",
+    classification: "集部 總集類"
+  },
+    {
     id: "hanhweonrok", // 미상
     title_hanja: "寒喧錄 簡牘",
     title_korean: "한훤록 간독",
