@@ -373,6 +373,43 @@
       .map-controls { gap: 6px; }
       .map-reset-btn { margin-left: 0; }
     }
+
+    /* ── 라이트박스 ── */
+    .lightbox-trigger { cursor: zoom-in; }
+
+    .lightbox-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88); z-index: 9800;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .lightbox-overlay.open { display: flex; }
+
+    .lightbox-overlay img {
+      max-width: 90vw; max-height: 90vh;
+      object-fit: contain; border-radius: var(--radius-md);
+      box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+      cursor: zoom-in; transform-origin: center center;
+      transition: transform 0.2s ease;
+      user-select: none; -webkit-user-drag: none;
+    }
+    .lightbox-overlay img.zoomed { cursor: grab; border-radius: 0; }
+    .lightbox-overlay img.zoomed.dragging { cursor: grabbing; transition: none; }
+
+    .lightbox-close {
+      position: fixed; top: 20px; right: 24px;
+      background: rgba(255,255,255,0.15); border: none;
+      color: #fff; font-size: 20px; width: 40px; height: 40px;
+      border-radius: 50%; cursor: pointer; z-index: 9001;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-hint {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 0.06em;
+      pointer-events: none; white-space: nowrap;
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
@@ -450,14 +487,11 @@
 
     <!-- 지도 섹션 -->
     <section class="section" style="margin-top:40px;">
-      <h2 class="section-title">두리동학 지도</h2>
+      <h2 class="section-title">두리동학전체도 <span style="font-family:var(--font-serif); font-size:13px; font-weight:400; color:var(--gold-600); margin-left:8px; letter-spacing:0.14em;">斗里洞壑全體圖</span></h2>
 
       <!-- 두리동학전체도 -->
-      <h3 style="font-size:15px; font-weight:700; color:var(--text-bright); letter-spacing:0.06em; margin-bottom:12px;">
-        두리동학전체도 <span style="font-family:var(--font-serif); font-size:13px; font-weight:400; color:var(--gold-600); margin-left:8px; letter-spacing:0.14em;">斗里洞壑全整體圖</span>
-      </h3>
       <figure style="margin:0 0 32px; text-align:center;">
-        <img src="images/jongga-1930/page_03.png" alt="두리동학전체도(斗里洞壑全整體圖)" style="max-height:560px; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:inline-block;">
+        <img src="images/jongga-1930/page_03.png" alt="두리동학전체도(斗里洞壑全整體圖)" class="lightbox-trigger" style="max-height:560px; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:inline-block;">
         <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em;">『종가실록(宗家實錄)』, 1930년경</figcaption>
       </figure>
 
@@ -466,6 +500,8 @@
         <a href="https://console.ncloud.com" target="_blank" rel="noopener" style="color:var(--gold-600);">네이버 클라우드 플랫폼</a>에서
         발급받은 클라이언트 ID로 교체해주세요.
       </div>
+
+      <h2 class="section-title">두리동학 지도</h2>
 
       <!-- 지도 타입 · 레이어 컨트롤 -->
       <div class="map-controls">
@@ -556,6 +592,13 @@
 
   <script src="mobile-menu.js" onerror="void 0"></script>
   <script src="theme.js" onerror="void 0"></script>
+
+  <!-- 라이트박스 -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-hint" id="lightbox-hint">클릭하여 확대 · 드래그하여 이동</div>
+  </div>
 
 <script>
 /* ================================================================
@@ -1300,6 +1343,87 @@ function fetchParcel(loc) {
 
 /* ── 초기화 실행 ── */
 initMap();
+
+// ── 라이트박스 ──────────────────────────────────────────────
+(function() {
+  const overlay = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lightbox-img');
+  const INIT_SCALE = 1.5, MIN_SCALE = 1.0, MAX_SCALE = 6.0;
+  let zoomed = false, dragging = false, moved = false;
+  let scale = INIT_SCALE, tx = 0, ty = 0, startX = 0, startY = 0;
+
+  function applyTransform(animate) {
+    lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+    lbImg.style.transform  = 'scale(' + scale + ') translate(' + tx + 'px,' + ty + 'px)';
+  }
+  function enterZoom(s) {
+    scale = s; tx = 0; ty = 0; zoomed = true;
+    lbImg.classList.add('zoomed');
+    applyTransform(true);
+  }
+  function resetZoom() {
+    zoomed = false; scale = INIT_SCALE; tx = 0; ty = 0;
+    lbImg.classList.remove('zoomed', 'dragging');
+    lbImg.style.transition = 'transform 0.2s ease';
+    lbImg.style.transform  = '';
+  }
+  function closeLightbox() { resetZoom(); overlay.classList.remove('open'); }
+
+  document.querySelectorAll('.lightbox-trigger').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src; lbImg.alt = img.alt;
+      resetZoom(); overlay.classList.add('open');
+    });
+  });
+
+  lbImg.addEventListener('click', e => {
+    if (moved) return;
+    zoomed ? resetZoom() : enterZoom(INIT_SCALE);
+  });
+
+  overlay.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (!zoomed) enterZoom(INIT_SCALE);
+    scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + (e.deltaY > 0 ? -0.15 : 0.15)));
+    applyTransform(false);
+  }, { passive: false });
+
+  lbImg.addEventListener('pointerdown', e => {
+    if (!zoomed) return;
+    dragging = true; moved = false;
+    startX = e.clientX - tx * scale; startY = e.clientY - ty * scale;
+    lbImg.classList.add('dragging'); lbImg.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+  window.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+    tx = dx / scale; ty = dy / scale; applyTransform(false);
+  });
+  window.addEventListener('pointerup', () => { dragging = false; lbImg.classList.remove('dragging'); });
+
+  let pinchStartDist = 0, pinchStartScale = 1;
+  function touchDist(t) { const [a,b]=t; return Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY); }
+  overlay.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault(); dragging = false;
+      if (!zoomed) enterZoom(INIT_SCALE);
+      pinchStartDist = touchDist(e.touches); pinchStartScale = scale;
+    }
+  }, { passive: false });
+  overlay.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * touchDist(e.touches) / pinchStartDist));
+      applyTransform(false);
+    }
+  }, { passive: false });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+})();
 </script>
 
 </body>
