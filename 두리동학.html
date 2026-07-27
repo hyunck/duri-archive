@@ -408,7 +408,7 @@
       <div class="nav-dropdown-menu">
         <a href="jongga.html" class="nav-dropdown-item">계보</a>
         <a href="인물.html" class="nav-dropdown-item">주요 인물</a>
-        <a href="집안.html" class="nav-dropdown-item">집안</a>
+        <a href="지파.html" class="nav-dropdown-item">지파</a>
       </div>
     </div>
       <a class="nav-item active" href="두리동학.html">두리동학</a>
@@ -433,7 +433,7 @@
         <a class="mobile-menu-item" href="jongga.html">두리종중</a>
     <a class="mobile-menu-item mobile-menu-sub" href="jongga.html">계보</a>
     <a class="mobile-menu-item mobile-menu-sub" href="인물.html">주요 인물</a>
-    <a class="mobile-menu-item mobile-menu-sub" href="집안.html">집안</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="지파.html">지파</a>
     <a class="mobile-menu-item active" href="두리동학.html">두리동학</a>
     <a class="mobile-menu-item" href="catalog.html">소장 문서</a>
     <a class="mobile-menu-item" href="family.html">가계도</a>
@@ -779,7 +779,10 @@ var LOCATIONS = [
     type: 'red',
     lat: 37.971884, lng: 128.751129,
     desc: '',
-    address: '현남면 두리 55'
+    parcels: [
+      [37.971884,128.751129],   // 두리 55
+      [37.971968,128.750924]    // 두리 56 (밭)
+    ]
   },
   {
     name: '김영제 밭',
