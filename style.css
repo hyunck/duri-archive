@@ -91,7 +91,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* ===== SITE HEADER ===== */
 .site-header {
-  position: sticky; top: 0; z-index: 200;
+  position: sticky; top: 0; z-index: 1000;
   height: var(--header-h);
   background: #ffffff;
   border-bottom: 1px solid var(--border-normal);
