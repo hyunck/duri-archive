@@ -483,6 +483,7 @@ body.mobile-menu-locked { overflow: hidden; }
 
 /* ── 두리종중 드롭다운 메뉴 ── */
 .nav-dropdown { position: relative; display: inline-flex; align-items: center; }
+.nav-dropdown::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
 .nav-dropdown-btn { cursor: default; display: flex; align-items: center; gap: 4px; }
 .nav-dropdown-btn .dropdown-arrow { display: none; }
 .nav-dropdown:hover .nav-dropdown-btn .dropdown-arrow { transform: rotate(180deg); }
