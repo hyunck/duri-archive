@@ -152,7 +152,7 @@ const DOC_JISE = {
     {
       page_num: 13,
       type: "text",
-      title: "13페이지 : 두리 김상호(金商祜)",
+      title: "13페이지 : 두리 김상우(金商祐)",
       image: "images/지세명기장 두리/page_13.png",
       hanja_text: ``,
       korean_translation: ``,
