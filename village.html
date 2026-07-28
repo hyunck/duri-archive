@@ -17,30 +17,30 @@
   <link rel="stylesheet" href="style.css">
   <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
   <style>
-    .page-wrap { max-width: 860px; margin: 0 auto; padding: 64px 40px 100px; }
+    .page-wrap { max-width: 1080px; margin: 0 auto; padding: 64px 40px 100px; }
 
-    .page-hero { padding: 56px 40px 32px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 860px; margin: 0 auto; }
-    .page-title-ko { font-size: 32px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
-    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.18em; margin-top: 6px; }
-    .page-title-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; letter-spacing: 0.02em; }
+    .page-hero { padding: 56px 40px 32px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 1080px; margin: 0 auto; }
+    .page-title-ko { font-size: 40px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 18px; color: var(--gold-600); letter-spacing: 0.18em; margin-top: 6px; }
+    .page-title-sub { font-size: 18px; color: var(--text-muted); margin-top: 10px; letter-spacing: 0.02em; }
     .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
     .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
     .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
-    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
+    .hero-ornament-text { font-family: var(--font-serif); font-size: 14px; color: var(--gold-800); letter-spacing: 0.18em; }
 
     /* ── 섹션 ── */
     .section { margin-top: 64px; }
     .section + .section { margin-top: 80px; }
     .section-title {
       font-family: var(--font-serif);
-      font-size: 20px; font-weight: 700;
+      font-size: 25px; font-weight: 700;
       color: var(--text-bright); letter-spacing: 0.04em;
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border-normal);
       margin-bottom: 28px;
     }
     .section-title span {
-      font-size: 13px; font-weight: 400;
+      font-size: 16px; font-weight: 400;
       color: var(--gold-600); letter-spacing: 0.12em;
       margin-left: 12px;
       font-family: var(--font-serif);
@@ -48,7 +48,7 @@
 
     /* ── 소항목 제목 ── */
     .sub-title {
-      font-size: 16px; font-weight: 700;
+      font-size: 20px; font-weight: 700;
       color: var(--text-bright);
       margin: 40px 0 14px;
       display: flex; align-items: center; gap: 10px;
@@ -61,7 +61,7 @@
     }
 
     /* ── 본문 텍스트 ── */
-    .body-text { font-size: 15px; line-height: 2; color: var(--text-primary); }
+    .body-text { font-size: 19px; line-height: 2; color: var(--text-primary); }
     .body-text p { margin-bottom: 18px; }
     .body-text p:last-child { margin-bottom: 0; }
 
@@ -70,7 +70,7 @@
     .img-block img { width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-normal); display: block; }
     .img-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
     .img-block-row img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-md); border: 1px solid var(--border-normal); }
-    .img-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 8px; letter-spacing: 0.02em; }
+    .img-caption { font-size: 15px; color: var(--text-muted); text-align: center; margin-top: 8px; letter-spacing: 0.02em; }
 
     /* ── 플레이스홀더 ── */
     .img-placeholder {
@@ -79,12 +79,12 @@
       border-radius: var(--radius-md);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      color: var(--text-muted); font-size: 13px;
+      color: var(--text-muted); font-size: 16px;
       gap: 8px; letter-spacing: 0.04em;
     }
     .img-placeholder.tall { aspect-ratio: 16/9; }
     .img-placeholder.sq { aspect-ratio: 4/3; }
-    .img-placeholder-icon { font-size: 28px; opacity: 0.4; }
+    .img-placeholder-icon { font-size: 35px; opacity: 0.4; }
 
     /* ── 인용 / 원문 ── */
     .quote-block {
@@ -94,11 +94,11 @@
       border-left: 3px solid var(--gold-600);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
       font-family: var(--font-serif);
-      font-size: 14px; line-height: 2.1;
+      font-size: 18px; line-height: 2.1;
       color: var(--text-secondary);
     }
     .quote-source {
-      font-size: 12px; color: var(--text-muted);
+      font-size: 15px; color: var(--text-muted);
       margin-top: 10px; text-align: right; letter-spacing: 0.04em;
     }
 
