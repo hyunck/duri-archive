@@ -4,21 +4,23 @@ const DOC_HOJU_1861 = {
   title_hanja: "金胄衡戶口單子",
   title_korean: "김주형호구단자",
   author: "김주형 (金胄衡)",
-  year_display: "咸豊11年(1861)",
+  year_display: "함풍 11년(1861)",
   category: "호적·관문서",
   volume: "1張",
   size: "-",
   classification: "史部 政書類",
   seal: "",
   digitized: true,
-  total_pages: 1,
+  total_pages: 4,
+  compare_pages: 1,
+  image_pages: 4,
   digitized_pages: 0,
 
   bibliography: {
     "원서명": "金胄衡戶口單子",
     "현대어서명": "김주형호구단자",
     "작성자": "김주형 (金胄衡)",
-    "작성연도": "咸豊11年(1861)",
+    "작성연도": "함풍 11년(1861)",
     "책권수": "1張",
     "책크기": "-",
     "판본사항": "戶口單子(호구단자)",
@@ -44,6 +46,24 @@ const DOC_HOJU_1861 = {
       korean_translation: "",
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
+    },
+    {
+      page_num: 2,
+      type: "text",
+      title: "2페이지",
+      image: "images/김주형호구단자(1861)/page_02.png",
+    },
+    {
+      page_num: 3,
+      type: "text",
+      title: "3페이지",
+      image: "images/김주형호구단자(1861)/page_03.png",
+    },
+    {
+      page_num: 4,
+      type: "text",
+      title: "4페이지",
+      image: "images/김주형호구단자(1861)/page_04.png",
     }
   ]
 };
