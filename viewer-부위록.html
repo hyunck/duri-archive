@@ -846,8 +846,8 @@
         </div>
 
         <div class="view-toggles" id="spread-toggles" style="display:none;">
-          <button class="toggle-btn active" id="toggle-single" onclick="setSpreadMode(false)">단면</button>
-          <button class="toggle-btn" id="toggle-spread" onclick="setSpreadMode(true)">양면</button>
+          <button class="toggle-btn" id="toggle-single" onclick="setSpreadMode(false)">단면</button>
+          <button class="toggle-btn active" id="toggle-spread" onclick="setSpreadMode(true)">양면</button>
         </div>
 
         <div class="view-toggles" id="view-toggles">
@@ -997,7 +997,7 @@
   let dragStartX = 0;
   let dragStartLeftW = 0;
   let sidebarOpen = false;
-  let viewSpread = false;
+  let viewSpread = true;
 
   /* ===========================
      INIT

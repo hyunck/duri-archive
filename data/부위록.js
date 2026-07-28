@@ -10,8 +10,8 @@ const DOC_BUWI = {
   classification: "史部 雜史類",
   seal: "",
   digitized: true,
-  total_pages: 30,
-  digitized_pages: 30,
+  total_pages: 29,
+  digitized_pages: 29,
 
   bibliography: {
     "원서명": "賻慰錄",
@@ -344,15 +344,5 @@ const DOC_BUWI = {
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
-    {
-      page_num: 30,
-      type: "text",
-      title: "30페이지",
-      image: "images/부위록/page_30.png",
-      hanja_text: ``,
-      korean_translation: ``,
-      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
-      annotations: []
-    }
   ]
 };
