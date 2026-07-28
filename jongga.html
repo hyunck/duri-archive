@@ -677,24 +677,24 @@
       { id: 'yeongwon',  col: 1, row: 0, kr: '김영원', hj: '金永源' },
       { id: 'hee',       col: 0, row: 1, kr: '김희',   hj: '金憘' },
       { id: 'ii',        col: 2, row: 1, kr: '김칭',   hj: '金偁' },
-      { id: 'yangpil',   col: 1, row: 2, kr: '김양필', hj: '金良弼' },
-      { id: 'yuk',       col: 0, row: 3, kr: '김육',   hj: '金堉' },
-      { id: 'bo',        col: 1, row: 3, kr: '김보',   hj: '金寳' },
-      { id: 'jik',       col: 2, row: 3, kr: '김직',   hj: '金直' },
-      { id: 'deogeun',   col: 2, row: 4, kr: '김덕은', hj: '金德垠' },
-      { id: 'pilsong',   col: 2, row: 5, kr: '김필숭', hj: '金弼崇' },
-      { id: 'eonbin',    col: 2, row: 6, kr: '김언빈', hj: '金彦賓' },
-      { id: 'saengbaek', col: 1, row: 7, kr: '김생백', hj: '金生白' },
-      { id: 'yunbaek',   col: 3, row: 7, kr: '김윤백', hj: '金允白' },
-      { id: 'sihwan',    col: 2, row: 8, kr: '김시환', hj: '金時煥' },
-      { id: 'yeonghwan', col: 4, row: 8, kr: '김영환', hj: '金榮煥' },
-      { id: 'yeoseon',   col: 1, row: 9, kr: '김여선', hj: '金如璇' },
-      { id: 'yeojin',    col: 2, row: 9, kr: '김여진', hj: '金如珍' },
-      { id: 'yeogi',     col: 3, row: 9, kr: '김여기', hj: '金如璣' },
-      { id: 'yeotag',    col: 4, row: 9, kr: '김여탁', hj: '金如琢' },
-      { id: 'yeogyeong', col: 5, row: 9, kr: '김여경', hj: '金如瓊' },
-      { id: 'yeoju',     col: 6, row: 9, kr: '김여주', hj: '金如珠' },
-      { id: 'yeoryeon',  col: 7, row: 9, kr: '김여련', hj: '金如璉' }
+      { id: 'yangpil',   col: 2, row: 2, kr: '김양필', hj: '金良弼' },
+      { id: 'yuk',       col: 1, row: 3, kr: '김육',   hj: '金堉' },
+      { id: 'bo',        col: 2, row: 3, kr: '김보',   hj: '金寳' },
+      { id: 'jik',       col: 3, row: 3, kr: '김직',   hj: '金直' },
+      { id: 'deogeun',   col: 3, row: 4, kr: '김덕은', hj: '金德垠' },
+      { id: 'pilsong',   col: 3, row: 5, kr: '김필숭', hj: '金弼崇' },
+      { id: 'eonbin',    col: 3, row: 6, kr: '김언빈', hj: '金彦賓' },
+      { id: 'saengbaek', col: 2, row: 7, kr: '김생백', hj: '金生白' },
+      { id: 'yunbaek',   col: 4, row: 7, kr: '김윤백', hj: '金允白' },
+      { id: 'sihwan',    col: 3, row: 8, kr: '김시환', hj: '金時煥' },
+      { id: 'yeonghwan', col: 5, row: 8, kr: '김영환', hj: '金榮煥' },
+      { id: 'yeoseon',   col: 2, row: 9, kr: '김여선', hj: '金如璇' },
+      { id: 'yeojin',    col: 3, row: 9, kr: '김여진', hj: '金如珍' },
+      { id: 'yeogi',     col: 4, row: 9, kr: '김여기', hj: '金如璣' },
+      { id: 'yeotag',    col: 5, row: 9, kr: '김여탁', hj: '金如琢' },
+      { id: 'yeogyeong', col: 6, row: 9, kr: '김여경', hj: '金如瓊' },
+      { id: 'yeoju',     col: 7, row: 9, kr: '김여주', hj: '金如珠' },
+      { id: 'yeoryeon',  col: 8, row: 9, kr: '김여련', hj: '金如璉' }
     ];
 
     var CHILDREN = {
@@ -713,8 +713,8 @@
     function cx(col)  { return PAD_L + col * COL_W + CARD_W / 2; }
     function ty(row)  { return PAD_T + row * ROW_H; }
 
-    /* col 0-7, CARD_W=82, COL_W=94 → totalW = 20+658+82+20 = 780 */
-    var totalW = PAD_L + 7 * COL_W + CARD_W + PAD_L;
+    /* col 0-8, CARD_W=82, COL_W=94 → totalW = 20+752+82+20 = 874 */
+    var totalW = PAD_L + 8 * COL_W + CARD_W + PAD_L;
     var totalH = PAD_T + 9 * ROW_H + 50 + PAD_B;
 
     var scroll = document.getElementById('confirmed-tree-scroll');
