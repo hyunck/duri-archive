@@ -472,7 +472,7 @@ const DOC_JISE = {
     {
       page_num: 45,
       type: "text",
-      title: "45페이지 : 두리 김동연(金東連)?",
+      title: "45페이지 : 두리 김동건(金東建)",
       image: "images/지세명기장 두리/page_45.png",
       hanja_text: ``,
       korean_translation: ``,
