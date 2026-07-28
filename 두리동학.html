@@ -1147,15 +1147,15 @@ function toggleAllParcels(btn) {
       if (loc.type === 'blue' || !map) return;
       var color = COLOR[loc.type] || '#A87C24';
       if (Array.isArray(loc.parcels)) {
-        loc.parcels.forEach(function (pt) { fetchAllParcelByPoint(pt[0], pt[1], color, loc.type); });
+        loc.parcels.forEach(function (pt) { fetchAllParcelByPoint(pt[0], pt[1], color, loc.type, loc); });
       } else {
-        fetchAllParcelByPoint(loc.lat, loc.lng, color, loc.type);
+        fetchAllParcelByPoint(loc.lat, loc.lng, color, loc.type, loc);
       }
     });
   }
 }
 
-function fetchAllParcelByPoint(lat, lng, color, type) {
+function fetchAllParcelByPoint(lat, lng, color, type, loc) {
   var vwDomain = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
     ? location.host : '두리종중.com';
   var cbName = '_vwall_' + Date.now() + '_' + Math.round(Math.random() * 99999);
@@ -1178,6 +1178,17 @@ function fetchAllParcelByPoint(lat, lng, color, type) {
       strokeColor: color, strokeOpacity: 1, strokeWeight: 2,
       fillColor: color, fillOpacity: 0.28
     });
+    if (loc && loc._iw && loc._marker) {
+      naver.maps.Event.addListener(poly, 'click', function () {
+        if (openIw && openIw !== loc._iw) openIw.close();
+        if (loc._iw.getMap()) {
+          loc._iw.close(); openIw = null; clearParcel();
+        } else {
+          loc._iw.open(map, loc._marker); openIw = loc._iw;
+          fetchParcel(loc);
+        }
+      });
+    }
     allParcelsList.push({ poly: poly, type: type });
   };
   var sc = document.createElement('script');
