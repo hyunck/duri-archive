@@ -1312,9 +1312,11 @@
   function changePage(delta) {
     let target;
     if (viewSpread) {
-      // 1페이지↔2페이지 전환은 1칸, 나머지는 2칸 이동
+      // 현재 페이지가 단면(1장짜리)이면 1칸, 양면이면 2칸 이동
+      const isSingle = getSpreadPages(currentPage).length === 1;
       const step = (currentPage === 1 && delta > 0) ? 1
                  : (currentPage === 2 && delta < 0) ? -1
+                 : isSingle ? delta
                  : 2 * delta;
       target = currentPage + step;
     } else {
