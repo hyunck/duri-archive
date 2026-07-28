@@ -155,11 +155,13 @@ const CATALOG = [
     title_hanja: "經義問對",
     title_korean: "경의문대",
     author: "김규하 (金圭夏)",
-    year: "",
-    year_display: "조선 말기",
+    year: "1900",
+    year_display: "광무 4년(1900)",
     category: "호적·관문서",
-    digitized: false,
-    note: "幼學 金圭夏 年二十 本慶州 居襄陽 기재. 붉은 글씨 次上 표기. 과거 시험지 추정.",
+    digitized: true,
+    detail_url: "detail-경의문대(김규하).html",
+    total_pages: 64,
+    note: "幼學 金圭夏 年二十 本慶州 居襄陽 기재. 붉은 글씨 次上 표기. 시권(試券) — 과거 시험지.",
     classification: "史部 政書類"
   },
   {
