@@ -303,6 +303,7 @@
     .legend-dot.black  { background: #7B44B0; }
     .legend-dot.pink   { background: #C44071; }
     .legend-dot.amber  { background: #8A8228; }
+    .legend-dot.rose   { background: #C85830; }
     .legend-dot.slate  { background: #404038; }
 
     /* ── API 키 안내 ── */
@@ -539,6 +540,7 @@
         <div class="legend-item" data-type="teal"   onclick="toggleType('teal')"  ><span class="legend-dot teal"  ></span>작은댁</div>
         <div class="legend-item" data-type="amber"  onclick="toggleType('amber')" ><span class="legend-dot amber" ></span>둘째댁</div>
         <div class="legend-item" data-type="pink"   onclick="toggleType('pink')"  ><span class="legend-dot pink"  ></span>김학제댁</div>
+        <div class="legend-item" data-type="rose"   onclick="toggleType('rose')"  ><span class="legend-dot rose"  ></span>새강댁</div>
         <div class="legend-item hidden" data-type="red"    onclick="toggleType('red')"   ><span class="legend-dot red"   ></span>문중 댁</div>
         <div class="legend-item hidden" data-type="slate"  onclick="toggleType('slate')" ><span class="legend-dot slate" ></span>외인</div>
         <div class="legend-item" data-type="green"  onclick="toggleType('green')" ><span class="legend-dot green" ></span>청룡등</div>
@@ -735,16 +737,15 @@ var LOCATIONS = [
     ]
   },
   {
-    name: '아릇댁 (김홍열 가옥)',
+    name: '새강댁(김동건 가옥 터)',
     hanja: '',
-    type: 'red',
-    lat: 37.973179897598, lng: 128.751026300704,
+    type: 'rose',
+    lat: 37.9734086996071, lng: 128.751595497769,
     desc: '',
     parcels: [
-      [37.97544197023261,128.7513168203529],   // 두리 110 (밭)
-      [37.973179897598,128.751026300704],   // 두리 67
-      [37.972014,128.751710],    // 두리 48 (밭)
-      [37.971760,128.751982]    // 두리 49 (밭)
+      [37.9734086996071,128.751595497769],   // 두리 74
+      [37.973635,128.751572],    // 두리 102 (밭)
+      [37.974002,128.751695]    // 두리 102-1 (밭)
     ]
   },
   {
@@ -762,6 +763,19 @@ var LOCATIONS = [
       [37.9712174596276,128.754397522301],    // 두리 40
       [37.9711900748871,128.755019331883]    // 두리 40-2
 
+    ]
+  },
+  {
+    name: '아릇댁 (김홍열 가옥)',
+    hanja: '',
+    type: 'red',
+    lat: 37.973179897598, lng: 128.751026300704,
+    desc: '',
+    parcels: [
+      [37.97544197023261,128.7513168203529],   // 두리 110 (밭)
+      [37.973179897598,128.751026300704],   // 두리 67
+      [37.972014,128.751710],    // 두리 48 (밭)
+      [37.971760,128.751982]    // 두리 49 (밭)
     ]
   },
   {
@@ -836,18 +850,6 @@ var LOCATIONS = [
       [37.97531974748104,128.7519625865092],   // 두리 115 (밭)
       [37.9728058835379,128.751261510349],   // 두리 62
       [37.972178,128.753402]    // 두리 45 (밭)
-    ]
-  },
-  {
-    name: '김동건 가옥 터',
-    hanja: '',
-    type: 'red',
-    lat: 37.9734086996071, lng: 128.751595497769,
-    desc: '',
-    parcels: [
-      [37.9734086996071,128.751595497769],   // 두리 74
-      [37.973635,128.751572],    // 두리 102 (밭)
-      [37.974002,128.751695]    // 두리 102-1 (밭)
     ]
   },
   {
@@ -971,7 +973,7 @@ var LOCATIONS = [
 ];
 
 /* ── 색상 매핑 ── */
-var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071', amber: '#8A8228', slate: '#404038' };
+var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071', amber: '#8A8228', rose: '#C85830', slate: '#404038' };
 
 /* ── 두리마을 중심 좌표 — 실제 위치로 수정 ★ ── */
 var CENTER_LAT  = 37.972923966909796;
@@ -986,7 +988,7 @@ var activeParcelList = [];   // 개별 클릭 필지
 var allParcelsList   = [];   // 전체 필지 보기
 var allParcelsActive = false;
 var markersVisible   = true;
-var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, slate: false };
+var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, rose: true, slate: false };
 var VWORLD_KEY = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
   ? '7669B1E3-55F0-3E6A-A190-E3FED57A8C23'   // 라이브 서버용
   : '139292A5-E78E-3D18-8E13-6B63B66CE5C9';  // 두리종중.com용
