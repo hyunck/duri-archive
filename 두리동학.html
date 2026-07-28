@@ -1176,7 +1176,14 @@ function fetchAllParcelByPoint(lat, lng, color, type, loc) {
     var poly = new naver.maps.Polygon({
       map: typeVisible[type] !== false ? map : null, paths: paths,
       strokeColor: color, strokeOpacity: 1, strokeWeight: 2,
-      fillColor: color, fillOpacity: 0.28
+      fillColor: color, fillOpacity: 0.28,
+      clickable: true, cursor: 'pointer'
+    });
+    naver.maps.Event.addListener(poly, 'mouseover', function () {
+      poly.setOptions({ fillOpacity: 0.52, strokeWeight: 3 });
+    });
+    naver.maps.Event.addListener(poly, 'mouseout', function () {
+      poly.setOptions({ fillOpacity: 0.28, strokeWeight: 2 });
     });
     if (loc && loc._iw && loc._marker) {
       naver.maps.Event.addListener(poly, 'click', function () {
