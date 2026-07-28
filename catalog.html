@@ -616,7 +616,7 @@
 
     pageDocs.forEach((doc) => {
       const titleStr = doc.title_hanja
-        ? `${doc.title_korean}(${doc.title_hanja})`
+        ? `${doc.title_korean}(${doc.title_hanja})${doc.suffix || ''}`
         : doc.title_korean;
       const yearStr = doc.year_display || doc.year || '미상';
       const inner = `

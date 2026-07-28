@@ -55,9 +55,22 @@ const CATALOG = [
 
   // ── 호적·관문서 ──────────────────────────────────────────
   {
+    id: "hoju-1843",
+    title_hanja: "金胄衡戶口單子, 1843",
+    title_korean: "김주형호구단자",
+    author: "김주형 (金胄衡)",
+    year: "1843",
+    year_display: "도광 23년(1843)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형호구단자1843.html",
+    classification: "史部 政書類"
+  },
+  {
     id: "hoju-1855-1",
-    title_hanja: "金胄衡戶口單子1, 1855",
-    title_korean: "김주형호구단자1",
+    title_hanja: "金胄衡戶口單子, 1855",
+    title_korean: "김주형호구단자",
+    suffix: " 1",
     author: "김주형 (金胄衡)",
     year: "1855",
     year_display: "함풍 5년(1855)",
@@ -68,26 +81,15 @@ const CATALOG = [
   },
   {
     id: "hoju-1855-2",
-    title_hanja: "金胄衡戶口單子2, 1855",
-    title_korean: "김주형호구단자2",
+    title_hanja: "金胄衡戶口單子, 1855",
+    title_korean: "김주형호구단자",
+    suffix: " 2",
     author: "김주형 (金胄衡)",
     year: "1855",
     year_display: "함풍 5년(1855)",
     category: "호적·관문서",
     digitized: true,
     detail_url: "detail-김주형호구단자2(1855).html",
-    classification: "史部 政書類"
-  },
-  {
-    id: "hoju-1843",
-    title_hanja: "金胄衡戶口單子, 1843",
-    title_korean: "김주형호구단자",
-    author: "김주형 (金胄衡)",
-    year: "1843",
-    year_display: "도광 23년(1843)",
-    category: "호적·관문서",
-    digitized: true,
-    detail_url: "detail-김주형호구단자1843.html",
     classification: "史部 政書類"
   },
   {
