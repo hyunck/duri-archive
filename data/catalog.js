@@ -68,7 +68,7 @@ const CATALOG = [
   },
   {
     id: "junjuhoju-1855",
-    title_hanja: "金胄衡準戶口",
+    title_hanja: "金胄衡準戶口, 1855",
     title_korean: "김주형준호구",
     author: "김주형 (金胄衡)",
     year: "1855",
@@ -80,7 +80,7 @@ const CATALOG = [
   },
   {
     id: "hoju-1855",
-    title_hanja: "金胄衡戶口單子",
+    title_hanja: "金胄衡戶口單子, 1855",
     title_korean: "김주형호구단자",
     author: "김주형 (金胄衡)",
     year: "1855",
