@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>국역·원문 대조 보기 - 김주형호구단자(1861)</title>
-  <meta name="description" content="김주형호구단자(1861) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
-  <link rel="canonical" href="https://두리종중.com/viewer-김주형호구단자1861.html">
+  <title>국역·원문 대조 보기 - 김주형호구단자(1843)</title>
+  <meta name="description" content="김주형호구단자(1843) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
+  <link rel="canonical" href="https://두리종중.com/viewer-김주형준호구(1843).html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="국역·원문 대조 보기 - 김주형호구단자(1861)">
-  <meta property="og:description" content="김주형호구단자(1861) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
-  <meta property="og:url" content="https://두리종중.com/viewer-김주형호구단자1861.html">
+  <meta property="og:title" content="국역·원문 대조 보기 - 김주형호구단자(1843)">
+  <meta property="og:description" content="김주형호구단자(1843) 원문과 국역을 대조하여 볼 수 있는 뷰어. 경주김씨 두리종중 소장 조선후기 관문서.">
+  <meta property="og:url" content="https://두리종중.com/viewer-김주형준호구(1843).html">
   <meta property="og:image" content="https://두리종중.com/images/banner/banner.jpg">
   <meta property="og:locale" content="ko_KR">
   <meta name="twitter:card" content="summary_large_image">
@@ -805,7 +805,7 @@
 
     <!-- TOP BAR -->
     <div class="viewer-topbar">
-      <a class="back-link" href="detail-김주형호구단자1861.html">
+      <a class="back-link" href="detail-김주형준호구(1843).html">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"/>
         </svg>
@@ -814,7 +814,7 @@
 
       <div class="doc-title-bar">
         <span class="doc-title-hanja">金胄衡戶口單子</span>
-        <span class="doc-title-kr">김주형호구단자(1861)</span>
+        <span class="doc-title-kr">김주형호구단자(1843)</span>
       </div>
 
       <div class="topbar-break"></div>
@@ -912,7 +912,7 @@
             </svg>
             <p style="margin-top:8px; color: var(--text-secondary);" id="scan-placeholder-text">원문 스캔 이미지</p>
             <p style="font-size:12px;">이미지 파일을 <code style="background:var(--bg-card); padding:2px 6px; border-radius:3px;">images/</code> 폴더에 추가해 주세요.</p>
-            <p style="font-size:11px; color:var(--text-muted);">예: <code style="background:var(--bg-card); padding:1px 5px; border-radius:3px;" id="image-filename-hint">images/hoju-1861/page_01.png</code></p>
+            <p style="font-size:11px; color:var(--text-muted);">예: <code style="background:var(--bg-card); padding:1px 5px; border-radius:3px;" id="image-filename-hint">images/hoju-1843/page_01.png</code></p>
           </div>
           <img id="scan-image" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="원문 스캔 이미지"/>
         </div>
@@ -979,12 +979,12 @@
 
 <script src="theme.js"></script>
 <script src="mobile-menu.js"></script>
-<script src="data/김주형호구단자1861.js"></script>
+<script src="data/김주형준호구(1843).js"></script>
 <script>
   /* ===========================
      STATE
   =========================== */
-  const doc = DOC_HOJU_1861;
+  const doc = DOC_JUNJUHOJU_1843;
   let currentPage = 1;
   let viewMode = 'compare'; // 'compare' | 'image'
   let zoomLevel = 1;
@@ -1026,7 +1026,7 @@
     return doc.compare_pages || doc.total_pages;
   }
 
-  /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
+    /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
   function getSpreadPages(num) {
     if (!viewSpread || num === 1 || num === totalPagesForMode()) return [num];
     const start = num % 2 === 0 ? num : num - 1;
@@ -1233,7 +1233,7 @@
   });
 
   function imgSrc(page, num) {
-    return page ? page.image : `images/hoju-1861/page_${String(num).padStart(2,'0')}.png`;
+    return page ? page.image : `images/hoju-1843/page_${String(num).padStart(2,'0')}.png`;
   }
 
   function singleBaseH() {
@@ -1360,21 +1360,20 @@
 
   function setViewMode(mode) {
     viewMode = mode;
-    // 대조 보기 전환 시 양면 모드 해제
+    buildSidebarList();
+    if (currentPage > totalPagesForMode()) currentPage = 1;
     if (mode === 'compare' && viewSpread) {
       viewSpread = false;
       document.getElementById('toggle-single').classList.add('active');
       document.getElementById('toggle-spread')?.classList.remove('active');
-      renderPage(currentPage);
     }
-    if (currentPage > totalPagesForMode()) currentPage = 1;
     showCompareOrImage();
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
     document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
     // 단면/양면 토글은 원문이미지 모드에서만, 텍스트 크기는 대조 보기에서만 표시
     document.getElementById('spread-toggles').style.display    = mode === 'image'   ? '' : 'none';
     document.getElementById('text-size-controls').style.display = mode === 'compare' ? '' : 'none';
-    if (mode === 'image') updateImageMode(getPageData(currentPage), currentPage);
+    renderPage(currentPage);
   }
 
   function showCompareOrImage() {

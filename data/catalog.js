@@ -55,15 +55,15 @@ const CATALOG = [
 
   // ── 호적·관문서 ──────────────────────────────────────────
   {
-    id: "hoju-1843",
-    title_hanja: "金胄衡戶口單子, 1843",
-    title_korean: "김주형호구단자",
+    id: "junjuhoju-1843",
+    title_hanja: "金胄衡準戶口, 1843",
+    title_korean: "김주형준호구",
     author: "김주형 (金胄衡)",
     year: "1843",
     year_display: "도광 23년(1843)",
     category: "호적·관문서",
     digitized: true,
-    detail_url: "detail-김주형호구단자1843.html",
+    detail_url: "detail-김주형준호구(1843).html",
     classification: "史部 政書類"
   },
   {
@@ -91,39 +91,41 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
-    id: "hoju-1858",
-    title_hanja: "金胄衡戶口單子, 1858",
-    title_korean: "김주형호구단자",
+    id: "junjuhoju-1858",
+    title_hanja: "金胄衡準戶口, 1858",
+    title_korean: "김주형준호구",
     author: "김주형 (金胄衡)",
     year: "1858",
     year_display: "함풍 8년(1858)",
     category: "호적·관문서",
     digitized: true,
-    detail_url: "detail-김주형호구단자1858.html",
-    classification: "史部 政書類"
-  },
-  {
-    id: "hoju-1861",
-    title_hanja: "金胄衡戶口單子, 1861",
-    title_korean: "김주형호구단자",
-    author: "김주형 (金胄衡)",
-    year: "1861",
-    year_display: "함풍 11년(1861)",
-    category: "호적·관문서",
-    digitized: true,
-    detail_url: "detail-김주형호구단자1861.html",
+    detail_url: "detail-김주형준호구(1858).html",
     classification: "史部 政書類"
   },
   {
     id: "junhoju-1861",
     title_hanja: "金胄衡準戶口, 1861",
     title_korean: "김주형준호구",
+    suffix: " 1",
     author: "김주형 (金胄衡)",
     year: "1861",
     year_display: "함풍 11년(1861)",
     category: "호적·관문서",
     digitized: true,
     detail_url: "detail-김주형준호구1861.html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "junjuhoju-1861-2",
+    title_hanja: "金胄衡準戶口, 1861",
+    title_korean: "김주형준호구",
+    suffix: " 2",
+    author: "김주형 (金胄衡)",
+    year: "1861",
+    year_display: "함풍 11년(1861)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구2(1861).html",
     classification: "史部 政書類"
   },
   {
