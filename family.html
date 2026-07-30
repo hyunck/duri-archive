@@ -1143,13 +1143,13 @@ const CX_OVERRIDE = {};
 
   // 김영환 형제들 — 김여경(p11) 좌우에 밀착 배치 (CHILDREN 미포함, 레이아웃 독립)
   const p11CX = PAD_L + (colS['p11'] + colE['p11']) / 2 * COL_W;
-  ['p282','p281','p280','p279'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX - COL_W * (i + 1); });
-  ['p283','p284'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX + COL_W * (i + 1); });
+  ['p282','p281','p280','p279'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX - 2 * COL_W * (i + 1); });
+  ['p283','p284'].forEach((id, i) => { CX_OVERRIDE[id] = p11CX + 2 * COL_W * (i + 1); });
 
   // 김시환(p292) / 김세환(p291) 아들들 — p11 왼쪽에 배치 (CHILDREN 미포함, 레이아웃 독립)
-  CX_OVERRIDE['p318']  = p11CX - COL_W * 7.5;  // 김여옥 (양자, 김세환 직하)
-  CX_OVERRIDE['p318g'] = p11CX - COL_W * 6;    // 김여옥 출계 자리 (김시환 장남)
-  CX_OVERRIDE['p319']  = p11CX - COL_W * 5;    // 차남 김여벽
+  CX_OVERRIDE['p318']  = p11CX - COL_W * 11.5;  // 김여옥 (양자, 김세환 직하)
+  CX_OVERRIDE['p318g'] = p11CX - COL_W * 10;    // 김여옥 출계 자리 (김시환 장남)
+  CX_OVERRIDE['p319']  = p11CX - COL_W *  9;    // 차남 김여벽
 })();
 
 // 카드 중심 x, 상단 y
@@ -1702,7 +1702,7 @@ function initAncestors() {
   if (!outer || !scrollWrap || !p00El) return;
 
   const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
-  const sBaekCX  = p00CX - 7.5 * COL_W;     // 김생백 중심 (김세환 p291 직상방)
+  const sBaekCX  = p00CX - 11.5 * COL_W;    // 김생백 중심 (김세환 p291 직상방)
   const eonBinCX = p00CX;                     // 김언빈·윗대 중심 (김윤백 바로 위)
   const CTOP_8   = 40;   // gen -8 행 top (김영원)
   const CTOP_7   = 390;  // gen -7 행 top (김칭)
@@ -1812,7 +1812,7 @@ function initAncestors() {
     var sc = document.createElement('div');
     sc.id = sid;
     sc.className = 'person-card' + (nd2.ghost ? ' person-card-ghost' : '');
-    sc.style.cssText = 'position:absolute; display:none; left:' + (_p00Left - (7.5 - i) * COL_W) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+    sc.style.cssText = 'position:absolute; display:none; left:' + (_p00Left - (11.5 - i) * COL_W) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
     var ch2 = '<div class="p-kr">' + nd2.kr + '</div><div class="p-hj">' + nd2.hj + '</div>';
     if (nd2.ja)    ch2 += '<div class="p-ja">字 ' + nd2.ja + '</div>';
     if (nd2.dates) ch2 += '<div class="p-dates">' + nd2.dates + '</div>';
