@@ -621,7 +621,7 @@ const NODES = {
   p284: { kr:'김여련', hj:'金如璉', gen:1, dates:'1687년 ~ 1756년', myo:'화일리(禾日里) 건좌(乾坐)', spouse:[{ hj:'김해 金氏', dates:'1688년 ~ 1754년', father:'인재(寅在)' }] },
   p318: { kr:'김여옥', hj:'金如玉', gen:1, spouse:[{ hj:'광주 盧氏' }, { hj:'정선 全氏', order:'계배' }] },
   p318g: { kr:'김여옥', hj:'金如玉', gen:1, ghost:true },
-  p319: { kr:'김여벽', hj:'金如壁', gen:1, dates:'1670년 ~ 1739년', myo:'도륜동(道踚洞) 해좌(亥坐)', spouse:[{ hj:'경주 李氏', father:'일제(逸悌)' }] },
+  p319: { kr:'김여벽', hj:'金如壁', gen:1, dates:'1670년 ~ 1739년', myo:'도유동(道踰洞) 해좌(亥坐)', spouse:[{ hj:'경주 李氏', father:'일제(逸悌)' }] },
   p320: { kr:'딸', gen:0, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'이홍제', hj:'李弘悌' }, clan:'경주 이씨' },
   p291g: { kr:'김세환', hj:'金世煥', gen:0, ancestorOnly:true, ghost:true },
   p291: { kr:'김세환', hj:'金世煥', gen:0, ancestorOnly:true, myo:'도직동(道直洞) 어머니 묘 아래(先妣墓下) 유좌(酉坐) 원(原)', spouse:[{ hj:'가평 李氏' }] },
@@ -1838,7 +1838,7 @@ function initAncestors() {
 
   // 김윤백(p285) 장녀 — p00(김영환) 오른쪽
   var sc320 = makeACard('p320', 0, _p00Top);
-  sc320.style.left = (_p00Left + COL_W) + 'px';
+  sc320.style.left = (_p00Left + 3 * COL_W) + 'px';
   sc320.style.display = 'none';
   mainWrap.appendChild(sc320);
 
