@@ -644,8 +644,9 @@
       }
       .mobile-sidebar-tab.active { left: 240px; }
 
-      .page-sidebar { transition: none; height: 0; min-height: 0; }
-      .page-sidebar.open {
+      /* Page sidebar: always fixed + translateX slide (목록 탭이 손잡이와 같이 슬라이드) */
+      .page-sidebar {
+        transition: transform 0.25s ease;
         position: fixed;
         top: var(--header-h);
         left: 0;
@@ -655,6 +656,10 @@
         overflow-y: auto;
         overflow-x: hidden;
         z-index: 100;
+        transform: translateX(-100%);
+      }
+      .page-sidebar.open {
+        transform: translateX(0);
         box-shadow: 4px 0 24px rgba(0,0,0,0.7);
         border-right-color: var(--border-normal);
       }
@@ -669,7 +674,7 @@
       .panel-body { height: 74vh; }
       .image-panel-container { height: 70vh; }
       .mobile-sidebar-tab.active { left: min(78vw, 260px); }
-      .page-sidebar.open { width: min(78vw, 260px); }
+      .page-sidebar { width: min(78vw, 260px); }
     }
 
     /* ===== DARK MODE ===== */
