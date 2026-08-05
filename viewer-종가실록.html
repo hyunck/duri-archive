@@ -652,10 +652,9 @@
       }
       .mobile-sidebar-tab.active { left: 240px; }
 
-      /* Page sidebar: overlay instead of push (닫힌 상태에서 flex-direction:row 안에서
-         height:auto인 viewer-main이 사이드바 목록 콘텐츠 높이만큼 부풀어 오르는 것을 방지) */
-      .page-sidebar { transition: none; height: 0; min-height: 0; }
-      .page-sidebar.open {
+      /* Page sidebar: always fixed + translateX slide (목록 탭이 손잡이와 같이 슬라이드) */
+      .page-sidebar {
+        transition: transform 0.25s ease;
         position: fixed;
         top: var(--header-h);
         left: 0;
@@ -665,6 +664,10 @@
         overflow-y: auto;
         overflow-x: hidden;
         z-index: 100;
+        transform: translateX(-100%);
+      }
+      .page-sidebar.open {
+        transform: translateX(0);
         box-shadow: 4px 0 24px rgba(0,0,0,0.7);
         border-right-color: var(--border-normal);
       }
@@ -681,7 +684,7 @@
       .panel-body { height: 74vh; }
       .image-panel-container { height: 70vh; }
       .mobile-sidebar-tab.active { left: min(78vw, 260px); }
-      .page-sidebar.open { width: min(78vw, 260px); }
+      .page-sidebar { width: min(78vw, 260px); }
     }
 
     /* ===== DARK MODE ===== */
