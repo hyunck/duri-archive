@@ -1265,7 +1265,7 @@ function renderTree() {
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p200' ? 0.32 : id === 'p266' ? 0.34 : id === 'p179' ? 0.19 :(id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : 0.28;
+      const offsetRatio = id === 'p200' ? 0.32 : id === 'p266' ? 0.34 : id === 'p179' ? 0.38 :(id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : 0.28;
       const hl = document.createElement('div');
       hl.className = 'house-label';
       hl.dataset.pid = id;
