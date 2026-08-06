@@ -1033,7 +1033,7 @@ function initMap() {
 
   map = new naver.maps.Map('map', {
     center:     new naver.maps.LatLng(CENTER_LAT, CENTER_LNG),
-    zoom:       INIT_ZOOM,
+    zoom:       window.innerWidth <= 768 ? INIT_ZOOM - 1 : INIT_ZOOM,
     minZoom:    6,
     maxZoom:    21,
     mapTypeId:  naver.maps.MapTypeId.SATELLITE,
