@@ -1467,17 +1467,28 @@
       });
 
       const isOverflow = zoomLevel > 1;
-      wrap.style.alignItems    = isOverflow ? 'flex-start' : 'center';
-      wrap.style.justifyContent = isOverflow ? 'flex-start' : 'center';
+      wrap.style.alignItems = isOverflow ? 'flex-start' : 'center';
 
-      if (isOverflow) {
+      if (!isOverflow) {
+        wrap.style.justifyContent = 'center';
+      } else {
+        let totalImgW = 0;
+        [imgL, imgR].forEach(im => {
+          if (im && im.style.display !== 'none' && im.naturalWidth && im.naturalHeight) {
+            totalImgW += Math.round(im.naturalWidth / im.naturalHeight * h);
+          }
+        });
+        const hasHOverflow = totalImgW > wrap.clientWidth;
+        wrap.style.justifyContent = hasHOverflow ? 'flex-start' : 'center';
+
         setTimeout(() => {
-          if (wasOverflow) {
-            wrap.scrollTop  = centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2;
-            wrap.scrollLeft = centerXFrac * wrap.scrollWidth  - wrap.clientWidth  / 2;
-          } else {
-            wrap.scrollTop  = (wrap.scrollHeight - wrap.clientHeight) / 2;
-            wrap.scrollLeft = (wrap.scrollWidth  - wrap.clientWidth)  / 2;
+          wrap.scrollTop = wasOverflow
+            ? Math.max(0, centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2)
+            : Math.max(0, (wrap.scrollHeight - wrap.clientHeight) / 2);
+          if (hasHOverflow) {
+            wrap.scrollLeft = wasOverflow
+              ? Math.max(0, centerXFrac * wrap.scrollWidth - wrap.clientWidth / 2)
+              : Math.max(0, (wrap.scrollWidth - wrap.clientWidth) / 2);
           }
         }, 0);
       }
@@ -1501,18 +1512,26 @@
       }
 
       const isOverflow = zoomLevel > 1;
-      wrap.style.alignItems    = isOverflow ? 'flex-start' : 'center';
-      wrap.style.justifyContent = isOverflow ? 'flex-start' : 'center';
-      wrap.style.overflow      = isOverflow ? 'auto' : 'hidden';
+      wrap.style.overflow = isOverflow ? 'auto' : 'hidden';
+      wrap.style.alignItems = isOverflow ? 'flex-start' : 'center';
 
-      if (isOverflow) {
+      if (!isOverflow) {
+        wrap.style.justifyContent = 'center';
+      } else {
+        const imgNatW = img && img.naturalWidth;
+        const imgNatH = img && img.naturalHeight;
+        const imgW = (imgNatW && imgNatH) ? Math.round(imgNatW / imgNatH * h) : 0;
+        const hasHOverflow = imgW > wrap.clientWidth;
+        wrap.style.justifyContent = hasHOverflow ? 'flex-start' : 'center';
+
         setTimeout(() => {
-          if (wasOverflow) {
-            wrap.scrollTop  = centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2;
-            wrap.scrollLeft = centerXFrac * wrap.scrollWidth  - wrap.clientWidth  / 2;
-          } else {
-            wrap.scrollTop  = (wrap.scrollHeight - wrap.clientHeight) / 2;
-            wrap.scrollLeft = (wrap.scrollWidth  - wrap.clientWidth)  / 2;
+          wrap.scrollTop = wasOverflow
+            ? Math.max(0, centerYFrac * wrap.scrollHeight - wrap.clientHeight / 2)
+            : Math.max(0, (wrap.scrollHeight - wrap.clientHeight) / 2);
+          if (hasHOverflow) {
+            wrap.scrollLeft = wasOverflow
+              ? Math.max(0, centerXFrac * wrap.scrollWidth - wrap.clientWidth / 2)
+              : Math.max(0, (wrap.scrollWidth - wrap.clientWidth) / 2);
           }
         }, 0);
       }
