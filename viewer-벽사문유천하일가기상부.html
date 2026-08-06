@@ -497,6 +497,7 @@
     .scan-single-wrap {
       width: 100%;
       height: 100%;
+      min-width: 0;
       display: flex;
     }
     .scan-image-wrap {
@@ -505,6 +506,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 0;
       overflow: auto;
     }
     .scan-placeholder {
@@ -627,7 +629,7 @@
       .panel-body { height: 78vh; flex: none; overflow-x: hidden; }
 
       /* Image mode */
-      .image-panel-container { height: 75vh; flex: none; }
+      .image-panel-container { height: 75vh; flex: none; width: 100%; overflow: hidden; }
 
       /* Side rail: 전체 바 대신 화면 왼쪽에 살짝 튀어나온 화살표 탭만 노출 */
       .side-rail { display: none; }
@@ -1292,7 +1294,8 @@
           img.style.width  = wrap.clientWidth + 'px';
           img.style.height = 'auto';
         } else {
-          img.style.width  = 'auto';
+          img.style.width  = (img.naturalWidth && img.naturalHeight)
+            ? Math.round(img.naturalWidth / img.naturalHeight * h) + 'px' : 'auto';
           img.style.height = h + 'px';
         }
       } else {
