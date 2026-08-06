@@ -638,7 +638,7 @@
         position: fixed;
         top: 50%;
         left: 0;
-        transform: translateY(-50%);
+        transform: translateX(0) translateY(-50%);
         width: 24px;
         height: 56px;
         background: var(--bg-card);
@@ -648,9 +648,9 @@
         color: var(--text-secondary);
         z-index: 101;
         box-shadow: 2px 0 10px rgba(0,0,0,0.14);
-        transition: left 0.25s ease;
+        transition: transform 0.25s ease;
       }
-      .mobile-sidebar-tab.active { left: 240px; }
+      .mobile-sidebar-tab.active { transform: translateX(240px) translateY(-50%); }
 
       /* Page sidebar: always fixed + translateX slide (목록 탭이 손잡이와 같이 슬라이드) */
       .page-sidebar {
@@ -683,7 +683,7 @@
       .doc-title-kr { display: none; }
       .panel-body { height: 74vh; }
       .image-panel-container { height: 70vh; }
-      .mobile-sidebar-tab.active { left: min(78vw, 260px); }
+      .mobile-sidebar-tab.active { transform: translateX(min(78vw, 260px)) translateY(-50%); }
       .page-sidebar { width: min(78vw, 260px); }
     }
 
