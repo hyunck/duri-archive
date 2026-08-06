@@ -627,6 +627,14 @@ const NODES = {
   p321: { kr:'김한명', hj:'金漢明', gen:2, myo:'도유동(道踰洞) 건좌(乾坐)', spouse:[{ hj:'순흥 安氏', dates:'1690년 ~ ?' }, { hj:'평창 李氏', order:'계배', dates:'1695년 ~ 1757년' }] },
   p322: { kr:'김한성', hj:'金漢成', gen:2, dates:'1692년 ~ ?', myo:'양양(襄陽) 면(面) 거마리(車馬里) 자좌(子坐)', spouse:[{ hj:'전주 李氏' }] },
   p323: { kr:'김한정', hj:'金漢正', gen:2, myo:'거마리(車馬里) 건좌(乾坐)', spouse:[{ hj:'정선 全氏' }] },
+  // 김한명(p321) 자식
+  p346: { kr:'김춘주', hj:'金春柱', gen:3, dates:'1711년 ~ ?', myo:'북면(北面) 도리(陶里) 경좌(庚坐)', spouse:[{ hj:'진주 姜氏', dates:'1713년 ~ ?', father:'석구(錫耉)' }] },
+  p347: { kr:'김경주', hj:'金庚柱', gen:3, note:'강릉파(江陵派)', postCard:'강릉파(江陵派)' },
+  // 김한성(p322) 자식
+  p348: { kr:'김덕주', hj:'金德柱', gen:3, dates:'1733년 ~ ?', myo:'도리(陶里) 수차곡(水車谷) 자좌(子坐)', spouse:[{ hj:'한양 趙氏' }] },
+  p349: { kr:'김해주', hj:'金海柱', gen:3, dates:'1724년 ~ ?', myo:'거마리(車馬里) 자좌(子坐)', spouse:[{ hj:'경주 李氏' }] },
+  // 김한정(p323) 자식
+  p350: { kr:'김창주', hj:'金昌柱', gen:3, myo:'거마리(車馬里) 자좌(子坐)', spouse:[{ hj:'경주 崔氏' }] },
   p324: { kr:'김한영', hj:'金漢榮', gen:2, ja:'후항(後恒)', post:'절충장군(折衝)', dates:'1732년 ~ 1773년', myo:'현북면(縣北面) 장현리(獐峴里) 정좌(丁坐)', spouse:[{ hj:'순천 朴氏', dates:'1704년 ~ 1783년', father:'향식(享植)' }] },
   p324g: { kr:'김한영', hj:'金漢榮', gen:2, ghost:true },  // 김여진(p280) 차남, 김여벽(p319) 양자 출계
   p325g: { kr:'김한휘', hj:'金漢輝', gen:2, ghost:true },  // 김여탁(p282) 차남, 김여선(p279) 양자 출계
@@ -1195,14 +1203,22 @@ const CX_OVERRIDE = {};
   ['p282','p281','p280','p279'].forEach((id, i) => { CX_OVERRIDE[id] = p282CX - 3 * COL_W * i; });
 
   // 김시환(p292) / 김세환(p291) 아들들 — p282CX 기준 왼쪽 배치
-  CX_OVERRIDE['p318']  = p282CX - COL_W * 14;    // 김여옥 (양자, 김세환 직하)
+  CX_OVERRIDE['p318']  = p282CX - COL_W * 15;    // 김여옥 (양자, 김세환 직하) — 자식 3인 중심
   CX_OVERRIDE['p318g'] = p282CX - COL_W * 12.5;  // 김여옥 출계 자리 (김시환 장남)
   CX_OVERRIDE['p319']  = p282CX - COL_W * 11;    // 차남 김여벽
 
-  // 김여옥(p318) 아들들 — 1.5×COL_W 간격, p318 중심 좌우 대칭
-  CX_OVERRIDE['p321'] = p282CX - COL_W * 15.5;  // 장남 김한명
-  CX_OVERRIDE['p322'] = p282CX - COL_W * 14;    // 차남 김한성 (p318 직하)
+  // 김여옥(p318) 아들들 — 각 3×COL_W 간격, 손자 포함 재배치
+  CX_OVERRIDE['p321'] = p282CX - COL_W * 18;    // 장남 김한명
+  CX_OVERRIDE['p322'] = p282CX - COL_W * 15;    // 차남 김한성 (p318 직하)
   CX_OVERRIDE['p323'] = p282CX - COL_W * 12.5;  // 삼남 김한정
+  // 김한명(p321) 자식 — 1.5×COL_W 간격, p321 중심 좌우 대칭
+  CX_OVERRIDE['p346'] = p282CX - COL_W * 18.75; // 장남 김춘주
+  CX_OVERRIDE['p347'] = p282CX - COL_W * 17.25; // 차남 김경주
+  // 김한성(p322) 자식 — 1.5×COL_W 간격, p322 중심 좌우 대칭
+  CX_OVERRIDE['p348'] = p282CX - COL_W * 15.75; // 장남 김덕주
+  CX_OVERRIDE['p349'] = p282CX - COL_W * 14.25; // 차남 김해주
+  // 김한정(p323) 자식 — p323 직하
+  CX_OVERRIDE['p350'] = p282CX - COL_W * 12.5;  // 장남 김창주
   // 김여벽(p319) 아들 — p319 직하 (양자)
   CX_OVERRIDE['p324'] = p282CX - COL_W * 11;    // 장남 김한영 (p319 직하)
   // 김여선(p279) 아들 — p279 직하
@@ -1596,6 +1612,9 @@ function drawTree() {
       drawConnections(svg, oRect, { p287: ['p291'] }, '#5B8DB8', null);
       drawConnections(svg, oRect, { p291: ['p318'] }, '#5B8DB8', null);
       drawConnections(svg, oRect, { p318: ['p321', 'p322', 'p323'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p321: ['p346', 'p347'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p322: ['p348', 'p349'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p323: ['p350'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p319: ['p324'] }, '#5B8DB8', null);
     } else {
       seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
@@ -1958,7 +1977,7 @@ function initAncestors() {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
-    ['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p324','p324g','p325','p325g','p326','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336'].forEach(function(sid) {
+    ['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p326','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336'].forEach(function(sid) {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
@@ -1975,7 +1994,7 @@ function initAncestors() {
 
 renderTree();
 initAncestors();
-['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p324','p324g','p325','p325g','p326','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336'].forEach(function(sid) {
+['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p326','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336'].forEach(function(sid) {
   var el = document.getElementById(sid);
   if (el) el.style.display = 'none';
 });
