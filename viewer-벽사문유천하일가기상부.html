@@ -1037,6 +1037,7 @@
     if (savedMode) { viewMode = savedMode; sessionStorage.removeItem('viewMode'); }
 
     buildSidebarList();
+    zoomLevel = viewSpread ? mobileSpreadZoom() : 1;
     renderPage(currentPage);
     initDivider();
     document.getElementById('panel-left-body').addEventListener('scroll', onLeftScroll);
@@ -1351,7 +1352,7 @@
       target = currentPage + delta;
     }
     if (target < 1 || target > doc.total_pages) return;
-    zoomLevel = 1; applyZoom();
+    zoomLevel = viewSpread ? mobileSpreadZoom() : 1; applyZoom();
     renderPage(target);
     document.getElementById('panel-left-body').scrollTop = 0;
     document.getElementById('panel-right-body').scrollTop = 0;
@@ -1501,6 +1502,7 @@
   function zoomIn()    { const p = zoomLevel; zoomLevel = Math.min(zoomLevel * 1.3, 8);   applyZoom(p); }
   function zoomOut()   { const p = zoomLevel; zoomLevel = Math.max(zoomLevel / 1.3, 0.3); applyZoom(p); }
   function zoomReset() { const p = zoomLevel; zoomLevel = 1;                               applyZoom(p); }
+  function mobileSpreadZoom() { return window.innerWidth <= 768 ? 1 / 1.3 / 1.3 : 1; }
 
   function applyZoom(prevZoom) {
     const isSpread = viewSpread && getSpreadPages(currentPage).length > 1;
