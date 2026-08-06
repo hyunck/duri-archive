@@ -1206,8 +1206,8 @@ const CX_OVERRIDE = {};
   // 김영환 형제들 — 김여경(p11) 좌우에 밀착 배치 (CHILDREN 미포함, 레이아웃 독립)
   const p11CX = PAD_L + (colS['p11'] + colE['p11']) / 2 * COL_W;
   const p235RX = PAD_L + colE['p235'] * COL_W;  // 김한익 서브트리 우측 경계
-  // p283 자식 5명이 ±4×COL_W 퍼지므로 왼쪽 여유 1슬롯 확보
-  CX_OVERRIDE['p283'] = p235RX + 5 * COL_W;
+  // p283 자식 5명이 ±4×COL_W 퍼지고, p331 자식 3인이 왼쪽으로 최대 5.5슬롯까지 뻗으므로 여유 확보
+  CX_OVERRIDE['p283'] = p235RX + 8 * COL_W;
   // p284는 p283 우측 자식 끝(+4) + 2슬롯 간격
   CX_OVERRIDE['p284'] = CX_OVERRIDE['p283'] + 6 * COL_W;
   // 김여주(p283) 아들들 — p283 중심 좌우 2×COL_W 간격
