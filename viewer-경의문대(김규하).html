@@ -1263,7 +1263,19 @@
     img.src = src;
     img.onload = () => {
       const h = Math.round(singleBaseH() * zoomLevel);
-      img.style.height = h + 'px';
+      if (zoomLevel <= 1 && img.naturalWidth && img.naturalHeight) {
+        const wAtH = Math.round(img.naturalWidth / img.naturalHeight * h);
+        if (wAtH > wrap.clientWidth) {
+          img.style.width  = wrap.clientWidth + 'px';
+          img.style.height = 'auto';
+        } else {
+          img.style.width  = 'auto';
+          img.style.height = h + 'px';
+        }
+      } else {
+        img.style.width  = 'auto';
+        img.style.height = h + 'px';
+      }
       img.style.display = 'block';
       placeholder.style.display = 'none';
     };
@@ -1536,14 +1548,27 @@
       }
 
       const h = Math.round(singleBaseH() * zoomLevel);
+      const isOverflow = zoomLevel > 1;
+
       if (img && img.style.display !== 'none') {
-        img.style.height    = h + 'px';
         img.style.maxHeight = 'none';
         img.style.maxWidth  = 'none';
         img.style.transform = '';
+        if (!isOverflow && img.naturalWidth && img.naturalHeight) {
+          const wAtH = Math.round(img.naturalWidth / img.naturalHeight * h);
+          if (wAtH > wrap.clientWidth) {
+            img.style.width  = wrap.clientWidth + 'px';
+            img.style.height = 'auto';
+          } else {
+            img.style.width  = 'auto';
+            img.style.height = h + 'px';
+          }
+        } else {
+          img.style.width  = 'auto';
+          img.style.height = h + 'px';
+        }
       }
 
-      const isOverflow = zoomLevel > 1;
       wrap.style.overflow = isOverflow ? 'auto' : 'hidden';
       wrap.style.alignItems = isOverflow ? 'flex-start' : 'center';
 
