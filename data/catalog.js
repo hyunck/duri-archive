@@ -103,6 +103,18 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
+    id: "junjuhoju-1882",
+    title_hanja: "金致聲準戶口",
+    title_korean: "김치성준호구",
+    author: "김치성 (金致聲)",
+    year: "1882",
+    year_display: "광서 8년(1882)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김치성준호구(1882).html",
+    classification: "史部 政書類"
+  },
+  {
     id: "junhoju-1861",
     title_hanja: "金胄衡準戶口, 1861",
     title_korean: "김주형준호구",
