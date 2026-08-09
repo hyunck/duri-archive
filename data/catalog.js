@@ -104,7 +104,7 @@ const CATALOG = [
   },
   {
     id: "junjuhoju-1882",
-    title_hanja: "金致聲準戶口",
+    title_hanja: "金致聲準戶口, 1882",
     title_korean: "김치성준호구",
     author: "김치성 (金致聲)",
     year: "1882",
