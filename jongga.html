@@ -177,6 +177,12 @@
       position: relative;
       overflow: auto;
     }
+    @media (max-width: 768px) {
+      .sebo-tree-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
     .mp-card {
       position: absolute;
       background: var(--bg-card, var(--bg-body));
