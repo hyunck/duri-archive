@@ -8,7 +8,7 @@ const CATALOG = [
     title_korean: "종가실록",
     author: "김규하 (金圭夏)",
     year: "1930",
-    year_display: "소화 5년(1930) 경진",
+    year_display: "소화 5년(1930) 경오",
     category: "종중 기록",
     digitized: true,
     total_pages: 38,
