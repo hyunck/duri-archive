@@ -653,6 +653,13 @@ const NODES = {
   p360: { kr:'김정주', hj:'金正柱', gen:3, aliases:[{kr:'선식', hj:'先湜', src:'초휘'}], dates:'? ~ 1784년', myo:'원일전(元日田) 선영(先塋) 아래(下) 경좌(庚坐)', spouse:[{ hj:'진안 金氏', dates:'1734년 ~ 1800년' }] },
   p361: { kr:'김현주', hj:'金炫柱', gen:3, ja:'필도(必道)', dates:'1746년 ~ 1813년', myo:'도리(陶里) 마랑동(馬浪洞) 자좌(子坐)', spouse:[{ hj:'홍주 龍氏', dates:'1752년 ~ 1810년' }] },
   p362: { kr:'김찬주', hj:'金燦柱', gen:3, ja:'광점(光漸)', post:'贈 가선대부', dates:'1749년 ~ 1811년', myo:'현남면(縣南面) 창리(倉里) 임좌(壬坐)', spouse:[{ hj:'강릉 崔氏', dates:'1747년 ~ 1781년' }, { hj:'김해 金氏', order:'계배', dates:'1764년 ~ 1829년', father:'덕규(德圭)' }] },
+  // 김한채(p332) 아들들
+  p363: { kr:'김임주', hj:'金淋柱', gen:3, dates:'1736년 ~ 1798년', myo:'현북(縣北) 상광리(上光里) 오좌(午坐)', spouse:[{ hj:'여산 宋氏', dates:'1741년 ~ 1762년' }, { hj:'평창 李氏', order:'계배', dates:'1740년 ~ 1799년' }] },
+  p364: { kr:'김원주', hj:'金元柱', gen:3, dates:'1756년 ~ 1829년', myo:'현남면(縣南面) 인구(麟邱) 석동(石洞) 정좌(丁坐)', spouse:[{ hj:'평창 李氏', dates:'1757년 ~ 1801년' }] },
+  p365: { kr:'김철주', hj:'金澈柱', gen:3, dates:'1764년 ~ 1812년', myo:'현북(縣北) 도리(陶里) 경동(卿洞) 신좌(辛坐)', spouse:[{ hj:'강릉 咸氏', dates:'1772년 ~ 1814년' }] },
+  // 김한욱(p333) 아들들
+  p366: { kr:'김추주', hj:'金樞柱', gen:3, dates:'1762년 ~ 1826년', myo:'서면(西面) 논화리(論化里) 묘좌(卯坐)', spouse:[{ hj:'평산 申氏', dates:'1763년 ~ 1824년' }] },
+  p367: { kr:'김문주', hj:'金汶柱', gen:3, dates:'1765년 ~ 1824년', myo:'양양(襄陽) 감곡리(甘谷里) 유좌(酉坐)', spouse:[{ hj:'나주 丁氏', dates:'1765년 ~ 1837년' }] },
   p324: { kr:'김한영', hj:'金漢榮', gen:2, ja:'후항(後恒)', post:'절충장군(折衝)', dates:'1732년 ~ 1773년', myo:'현북면(縣北面) 장현리(獐峴里) 정좌(丁坐)', spouse:[{ hj:'순천 朴氏', dates:'1704년 ~ 1783년', father:'향식(享植)' }] },
   p324g: { kr:'김한영', hj:'金漢榮', gen:2, ghost:true },  // 김여진(p280) 차남, 김여벽(p319) 양자 출계
   p325g: { kr:'김한휘', hj:'金漢輝', gen:2, ghost:true },  // 김여탁(p282) 차남, 김여선(p279) 양자 출계
@@ -1206,13 +1213,13 @@ const CX_OVERRIDE = {};
   // 김영환 형제들 — 김여경(p11) 좌우에 밀착 배치 (CHILDREN 미포함, 레이아웃 독립)
   const p11CX = PAD_L + (colS['p11'] + colE['p11']) / 2 * COL_W;
   const p235RX = PAD_L + colE['p235'] * COL_W;  // 김한익 서브트리 우측 경계
-  // p283 자식 5명이 ±4×COL_W 퍼지고, p331 자식 3인이 왼쪽으로 최대 5.5슬롯까지 뻗으므로 여유 확보
-  CX_OVERRIDE['p283'] = p235RX + 8 * COL_W;
-  // p284는 p283 우측 자식 끝(+4) + 2슬롯 간격
-  CX_OVERRIDE['p284'] = CX_OVERRIDE['p283'] + 6 * COL_W;
-  // 김여주(p283) 아들들 — p283 중심 좌우 2×COL_W 간격
+  // p283 자식 5명이 ±8×COL_W 퍼지고, p331~p332 자식들이 겹치지 않도록 충분한 여유 확보
+  CX_OVERRIDE['p283'] = p235RX + 14 * COL_W;
+  // p284는 p283 우측 자식 끝(+8) + 2슬롯 간격
+  CX_OVERRIDE['p284'] = CX_OVERRIDE['p283'] + 10 * COL_W;
+  // 김여주(p283) 아들들 — p283 중심 좌우 4×COL_W 간격 (선 교차 방지)
   const p283CX = CX_OVERRIDE['p283'];
-  ['p331','p332','p333','p334','p335'].forEach((id, i) => { CX_OVERRIDE[id] = p283CX + (i - 2) * 2 * COL_W; });
+  ['p331','p332','p333','p334','p335'].forEach((id, i) => { CX_OVERRIDE[id] = p283CX + (i - 2) * 4 * COL_W; });
   // 김여련(p284) 아들 — p284 직하
   CX_OVERRIDE['p336'] = CX_OVERRIDE['p284'];
 
@@ -1265,10 +1272,17 @@ const CX_OVERRIDE = {};
   CX_OVERRIDE['p357'] = p282CX - COL_W * 2.5;   // 장남 김은주
   CX_OVERRIDE['p358'] = p282CX - COL_W * 1;     // 차남 김순주 (p330 직하)
   CX_OVERRIDE['p359'] = p282CX + COL_W * 0.5;   // 삼남 김선주
-  // 김한승(p331, p283CX-4) 아들 3인 — 1.5×COL_W 간격
-  CX_OVERRIDE['p360'] = p283CX - COL_W * 2.5;   // 장남 김정주
-  CX_OVERRIDE['p361'] = p283CX - COL_W * 4;     // 차남 김현주 (p331 직하)
-  CX_OVERRIDE['p362'] = p283CX - COL_W * 5.5;   // 삼남 김찬주
+  // 김한승(p331, p283CX-8) 아들 3인 — 1.5×COL_W 간격
+  CX_OVERRIDE['p360'] = p283CX - COL_W * 6.5;   // 장남 김정주
+  CX_OVERRIDE['p361'] = p283CX - COL_W * 8;     // 차남 김현주 (p331 직하)
+  CX_OVERRIDE['p362'] = p283CX - COL_W * 9.5;   // 삼남 김찬주
+  // 김한채(p332, p283CX-4) 아들 3인 — 1.5×COL_W 간격 (p331 자식과 최소 1슬롯 간격)
+  CX_OVERRIDE['p363'] = p283CX - COL_W * 5.5;   // 장남 김임주
+  CX_OVERRIDE['p364'] = p283CX - COL_W * 4;     // 차남 김원주 (p332 직하)
+  CX_OVERRIDE['p365'] = p283CX - COL_W * 2.5;   // 삼남 김철주
+  // 김한욱(p333, p283CX) 아들 2인 — 1.5×COL_W 간격
+  CX_OVERRIDE['p366'] = p283CX - COL_W * 0.75;  // 장남 김추주
+  CX_OVERRIDE['p367'] = p283CX + COL_W * 0.75;  // 차남 김문주
 })();
 
 // 카드 중심 x, 상단 y
@@ -1660,6 +1674,8 @@ function drawTree() {
       drawConnections(svg, oRect, { p327: ['p356'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p330: ['p357', 'p358', 'p359'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p331: ['p360', 'p361', 'p362'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p332: ['p363', 'p364', 'p365'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p333: ['p366', 'p367'] }, '#A87C24', null);
     } else {
       seg(svg, cx, ty, cx, ty - 36, '#A87C24', '7 4');
     }
@@ -2028,7 +2044,7 @@ function initAncestors() {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
-    ['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p351','p355g','p352','p353','p354','p326','p355','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336','p356','p357','p358','p359','p360','p361','p362'].forEach(function(sid) {
+    ['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p351','p355g','p352','p353','p354','p326','p355','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336','p356','p357','p358','p359','p360','p361','p362','p363','p364','p365','p366','p367'].forEach(function(sid) {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
@@ -2045,7 +2061,7 @@ function initAncestors() {
 
 renderTree();
 initAncestors();
-['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p351','p355g','p352','p353','p354','p326','p355','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336','p356','p357','p358','p359','p360','p361','p362'].forEach(function(sid) {
+['p279','p280','p281','p282','p283','p284','p318','p318g','p319','p321','p322','p323','p346','p347','p348','p349','p350','p324','p324g','p325','p325g','p351','p355g','p352','p353','p354','p326','p355','p327','p328','p329','p330','p331','p332','p333','p334','p335','p336','p356','p357','p358','p359','p360','p361','p362','p363','p364','p365','p366','p367'].forEach(function(sid) {
   var el = document.getElementById(sid);
   if (el) el.style.display = 'none';
 });
