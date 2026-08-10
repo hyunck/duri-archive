@@ -1226,20 +1226,20 @@ const CX_OVERRIDE = {};
   // 김영환 형제들 — 김여경(p11) 좌우에 밀착 배치 (CHILDREN 미포함, 레이아웃 독립)
   const p11CX = PAD_L + (colS['p11'] + colE['p11']) / 2 * COL_W;
   const p235RX = PAD_L + colE['p235'] * COL_W;  // 김한익 서브트리 우측 경계
-  // p283 자식 6명이 ±10×COL_W 퍼지고, p331~p333 자식들이 겹치지 않도록 충분한 여유 확보
+  // p283 손자들을 1.5×COL_W 균등 간격으로 배치; gen:2 부모는 각 자녀 중심에 맞춤
   CX_OVERRIDE['p283'] = p235RX + 14 * COL_W;
-  // p284는 p283 우측 자식 끝(+10) + 4슬롯 간격
-  CX_OVERRIDE['p284'] = CX_OVERRIDE['p283'] + 14 * COL_W;
-  // 김여주(p283) 아들 6인 — 4×COL_W 간격 (선 교차 방지)
+  // p284는 p336(p283CX+9.5) 직상방
+  CX_OVERRIDE['p284'] = CX_OVERRIDE['p283'] + 9.5 * COL_W;
   const p283CX = CX_OVERRIDE['p283'];
-  CX_OVERRIDE['p331'] = p283CX - 10 * COL_W;
-  CX_OVERRIDE['p332'] = p283CX - 6 * COL_W;
-  CX_OVERRIDE['p333'] = p283CX - 2 * COL_W;
-  CX_OVERRIDE['p368'] = p283CX + 2 * COL_W;   // 4남 김한광
-  CX_OVERRIDE['p334'] = p283CX + 6 * COL_W;
-  CX_OVERRIDE['p335'] = p283CX + 10 * COL_W;
+  // gen:2 부모 위치 — 각자 손자 중심으로 결정
+  CX_OVERRIDE['p331'] = p283CX - 10 * COL_W;    // 김한승 (손자 3인 중심: -11.5,-10,-8.5)
+  CX_OVERRIDE['p332'] = p283CX - 4.75 * COL_W;  // 김한채 (손자 4인 중심: -7,-5.5,-4,-2.5)
+  CX_OVERRIDE['p333'] = p283CX - 0.25 * COL_W;  // 김한욱 (손자 2인 중심: -1,+0.5)
+  CX_OVERRIDE['p368'] = p283CX + 2 * COL_W;     // 김한광 (손자 1인: +2)
+  CX_OVERRIDE['p334'] = p283CX + 4.25 * COL_W;  // 김한형 (손자 2인 중심: +3.5,+5)
+  CX_OVERRIDE['p335'] = p283CX + 7.25 * COL_W;  // 김한호 (손자 2인 중심: +6.5,+8)
   // 김여련(p284) 아들 — p284 직하
-  CX_OVERRIDE['p336'] = CX_OVERRIDE['p284'];
+  CX_OVERRIDE['p336'] = CX_OVERRIDE['p284'];     // 김한윤 (손자 1인: +9.5)
 
   // p31(김용주) 기준: 왼쪽 계보 전체를 p31 박스보다 왼쪽에 배치
   const p31CX = PAD_L + (colS['p31'] + colE['p31']) / 2 * COL_W;
@@ -1290,28 +1290,29 @@ const CX_OVERRIDE = {};
   CX_OVERRIDE['p357'] = p282CX - COL_W * 2.5;   // 장남 김은주
   CX_OVERRIDE['p358'] = p282CX - COL_W * 1;     // 차남 김순주 (p330 직하)
   CX_OVERRIDE['p359'] = p282CX + COL_W * 0.5;   // 삼남 김선주
-  // 김한승(p331, p283CX-10) 아들 3인 — 1.5×COL_W 간격
-  CX_OVERRIDE['p360'] = p283CX - COL_W * 8.5;   // 장남 김정주
-  CX_OVERRIDE['p361'] = p283CX - COL_W * 10;    // 차남 김현주 (p331 직하)
+  // 손자 전체 1.5×COL_W 균등 간격 배치 (p362 → p374 순서로 연속)
+  // p331(김한승, -10) 아들 3인
   CX_OVERRIDE['p362'] = p283CX - COL_W * 11.5;  // 삼남 김찬주
-  // 김한채(p332, p283CX-6) 4인 — 1×COL_W 간격 (p331 자식과 1슬롯 간격)
-  CX_OVERRIDE['p363'] = p283CX - COL_W * 7.5;   // 장남 김임주
-  CX_OVERRIDE['p374g'] = p283CX - COL_W * 6.5;  // 차남 김훈주 ghost (출계→김한윤 양자)
-  CX_OVERRIDE['p364'] = p283CX - COL_W * 5.5;   // 삼남 김원주 (p332 직하)
-  CX_OVERRIDE['p365'] = p283CX - COL_W * 4.5;   // 사남 김철주
-  // 김한욱(p333, p283CX-2) 아들 2인 — 0.75×COL_W 간격
-  CX_OVERRIDE['p366'] = p283CX - COL_W * 2.75;  // 장남 김추주
-  CX_OVERRIDE['p367'] = p283CX - COL_W * 1.25;  // 차남 김문주
-  // 김한광(p368, p283CX+2) 아들 1인 — p368 직하
-  CX_OVERRIDE['p369'] = p283CX + COL_W * 2;     // 장남 김득주
-  // 김한형(p334, p283CX+6) 아들 2인 — 1×COL_W 간격
-  CX_OVERRIDE['p370'] = p283CX + COL_W * 5;     // 장남 김신주
-  CX_OVERRIDE['p371'] = p283CX + COL_W * 7;     // 차남 김의주
-  // 김한호(p335, p283CX+10) 아들 2인 — 1×COL_W 간격
-  CX_OVERRIDE['p372'] = p283CX + COL_W * 9;     // 장남 김인주
-  CX_OVERRIDE['p373'] = p283CX + COL_W * 11;    // 차남 김윤주
-  // 김한윤(p336, p284CX=p283CX+14) 아들 1인 — p336 직하
-  CX_OVERRIDE['p374'] = p283CX + COL_W * 14;    // 장남 김훈주
+  CX_OVERRIDE['p361'] = p283CX - COL_W * 10;    // 차남 김현주 (p331 직하)
+  CX_OVERRIDE['p360'] = p283CX - COL_W * 8.5;   // 장남 김정주
+  // p332(김한채, -4.75) 4인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p363'] = p283CX - COL_W * 7;     // 장남 김임주
+  CX_OVERRIDE['p374g'] = p283CX - COL_W * 5.5;  // 차남 김훈주 ghost (출계)
+  CX_OVERRIDE['p364'] = p283CX - COL_W * 4;     // 삼남 김원주 (p332 직하)
+  CX_OVERRIDE['p365'] = p283CX - COL_W * 2.5;   // 사남 김철주
+  // p333(김한욱, -0.25) 아들 2인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p366'] = p283CX - COL_W * 1;     // 장남 김추주
+  CX_OVERRIDE['p367'] = p283CX + COL_W * 0.5;   // 차남 김문주
+  // p368(김한광, +2) 아들 1인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p369'] = p283CX + COL_W * 2;     // 장남 김득주 (p368 직하)
+  // p334(김한형, +4.25) 아들 2인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p370'] = p283CX + COL_W * 3.5;   // 장남 김신주
+  CX_OVERRIDE['p371'] = p283CX + COL_W * 5;     // 차남 김의주
+  // p335(김한호, +7.25) 아들 2인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p372'] = p283CX + COL_W * 6.5;   // 장남 김인주
+  CX_OVERRIDE['p373'] = p283CX + COL_W * 8;     // 차남 김윤주
+  // p336(김한윤, +9.5) 아들 1인 — 앞 가족과 1.5슬롯 간격
+  CX_OVERRIDE['p374'] = p283CX + COL_W * 9.5;   // 장남 김훈주 (양자, p336 직하)
 })();
 
 // 카드 중심 x, 상단 y
