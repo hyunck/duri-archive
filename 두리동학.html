@@ -523,9 +523,9 @@
       <!-- 지도 본체 -->
       <div id="map" class="map-container">
         <div class="map-inner-controls">
-          <button class="map-inner-btn" id="btn-toggle-markers" onclick="toggleMarkers(this)">마커 숨기기</button>
+          <button class="map-inner-btn active" id="btn-toggle-markers" onclick="toggleMarkers(this)">마커 숨기기</button>
           <button class="map-inner-btn" id="btn-toggle-parcels" onclick="toggleAllParcels(this)">전체 필지 보기</button>
-          <button class="map-inner-btn active" id="btn-toggle-duri" onclick="toggleDuriBoundary(this)">두리 영역 숨기기</button>
+          <button class="map-inner-btn active" id="btn-toggle-duri" onclick="toggleDuriBoundary(this)">두리 경계 숨기기</button>
         </div>
         <div class="map-placeholder" id="map-placeholder">
           <div class="map-placeholder-icon">🗺</div>
@@ -1139,7 +1139,7 @@ function toggleMarkers(btn) {
     if (loc._marker) loc._marker.setVisible(markersVisible && typeVisible[loc.type] !== false);
   });
   btn.textContent = markersVisible ? '마커 숨기기' : '마커 보이기';
-  btn.classList.toggle('active', !markersVisible);
+  btn.classList.toggle('active', markersVisible);
 }
 
 /* ── 전체 필지 on/off ── */
@@ -1322,7 +1322,7 @@ function drawDuriBoundary() {
 function toggleDuriBoundary(btn) {
   duriVisible = !duriVisible;
   if (duriPoly) duriPoly.setMap(duriVisible ? map : null);
-  btn.textContent = duriVisible ? '두리 영역 숨기기' : '두리 영역 보기';
+  btn.textContent = duriVisible ? '두리 경계 숨기기' : '두리 경계 보기';
   if (duriVisible) btn.classList.add('active');
   else btn.classList.remove('active');
 }
