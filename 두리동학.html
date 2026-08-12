@@ -525,6 +525,7 @@
         <div class="map-inner-controls">
           <button class="map-inner-btn" id="btn-toggle-markers" onclick="toggleMarkers(this)">마커 숨기기</button>
           <button class="map-inner-btn" id="btn-toggle-parcels" onclick="toggleAllParcels(this)">전체 필지 보기</button>
+          <button class="map-inner-btn active" id="btn-toggle-duri" onclick="toggleDuriBoundary(this)">두리 영역 숨기기</button>
         </div>
         <div class="map-placeholder" id="map-placeholder">
           <div class="map-placeholder-icon">🗺</div>
@@ -992,6 +993,21 @@ var activeParcelList = [];   // 개별 클릭 필지
 var allParcelsList   = [];   // 전체 필지 보기
 var allParcelsActive = false;
 var markersVisible   = true;
+var duriPoly         = null;
+var duriVisible      = true;
+
+/* 두리 리(里) 행정 경계 좌표 (네이버 지도 기준 추출) */
+var DURI_BOUNDARY = [
+  [37.9766, 128.7405],
+  [37.9768, 128.7529],
+  [37.9745, 128.7533],
+  [37.9726, 128.7524],
+  [37.9708, 128.7517],
+  [37.9693, 128.7485],
+  [37.9696, 128.7439],
+  [37.9714, 128.7415],
+  [37.9736, 128.7404]
+];
 var typeVisible      = { gold: true, red: false, orange: true, purple: true, teal: true, green: true, blue: true, black: true, pink: true, amber: true, rose: true, slate: false };
 var VWORLD_KEY = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
   ? '7669B1E3-55F0-3E6A-A190-E3FED57A8C23'   // 라이브 서버용
@@ -1048,6 +1064,7 @@ function initMap() {
     mapTypeControl: false
   });
 
+  drawDuriBoundary();   // 두리 경계를 가장 먼저 그려 필지 아래 위치
   LOCATIONS.forEach(function (loc, i) { addMarker(loc, i); });
   renderList();
   toggleAllParcels(document.getElementById('btn-toggle-parcels'));
@@ -1293,6 +1310,31 @@ function focusMarker(idx) {
     openIw = loc._iw;
   }
   fetchParcel(loc);
+}
+
+/* ── 두리 리(里) 경계 폴리곤 ── */
+function drawDuriBoundary() {
+  var path = DURI_BOUNDARY.map(function (c) {
+    return new naver.maps.LatLng(c[0], c[1]);
+  });
+  duriPoly = new naver.maps.Polygon({
+    map: map,
+    paths: [path],
+    strokeColor: '#FFFFFF',
+    strokeOpacity: 0.9,
+    strokeWeight: 2.5,
+    strokeStyle: 'shortdash',
+    fillColor: '#FFFFFF',
+    fillOpacity: 0
+  });
+}
+
+function toggleDuriBoundary(btn) {
+  duriVisible = !duriVisible;
+  if (duriPoly) duriPoly.setMap(duriVisible ? map : null);
+  btn.textContent = duriVisible ? '두리 영역 숨기기' : '두리 영역 보기';
+  if (duriVisible) btn.classList.add('active');
+  else btn.classList.remove('active');
 }
 
 /* ── VWorld 필지 폴리곤 ── */
