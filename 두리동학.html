@@ -1305,7 +1305,7 @@ function focusMarker(idx) {
 /* ── 두리 리(里) 경계 폴리곤 ── */
 function drawDuriBoundary() {
   var path = DURI_BOUNDARY.map(function (c) {
-    return new naver.maps.LatLng(c[0], c[1]);
+    return new naver.maps.LatLng(c[0] + PARCEL_LAT_OFFSET, c[1] + PARCEL_LNG_OFFSET);
   });
   duriPoly = new naver.maps.Polygon({
     map: map,
