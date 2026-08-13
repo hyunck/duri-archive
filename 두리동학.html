@@ -499,7 +499,23 @@
         <img src="images/jongga-1930/page_03.png" alt="두리동학전체도(斗里洞壑全整體圖)" class="lightbox-trigger" style="max-height:560px; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:inline-block;">
         <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em;">『종가실록(宗家實錄)』, 1930년</figcaption>
       </figure>
+    </section>
 
+    <!-- ── 두리 항공사진 ── -->
+    <section class="section">
+      <h2 class="section-title">두리 항공사진 <span style="font-family:var(--font-serif); font-size:13px; font-weight:400; color:var(--gold-600); margin-left:8px; letter-spacing:0.14em;">斗里 航空寫眞</span></h2>
+      <figure style="margin:0 0 32px;">
+        <div style="position:relative;">
+          <img id="aerial-photo" src="images/duri/두리 항공사진(1954년).png" alt="두리 항공사진(1954년)" class="lightbox-trigger" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:block;">
+          <div class="map-inner-controls">
+            <button id="btn-aerial-labels" class="map-inner-btn" onclick="toggleAerialLabels(this)">가옥 표시</button>
+          </div>
+        </div>
+        <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em; text-align:center;">두리 항공사진, 1954년</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" style="margin-top:40px;">
       <div id="api-notice" class="api-notice" style="display:none;">
         📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_NAVER_CLIENT_ID</code>를
         <a href="https://console.ncloud.com" target="_blank" rel="noopener" style="color:var(--gold-600);">네이버 클라우드 플랫폼</a>에서
@@ -551,20 +567,6 @@
         <div class="legend-item" data-type="green"  onclick="toggleType('green')" ><span class="legend-dot green" ></span>청룡등</div>
         <div class="legend-item" data-type="blue"   onclick="toggleType('blue')"  ><span class="legend-dot blue"  ></span>유적 · 기타</div>
       </div>
-    </section>
-
-    <!-- ── 두리 항공사진 ── -->
-    <section class="section">
-      <h2 class="section-title">두리 항공사진 <span style="font-family:var(--font-serif); font-size:13px; font-weight:400; color:var(--gold-600); margin-left:8px; letter-spacing:0.14em;">斗里 航空寫眞</span></h2>
-      <figure style="margin:0 0 32px; text-align:center;">
-        <div style="position:relative; display:inline-block; max-width:100%;">
-          <img id="aerial-photo" src="images/duri/두리 항공사진(1954년).png" alt="두리 항공사진(1954년)" class="lightbox-trigger" style="max-height:560px; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:block;">
-          <div class="map-inner-controls">
-            <button id="btn-aerial-labels" class="map-inner-btn" onclick="toggleAerialLabels(this)">가옥 표시</button>
-          </div>
-        </div>
-        <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em;">두리 항공사진, 1954년</figcaption>
-      </figure>
     </section>
 
     <!-- ── 지도 아래 설명 텍스트 ── -->
