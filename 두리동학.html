@@ -553,6 +553,20 @@
       </div>
     </section>
 
+    <!-- ── 두리 항공사진 ── -->
+    <section class="section">
+      <h2 class="section-title">두리 항공사진 <span style="font-family:var(--font-serif); font-size:13px; font-weight:400; color:var(--gold-600); margin-left:8px; letter-spacing:0.14em;">斗里 航空寫眞</span></h2>
+      <figure style="margin:0 0 32px; text-align:center;">
+        <div style="position:relative; display:inline-block; max-width:100%;">
+          <img id="aerial-photo" src="images/duri/두리 항공사진(1954년).png" alt="두리 항공사진(1954년)" class="lightbox-trigger" style="max-height:560px; width:auto; max-width:100%; border-radius:var(--radius-md); border:1px solid var(--border-normal); display:block;">
+          <div class="map-inner-controls">
+            <button id="btn-aerial-labels" class="map-inner-btn" onclick="toggleAerialLabels(this)">가옥 표시</button>
+          </div>
+        </div>
+        <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em;">두리 항공사진, 1954년</figcaption>
+      </figure>
+    </section>
+
     <!-- ── 지도 아래 설명 텍스트 ── -->
     <section class="section">
       <div class="body-text">
@@ -1337,6 +1351,16 @@ function toggleDuriBoundary(btn) {
   btn.textContent = duriVisible ? '두리 경계 숨기기' : '두리 경계 보기';
   if (duriVisible) btn.classList.add('active');
   else btn.classList.remove('active');
+}
+
+/* ── 항공사진 가옥 표시 토글 ── */
+function toggleAerialLabels(btn) {
+  var img = document.getElementById('aerial-photo');
+  var on = btn.classList.toggle('active');
+  img.src = on
+    ? 'images/duri/두리 항공사진(1954년, 가옥 표시).png'
+    : 'images/duri/두리 항공사진(1954년).png';
+  btn.textContent = on ? '가옥 숨기기' : '가옥 표시';
 }
 
 /* ── VWorld 필지 폴리곤 ── */
