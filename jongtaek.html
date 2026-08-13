@@ -407,6 +407,7 @@
 
     .lightbox-overlay.open {
       display: flex;
+      touch-action: none;
     }
 
     .lightbox-overlay img {
@@ -1061,6 +1062,7 @@
     function closeLightbox() {
       resetZoom();
       overlay.classList.remove('open');
+      document.body.style.overflow = '';
     }
 
     document.querySelectorAll('.lightbox-trigger').forEach(img => {
@@ -1069,6 +1071,7 @@
         lbImg.alt = img.alt;
         resetZoom();
         overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
       });
     });
 
@@ -1131,8 +1134,8 @@
       }
     }, { passive: false });
     overlay.addEventListener('touchmove', e => {
+      e.preventDefault();
       if (e.touches.length === 2) {
-        e.preventDefault();
         const ratio = touchDist(e.touches) / pinchStartDist;
         scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * ratio));
         applyTransform(false);

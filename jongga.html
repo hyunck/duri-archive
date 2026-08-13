@@ -207,7 +207,7 @@
       background: rgba(0,0,0,0.82); z-index: 9000;
       align-items: center; justify-content: center; overflow: hidden;
     }
-    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay.open { display: flex; touch-action: none; }
     .lightbox-overlay img {
       max-width: 90vw; max-height: 90vh; object-fit: contain;
       border-radius: var(--radius-md); box-shadow: 0 8px 48px rgba(0,0,0,0.6);
@@ -692,12 +692,12 @@
       lbImg.style.transition = 'transform 0.2s ease';
       lbImg.style.transform = '';
     }
-    function closeLightbox() { resetZoom(); overlay.classList.remove('open'); }
+    function closeLightbox() { resetZoom(); overlay.classList.remove('open'); document.body.style.overflow = ''; }
 
     document.querySelectorAll('.lightbox-trigger').forEach(function (img) {
       img.addEventListener('click', function () {
         lbImg.src = img.src; lbImg.alt = img.alt;
-        resetZoom(); overlay.classList.add('open');
+        resetZoom(); overlay.classList.add('open'); document.body.style.overflow = 'hidden';
       });
     });
 
@@ -742,8 +742,8 @@
       }
     }, { passive: false });
     overlay.addEventListener('touchmove', function (e) {
+      e.preventDefault();
       if (e.touches.length === 2) {
-        e.preventDefault();
         scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * touchDist(e.touches) / pinchStartDist));
         applyTransform(false);
       }

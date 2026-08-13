@@ -388,7 +388,7 @@
       align-items: center; justify-content: center;
       overflow: hidden;
     }
-    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay.open { display: flex; touch-action: none; }
 
     .lightbox-overlay img {
       max-width: 90vw; max-height: 90vh;
@@ -1075,7 +1075,7 @@ function initMap() {
     minZoom:    6,
     maxZoom:    21,
     mapTypeId:  naver.maps.MapTypeId.SATELLITE,
-    zoomControl: true,
+    zoomControl: window.innerWidth > 768,
     zoomControlOptions: { position: naver.maps.Position.RIGHT_CENTER },
     scaleControl: true,
     scaleControlOptions: { position: naver.maps.Position.BOTTOM_LEFT },
@@ -1462,12 +1462,12 @@ initMap();
     lbImg.style.transition = 'transform 0.2s ease';
     lbImg.style.transform  = '';
   }
-  function closeLightbox() { resetZoom(); overlay.classList.remove('open'); }
+  function closeLightbox() { resetZoom(); overlay.classList.remove('open'); document.body.style.overflow = ''; }
 
   document.querySelectorAll('.lightbox-trigger').forEach(img => {
     img.addEventListener('click', () => {
       lbImg.src = img.src; lbImg.alt = img.alt;
-      resetZoom(); overlay.classList.add('open');
+      resetZoom(); overlay.classList.add('open'); document.body.style.overflow = 'hidden';
     });
   });
 
@@ -1508,8 +1508,8 @@ initMap();
     }
   }, { passive: false });
   overlay.addEventListener('touchmove', e => {
+    e.preventDefault();
     if (e.touches.length === 2) {
-      e.preventDefault();
       scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * touchDist(e.touches) / pinchStartDist));
       applyTransform(false);
     }
