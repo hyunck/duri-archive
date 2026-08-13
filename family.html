@@ -893,7 +893,7 @@ const NODES = {
     { hj:'정선 全氏', dates:'1883년 ~ 1907년' },
     { hj:'한양 趙氏', order:'계배', dates:'1890년 ~ ?', father:'군칠(君七)' },
   ] },
-  p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', ja:'명여(明如)', jaSrc:'파보', aliases:[{kr:'김일귀',hj:'金日貴'}] },
+  p92: { kr:'김희열', hj:'金熙烈', gen:9, dates:'1883년 ~ ?', ja:'명여(明如)', jaSrc:'파보', jaOther:[{ja:'덕여(德如)', src:'세보'}], aliases:[{kr:'김일귀',hj:'金日貴'}], spouse:[{ hj:'달성 徐氏', dates:'1886년 ~ ?' }] },
   p93: { kr:'김홍열', hj:'金鴻烈', gen:9, dates:'1877년 ~ 1951년', myo:'두리(斗里) 뒷기슭(後麓) 진좌(辰坐)', ja:'승언(承彦)', jaSrc:'파보', aliases:[{kr:'김도원',hj:'金道源'}], spouse:[
     { hj:'파평 尹氏', dates:'1873년 ~ 1942년', father:'태두(泰斗)' },
     { hj:'남원 黃氏', order:'계배', dates:'1887년 ~ ?', father:'병삼(炳三)' },
@@ -1511,6 +1511,7 @@ function renderTree() {
       if (node.dates)          html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
       if ((node.postCard ?? node.post) && !node.postHideOnCard) html += `<div class="p-dates">${node.postCard ?? node.post}</div>`;
       if (node.ja)             html += `<div class="p-ja">字 ${node.ja}</div>`;
+      if (node.jaOther?.length) node.jaOther.forEach(j => { html += `<div class="p-ja">字 ${j.ja}</div>`; });
       if (node.ho)              html += `<div class="p-ja">號 ${node.ho}</div>`;
       if (node.aliases?.length) {
         html += '<div class="p-aliases">' +
@@ -1626,6 +1627,7 @@ function openPersonModal(id) {
       rows.push({ label: '관직', value: node.post + (node.postSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${Array.isArray(node.postSrc) ? node.postSrc.join('·') : node.postSrc})</span>` : '') });
     }
     if (node.ja)    rows.push({ label: '자(字)', value: node.ja + (node.jaSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.jaSrc})</span>` : '') });
+    if (node.jaOther?.length) node.jaOther.forEach(j => { rows.push({ label: '자(字)', value: j.ja + (j.src ? ` <span style="font-size:12px;color:var(--text-muted)">(${j.src})</span>` : '') }); });
     if (node.ho)    rows.push({ label: '호(號)', value: node.ho + (node.hoSrc ? ` <span style="font-size:12px;color:var(--text-muted)">(${node.hoSrc})</span>` : '') });
     if (node.aliases?.length) {
       rows.push({ label: '이명', value: node.aliases.map(a => {
