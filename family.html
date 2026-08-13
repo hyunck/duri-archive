@@ -1461,12 +1461,12 @@ function renderTree() {
       // 실제 카드와 동일한 내용을 렌더링 (크기 일치)
       const srcId = Object.entries(ARROWS).find(([from]) => from === id)?.[1];
       const src = srcId ? NODES[srcId] : node;
-      let ghtml = `<div class="p-kr">${src.kr}</div><div class="p-hj">${src.hj}</div>`;
+      let ghtml = `<div class="p-kr">${src.kr}</div>` + (src.hj ? `<div class="p-hj">${src.hj}</div>` : '');
       if (src.dates)           ghtml += `<div class="p-dates">${src.dates}</div>`;
       if (src.aliases?.length) {
         ghtml += '<div class="p-aliases">' +
           src.aliases.map(a =>
-            `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+            `<div class="p-alias">${a.kr}${a.hj ? '<span class="p-alias-hj">' + a.hj + '</span>' : ''}</div>`
           ).join('') + '</div>';
       }
       card.innerHTML = ghtml;
@@ -1475,12 +1475,12 @@ function renderTree() {
       let html;
       if (node.kr !== '딸') {
         // 이름이 있는 딸: 텍스트는 일반 카드와 동일, 스타일만 여성 적용
-        html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+        html = `<div class="p-kr">${node.kr}</div>` + (node.hj ? `<div class="p-hj">${node.hj}</div>` : '');
         if (node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
         if (node.aliases?.length) {
           html += '<div class="p-aliases">' +
             node.aliases.map(a =>
-              `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+              `<div class="p-alias">${a.kr}${a.hj ? '<span class="p-alias-hj">' + a.hj + '</span>' : ''}</div>`
             ).join('') + '</div>';
         }
       } else {
@@ -1506,7 +1506,7 @@ function renderTree() {
       card.innerHTML = html;
     } else {
       card.className = 'person-card';
-      let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+      let html = `<div class="p-kr">${node.kr}</div>` + (node.hj ? `<div class="p-hj">${node.hj}</div>` : '');
       if (node.birth)          html += `<div class="p-dates">${node.birth}</div>`;
       if (node.dates)          html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
       if ((node.postCard ?? node.post) && !node.postHideOnCard) html += `<div class="p-dates">${node.postCard ?? node.post}</div>`;
@@ -1515,7 +1515,7 @@ function renderTree() {
       if (node.aliases?.length) {
         html += '<div class="p-aliases">' +
           node.aliases.map(a =>
-            `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`
+            `<div class="p-alias">${a.kr}${a.hj ? '<span class="p-alias-hj">' + a.hj + '</span>' : ''}</div>`
           ).join('') + '</div>';
       }
       if (node.spouse?.length) {
