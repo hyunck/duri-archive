@@ -2091,7 +2091,7 @@ function initAncestors() {
       if (nd.aliases && nd.aliases.length) {
         ch += '<div class="p-aliases">' +
           nd.aliases.map(function(a) {
-            return '<div class="p-alias">' + a.kr + '<span class="p-alias-hj">' + a.hj + '</span></div>';
+            return '<div class="p-alias">' + a.kr + (a.hj ? '<span class="p-alias-hj">' + a.hj + '</span>' : '') + '</div>';
           }).join('') + '</div>';
       }
     }
