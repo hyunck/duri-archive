@@ -1590,13 +1590,23 @@ function renderTree() {
         html += '<div class="p-spouses">' +
           node.spouse.map(s => {
             const prefix = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
-            let sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
-            if (s.rank) sh += `<span class="p-spouse-rank">${s.rank}</span>`;
-            sh += '</div>';
-            const details = [];
-            if (s.dates)  details.push(s.dates);
-            if (s.father) details.push(`父 ${s.father}`);
-            if (details.length) sh += `<div class="p-spouse-detail">${details.join(' · ')}</div>`;
+            let sh;
+            if (s.name) {
+              sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.name}</span></div>`;
+              sh += `<div class="p-spouse-head"><span class="p-spouse-clan">${s.hj}${s.rank ? ' · ' + s.rank : ''}</span></div>`;
+              const details = [];
+              if (s.dates)  details.push(s.dates);
+              if (s.father) details.push(`父 ${s.father}`);
+              if (details.length) sh += `<div class="p-spouse-detail">${details.join(' · ')}</div>`;
+            } else {
+              sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
+              if (s.rank) sh += `<span class="p-spouse-rank">${s.rank}</span>`;
+              sh += '</div>';
+              const details = [];
+              if (s.dates)  details.push(s.dates);
+              if (s.father) details.push(`父 ${s.father}`);
+              if (details.length) sh += `<div class="p-spouse-detail">${details.join(' · ')}</div>`;
+            }
             return `<div class="p-spouse">${sh}</div>`;
           }).join('') + '</div>';
       }
@@ -1706,9 +1716,15 @@ function openPersonModal(id) {
     if (node.spouse?.length) {
       const spHtml = node.spouse.map(s => {
         const pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
-        let sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}${s.name ? ' ' + s.name : ''}</span>`;
-        if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
-        sh += '</div>';
+        let sh;
+        if (s.name) {
+          sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.name}</span></div>`;
+          sh += `<div class="pm-sp-head"><span class="pm-sp-clan">${s.hj}${s.rank ? ' · ' + s.rank : ''}</span></div>`;
+        } else {
+          sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}</span>`;
+          if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
+          sh += '</div>';
+        }
         const det = [];
         if (s.dates)  det.push(s.dates);
         if (s.father) det.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
@@ -2100,13 +2116,23 @@ function initAncestors() {
       ch += '<div class="p-spouses">' +
         nd.spouse.map(function(s) {
           var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
-          var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + (s.name ? ' ' + s.name : '') + '</span>';
-          if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
-          sh += '</div>';
-          var dtl = [];
-          if (s.dates)  dtl.push(s.dates);
-          if (s.father) dtl.push('父 ' + s.father);
-          if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          var sh;
+          if (s.name) {
+            sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
+            sh += '<div class="p-spouse-head"><span class="p-spouse-clan">' + s.hj + (s.rank ? ' · ' + s.rank : '') + '</span></div>';
+            var dtl = [];
+            if (s.dates)  dtl.push(s.dates);
+            if (s.father) dtl.push('父 ' + s.father);
+            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          } else {
+            sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
+            if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
+            sh += '</div>';
+            var dtl = [];
+            if (s.dates)  dtl.push(s.dates);
+            if (s.father) dtl.push('父 ' + s.father);
+            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          }
           return '<div class="p-spouse">' + sh + '</div>';
         }).join('') + '</div>';
     }
@@ -2170,13 +2196,23 @@ function initAncestors() {
       ch2 += '<div class="p-spouses">' +
         nd2.spouse.map(function(s) {
           var pfx = (s.order === '계실' || s.order === '계배') ? '繼' : '配';
-          var sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + (s.name ? ' ' + s.name : '') + '</span>';
-          if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
-          sh += '</div>';
-          var dtl = [];
-          if (s.dates)  dtl.push(s.dates);
-          if (s.father) dtl.push('父 ' + s.father);
-          if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          var sh;
+          if (s.name) {
+            sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
+            sh += '<div class="p-spouse-head"><span class="p-spouse-clan">' + s.hj + (s.rank ? ' · ' + s.rank : '') + '</span></div>';
+            var dtl = [];
+            if (s.dates)  dtl.push(s.dates);
+            if (s.father) dtl.push('父 ' + s.father);
+            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          } else {
+            sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
+            if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
+            sh += '</div>';
+            var dtl = [];
+            if (s.dates)  dtl.push(s.dates);
+            if (s.father) dtl.push('父 ' + s.father);
+            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+          }
           return '<div class="p-spouse">' + sh + '</div>';
         }).join('') + '</div>';
     }
