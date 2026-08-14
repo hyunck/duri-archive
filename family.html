@@ -1593,7 +1593,8 @@ function renderTree() {
             let sh;
             if (s.name) {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.name}</span></div>`;
-              sh += `<div class="p-spouse-detail" style="color:var(--text-primary)">${s.hj}${s.rank ? ' · ' + s.rank : ''}</div>`;
+              if (s.hj)   sh += `<div class="p-spouse-detail">${s.hj}</div>`;
+              if (s.rank) sh += `<div class="p-spouse-detail">${s.rank}</div>`;
               const details = [];
               if (s.dates)  details.push(s.dates);
               if (s.father) details.push(`父 ${s.father}`);
@@ -1719,7 +1720,8 @@ function openPersonModal(id) {
         let sh;
         if (s.name) {
           sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.name}</span></div>`;
-          sh += `<div class="pm-sp-detail" style="color:var(--text-primary)">${s.hj}${s.rank ? ' · ' + s.rank : ''}</div>`;
+          if (s.hj)   sh += `<div class="pm-sp-detail">${s.hj}</div>`;
+          if (s.rank) sh += `<div class="pm-sp-detail">${s.rank}</div>`;
         } else {
           sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}</span>`;
           if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
@@ -2119,7 +2121,8 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            sh += '<div class="p-spouse-detail" style="color:var(--text-primary)">' + s.hj + (s.rank ? ' · ' + s.rank : '') + '</div>';
+            if (s.hj)   sh += '<div class="p-spouse-detail">' + s.hj + '</div>';
+            if (s.rank) sh += '<div class="p-spouse-detail">' + s.rank + '</div>';
             var dtl = [];
             if (s.dates)  dtl.push(s.dates);
             if (s.father) dtl.push('父 ' + s.father);
@@ -2199,7 +2202,8 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            sh += '<div class="p-spouse-detail" style="color:var(--text-primary)">' + s.hj + (s.rank ? ' · ' + s.rank : '') + '</div>';
+            if (s.hj)   sh += '<div class="p-spouse-detail">' + s.hj + '</div>';
+            if (s.rank) sh += '<div class="p-spouse-detail">' + s.rank + '</div>';
             var dtl = [];
             if (s.dates)  dtl.push(s.dates);
             if (s.father) dtl.push('父 ' + s.father);
