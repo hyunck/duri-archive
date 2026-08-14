@@ -1593,12 +1593,12 @@ function renderTree() {
             let sh;
             if (s.name) {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.name}</span></div>`;
-              if (s.hj)   sh += `<div class="p-spouse-detail">${s.hj}</div>`;
-              if (s.rank) sh += `<div class="p-spouse-detail">${s.rank}</div>`;
-              const details = [];
-              if (s.dates)  details.push(s.dates);
-              if (s.father) details.push(`父 ${s.father}`);
-              if (details.length) sh += `<div class="p-spouse-detail">${details.join(' · ')}</div>`;
+              const parts = [];
+              if (s.hj)   parts.push(s.hj);
+              if (s.rank) parts.push(s.rank);
+              if (s.dates)  parts.push(s.dates);
+              if (s.father) parts.push(`父 ${s.father}`);
+              if (parts.length) sh += `<div class="p-spouse-detail">${parts.join(' ')}</div>`;
             } else {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
               if (s.rank) sh += `<span class="p-spouse-rank">${s.rank}</span>`;
@@ -1720,14 +1720,14 @@ function openPersonModal(id) {
         let sh;
         if (s.name) {
           sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.name}</span></div>`;
-          if (s.hj)   sh += `<div class="pm-sp-detail">${s.hj}</div>`;
-          if (s.rank) sh += `<div class="pm-sp-detail">${s.rank}</div>`;
         } else {
           sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}</span>`;
           if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
           sh += '</div>';
         }
         const det = [];
+        if (s.name && s.hj)   det.push(s.hj);
+        if (s.name && s.rank) det.push(s.rank);
         if (s.dates)  det.push(s.dates);
         if (s.father) det.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
         if (s.grandfather) det.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
@@ -2121,12 +2121,12 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            if (s.hj)   sh += '<div class="p-spouse-detail">' + s.hj + '</div>';
-            if (s.rank) sh += '<div class="p-spouse-detail">' + s.rank + '</div>';
-            var dtl = [];
-            if (s.dates)  dtl.push(s.dates);
-            if (s.father) dtl.push('父 ' + s.father);
-            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+            var pts = [];
+            if (s.hj)   pts.push(s.hj);
+            if (s.rank) pts.push(s.rank);
+            if (s.dates)  pts.push(s.dates);
+            if (s.father) pts.push('父 ' + s.father);
+            if (pts.length) sh += '<div class="p-spouse-detail">' + pts.join(' ') + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
             if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
@@ -2202,12 +2202,12 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            if (s.hj)   sh += '<div class="p-spouse-detail">' + s.hj + '</div>';
-            if (s.rank) sh += '<div class="p-spouse-detail">' + s.rank + '</div>';
-            var dtl = [];
-            if (s.dates)  dtl.push(s.dates);
-            if (s.father) dtl.push('父 ' + s.father);
-            if (dtl.length) sh += '<div class="p-spouse-detail">' + dtl.join(' · ') + '</div>';
+            var pts = [];
+            if (s.hj)   pts.push(s.hj);
+            if (s.rank) pts.push(s.rank);
+            if (s.dates)  pts.push(s.dates);
+            if (s.father) pts.push('父 ' + s.father);
+            if (pts.length) sh += '<div class="p-spouse-detail">' + pts.join(' ') + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
             if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
