@@ -352,7 +352,7 @@ const DOC_JISE = {
     {
       page_num: 33,
       type: "text",
-      title: "33페이지 : 두리 김동향(金東享)",
+      title: "33페이지 : 두리 김동형(金東亨)",
       image: "images/지세명기장 두리/page_33.png",
       hanja_text: ``,
       korean_translation: ``,
