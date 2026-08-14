@@ -1593,12 +1593,12 @@ function renderTree() {
             let sh;
             if (s.name) {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.name}</span></div>`;
-              const parts = [];
-              if (s.hj)   parts.push(s.hj);
-              if (s.rank) parts.push(s.rank);
-              if (s.dates)  parts.push(s.dates);
-              if (s.father) parts.push(`父 ${s.father}`);
-              if (parts.length) sh += `<div class="p-spouse-detail">${parts.join(' ')}</div>`;
+              const line1 = [];
+              if (s.hj)   line1.push(`<span style="color:var(--text-primary)">${s.hj}</span>`);
+              if (s.rank) line1.push(s.rank);
+              if (s.dates) line1.push(s.dates);
+              if (line1.length) sh += `<div class="p-spouse-detail">${line1.join(' ')}</div>`;
+              if (s.father) sh += `<div class="p-spouse-detail">父 ${s.father}</div>`;
             } else {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
               if (s.rank) sh += `<span class="p-spouse-rank">${s.rank}</span>`;
@@ -1725,15 +1725,27 @@ function openPersonModal(id) {
           if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
           sh += '</div>';
         }
-        const det = [];
-        if (s.name && s.hj)   det.push(s.hj);
-        if (s.name && s.rank) det.push(s.rank);
-        if (s.dates)  det.push(s.dates);
-        if (s.father) det.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
-        if (s.grandfather) det.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
-        if (s.greatGrandfather) det.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
-        if (s.matGrandfather) det.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
-        if (det.length) sh += `<div class="pm-sp-detail">${det.join(' · ')}</div>`;
+        if (s.name) {
+          const ml1 = [];
+          if (s.hj)   ml1.push(`<span style="color:var(--text-primary)">${s.hj}</span>`);
+          if (s.rank) ml1.push(s.rank);
+          if (s.dates) ml1.push(s.dates);
+          if (ml1.length) sh += `<div class="pm-sp-detail">${ml1.join(' ')}</div>`;
+          const ml2 = [];
+          if (s.father) ml2.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
+          if (s.grandfather) ml2.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
+          if (s.greatGrandfather) ml2.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
+          if (s.matGrandfather) ml2.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
+          if (ml2.length) sh += `<div class="pm-sp-detail">${ml2.join(' · ')}</div>`;
+        } else {
+          const det = [];
+          if (s.dates)  det.push(s.dates);
+          if (s.father) det.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
+          if (s.grandfather) det.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
+          if (s.greatGrandfather) det.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
+          if (s.matGrandfather) det.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
+          if (det.length) sh += `<div class="pm-sp-detail">${det.join(' · ')}</div>`;
+        }
         return `<div class="pm-spouse-item">${sh}</div>`;
       }).join('');
       rows.push({ label: '배우자', value: spHtml });
@@ -2121,12 +2133,12 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            var pts = [];
-            if (s.hj)   pts.push(s.hj);
-            if (s.rank) pts.push(s.rank);
-            if (s.dates)  pts.push(s.dates);
-            if (s.father) pts.push('父 ' + s.father);
-            if (pts.length) sh += '<div class="p-spouse-detail">' + pts.join(' ') + '</div>';
+            var l1 = [];
+            if (s.hj)   l1.push('<span style="color:var(--text-primary)">' + s.hj + '</span>');
+            if (s.rank) l1.push(s.rank);
+            if (s.dates) l1.push(s.dates);
+            if (l1.length) sh += '<div class="p-spouse-detail">' + l1.join(' ') + '</div>';
+            if (s.father) sh += '<div class="p-spouse-detail">父 ' + s.father + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
             if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
@@ -2202,12 +2214,12 @@ function initAncestors() {
           var sh;
           if (s.name) {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.name + '</span></div>';
-            var pts = [];
-            if (s.hj)   pts.push(s.hj);
-            if (s.rank) pts.push(s.rank);
-            if (s.dates)  pts.push(s.dates);
-            if (s.father) pts.push('父 ' + s.father);
-            if (pts.length) sh += '<div class="p-spouse-detail">' + pts.join(' ') + '</div>';
+            var l1 = [];
+            if (s.hj)   l1.push('<span style="color:var(--text-primary)">' + s.hj + '</span>');
+            if (s.rank) l1.push(s.rank);
+            if (s.dates) l1.push(s.dates);
+            if (l1.length) sh += '<div class="p-spouse-detail">' + l1.join(' ') + '</div>';
+            if (s.father) sh += '<div class="p-spouse-detail">父 ' + s.father + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
             if (s.rank) sh += '<span class="p-spouse-rank">' + s.rank + '</span>';
