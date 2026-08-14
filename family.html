@@ -1597,7 +1597,7 @@ function renderTree() {
               if (s.hj)   line1.push(`<span style="color:var(--text-primary);font-family:var(--font-serif);font-size:13px;letter-spacing:0.04em">${s.hj}</span>`);
               if (s.rank) line1.push(`<span style="margin-left:6px">${s.rank}</span>`);
               if (s.dates) line1.push(s.dates);
-              if (line1.length) sh += `<div class="p-spouse-detail" style="text-align:left">${line1.join(' ')}</div>`;
+              if (line1.length) sh += `<div class="p-spouse-detail" style="text-align:left;padding-left:18px">${line1.join(' ')}</div>`;
               if (s.father) sh += `<div class="p-spouse-detail">父 ${s.father}</div>`;
             } else {
               sh = `<div class="p-spouse-head"><span class="p-spouse-prefix">${prefix}</span><span class="p-spouse-clan">${s.hj}</span>`;
@@ -1730,7 +1730,7 @@ function openPersonModal(id) {
           if (s.hj)   ml1.push(`<span style="color:var(--text-primary);font-family:var(--font-serif);font-size:13px;letter-spacing:0.04em">${s.hj}</span>`);
           if (s.rank) ml1.push(`<span style="margin-left:6px">${s.rank}</span>`);
           if (s.dates) ml1.push(s.dates);
-          if (ml1.length) sh += `<div class="pm-sp-detail" style="text-align:left">${ml1.join(' ')}</div>`;
+          if (ml1.length) sh += `<div class="pm-sp-detail" style="text-align:left;padding-left:18px">${ml1.join(' ')}</div>`;
           const ml2 = [];
           if (s.father) ml2.push('父 ' + (s.fatherPost ? s.fatherPost + ' ' : '') + s.father);
           if (s.grandfather) ml2.push('祖 ' + (s.grandfatherPost ? s.grandfatherPost + ' ' : '') + s.grandfather);
@@ -2137,7 +2137,7 @@ function initAncestors() {
             if (s.hj)   l1.push('<span style="color:var(--text-primary);font-family:var(--font-serif);font-size:13px;letter-spacing:0.04em">' + s.hj + '</span>');
             if (s.rank) l1.push('<span style="margin-left:6px">' + s.rank + '</span>');
             if (s.dates) l1.push(s.dates);
-            if (l1.length) sh += '<div class="p-spouse-detail" style="text-align:left">' + l1.join(' ') + '</div>';
+            if (l1.length) sh += '<div class="p-spouse-detail" style="text-align:left;padding-left:18px">' + l1.join(' ') + '</div>';
             if (s.father) sh += '<div class="p-spouse-detail">父 ' + s.father + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
@@ -2218,7 +2218,7 @@ function initAncestors() {
             if (s.hj)   l1.push('<span style="color:var(--text-primary);font-family:var(--font-serif);font-size:13px;letter-spacing:0.04em">' + s.hj + '</span>');
             if (s.rank) l1.push('<span style="margin-left:6px">' + s.rank + '</span>');
             if (s.dates) l1.push(s.dates);
-            if (l1.length) sh += '<div class="p-spouse-detail" style="text-align:left">' + l1.join(' ') + '</div>';
+            if (l1.length) sh += '<div class="p-spouse-detail" style="text-align:left;padding-left:18px">' + l1.join(' ') + '</div>';
             if (s.father) sh += '<div class="p-spouse-detail">父 ' + s.father + '</div>';
           } else {
             sh = '<div class="p-spouse-head"><span class="p-spouse-prefix">' + pfx + '</span><span class="p-spouse-clan">' + s.hj + '</span>';
