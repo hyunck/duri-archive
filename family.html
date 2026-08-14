@@ -2165,6 +2165,20 @@ function initAncestors() {
   section.appendChild(makeACard('p298', eonBinCX, CTOP_7));  // 김칭
   section.appendChild(makeACard('p467', eonBinCX + COL_W, CTOP_7));  // 김신(삼남)
   section.appendChild(makeACard('p468', eonBinCX + 2 * COL_W, CTOP_7));  // 김임(사남)
+  // 파 이름 라벨
+  [
+    { id:'p300', cx: eonBinCX - 2 * COL_W, label:'장단공파' },
+    { id:'p298', cx: eonBinCX,             label:'참판공파' },
+    { id:'p467', cx: eonBinCX + COL_W,     label:'판관공파' },
+    { id:'p468', cx: eonBinCX + 2 * COL_W, label:'계성군파' },
+  ].forEach(function(info) {
+    var hl = document.createElement('div');
+    hl.className = 'house-label';
+    hl.dataset.pid = info.id;
+    hl.style.cssText = 'left:' + (info.cx - CARD_W / 2) + 'px; top:' + (CTOP_7 - 40) + 'px; width:' + CARD_W + 'px;';
+    hl.textContent = info.label;
+    section.appendChild(hl);
+  });
   section.appendChild(makeACard('p297', eonBinCX, CTOP_6));  // 김양필
   section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직
   section.appendChild(makeACard('p289', eonBinCX, CTOP_4));  // 김덕은
