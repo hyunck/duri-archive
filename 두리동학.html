@@ -310,17 +310,6 @@
     .legend-dot.rose   { background: #C85830; }
     .legend-dot.slate  { background: #708090; }
 
-    /* ── API 키 안내 ── */
-    .api-notice {
-      padding: 11px 15px;
-      background: rgba(168, 124, 36, 0.07);
-      border: 1px solid rgba(168, 124, 36, 0.22);
-      border-radius: var(--radius-md);
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-      line-height: 1.7;
-    }
 
     /* ── 지점 목록 ── */
     .location-list {
@@ -424,12 +413,6 @@
     gtag('js', new Date());
     gtag('config', 'G-Y8SZ52M48J');
   </script>
-  <!--
-    ★ 네이버 지도 API 클라이언트 ID 설정 ★
-    아래 YOUR_NAVER_CLIENT_ID 를 네이버 클라우드 플랫폼(console.ncloud.com)에서
-    발급받은 'Application 클라이언트 ID'로 교체하세요.
-    서비스 URL 등록: 두리종중.com / localhost 등록 필요
-  -->
   <script type="text/javascript"
     src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=q55f6tqs32">
   </script>
@@ -513,15 +496,16 @@
         </div>
         <figcaption style="margin-top:8px; font-size:12px; color:var(--text-muted); letter-spacing:0.04em; text-align:center;">두리 항공사진, 1954년</figcaption>
       </figure>
+      <section class="section">
+      <div class="body-text">
+        <p>
+          위 항공사진에서도 보다시피, 두리 뒷골 일대에 20채가 넘는 가옥들이 들어서 있다.
+        </p>
+      </div>
+    </section>
     </section>
 
     <section class="section" style="margin-top:40px;">
-      <div id="api-notice" class="api-notice" style="display:none;">
-        📌 지도를 표시하려면 <code>두리동학.html</code>의 <code>YOUR_NAVER_CLIENT_ID</code>를
-        <a href="https://console.ncloud.com" target="_blank" rel="noopener" style="color:var(--gold-600);">네이버 클라우드 플랫폼</a>에서
-        발급받은 클라이언트 ID로 교체해주세요.
-      </div>
-
       <h2 class="section-title">두리동학 지도</h2>
 
       <!-- 지도 타입 · 레이어 컨트롤 -->
@@ -546,9 +530,6 @@
         <div class="map-placeholder" id="map-placeholder">
           <div class="map-placeholder-icon">🗺</div>
           <div>지도를 불러오는 중…</div>
-          <div style="font-size:12px;color:var(--text-muted);">
-            API 키 미설정 시: <code>YOUR_NAVER_CLIENT_ID</code> 교체 필요
-          </div>
         </div>
       </div>
 
@@ -1294,13 +1275,9 @@ function initMap() {
   var placeholder = document.getElementById('map-placeholder');
 
   if (typeof naver === 'undefined' || typeof naver.maps === 'undefined') {
-    document.getElementById('api-notice').style.display = 'block';
     if (placeholder) placeholder.innerHTML =
-      '<div class="map-placeholder-icon">🔑</div>' +
-      '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 24px;">' +
-      'API 키를 설정하면 지도가 표시됩니다.<br>' +
-      '<code style="font-size:11px;">YOUR_NAVER_CLIENT_ID</code> 를 교체해주세요.' +
-      '</div>';
+      '<div class="map-placeholder-icon">🗺</div>' +
+      '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 24px;">지도를 불러오지 못했습니다.</div>';
     renderList();
     return;
   }
