@@ -122,6 +122,22 @@
     .body-text p { margin-bottom: 18px; }
     .body-text p:last-child { margin-bottom: 0; }
 
+    /* ── 인용 / 원문 ── */
+    .quote-block {
+      margin: 24px 0;
+      padding: 20px 24px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--gold-600);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-family: var(--font-serif);
+      font-size: 18px; line-height: 2.1;
+      color: var(--text-secondary);
+    }
+    .quote-source {
+      font-size: 15px; color: var(--text-muted);
+      margin-top: 10px; text-align: right; letter-spacing: 0.04em;
+    }
+
     /* ── 지도 컨트롤 ── */
     .map-controls {
       display: flex;
@@ -498,8 +514,13 @@
       </figure>
       <section class="section">
       <div class="body-text">
+        <div class="quote-block">
+          땅의 형세가 좁고 우묵해서, 한 골짜기에 함께 사는 종족이 수십 호에 불과한데도 담장과 지붕이 서로 이어져 거의 다 수용하지 못할 지경이다. 이 땅이 '두(斗)'로 이름을 얻은 것이 혹 이 때문이 아니겠는가.
+          <div style="font-size:15px; color:var(--text-muted); margin-top:10px; line-height:2;">地勢狹凹，宗族之同居一谷者，不過數十戶，墻屋相連，殆不能容。地之以斗得名，豈以此歟。</div>
+          <div class="quote-source">— 최대수(崔大洙), 「두산정기(斗山亭記)」, 1930년</div>
+        </div>
         <p>
-          위 항공사진에서도 보다시피, 두리 뒷골 일대에 20채가 넘는 가옥들이 들어서 있다.
+        두리 뒷골(후동, 後洞) 일대는 조선후기 이 지역에 처음 정착한 김여경(金如瓊)의 후손들이 300여년 동안 대대로 세거해 온 집성촌으로, 위 항공사진에서도 보다시피 이 마을에 20채가 넘는 가옥들이 들어서 있다. 『두산정기』에서의 언급도 이러한 모습에서 비롯됨일 것이다.
         </p>
       </div>
     </section>
