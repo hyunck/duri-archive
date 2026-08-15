@@ -101,6 +101,17 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border-normal);
       margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 18px;
+      background: var(--gold-600);
+      border-radius: 2px;
+      flex-shrink: 0;
     }
 
     .section-title span {
