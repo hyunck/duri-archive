@@ -52,14 +52,7 @@
       transition: transform 9s ease-out;
     }
     .hero-slide.active .hero-bg { transform: scale(1); }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top,
-        rgba(0,0,0,.62) 0%,
-        rgba(0,0,0,.18) 50%,
-        rgba(0,0,0,.04) 100%
-      );
-    }
+
     .hero-top-bar {
       position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2;
       background: linear-gradient(90deg, transparent 0%, var(--gold-600) 50%, transparent 100%);
@@ -67,13 +60,14 @@
     }
     .hero-content {
       position: absolute; bottom: 80px; left: 80px; right: 80px;
-      z-index: 2;
+      z-index: 6;
       transition: opacity 0.35s ease;
     }
     .hero-content.fading { opacity: 0; }
     .hero-label {
       font-size: 11px; letter-spacing: 0.32em; color: rgba(255,220,130,.9);
       text-transform: uppercase; margin-bottom: 14px;
+      white-space: nowrap;
     }
     .hero-title {
       font-family: var(--font-serif);
@@ -83,8 +77,9 @@
     }
     .hero-sub {
       font-size: 15px; color: rgba(255,255,255,.82);
-      line-height: 1.78; max-width: 440px; font-weight: 400;
+      line-height: 1.78; font-weight: 400;
       text-shadow: 0 1px 8px rgba(0,0,0,.3);
+      white-space: nowrap;
     }
     .hero-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
@@ -463,6 +458,28 @@
       color: rgba(255,255,255,0.55); font-size: 14px; letter-spacing: 0.06em;
       pointer-events: none; white-space: nowrap;
     }
+
+    /* ── 다크 모드 ── */
+    [data-theme="dark"] .hero-perm-grad {
+      background: linear-gradient(to top,
+        rgba(0,0,0,.70) 0%,
+        rgba(0,0,0,.24) 50%,
+        rgba(0,0,0,.07) 100%
+      ) !important;
+    }
+    [data-theme="dark"] .map-inner-btn {
+      background: rgba(36, 34, 32, 0.92);
+      border-color: rgba(255,255,255,0.14);
+      color: #c8c4be;
+    }
+    [data-theme="dark"] .map-inner-btn:hover:not(.active) {
+      background: rgba(52, 50, 46, 0.96);
+    }
+    [data-theme="dark"] .map-inner-btn.active {
+      background: rgba(80, 70, 48, 0.92);
+      color: #f0e8d0;
+      border-color: rgba(168,124,36,0.4);
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
@@ -531,34 +548,33 @@
   <div class="hero-track" id="heroTrack">
     <div class="hero-slide active">
       <div class="hero-bg" style="background-image:url('images/duri/hero_1.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
     <div class="hero-slide">
       <div class="hero-bg" style="background-image:url('images/duri/hero_2.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
     <div class="hero-slide">
       <div class="hero-bg" style="background-image:url('images/duri/hero_3.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
     <div class="hero-slide">
       <div class="hero-bg" style="background-image:url('images/duri/hero_4.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
     <div class="hero-slide">
       <div class="hero-bg" style="background-image:url('images/duri/hero_5.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
     <div class="hero-slide">
       <div class="hero-bg" style="background-image:url('images/duri/hero_6.jpg');background-position:center center;"></div>
-      <div class="hero-overlay"></div>
+
     </div>
   </div>
 
   <!-- 고정 텍스트 (슬라이드와 독립) -->
   <div class="hero-content" id="heroContent">
     <div class="hero-label" id="heroLabel">강원특별자치도 양양군 현남면</div>
-    <h1 class="hero-title" id="heroTitleEl">두리동학</h1>
     <p class="hero-sub" id="heroSub">경주김씨 상촌공파 두리종중의 세거지, 두리마을을 둘러봅니다.</p>
   </div>
 
@@ -1846,42 +1862,42 @@ initMap();
 </script>
 
 <script>
-// ── 히어로 캐러셀 ────────────────────────────────────────────────
+// ── 히어로 캐러셀 (혼합 전환) ─────────────────────────────────────
 (function () {
   var hero  = document.querySelector('.hero');
   var track = document.getElementById('heroTrack');
   if (!track) return;
 
-  // 슬라이드 텍스트 데이터
   var SLIDES = [
-    { label: '강원특별자치도 양양군 현남면', title: '두리동학', sub: '경주김씨 상촌공파 두리종중의 세거지, 두리마을을 둘러봅니다.' },
-    { label: '두리마을',                     title: '두리동학', sub: '300여 년 동안 대대로 세거해 온 두리 집성촌의 풍경입니다.' },
-    { label: '두리마을',                     title: '두리동학', sub: '좁고 우묵한 골짜기에 담장과 지붕이 서로 이어져 자리 잡은 마을입니다.' },
-    { label: '두리마을',                     title: '두리동학', sub: '종택을 중심으로 형성된 마을의 지리적 배치를 확인할 수 있습니다.' },
-    { label: '두리마을',                     title: '두리동학', sub: '청룡등·불당재·반월암 등 선조의 발자취가 남아 있는 곳입니다.' },
-    { label: '두리마을',                     title: '두리동학', sub: '강원특별자치도 양양군 현남면 두리에 자리한 두리종중의 세거지입니다.' },
+    { label: '강원특별자치도 양양군 현남면 두리', title: '두리동학', sub: '경주김씨의 후손이 300여 년 동안 세거해 온 고즈넉한 마을을 둘러봅니다.' },
+    { label: '두리 뒷골',                     title: '두리동학', sub: '산은 높고 골짜기의 샘물은 달며 토양이 비옥하여' },
+    { label: '뒷골 도깨비바위',                     title: '두리동학', sub: '고기 잡고 나물 캐는 즐거움 외에도 전원의 즐거움이 넉넉하니,' },
+    { label: '뒷골 도깨비바위',                     title: '두리동학', sub: '참으로 유인(幽人)과 일사(逸士)가 살 만한 땅이다.' },
+    { label: '퇴비골로 가는 길',                     title: '두리동학', sub: '아침 해가 떠오르는 경계에서 공손히 맞이하고, 바닷물결이 죽도 사이에서 은은히 비치니,' },
+    { label: '두리 퇴비골',                     title: '두리동학', sub: '세상에서 말하는 신선의 동부(洞府)라도 이보다 더할 수는 없으리라.' },
   ];
 
-  // 슬라이드 이미지 경로 (페이드 오버레이용)
   var IMGS = [
     'images/duri/hero_1.jpg', 'images/duri/hero_2.jpg', 'images/duri/hero_3.jpg',
     'images/duri/hero_4.jpg', 'images/duri/hero_5.jpg', 'images/duri/hero_6.jpg',
   ];
 
-  // 순방향 전환 타입: true = 페이드, false = 슬라이드
-  // 인덱스 i → 다음 슬라이드 i+1 로 갈 때의 전환 방식
-  var FADE_FWD = [true, false, true, false, false]; // 1→2 페이드, 2→3 슬라이드, 3→4 페이드, 4→5 슬라이드, 5→6 슬라이드
+  // 페이드 전환 쌍 (양방향): 이 쌍 사이 전환은 방향과 무관하게 페이드
+  var FADE_PAIRS = [[0, 1], [2, 3]]; // 1↔2, 3↔4
+  function isFadePair(a, b) {
+    return FADE_PAIRS.some(function(p) {
+      return (p[0] === a && p[1] === b) || (p[0] === b && p[1] === a);
+    });
+  }
 
   var slides  = Array.from(track.querySelectorAll('.hero-slide'));
   var dots    = Array.from(document.querySelectorAll('.hero-dot'));
   var content = document.getElementById('heroContent');
   var elLabel = document.getElementById('heroLabel');
-  var elTitle = document.getElementById('heroTitleEl');
   var elSub   = document.getElementById('heroSub');
   var total   = slides.length;
   var timer, transitioning = false;
 
-  // 클론으로 무한 루프 구성
   var cloneLast  = slides[total - 1].cloneNode(true);
   var cloneFirst = slides[0].cloneNode(true);
   track.insertBefore(cloneLast, track.firstChild);
@@ -1894,21 +1910,20 @@ initMap();
     track.style.transform  = 'translateX(-' + (p * 100) + '%)';
     pos = p;
     Array.from(track.children).forEach(function(s, i) {
+      var wasActive = s.classList.contains('active');
       s.classList.toggle('active', i === p);
+      // 비활성화 시 bg 인라인 스타일 초기화 — 다음 켄번스 재사용 보장
+      if (wasActive && i !== p) {
+        var bg = s.querySelector('.hero-bg');
+        if (bg) { bg.style.transition = ''; bg.style.transform = ''; }
+      }
     });
   }
 
   function updateText(idx) {
     var s = SLIDES[idx];
-    var changed = elLabel.textContent !== s.label || elSub.textContent !== s.sub;
-    if (!changed) return;
-    content.classList.add('fading');
-    setTimeout(function() {
-      elLabel.textContent = s.label;
-      elTitle.textContent = s.title;
-      elSub.textContent   = s.sub;
-      content.classList.remove('fading');
-    }, 350);
+    elLabel.textContent = s.label;
+    elSub.textContent   = s.sub;
   }
 
   function updateUI(idx) {
@@ -1917,43 +1932,76 @@ initMap();
     updateText(idx);
   }
 
-  // ── 페이드 오버레이 (JS로 생성) ──────────────────────────────
+  // ── 페이드 오버레이 ──────────────────────────────────────────────
+  // fadeEl(이미지만, opacity 제어, z-index:2)
+  // permGradEl(상시 그라디언트, z-index:3) — 이미지 전환 중에도 끊김 없이 유지
   var fadeEl = document.createElement('div');
-  fadeEl.style.cssText = [
-    'position:absolute', 'inset:0', 'z-index:4', 'opacity:0',
-    'background-size:cover', 'background-position:center',
-    'pointer-events:none',
-  ].join(';');
+  fadeEl.style.cssText = 'position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;';
+
+  var fadeBgEl = document.createElement('div');
+  fadeBgEl.style.cssText = 'position:absolute;inset:0;background-size:cover;background-position:center;';
+
+  fadeEl.appendChild(fadeBgEl);
   hero.appendChild(fadeEl);
 
-  var fadeOverlayEl = document.createElement('div'); // 그라디언트 오버레이
-  fadeOverlayEl.style.cssText = [
-    'position:absolute', 'inset:0',
-    'background:linear-gradient(to top,rgba(0,0,0,.62) 0%,rgba(0,0,0,.18) 50%,rgba(0,0,0,.04) 100%)',
-  ].join(';');
-  fadeEl.appendChild(fadeOverlayEl);
+  // 그라디언트는 fadeEl 밖에서 항상 opacity:1 고정 → 이미지가 페이드해도 그라디언트는 불변
+  var permGradEl = document.createElement('div');
+  permGradEl.className = 'hero-perm-grad';
+  permGradEl.style.cssText = 'position:absolute;inset:0;z-index:3;pointer-events:none;' +
+    'background:linear-gradient(to top,rgba(0,0,0,.45) 0%,rgba(0,0,0,.13) 50%,rgba(0,0,0,.03) 100%);';
+  hero.appendChild(permGradEl);
 
   function performFade(next) {
-    fadeEl.style.transition     = 'none';
-    fadeEl.style.backgroundImage = "url('" + IMGS[next] + "')";
-    fadeEl.style.opacity        = '0';
+    var FADE_IN  = 700;
+    var FADE_OUT = 500;
+
+    // 오버레이: 다음 이미지를 scale(1.04)에 고정 — 페이드인 중 켄번스 없음
+    // 여기서 켄번스를 시작하면 실제 슬라이드보다 750ms 앞서 달려
+    // 오버레이 페이드아웃 시 스케일 차이(1.036 vs 1.04)가 생겨 확대→축소 점프 발생
+    fadeEl.style.transition   = 'none';
+    fadeEl.style.opacity      = '0';
+    fadeBgEl.style.transition = 'none';
+    fadeBgEl.style.backgroundImage = "url('" + IMGS[next] + "')";
+    fadeBgEl.style.transform  = 'scale(1.04)';
+
     fadeEl.getBoundingClientRect(); // force reflow
-    fadeEl.style.transition = 'opacity 1s ease';
+
+    // 오버레이 페이드 인
+    fadeEl.style.transition = 'opacity ' + (FADE_IN / 1000) + 's ease';
     fadeEl.style.opacity    = '1';
 
+    // 페이드 인 완료 후: 트랙 전환 + 오버레이·실제 슬라이드 켄번스 동시 시작
     setTimeout(function() {
-      setPos(next + 1, false);          // 트랙 조용히 이동
-      fadeEl.style.transition = 'none';
-      fadeEl.style.opacity    = '0';
-      transitioning = false;
-    }, 1050);
+      setPos(next + 1, false);
+
+      var realBg = slides[next].querySelector('.hero-bg');
+
+      // rAF 이중 호출: realBg와 fadeBgEl을 같은 프레임에서 scale(1.04) 확정 후
+      // 다음 프레임에서 동시에 켄번스 시작 → 오버레이 페이드아웃 내내 두 스케일 완전 동기화
+      requestAnimationFrame(function() {
+        realBg.style.transition   = 'none';
+        realBg.style.transform    = 'scale(1.04)';
+        fadeBgEl.style.transition = 'none';
+        fadeBgEl.style.transform  = 'scale(1.04)';
+        requestAnimationFrame(function() {
+          realBg.style.transition   = 'transform 9s ease-out';
+          realBg.style.transform    = 'scale(1)';
+          fadeBgEl.style.transition = 'transform 9s ease-out';
+          fadeBgEl.style.transform  = 'scale(1)';
+          // 동기화된 상태에서 오버레이 페이드 아웃
+          fadeEl.style.transition = 'opacity ' + (FADE_OUT / 1000) + 's ease';
+          fadeEl.style.opacity    = '0';
+        });
+      });
+
+      setTimeout(function() { transitioning = false; }, FADE_OUT + 50);
+    }, FADE_IN + 20);
   }
 
   function goTo(logicalIdx) {
     if (transitioning) return;
     var next    = ((logicalIdx % total) + total) % total;
-    var forward = logicalIdx > cur;
-    var useFade = forward && FADE_FWD[cur];
+    var useFade = isFadePair(cur, next);
 
     if (useFade) {
       transitioning = true;
@@ -1975,20 +2023,24 @@ initMap();
   setPos(1, false);
   updateUI(0);
 
-  // 1번 슬라이드 초기 켄번스: active가 이미 붙어 있으므로 강제 트리거
-  (function () {
+  // ── 1번 슬라이드 초기 켄번스 강제 트리거 ─────────────────────────
+  // HTML에 active가 이미 있어 CSS transition이 발동하지 않으므로
+  // rAF 두 번으로 "scale(1.04) 확정 → scale(1) 전환" 을 별도 프레임에서 실행
+  requestAnimationFrame(function() {
     var bg = slides[0].querySelector('.hero-bg');
-    bg.style.transform = 'scale(1.04)';
-    bg.getBoundingClientRect();  // force reflow
-    bg.style.transform = '';     // CSS .hero-slide.active .hero-bg → scale(1) 로 transition 발동
-  })();
+    bg.style.transition = 'none';
+    bg.style.transform  = 'scale(1.04)';
+    requestAnimationFrame(function() {
+      bg.style.transition = 'transform 9s ease-out';
+      bg.style.transform  = 'scale(1)';
+    });
+  });
 
   // 슬라이드 전환 후 클론 위치 순간이동
   track.addEventListener('transitionend', function(e) {
     if (e.target !== track) return;
     if      (pos === total + 1) setPos(1,     false);
     else if (pos === 0)         setPos(total, false);
-    transitioning = false;
   });
 
   function startTimer() {
