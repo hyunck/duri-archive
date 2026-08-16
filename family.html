@@ -251,6 +251,42 @@
     .pm-sp-clan { font-family: var(--font-serif); font-size: 14px; }
     .pm-sp-rank { font-size: 12px; color: var(--text-muted); }
     .pm-sp-detail { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ─── 팔고조도 ──────────────────────────── */
+    .pm-palgojo-btn {
+      display: block; margin: 2px 22px 12px; padding: 7px 14px;
+      background: none; border: 1px solid var(--accent);
+      color: var(--accent); border-radius: 5px; cursor: pointer;
+      font-size: 13px; letter-spacing: 0.04em; text-align: left;
+      transition: background 0.18s, color 0.18s;
+    }
+    .pm-palgojo-btn:hover { background: var(--accent); color: #fff; }
+    .pm-modal-pg { width: 820px !important; }
+    .pg-back-row { padding: 10px 22px 2px; }
+    .pg-back-btn {
+      background: none; border: none; color: var(--accent);
+      cursor: pointer; font-size: 13px; padding: 0; letter-spacing: 0.03em;
+    }
+    .pg-back-btn:hover { text-decoration: underline; }
+    .pg-wrap { overflow-x: auto; padding: 8px 22px 20px; }
+    .pg-table { border-collapse: collapse; font-size: 11.5px; table-layout: fixed; width: 100%; }
+    .pg-table th {
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      padding: 4px 10px; border: 1px solid var(--border-subtle);
+      text-align: center; background: var(--bg-secondary); white-space: nowrap;
+    }
+    .pg-table td { border: 1px solid var(--border-subtle); vertical-align: middle; }
+    .pg-cell { padding: 5px 8px; min-height: 38px; word-break: keep-all; }
+    .pg-cell-rel { font-size: 9.5px; color: var(--accent); margin-bottom: 2px; letter-spacing: 0.03em; }
+    .pg-cell-name { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+    .pg-cell-hj { font-family: var(--font-serif); font-size: 10.5px; color: var(--text-secondary); margin-top: 1px; }
+    .pg-cell-clan { font-family: var(--font-serif); font-size: 10.5px; color: var(--text-secondary); }
+    .pg-cell-post { font-size: 10px; color: var(--text-muted); margin-top: 2px; line-height: 1.35; white-space: normal; }
+    .pg-unknown { opacity: 0.38; }
+    .pg-unknown .pg-cell-rel { color: var(--text-muted); }
+    .pg-self-td { text-align: center; background: rgba(168,124,36,0.07); }
+    .pg-self-td .pg-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: unset; }
+    .pg-self-td .pg-cell-name { font-size: 14px; }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
@@ -710,7 +746,7 @@ const NODES = {
   p467: { kr:'김신', hj:'金信', gen:-7, ancestorOnly:true, ja:'가립(可立)', dates:'1445년 ~ 1498년', post:'전주 · 황주 · 경주 판관 贈 통정대부 승정원 도승지 겸 경정참찬 상서원정', postCard:'판관 贈 통정대부<br>승정원 도승지', myo:'고양(高陽) 원당면(元堂面) 성사리(星沙里) 별아산곡(別峨山谷) 건지산(巾之山) 묘좌(卯坐)', spouse:[{ rank:'贈 숙부인', hj:'완산 李氏', name:'이미중(李眉重)', father:'태종대왕(太宗大王) 제12남(第十二男) 익녕군(益寧君) 소강공(昭剛公) 치(袳)', matGrandfather:'운봉 朴氏 박종지(朴宗智)', matGrandfatherPost:'절도사 贈 찬성' }] },
   p300: { kr:'김희', hj:'金憘', gen:-7, ancestorOnly:true, ja:'정통(正綂)', dates:'1439년 ~ 1494년', post:'통훈대부 장단부사<br>贈 승정원도승지', myo:'고양(高陽) 대자동(大慈洞) 관산(舘山) 갑좌(甲坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 장명등(長明燈), 표석(表)이 있다(有).', spouse:[{ hj:'전주 李氏', rank:'贈 숙부인', father:'태종대왕(太宗大王) 제4남(第四男) 근녕군(謹寧君) 희의공(僖懿公) 농(禯)', matGrandfather:'하양 허씨 허지혜(許之惠)', matGrandfatherPost:'관찰사(觀察使) 贈 찬성(贊成)' }] },
   p299: { kr:'김영원', hj:'金永源', gen:-8, ancestorOnly:true, ja:'선화(善華)', ho:'퇴와(退窩)', dates:'1415년 ~ 1447년', post:'감찰, 경상도사, 병조좌랑 등을 역임하여 무공랑(정6품 문산계) 수 호조좌랑에 이르렀으며, 손자 양필로 인한 추은(推恩)으로, 호조참의(종2품)를 증직받았다.<br>監察慶尙都事兵曹佐郞等職至務功郎守戶曹佐郞以孫良弼推恩 贈戶曹參議', postCard:'무공랑 守 호조좌랑<br>贈 호조참의', myo:'금천(衿川) 신림리(新林里) 오좌(午坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表石)이 있다(有).', spouse:[{ hj:'삼척 金氏', rank:'贈 숙부인', dates:'1414년 ~ 1476년', father:'계(啓)', fatherPost:'제용판관(濟用判官)', grandfather:'충민(忠敏)', grandfatherPost:'한성부윤(漢城府尹)', greatGrandfather:'위(偉)', greatGrandfatherPost:'지양주사(知養州事)', matGrandfather:'능성 具氏 구성량(具成亮)', matGrandfatherPost:'판안동부사(判安東府事)' }] },
-  p297: { kr:'김양필', hj:'金良弼', gen:-6, ancestorOnly:true, post:'강동현령(江東縣令) 至 가선대부 북병사(北兵使)', myo:'서흥(瑞興) 화회면(禾回面) 낙촌(洛村) 곡장동(曲庄洞) 간좌(艮坐)', spouse:[{ hj:'의령 南氏', rank:'정부인', father:'유재(有梓)', matGrandfather:'남양 洪氏 홍맹부(洪孟阜)', matGrandfatherPost:'직장(直長)' }] },
+  p297: { kr:'김양필', hj:'金良弼', gen:-6, ancestorOnly:true, post:'강동현령(江東縣令) 至 가선대부 북병사(北兵使)', myo:'서흥(瑞興) 화회면(禾回面) 낙촌(洛村) 곡장동(曲庄洞) 간좌(艮坐)', spouse:[{ hj:'의령 南氏', rank:'정부인', father:'유재(有梓)', fatherPost:'직장(直長)', matGrandfather:'남양 洪氏 홍맹부(洪孟阜)', matGrandfatherPost:'군수(郡守)' }] },
   p290: { kr:'김직', hj:'金直', gen:-5, ancestorOnly:true, ja:'계호(繼浩)', myo:'실전(失傳)<br>양양군(襄陽郡) 강현면(降峴面) 산미니실(山彌尼室) 간좌(艮坐) <span style="font-size:12px;color:var(--text-muted)">(갑자보)</span>', note:'김양필의 서자다.', spouse:[{ hj:'광산 金氏' }] },
   p289: { kr:'김덕은', hj:'金德垠', gen:-4, ancestorOnly:true, dates:'1517년 ~ ?', myo:'실전(失傳)<br>낙산미니실(洛山彌尼室) <span style="font-size:12px;color:var(--text-muted)">(갑자보)</span>', spouse:[{ hj:'전주 李氏', dates:'1516년 ~ ?' }] },
   p288: { kr:'김필숭', hj:'金弼崇', gen:-3, ancestorOnly:true, dates:'1541년 ~ ?', myo:'실전(失傳)', spouse:[{ hj:'정선 全氏', dates:'1543년 ~ ?' }] },
@@ -1769,11 +1805,142 @@ function openPersonModal(id) {
     ? rows.map(r => `<div class="pm-row"><div class="pm-label">${r.label}</div><div class="pm-value">${r.value}</div></div>`).join('')
     : '';
 
+  if (PALGOJO_DATA[id]) {
+    document.getElementById('pm-body').insertAdjacentHTML('beforeend',
+      `<button class="pm-palgojo-btn" onclick="openPalgojoModal('${id}')">팔고조도(八高祖圖) 보기 →</button>`);
+  }
+
   document.getElementById('pm-overlay').classList.add('open');
 }
 
 function closePersonModal() {
   document.getElementById('pm-overlay').classList.remove('open');
+  document.getElementById('pm-modal').classList.remove('pm-modal-pg');
+}
+
+// ─── 팔고조도 ───────────────────────────────────────────────
+const PALGOJO_DATA = {
+  p297: {
+    f: {
+      name: '김칭', hj: '金偁', post: '통훈대부 장흥부사 · 贈 참판',
+      f: {
+        name: '김영원', hj: '金永源',
+        post: '무공랑 守 호조좌랑 · 贈 호조참의',
+        f: null, m: null
+      },
+      m: {
+        clan: '삼척 金氏', post: '贈 숙부인',
+        f: {
+          name: '김계(金啓)', clan: '삼척 金氏', post: '제용판관',
+          f: { name: '충민(忠敏)', clan: '삼척 金氏', post: '한성부윤', f: null, m: null },
+          m: null
+        },
+        m: {
+          f: { name: '구성량(具成亮)', clan: '능성 具氏', post: '판안동부사', f: null, m: null },
+          m: null
+        }
+      }
+    },
+    m: {
+      clan: '파평 尹氏', post: '贈 정부인',
+      f: {
+        name: '윤훈(尹壎)', clan: '파평 尹氏', post: '목사',
+        f: {
+          name: '윤희제(尹希齊)', clan: '파평 尹氏', post: '참의 · 贈 찬성',
+          f: { name: '윤곤(尹坤)', clan: '파평 尹氏', post: '이조판서', f: null, m: null },
+          m: null
+        },
+        m: null
+      },
+      m: null
+    }
+  }
+};
+
+function openPalgojoModal(personId) {
+  const node = NODES[personId];
+  const pgData = PALGOJO_DATA[personId];
+  if (!node || !pgData) return;
+
+  document.getElementById('pm-modal').classList.add('pm-modal-pg');
+
+  const REL = {
+    'f':'父','m':'母',
+    'ff':'祖父','fm':'祖母','mf':'外祖父','mm':'外祖母',
+    'fff':'曾祖父','ffm':'曾祖母','fmf':'外曾祖父','fmm':'外曾祖母',
+    'mff':'外外祖父','mfm':'外外祖母','mmf':'外外外祖父','mmm':'外外外祖母',
+    'ffff':'高祖父','fffm':'高祖母','ffmf':'外高祖父','ffmm':'外高祖母',
+    'fmff':'外外高祖父','fmfm':'外外高祖母','fmmf':'外外外高祖父','fmmm':'外外外高祖母',
+    'mfff':'外外外外祖父','mffm':'外外外外祖母','mfmf':'外外外外外祖父','mfmm':'外外外外外祖母',
+    'mmff':'外外外外外外祖父','mmfm':'外外外外外外祖母',
+    'mmmf':'外外外外外外外祖父','mmmm':'外外外外外外外祖母',
+  };
+
+  function getNode(path) {
+    let cur = pgData;
+    for (const c of path) { if (!cur) return null; cur = cur[c]; }
+    return cur;
+  }
+
+  function td(path, rowspan) {
+    const person = getNode(path);
+    const rel = REL[path] || path;
+    const rs = rowspan > 1 ? ` rowspan="${rowspan}"` : '';
+    const hasData = person && (person.name || person.clan || person.post);
+    if (!hasData) {
+      return `<td${rs} class="pg-unknown"><div class="pg-cell"><div class="pg-cell-rel">${rel}</div><div class="pg-cell-name">미상</div></div></td>`;
+    }
+    const isFemale = !person.name && !!person.clan;
+    return `<td${rs}><div class="pg-cell">
+      <div class="pg-cell-rel">${rel}</div>
+      ${person.name  ? `<div class="pg-cell-name">${person.name}</div>` : ''}
+      ${person.name && person.hj ? `<div class="pg-cell-hj">${person.hj}</div>` : ''}
+      ${isFemale     ? `<div class="pg-cell-name">${person.clan}</div>` : ''}
+      ${!isFemale && person.clan ? `<div class="pg-cell-clan">${person.clan}</div>` : ''}
+      ${person.post  ? `<div class="pg-cell-post">${person.post}</div>` : ''}
+    </div></td>`;
+  }
+
+  const selfPost = node.postCard || (node.post || '').replace(/<br>/g, ' · ');
+  const selfCell = `<td rowspan="16" class="pg-self-td"><div class="pg-cell">
+    <div class="pg-cell-rel">본인</div>
+    <div class="pg-cell-name">${node.kr}</div>
+    ${node.hj ? `<div class="pg-cell-clan">${node.hj}</div>` : ''}
+    ${selfPost ? `<div class="pg-cell-post">${selfPost}</div>` : ''}
+  </div></td>`;
+
+  const tableHtml = `<table class="pg-table">
+    <colgroup><col><col><col><col><col></colgroup>
+    <thead><tr><th>본인</th><th>1대조</th><th>2대조</th><th>3대조</th><th>4대조 · 고조</th></tr></thead>
+    <tbody>
+      <tr>${selfCell}${td('f',8)}${td('ff',4)}${td('fff',2)}${td('ffff')}</tr>
+      <tr>${td('fffm')}</tr>
+      <tr>${td('ffm',2)}${td('ffmf')}</tr>
+      <tr>${td('ffmm')}</tr>
+      <tr>${td('fm',4)}${td('fmf',2)}${td('fmff')}</tr>
+      <tr>${td('fmfm')}</tr>
+      <tr>${td('fmm',2)}${td('fmmf')}</tr>
+      <tr>${td('fmmm')}</tr>
+      <tr>${td('m',8)}${td('mf',4)}${td('mff',2)}${td('mfff')}</tr>
+      <tr>${td('mffm')}</tr>
+      <tr>${td('mfm',2)}${td('mfmf')}</tr>
+      <tr>${td('mfmm')}</tr>
+      <tr>${td('mm',4)}${td('mmf',2)}${td('mmff')}</tr>
+      <tr>${td('mmfm')}</tr>
+      <tr>${td('mmm',2)}${td('mmmf')}</tr>
+      <tr>${td('mmmm')}</tr>
+    </tbody>
+  </table>`;
+
+  document.getElementById('pm-header').innerHTML =
+    `<div class="pm-name-kr">${node.kr} 팔고조도(八高祖圖)</div>
+     ${node.hj ? `<div class="pm-name-hj">${node.hj}</div>` : ''}`;
+
+  document.getElementById('pm-body').innerHTML =
+    `<div class="pg-back-row"><button class="pg-back-btn" onclick="openPersonModal('${personId}');document.getElementById('pm-modal').classList.remove('pm-modal-pg');">← 돌아가기</button></div>
+     <div class="pg-wrap">${tableHtml}</div>`;
+
+  document.getElementById('pm-overlay').classList.add('open');
 }
 
 // ══════════════════════════════════════════════════════════
