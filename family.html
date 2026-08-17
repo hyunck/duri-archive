@@ -1941,14 +1941,15 @@ const PALGOJO_DATA = {
     }
   },
   p51: {
+    nameAlias: { kr: '김도철', hj: '金道喆' },
     f: {
-      name: '김노연', hj: '金魯演',
+      name: '김노연(김상연)', hj: '金魯演(金尙演)',
       post: '蔭至 가선대부 행 용양위부호군',
       f: {
-        name: '김용주', hj: '金龍柱',
+        name: '김용주(김용흡)', hj: '金龍柱(金龍翕)',
         post: '贈 가선대부',
         f: {
-          name: '김한태', hj: '金漢泰',
+          name: '김한태(김준태)', hj: '金漢泰(金俊泰)',
           post: '蔭至 자헌대부 동지중추부사',
           f: { name: '김여경', hj: '金如瓊', post: '贈 가선대부<br>한성부 좌윤 겸 오위도총부 부총관', f: null, m: null },
           m: { clan: '가산 李氏', post: '정부인', f: null, m: null }
@@ -2065,10 +2066,11 @@ function openPalgojoModal(personId, mode = 'default') {
   }
 
   const selfPost = node.postCard || (node.post || '').replace(/<br>/g, ' · ');
+  const selfAlias = pgData.nameAlias;
   const selfCell = `<td rowspan="16" class="pg-self-td"><div class="pg-cell">
     <div class="pg-cell-rel">본인</div>
-    <div class="pg-cell-name">${node.kr}</div>
-    ${node.hj ? `<div class="pg-cell-clan">${node.hj}</div>` : ''}
+    <div class="pg-cell-name">${node.kr}${selfAlias ? `<span style="font-weight:400;color:var(--text-secondary)">(${selfAlias.kr})</span>` : ''}</div>
+    ${node.hj ? `<div class="pg-cell-clan">${node.hj}${selfAlias ? `<span style="font-size:11px">(${selfAlias.hj})</span>` : ''}</div>` : ''}
     ${selfPost ? `<div class="pg-cell-post">${selfPost}</div>` : ''}
   </div></td>`;
 
