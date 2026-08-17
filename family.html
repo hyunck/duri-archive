@@ -2069,8 +2069,8 @@ function openPalgojoModal(personId, mode = 'default') {
   const selfAlias = pgData.nameAlias;
   const selfCell = `<td rowspan="16" class="pg-self-td"><div class="pg-cell">
     <div class="pg-cell-rel">본인</div>
-    <div class="pg-cell-name">${node.kr}${selfAlias ? `<span style="font-weight:400;color:var(--text-secondary)">(${selfAlias.kr})</span>` : ''}</div>
-    ${node.hj ? `<div class="pg-cell-clan">${node.hj}${selfAlias ? `<span style="font-size:11px">(${selfAlias.hj})</span>` : ''}</div>` : ''}
+    <div class="pg-cell-name">${node.kr}${selfAlias ? `(${selfAlias.kr})` : ''}</div>
+    ${node.hj ? `<div class="pg-cell-clan">${node.hj}${selfAlias ? `(${selfAlias.hj})` : ''}</div>` : ''}
     ${selfPost ? `<div class="pg-cell-post">${selfPost}</div>` : ''}
   </div></td>`;
 
