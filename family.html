@@ -1606,12 +1606,14 @@ function renderTree() {
         if (node.name) {
           html += `<div class="p-kr">${node.name}</div>`;
           if (node.nameHj) html += `<div class="p-hj">${node.nameHj}</div>`;
+          if (node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
           html += `<hr style="border:none;border-top:1px solid var(--border-subtle);margin:6px 0;">`;
         }
         html += `<div class="p-kr">${siKr}</div>`;
         if (siHj) html += `<div class="p-hj">${siHj}</div>`;
+        if (node.sonInLaw?.dates) html += `<div class="p-dates">${node.sonInLaw.dates}</div>`;
         if (node.sonInLaw?.kr && node.clan) html += `<div class="p-dates">${node.clan}</div>`;
-        if (node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
+        if (!node.name && node.dates) html += `<div class="p-dates">${node.datesCard ?? node.dates}</div>`;
       }
       card.innerHTML = html;
     } else {
