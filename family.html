@@ -1097,7 +1097,7 @@ const NODES = {
   // 김규황(p418) 자녀
   p420: { kr:'김OO', gen:11, gender:'f' },
   // 김규벽(p247) 딸들
-  p428: { kr:'딸', gen:11, gender:'f', sonInLaw:{ kr:'이장화', hj:'李長和' }, clan:'전주 이씨' },
+  p428: { kr:'딸', gen:11, gender:'f', name:'김농옥', nameHj:'金弄玉', dates:'1925년 ~ ?', sonInLaw:{ kr:'이장화', hj:'李長和', dates:'1914년 ~ 1975년', father:'원두(源斗)', grandfather:'훈진(勳鎭)', greatGrandfather:'윤종(潤宗)', note:'경주이씨선성군파족보에 배우자의 아버지가 금벽(金壁)으로 표기됨' }, clan:'전주 이씨' },
   p429: { kr:'딸', gen:11, gender:'f', sonInLaw:{ kr:'박O우', hj:'朴O祐' }, clan:'밀양 박씨' },
   p430: { kr:'딸', gen:11, gender:'f', sonInLaw:{ kr:'송영근', hj:'宋永根' }, clan:'은진 송씨' },
   // 김은호(p249) 자녀
@@ -1605,6 +1605,7 @@ function renderTree() {
         html = '';
         if (node.name) {
           html += `<div class="p-kr">${node.name}</div>`;
+          if (node.nameHj) html += `<div class="p-hj">${node.nameHj}</div>`;
           html += `<hr style="border:none;border-top:1px solid var(--border-subtle);margin:6px 0;">`;
         }
         html += `<div class="p-kr">${siKr}</div>`;
@@ -1705,8 +1706,9 @@ function openPersonModal(id) {
       const si = node.sonInLaw;
       if (node.name) {
         // 딸 이름이 있는 경우: 딸 이름을 헤더에, 사위를 배우자 행으로
-        nameKr = node.name; nameHj = '';
+        nameKr = node.name; nameHj = node.nameHj || '';
         badge = genLabel(node.gen);
+        if (node.dates) rows.push({ label: '생몰연도', value: node.dates });
         let spHtml = `<div class="pm-sp-head"><span class="pm-sp-prefix">配</span><span class="pm-sp-clan">${si.kr}</span>`;
         if (si.hj) spHtml += `<span class="pm-sp-rank">${si.hj}</span>`;
         spHtml += '</div>';
@@ -1714,7 +1716,11 @@ function openPersonModal(id) {
         if (si.dates)  spHtml += `<div class="pm-sp-detail">${si.dates}</div>`;
         rows.push({ label: '배우자', value: `<div class="pm-spouse-item">${spHtml}</div>` });
         if (si.post)  rows.push({ label: '관직', value: si.post });
+        if (si.father) rows.push({ label: '父', value: (si.fatherPost ? si.fatherPost + ' ' : '') + si.father });
+        if (si.grandfather) rows.push({ label: '祖', value: (si.grandfatherPost ? si.grandfatherPost + ' ' : '') + si.grandfather });
+        if (si.greatGrandfather) rows.push({ label: '曾祖', value: (si.greatGrandfatherPost ? si.greatGrandfatherPost + ' ' : '') + si.greatGrandfather });
         if (si.note)  rows.push({ label: '기타', value: si.note });
+        if (node.source) rows.push({ label: '출처', value: node.source });
       } else {
         nameKr = si.kr; nameHj = si.hj || '';
         badge = genLabel(node.gen);
