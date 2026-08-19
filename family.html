@@ -2502,6 +2502,7 @@ function initAncestors() {
       if (nd.ja)    ch += '<div class="p-ja">字 ' + nd.ja + '</div>';
       if (nd.dates) ch += '<div class="p-dates">' + (nd.datesCard ?? nd.dates) + '</div>';
       if ((nd.postCard ?? nd.post) && !nd.postHideOnCard) ch += '<div class="p-dates">' + (nd.postCard ?? nd.post) + '</div>';
+      if (nd.noteCard) ch += '<div class="p-dates">' + nd.noteCard + '</div>';
       if (nd.aliases && nd.aliases.length) {
         ch += '<div class="p-aliases">' +
           nd.aliases.map(function(a) {
@@ -2565,18 +2566,18 @@ function initAncestors() {
   section.appendChild(makeACard('p297', eonBinCX, CTOP_6));  // 김양필
   section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직
   section.appendChild(makeACard('p289', eonBinCX, CTOP_4));  // 김덕은
-  section.appendChild(makeACard('p293', eonBinCX + 4 * COL_W, CTOP_4));  // 김호은(차남) — 이홍제 오른쪽
-  section.appendChild(makeACard('p295', eonBinCX + 6 * COL_W, CTOP_4));  // 김귀은(삼남)
+  section.appendChild(makeACard('p293', eonBinCX + 6 * COL_W, CTOP_4));  // 김호은(차남)
+  section.appendChild(makeACard('p295', eonBinCX + 8 * COL_W, CTOP_4));  // 김귀은(삼남)
   section.appendChild(makeACard('p288', eonBinCX, CTOP_3));  // 김필숭
-  section.appendChild(makeACard('p294', eonBinCX + 4 * COL_W, CTOP_3));  // 김필정
-  section.appendChild(makeACard('p296', eonBinCX + 6 * COL_W, CTOP_3));  // 김필화
+  section.appendChild(makeACard('p294', eonBinCX + 6 * COL_W, CTOP_3));  // 김필정
+  section.appendChild(makeACard('p296', eonBinCX + 8 * COL_W, CTOP_3));  // 김필화
   section.appendChild(makeACard('p286', eonBinCX, CTOP_2));  // 김언빈
-  section.appendChild(makeACard('p469', eonBinCX + 4 * COL_W, CTOP_2));  // 김홍림(김필정 장남)
+  section.appendChild(makeACard('p469', eonBinCX + 6 * COL_W, CTOP_2));  // 김홍림(김필정 장남)
   section.appendChild(makeACard('p287', sBaekCX,  CTOP_1));  // 김생백
   section.appendChild(makeACard('p285', p00CX,    CTOP_1));  // 김윤백
-  section.appendChild(makeACard('p470', eonBinCX + 4 * COL_W, CTOP_1));  // 김도진(김홍림 장남)
-  section.appendChild(makeACard('p471', eonBinCX + 3.5 * COL_W, CTOP_0));  // 김두학(김도진 장남)
-  section.appendChild(makeACard('p472', eonBinCX + 4.5 * COL_W, CTOP_0));  // 김두영(김도진 차남)
+  section.appendChild(makeACard('p470', eonBinCX + 6 * COL_W, CTOP_1));  // 김도진(김홍림 장남)
+  section.appendChild(makeACard('p471', eonBinCX + 5.5 * COL_W, CTOP_0));  // 김두학(김도진 장남)
+  section.appendChild(makeACard('p472', eonBinCX + 6.5 * COL_W, CTOP_0));  // 김두영(김도진 차남)
 
   // 대수 라벨
   [{ gen:'-8', top: CTOP_8 + 16 }, { gen:'-7', top: CTOP_7 + 16 }, { gen:'-6', top: CTOP_6 + 16 }, { gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }, { gen:0, top: CTOP_0 + 16 }].forEach(function(info) {
