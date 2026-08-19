@@ -746,6 +746,8 @@ const NODES = {
   p470: { kr:'김도진', hj:'金道珍', gen:-1, ancestorOnly:true, ja:'도일(道一)', dates:'1620년 ~ 1678년', myo:'청양(靑陽) 적곡면(赤谷面) 죽림리(竹林里) 암헌록(巖軒麓) 자좌(子坐)<br>공은 어려서 부모를 여의고, 홍주 수문동으로부터 청양 적곡면 죽림리로 옮겨서 정착하였다(流萬, 유만)하였다.<br>公幼失怙恃 自洪州守門洞 流萬於靑陽赤谷面竹林里 <span style="font-size:12px;color:var(--text-muted)">(정유보)</span>', spouse:[{ hj:'기계 兪氏', dates:'1617년 ~ ?', father:'명구(命九)', fatherPost:'판관', grandfather:'복운(復運)', greatGrandfather:'영(瑛)', greatGrandfatherPost:'현감', matGrandfather:'함종 魚氏 어병직(魚秉直)', matGrandfatherPost:'참봉' }] },
   p471: { kr:'김두학', hj:'金斗學', gen:0, ancestorOnly:true, ja:'습지(習之)', dates:'1651년 ~ 1673년?', myo:'선영(先塋) 아래(下) 10보쯤(十步許) 임좌(壬坐) <span style="font-size:12px;color:var(--text-muted)">(정유보)</span>', spouse:[{ hj:'담양 田氏', dates:'1654년 ~ 1715년', father:'희중(熙重)', grandfather:'후곤(厚坤)', greatGrandfather:'달겸(達謙)', matGrandfather:'청주 韓氏 한원달(韓遠達)' }] },
   p472: { kr:'김두영', hj:'金斗永', gen:0, ancestorOnly:true, noteCard:'위(渭)에게 출계', note:'수사공파(水使公派) 승지공(承旨公) 위(渭)에게 출계함<br>出系于水使公派承旨公渭后' },
+  p473: { kr:'김보', hj:'金寶', gen:-5, ancestorOnly:true, ja:'경화(景化)', dates:'1474년 ~ ?', myo:'화회면(禾回面) 구대동후(舊垈洞後) 신좌(辛坐)', spouse:[{ hj:'하양 許氏', father:'대연(大蓮)' }] },
+  p474: { kr:'김석남', hj:'金錫南', gen:-4, ancestorOnly:true, ja:'두일(斗一)', post:'가선대부', myo:'봉산군(鳳山郡) 덕재면(德在面) 산리동(酸梨洞) 뒷골(後谷) 유좌(酉坐)', spouse:[{ hj:'해주 崔氏' }] },
   p298: { kr:'김칭', hj:'金偁', gen:-7, ancestorOnly:true, ja:'중립(重立)', ho:'송곡(松谷)', dates:'1442년 ~ 1513년', post:'통훈대부 장흥부사<br>贈 참판', myo:'선산(先山) 아래(下) 동원(同原) 동좌(同坐)', spouse:[{ hj:'파평 尹氏', rank:'贈 정부인', father:'훈(壎)', fatherPost:'목사', grandfather:'희제(希齊)', grandfatherPost:'참의 贈 찬성', greatGrandfather:'곤(坤)', greatGrandfatherPost:'이조판서(吏判)' }] },
   p303: { kr:'딸', gen:-6, gender:'f', ancestorOnly:true, sonInLaw:{ kr:'오녕', hj:'吳寧', post:'절제사', father:'종하(宗夏)', fatherPost:'참봉(參奉)' }, clan:'함양 오씨' },
   p302: { kr:'김양수', hj:'金良秀', gen:-6, ancestorOnly:true, ja:'천순(天順)', dates:'1464년 ~ ?', post:'통훈대부 공산판관', myo:'아버지묘(考墓) 왼쪽 기슭(左麓) 백보(百步) 내(內) 임좌(壬坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表)이 있다(有).', spouse:[{ hj:'고성 李氏', father:'의(儀)', fatherPost:'부사(府使)', grandfather:'비(埤)', grandfatherPost:'동지중추부사(同中樞)', greatGrandfather:'원(原)', greatGrandfatherPost:'좌의정(左議政) 철성부원군(鐵城府院君) 양헌공(襄憲公)', matGrandfather:'광주 노씨 노처중(盧處中)', matGrandfatherPost:'직장(直長)' },{ hj:'상산 黃氏', order:'계실', father:'석경(碩卿)', fatherPost:'贈 참의(參議)', grandfather:'효원(孝源)', grandfatherPost:'좌리공신(佐理功臣) 좌찬성(左贊成) 상산군(商山君)', greatGrandfather:'사간(士幹)', greatGrandfatherPost:'학유(學諭) 贈 영의정(領相) 상평부원군(商平府院君)', matGrandfather:'은풍 신씨 신명지(申命之)', matGrandfatherPost:'군사(郡事)' }] },
@@ -2247,7 +2249,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p297: ['p290'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p297: ['p473', 'p290'], p473: ['p474'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p293: ['p294'], p295: ['p296'], p294: ['p469'], p469: ['p470'], p470: ['p471', 'p472'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p285: ['p291g', 'p292', 'p00', 'p320'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p292: ['p318g', 'p319'] }, '#A87C24', null);
@@ -2564,7 +2566,9 @@ function initAncestors() {
     section.appendChild(hl);
   });
   section.appendChild(makeACard('p297', eonBinCX, CTOP_6));  // 김양필
-  section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직
+  section.appendChild(makeACard('p473', eonBinCX - 1 * COL_W, CTOP_5));  // 김보(김양필 장남)
+  section.appendChild(makeACard('p290', eonBinCX, CTOP_5));  // 김직(차남)
+  section.appendChild(makeACard('p474', eonBinCX - 1 * COL_W, CTOP_4));  // 김석남(김보 장남)
   section.appendChild(makeACard('p289', eonBinCX, CTOP_4));  // 김덕은
   section.appendChild(makeACard('p293', eonBinCX + 6 * COL_W, CTOP_4));  // 김호은(차남)
   section.appendChild(makeACard('p295', eonBinCX + 8 * COL_W, CTOP_4));  // 김귀은(삼남)
