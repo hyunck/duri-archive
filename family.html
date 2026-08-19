@@ -2687,8 +2687,8 @@ function initAncestors() {
       var el = document.getElementById(sid);
       if (el) el.style.display = open ? 'block' : 'none';
     });
-    mainWrap.style.top     = (open ? ANCESTOR_H : 0) + TOP_RESERVE + 'px';
-    outer.style.height     = (TREE_H + TOP_RESERVE + (open ? ANCESTOR_H : 0)) + 'px';
+    mainWrap.style.top     = (open ? CTOP_0 - PAD_T : TOP_RESERVE) + 'px';
+    outer.style.height     = (TREE_H + (open ? CTOP_0 - PAD_T : TOP_RESERVE)) + 'px';
     btn.textContent        = open ? '−' : '+';
     btn.title              = open ? '윗대 계보 접기' : '윗대 계보 펼치기';
     applyZoom(_zoom);
@@ -2752,10 +2752,10 @@ function applyZoom(z) {
   outer.style.transform       = `scale(${scale})`;
   outer.style.transformOrigin = 'top left';
   const _aS = document.getElementById('ancestor-section');
-  const _aH = (_aS && _aS.style.display !== 'none') ? ANCESTOR_H : 0;
-  const _topRes = document.getElementById('main-tree-wrap') ? TOP_RESERVE : 0;
+  const _mainWrapEl = document.getElementById('main-tree-wrap');
+  const _mainWrapTop = _mainWrapEl ? parseInt(_mainWrapEl.style.top, 10) || 0 : TOP_RESERVE;
   scaleWrap.style.width  = (TREE_W * scale) + 'px';
-  scaleWrap.style.height = ((TREE_H + _aH + _topRes) * scale) + 'px';
+  scaleWrap.style.height = ((TREE_H + _mainWrapTop) * scale) + 'px';
   document.getElementById('zoom-level').textContent = Math.round((_zoom / 0.8) * 100) + '%';
 }
 
