@@ -2463,7 +2463,7 @@ function initAncestors() {
   const CTOP_3   = 1810; // gen -3 행 top (김필숭)
   const CTOP_2   = 2110; // gen -2 행 top (김언빈)
   const CTOP_1   = 2430; // gen -1 행 top (김생백, 김윤백)
-  const CTOP_0   = 2730; // gen 0 행 top (김두학, 김두영)
+  const CTOP_0   = 2810; // gen 0 행 top (김두학, 김두영)
 
   // ── main-tree-wrap
   const mainWrap = document.createElement('div');
@@ -2477,7 +2477,7 @@ function initAncestors() {
   // ── ancestor-section (초기: 숨김)
   const section = document.createElement('div');
   section.id = 'ancestor-section';
-  section.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + ANCESTOR_H + 'px; display:none;';
+  section.style.cssText = 'position:absolute; top:0; left:0; width:' + TREE_W + 'px; height:' + ANCESTOR_H + 'px; display:none; z-index:1; pointer-events:none;';
 
   // 인물 카드 생성 헬퍼
   function makeACard(id, cx, top) {
@@ -2485,7 +2485,7 @@ function initAncestors() {
     const card = document.createElement('div');
     card.id = id;
     card.className = 'person-card';
-    card.style.cssText = 'position:absolute; left:' + (cx - CARD_W / 2) + 'px; top:' + top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
+    card.style.cssText = 'position:absolute; left:' + (cx - CARD_W / 2) + 'px; top:' + top + 'px; width:' + CARD_W + 'px; cursor:pointer; pointer-events:auto;';
     var ch;
     if (nd.gender === 'f') {
       card.className = 'person-card person-card-female';
