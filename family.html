@@ -2253,7 +2253,8 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p297: ['p290'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p297: ['p290'] }, '#9B6DCC', null);
       drawConnections(svg, oRect, { p293: ['p294'], p295: ['p296'], p294: ['p469'], p469: ['p470'], p470: ['p471', 'p472'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p285: ['p291g', 'p292', 'p00', 'p320'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p292: ['p318g', 'p319'] }, '#A87C24', null);
