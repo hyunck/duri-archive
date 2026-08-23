@@ -1017,7 +1017,7 @@ const NODES = {
   p212: { kr:'김OO', hj:'金OO', gen:12 },
   p213: { kr:'딸', gen:12, gender:'f', name:'김부옥', sonInLaw:{ kr:'이선관' } },
   p214: { kr:'딸', gen:12, gender:'f', name:'김계옥', sonInLaw:{ kr:'유광림' } },
-  p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년', ja:'여명(汝明)', jaSrc:'파보', hwiSrc:['실록','호적','파보','세보'], spouse:[{ hj:'평택 林氏', dates:'1879~1926년', father:'재근(在根)' }] },
+  p122: { kr:'김규하', hj:'金圭夏', gen:10, dates:'1881년 ~ 1934년', ja:'여명(汝明)', jaSrc:'파보', hwiSrc:['실록','호적','파보','세보'], spouse:[{ hj:'평택 林氏', dates:'1879~1926년', father:'재근(在根)', grandfather:'소(炤)', greatGrandfather:'성공(成恭)', matGrandfather:'온양 方氏 방대신(方大信)' }] },
   p125: { kr:'김철호', hj:'金喆鎬', gen:11, dates:'1906년 ~ 1956년', spouse:[{ hj:'강릉 咸氏', dates:'1910년 ~ 1988년', father:'기건(基建)' }] },
   p174: { kr:'딸', gen:11, gender:'f', sonInLaw:{ kr:'권호림', hj:'權互霖' }, clan:'안동 권씨', clanHj:'安東 權氏' },
   p175: { kr:'딸', gen:11, gender:'f', sonInLaw:{ kr:'조한환', hj:'曺漢煥' }, clan:'창녕 조씨', clanHj:'昌寧 曺氏' },
@@ -1094,7 +1094,7 @@ const NODES = {
   p409: { kr:'김O호', hj:'金O鎬', gen:11 },
   // 김영호(p261) 자녀
   p410: { kr:'김택남', hj:'金澤南', gen:12 },
-  p417: { kr:'딸', gen:10, gender:'f', sonInLaw:{ kr:'임영석', hj:'林永奭' }, clan:'평택 임씨' },
+  p417: { kr:'딸', gen:10, gender:'f', name:'김월녀', nameHj:'金月女', dates:'1915년 ~ 1999년', sonInLaw:{ kr:'임영석', hj:'林永奭', dates:'1910년 ~ 2000년', father:'중선(重善)', grandfather:'재구(在龜)', greatGrandfather:'병(炳)', matGrandfather:'영월 嚴氏 엄주신(嚴柱臣)', matGrandfatherPost:'통정대부'}, clan:'평택 임씨' },
   // 김봉열(p91) 자녀
   p418: { kr:'김규황', hj:'金圭璜', gen:10, dates:'1917년 ~ ?', note:'6.25전쟁 중 사망', spouse:[{ hj:'영월 嚴氏', dates:'1916년 ~ ?', father:'화섭(和燮)' }] },
   p419: { kr:'딸', gen:10, gender:'f', sonInLaw:{ kr:'고광달', hj:'髙光達' }, clan:'제주 고씨' },
@@ -1726,6 +1726,7 @@ function openPersonModal(id) {
         if (si.father) rows.push({ label: '父', value: (si.fatherPost ? si.fatherPost + ' ' : '') + si.father });
         if (si.grandfather) rows.push({ label: '祖', value: (si.grandfatherPost ? si.grandfatherPost + ' ' : '') + si.grandfather });
         if (si.greatGrandfather) rows.push({ label: '曾祖', value: (si.greatGrandfatherPost ? si.greatGrandfatherPost + ' ' : '') + si.greatGrandfather });
+        if (si.matGrandfather) rows.push({ label: '外祖', value: (si.matGrandfatherPost ? si.matGrandfatherPost + ' ' : '') + si.matGrandfather });
         if (si.note)  rows.push({ label: '기타', value: si.note });
         if (node.source) rows.push({ label: '출처', value: node.source });
       } else {
@@ -1739,6 +1740,7 @@ function openPersonModal(id) {
         if (si.father) rows.push({ label: '父', value: (si.fatherPost ? si.fatherPost + ' ' : '') + si.father });
         if (si.grandfather) rows.push({ label: '祖', value: (si.grandfatherPost ? si.grandfatherPost + ' ' : '') + si.grandfather });
         if (si.greatGrandfather) rows.push({ label: '曾祖', value: (si.greatGrandfatherPost ? si.greatGrandfatherPost + ' ' : '') + si.greatGrandfather });
+        if (si.matGrandfather) rows.push({ label: '外祖', value: (si.matGrandfatherPost ? si.matGrandfatherPost + ' ' : '') + si.matGrandfather });
         if (si.note)   rows.push({ label: '기타', value: si.note });
         if (node.source) rows.push({ label: '출처', value: node.source });
       }
