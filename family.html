@@ -1784,6 +1784,7 @@ function openPersonModal(id) {
         } else {
           sh = `<div class="pm-sp-head"><span class="pm-sp-prefix">${pfx}</span><span class="pm-sp-clan">${s.hj}</span>`;
           if (s.rank) sh += `<span class="pm-sp-rank">${s.rank}</span>`;
+          if (s.source) sh += `<span style="font-size:12px;color:var(--text-muted);margin-left:6px">(${s.source})</span>`;
           sh += '</div>';
         }
         if (s.name) {
@@ -1798,7 +1799,6 @@ function openPersonModal(id) {
           if (s.greatGrandfather) ml2.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
           if (s.matGrandfather) ml2.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
           if (ml2.length) sh += `<div class="pm-sp-detail">${ml2.join(' · ')}</div>`;
-          if (s.source) sh += `<div class="pm-sp-detail" style="font-size:12px;color:var(--text-muted)">(${s.source})</div>`;
         } else {
           const det = [];
           if (s.dates)  det.push(s.dates);
@@ -1807,7 +1807,6 @@ function openPersonModal(id) {
           if (s.greatGrandfather) det.push('曾祖 ' + (s.greatGrandfatherPost ? s.greatGrandfatherPost + ' ' : '') + s.greatGrandfather);
           if (s.matGrandfather) det.push('外祖 ' + (s.matGrandfatherPost ? s.matGrandfatherPost + ' ' : '') + s.matGrandfather);
           if (det.length) sh += `<div class="pm-sp-detail">${det.join(' · ')}</div>`;
-          if (s.source) sh += `<div class="pm-sp-detail" style="font-size:12px;color:var(--text-muted)">(${s.source})</div>`;
         }
         return `<div class="pm-spouse-item">${sh}</div>`;
       }).join('');
