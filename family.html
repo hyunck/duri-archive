@@ -2509,8 +2509,26 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489', 'p490'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
+      // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
+      (function () {
+        const siEl = document.getElementById('p489');
+        const jnEl = document.getElementById('p490');
+        const pEl  = document.getElementById('p482');
+        if (!siEl || !jnEl || !pEl) return;
+        const siRect = siEl.getBoundingClientRect();
+        const jnRect = jnEl.getBoundingClientRect();
+        const pRect  = pEl.getBoundingClientRect();
+        const siCX = siRect.left + siRect.width / 2 - oRect.left;
+        const jnCX = jnRect.left + jnRect.width / 2 - oRect.left;
+        const jnTop = jnRect.top - oRect.top;
+        const pBottom = pRect.bottom - oRect.top;
+        const siTop = siRect.top - oRect.top;
+        const midY = (pBottom + siTop) / 2;
+        seg(svg, siCX, midY, jnCX, midY, '#7B5A8E', null);
+        seg(svg, jnCX, midY, jnCX, jnTop, '#7B5A8E', null);
+      })();
       drawConnections(svg, oRect, { p293: ['p294'], p295: ['p296'], p294: ['p469'], p469: ['p470'], p470: ['p471', 'p472'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p285: ['p291g', 'p292', 'p00', 'p320'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p292: ['p318g', 'p319'] }, '#A87C24', null);
@@ -2815,15 +2833,15 @@ function initAncestors() {
   section.appendChild(makeACard('p479', eonBinCX + 10 * COL_W, CTOP_8));  // 김영유
   section.appendChild(makeACard('p480', eonBinCX + 13 * COL_W, CTOP_8));  // 김근 장녀(권마 처)
   section.appendChild(makeACard('p481', eonBinCX - 8 * COL_W, CTOP_7));  // 김강
-  section.appendChild(makeACard('p482', eonBinCX - 9 * COL_W, CTOP_6));  // 김맹견
+  section.appendChild(makeACard('p482', eonBinCX - 12 * COL_W, CTOP_6));  // 김맹견
   section.appendChild(makeACard('p483', eonBinCX - 8 * COL_W, CTOP_6));  // 김숙견
-  section.appendChild(makeACard('p484', eonBinCX - 7 * COL_W, CTOP_6));  // 김계견
-  section.appendChild(makeACard('p485', eonBinCX - 12 * COL_W, CTOP_5));  // 김경
-  section.appendChild(makeACard('p486', eonBinCX - 11 * COL_W, CTOP_5));  // 김기
-  section.appendChild(makeACard('p487', eonBinCX - 10 * COL_W, CTOP_5));  // 김홍
-  section.appendChild(makeACard('p488', eonBinCX - 9 * COL_W, CTOP_5));  // 김오
-  section.appendChild(makeACard('p489', eonBinCX - 8 * COL_W, CTOP_5));  // 딸(이재 처)
-  section.appendChild(makeACard('p490', eonBinCX - 7 * COL_W, CTOP_5));  // 종남(서자)
+  section.appendChild(makeACard('p484', eonBinCX - 6 * COL_W, CTOP_6));  // 김계견
+  section.appendChild(makeACard('p485', eonBinCX - 15 * COL_W, CTOP_5));  // 김경
+  section.appendChild(makeACard('p486', eonBinCX - 14 * COL_W, CTOP_5));  // 김기
+  section.appendChild(makeACard('p487', eonBinCX - 13 * COL_W, CTOP_5));  // 김홍
+  section.appendChild(makeACard('p488', eonBinCX - 12 * COL_W, CTOP_5));  // 김오
+  section.appendChild(makeACard('p489', eonBinCX - 11 * COL_W, CTOP_5));  // 딸(이재 처)
+  section.appendChild(makeACard('p490', eonBinCX - 10 * COL_W, CTOP_5));  // 종남(서자)
   section.appendChild(makeACard('p298', eonBinCX, CTOP_7));  // 김칭
   section.appendChild(makeACard('p467', eonBinCX + 2 * COL_W, CTOP_7));  // 김신(삼남)
   section.appendChild(makeACard('p468', eonBinCX + 4 * COL_W, CTOP_7));  // 김임(사남)
