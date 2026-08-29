@@ -2785,28 +2785,28 @@ function initAncestors() {
   }
 
   section.appendChild(makeACard('p476', eonBinCX, CTOP_9));  // 김근
-  section.appendChild(makeACard('p300', eonBinCX - 2 * COL_W, CTOP_7));  // 김희
-  section.appendChild(makeACard('p301', eonBinCX - 3 * COL_W, CTOP_6));  // 김양언
-  section.appendChild(makeACard('p302', eonBinCX - 2 * COL_W, CTOP_6));  // 김양수
-  section.appendChild(makeACard('p303', eonBinCX - COL_W, CTOP_6));  // 장녀(오녕 처)
+  section.appendChild(makeACard('p300', eonBinCX - 3 * COL_W, CTOP_7));  // 김희
+  section.appendChild(makeACard('p301', eonBinCX - 4 * COL_W, CTOP_6));  // 김양언
+  section.appendChild(makeACard('p302', eonBinCX - 3 * COL_W, CTOP_6));  // 김양수
+  section.appendChild(makeACard('p303', eonBinCX - 2 * COL_W, CTOP_6));  // 장녀(오녕 처)
   section.appendChild(makeACard('p477', eonBinCX - 2 * COL_W, CTOP_8));  // 김영년
   section.appendChild(makeACard('p299', eonBinCX, CTOP_8));  // 김영원
   section.appendChild(makeACard('p478', eonBinCX + 2 * COL_W, CTOP_8));  // 김영전
   section.appendChild(makeACard('p479', eonBinCX + 4 * COL_W, CTOP_8));  // 김영유
   section.appendChild(makeACard('p480', eonBinCX + 6 * COL_W, CTOP_8));  // 김근 장녀(권마 처)
   section.appendChild(makeACard('p298', eonBinCX, CTOP_7));  // 김칭
-  section.appendChild(makeACard('p467', eonBinCX + COL_W, CTOP_7));  // 김신(삼남)
-  section.appendChild(makeACard('p468', eonBinCX + 2 * COL_W, CTOP_7));  // 김임(사남)
+  section.appendChild(makeACard('p467', eonBinCX + 2 * COL_W, CTOP_7));  // 김신(삼남)
+  section.appendChild(makeACard('p468', eonBinCX + 4 * COL_W, CTOP_7));  // 김임(사남)
   // 파 이름 라벨
   [
     { id:'p477', cx: eonBinCX - 2 * COL_W, label:'판관공파', top: CTOP_8 - 42 },
     { id:'p299', cx: eonBinCX,              label:'좌랑공파', top: CTOP_8 - 42 },
     { id:'p478', cx: eonBinCX + 2 * COL_W, label:'사승공파', top: CTOP_8 - 42 },
     { id:'p479', cx: eonBinCX + 4 * COL_W, label:'공평공파', top: CTOP_8 - 42 },
-    { id:'p300', cx: eonBinCX - 2 * COL_W, label:'장단공파', top: CTOP_7 - 40 },
+    { id:'p300', cx: eonBinCX - 3 * COL_W, label:'장단공파', top: CTOP_7 - 40 },
     { id:'p298', cx: eonBinCX,             label:'참판공파', top: CTOP_7 - 40 },
-    { id:'p467', cx: eonBinCX + COL_W,     label:'판관공파', top: CTOP_7 - 40 },
-    { id:'p468', cx: eonBinCX + 2 * COL_W, label:'계성군파', top: CTOP_7 - 40 },
+    { id:'p467', cx: eonBinCX + 2 * COL_W, label:'판관공파', top: CTOP_7 - 40 },
+    { id:'p468', cx: eonBinCX + 4 * COL_W, label:'계성군파', top: CTOP_7 - 40 },
   ].forEach(function(info) {
     var hl = document.createElement('div');
     hl.className = 'house-label';
