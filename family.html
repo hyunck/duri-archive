@@ -450,6 +450,7 @@
       <li>김희 金憘 (1439년 ~ 1494년) 자 정통(正綂) 관련 인명: 전주 李氏, 태종대왕(太宗大王) 제4남(第四男) 근녕군(謹寧君) 희의공(僖懿公) 농(禯), 하양 허씨 허지혜(許之惠)</li>
       <li>김자수 金自粹 (1351년 ~ 1413년) 자 순중(純仲) 호 상촌(桑村) 관련 인명: 안동 權氏, 수(隨) 이명: 김자수 金子粹</li>
       <li>김근 金根 (1374년 ~ 1425년) 자 이본(而本) 호 추은(秋隱) 관련 인명: 밀양 朴氏, 천귀(天貴), 시용(時庸), 순중(純仲), 옥천 陸氏 육신우(陸臣祐), 우봉 李氏, 순(淳), 방년(芳年), 교(喬), 홍사범(洪師範)</li>
+      <li>딸 관련 인명: 권후, 權厚</li>
       <li>김영년 金永年 (1410년 ~ ?) 자 형부(衡夫) 호 퇴헌(退軒) 관련 인명: 해풍 金氏, 재수(在壽)</li>
       <li>김강 金剛 자 필옥(必玉) 관련 인명: 합천 李氏, 여길(汝吉)</li>
       <li>김영원 金永源 (1415년 ~ 1447년) 자 선화(善華) 호 퇴와(退窩) 관련 인명: 삼척 金氏, 계(啓), 충민(忠敏), 위(偉), 능성 具氏 구성량(具成亮)</li>
@@ -984,6 +985,7 @@ const NODES = {
   p300: { kr:'김희', hj:'金憘', gen:-7, ancestorOnly:true, ja:'정통(正綂)', dates:'1439년 ~ 1494년', post:'통훈대부 장단부사<br>贈 승정원도승지', myo:'고양(高陽) 대자동(大慈洞) 관산(舘山) 갑좌(甲坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 장명등(長明燈), 표석(表)이 있다(有).', spouse:[{ hj:'전주 李氏', rank:'贈 숙부인', father:'태종대왕(太宗大王) 제4남(第四男) 근녕군(謹寧君) 희의공(僖懿公) 농(禯)', matGrandfather:'하양 허씨 허지혜(許之惠)', matGrandfatherPost:'관찰사(觀察使) 贈 찬성(贊成)' }] },
   p491: { kr:'김자수', hj:'金自粹', gen:-10, ancestorOnly:true, ja:'순중(純仲)', ho:'상촌(桑村)', showHoOnCard:true, aliases:[{ kr:'김자수', hj:'金子粹', src:'초휘' }], dates:'1351년 ~ 1413년', post:'고려 판전교시사 · 형조판서<br>조선 판강릉대도호부사', spouse:[{ hj:'안동 權氏', rank:'정부인', father:'수(隨)', fatherPost:'고려 낭장(郞將)' }] },
   p476: { kr:'김근', hj:'金根', gen:-9, ancestorOnly:true, ja:'이본(而本)', ho:'추은(秋隱)', dates:'1374년 ~ 1425년', post:'봉렬대부 평양소윤 贈 병조판서<br>아들 영유(永濡)로 인한 퇴은(退恩)으로 병조판서(兵曹判書)를 증직받았다.', postCard:'봉렬대부 평양소윤<br>贈 병조판서', myo:'상촌공조(桑村公兆) 서남삼백보쯤(西南三百步許) 유좌(酉坐)<br>표음기(表陰記)가 있다(有).', spouse:[{ hj:'밀양 朴氏', rank:'贈 정부인', father:'천귀(天貴)', fatherPost:'검교한성부윤', grandfather:'시용(時庸)', grandfatherPost:'직강(直講) 贈 대제학 문간공(文簡公)', greatGrandfather:'순중(純仲)', greatGrandfatherPost:'판종부시사', matGrandfather:'옥천 陸氏 육신우(陸臣祐)', matGrandfatherPost:'중정대부 전객령' }, { hj:'우봉 李氏', order:'계배', rank:'贈 정부인', dates:'1387년 ~ 1448년', father:'순(淳)', fatherPost:'병조참판', grandfather:'방년(芳年)', grandfatherPost:'밀직부사', greatGrandfather:'교(喬)', greatGrandfatherPost:'예의판서', matGrandfather:'홍사범(洪師範)', matGrandfatherPost:'지밀직사사 남양군(南陽君) 충민공(忠愍公)' }] },
+  p492: { kr:'딸', gen:-9, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'권후', hj:'權厚', post:'중랑장(中郞將)', father:'인(靷)', fatherPost:'예조판서', note:'子 현감 贈 이조참판 권계경(權啓經), 중랑장 권자경(權子經)<br>女 이조판서 문정공(文靖公) 김효정(金孝貞), 수의부위(修義副尉) 남의량(南義良), 감무(監務) 권상의(權尙宜)' } },
   p477: { kr:'김영년', hj:'金永年', gen:-8, ancestorOnly:true, ja:'형부(衡夫)', ho:'퇴헌(退軒)', dates:'1410년 ~ ?', post:'강릉판관', spouse:[{ hj:'해풍 金氏', dates:'1401년 ~ ?', father:'재수(在壽)' }] },
   p481: { kr:'김강', hj:'金剛', gen:-7, ancestorOnly:true, ja:'필옥(必玉)', post:'부사직(副司直)', spouse:[{ hj:'합천 李氏', rank:'의인', father:'여길(汝吉)', fatherPost:'공의(恭議)' }] },
   p299: { kr:'김영원', hj:'金永源', gen:-8, ancestorOnly:true, ja:'선화(善華)', ho:'퇴와(退窩)', dates:'1415년 ~ 1447년', post:'감찰, 경상도사, 병조좌랑 등을 역임하여 무공랑(정6품 문산계) 수 호조좌랑에 이르렀으며, 손자 양필로 인한 추은(推恩)으로, 호조참의(정3품)를 증직받았다.<br>監察慶尙都事兵曹佐郞等職至務功郎守戶曹佐郞以孫良弼推恩 贈戶曹參議', postCard:'무공랑 守 호조좌랑<br>贈 호조참의', myo:'금천(衿川) 신림리(新林里) 오좌(午坐)<br>(묘 앞에) 상석(石床)과 석인(石人), 표석(表石)이 있다(有).', spouse:[{ hj:'삼척 金氏', rank:'贈 숙부인', dates:'1414년 ~ 1476년', father:'계(啓)', fatherPost:'제용판관(濟用判官)', grandfather:'충민(忠敏)', grandfatherPost:'한성부윤(漢城府尹)', greatGrandfather:'위(偉)', greatGrandfatherPost:'지양주사(知養州事)', matGrandfather:'능성 具氏 구성량(具成亮)', matGrandfatherPost:'판안동부사(判安東府事)' }] },
@@ -2512,7 +2514,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p491: ['p476'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p298: ['p297'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
       (function () {
@@ -2828,6 +2830,7 @@ function initAncestors() {
   }
 
   section.appendChild(makeACard('p476', eonBinCX, CTOP_9));  // 김근
+  section.appendChild(makeACard('p492', eonBinCX + 2 * COL_W, CTOP_9));  // 김자수 딸(권후 처)
   section.appendChild(makeACard('p300', eonBinCX - 3 * COL_W, CTOP_7));  // 김희
   section.appendChild(makeACard('p301', eonBinCX - 4 * COL_W, CTOP_6));  // 김양언
   section.appendChild(makeACard('p302', eonBinCX - 3 * COL_W, CTOP_6));  // 김양수
@@ -2853,6 +2856,7 @@ function initAncestors() {
   section.appendChild(makeACard('p468', eonBinCX + 4 * COL_W, CTOP_7));  // 김임(사남)
   // 파 이름 라벨
   [
+    { id:'p491', cx: eonBinCX,              label:'상촌공파', top: CTOP_10 - 42 },
     { id:'p477', cx: eonBinCX - 8 * COL_W, label:'판관공파', top: CTOP_8 - 42 },
     { id:'p299', cx: eonBinCX,              label:'좌랑공파', top: CTOP_8 - 42 },
     { id:'p478', cx: eonBinCX + 6 * COL_W, label:'사승공파', top: CTOP_8 - 42 },
