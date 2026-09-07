@@ -42,6 +42,22 @@ const CATALOG = [
     classification: "史部 雜史類"
   },
   {
+    id: "myeongmun-1913",
+    call_number: "KJ-1913-001",
+    title_hanja: "大正二年一月十五日明文",
+    title_korean: "대정 2년 1월 15일 명문",
+    author: "종중 (宗中)",
+    year: "1913",
+    year_display: "대정 2년(1913)",
+    category: "종중 기록",
+    digitized: true,
+    detail_url: "detail-대정2년명문.html",
+    total_pages: 2,
+    digitized_pages: 2,
+    summary: "대정 2년(1913) 두리 문중 소유의 논을 종인 김동건(金東建)·김홍열(金鴻烈)에게 방매(放賣)한 명문 2장.",
+    classification: "史部 政書類"
+  },
+  {
     id: "munhyeonrok",
     title_hanja: "東國文獻錄",
     title_korean: "동국문헌록",
