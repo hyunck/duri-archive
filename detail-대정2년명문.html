@@ -8,11 +8,11 @@
   <link rel="icon" type="image/png" sizes="512x512" href="images/favicon/512.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>대정 2년 1월 15일 명문(大正二年一月十五日明文) - 두리종중 소장 문서</title>
-  <meta name="description" content="대정 2년 1월 15일 명문(大正二年一月十五日明文) — 대정 2년(1913) 두리 문중 소유의 논을 종인에게 넘긴 명문. 경주김씨 두리종중 소장.">
+  <meta name="description" content="대정 2년 1월 15일 명문(大正二年一月十五日明文) — 대정 2년(1913) 두리 문중이 종인 김동건·김홍열에게 발급한 논 환퇴 조건부 명문. 경주김씨 두리종중 소장.">
   <link rel="canonical" href="https://두리종중.com/detail-대정2년명문.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="대정 2년 1월 15일 명문(大正二年一月十五日明文) - 두리종중 소장 문서">
-  <meta property="og:description" content="대정 2년 1월 15일 명문(大正二年一月十五日明文) — 대정 2년(1913) 두리 문중 소유의 논을 종인에게 넘긴 명문.">
+  <meta property="og:description" content="대정 2년 1월 15일 명문(大正二年一月十五日明文) — 대정 2년(1913) 두리 문중이 종인 김동건·김홍열에게 발급한 논 환퇴 조건부 명문.">
   <meta property="og:url" content="https://두리종중.com/detail-대정2년명문.html">
   <meta property="og:image" content="https://두리종중.com/images/대정 2년 명문/cover.png">
   <meta property="og:locale" content="ko_KR">
@@ -59,6 +59,26 @@
     .biblio-table td:first-child { width: 140px; color: var(--text-muted); font-size: 15px; white-space: nowrap; }
     .biblio-table td:last-child { color: var(--text-primary); font-family: 'Pretendard', 'Malgun Gothic', sans-serif; }
     .biblio-table tr:hover td { background: var(--bg-hover); }
+
+    /* 해제 */
+    .desc-body {
+      max-width: 760px;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-primary);
+    }
+    .desc-body h3 {
+      font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+      font-size: 17px;
+      color: var(--gold-400);
+      margin: 32px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-gold);
+    }
+    .desc-body h3:first-child { margin-top: 0; }
+    .desc-body p { margin-bottom: 16px; }
+    .desc-body strong { color: var(--text-bright); font-weight: 600; }
+
     @media (max-width: 768px) {
       .detail-wrap { padding: 0 16px 40px; }
       .doc-title-hanja { font-size: 20px; }
@@ -74,6 +94,7 @@
       .biblio-table td { padding: 12px 10px; }
       .tab-btn { padding: 12px 18px; font-size: 14px; }
       .tab-content { padding: 24px 0; }
+      .desc-body { font-size: 14px; }
     }
     @media (max-width: 480px) {
       .doc-title-hanja { font-size: 16px; }
@@ -194,6 +215,7 @@
 
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="biblio">서지사항</button>
+    <button class="tab-btn" data-tab="desc">해제</button>
   </div>
 
   <div class="tab-content">
@@ -208,10 +230,14 @@
           <tr><td>책권수</td><td>2張</td></tr>
           <tr><td>책크기</td><td>-</td></tr>
           <tr><td>판본사항</td><td>명문(明文)</td></tr>
-          <tr><td>내용</td><td>두리 문중 소유의 논을 종인 김동건(金東建)·김홍열(金鴻烈)에게 방매(放賣)한 명문</td></tr>
+          <tr><td>내용</td><td>두리 문중이 종인 김동건(金東建)·김홍열(金鴻烈)에게 발급한 논 환퇴(還退) 조건부 명문. 1907년 빚으로 문중에 넘어간 직동·인구평의 논을, 1913년 시세의 절반 값(대가 100원+1년 이자 30원)으로 익년 12월까지 상환하면 돌려주기로 한 내용</td></tr>
           <tr><td>분류</td><td>史部 政書類</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="tab-pane" id="tab-desc">
+      <div class="desc-body" id="desc-body"></div>
     </div>
   </div>
 
@@ -245,7 +271,10 @@
 
 <script src="theme.js"></script>
 <script src="mobile-menu.js"></script>
+<script src="data/대정2년명문.js"></script>
 <script>
+  document.getElementById('desc-body').innerHTML = DOC_MYEONGMUN.description;
+
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tab = btn.dataset.tab;
