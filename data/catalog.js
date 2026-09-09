@@ -1137,14 +1137,18 @@ const CATALOG = [
 
   // ── 지도 ─────────────────────────────────────────────────
   {
-    id: "yangyang-yakdo", // 미상
-    title_hanja: "襄陽案山法守峙略圖",
-    title_korean: "양양안산법수치약도",
+    id: "yangyang-yakdo",
+    call_number: "KJ-YYD-001",
+    title_hanja: "襄陽案山法守峙龍略圖",
+    title_korean: "양양안산법수치용약도",
     author: "미상",
     year: "",
-    year_display: "",
+    year_display: "미상",
     category: "지도·도면",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-양양안산법수치용약도.html",
+    total_pages: 8,
+    digitized_pages: 8,
     classification: "史部 地理類"
   },
   {
