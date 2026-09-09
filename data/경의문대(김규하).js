@@ -612,8 +612,12 @@ const DOC_GYEONGUI = {
       type: "text",
       title: "59페이지",
       image: "images/경의문대(김규하)/page_59.png",
-      hanja_text: ``,
-      korean_translation: ``,
+      hanja_text: `幼學 [[인물:金圭夏]] 年二十 本[[지명:慶州]] 居[[지명:襄陽]] 
+
+`,
+      korean_translation: `유학 [[인물:김규하(金圭夏)]] 20세, 본관 [[지명:경주(慶州)]] [[지명:양양(襄陽)]] 거주
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -622,8 +626,14 @@ const DOC_GYEONGUI = {
       type: "text",
       title: "60페이지",
       image: "images/경의문대(김규하)/page_60.png",
-      hanja_text: ``,
-      korean_translation: ``,
+      hanja_text: `父 [[인물: 宗烈]]
+祖 [[인물:東永]]
+曾祖 [[인물:志濟]]
+外祖 [[인물:李敏周]] 本[[지명:慶州]]`,
+      korean_translation: `아버지 [[인물: 종열(宗烈)]]
+조부 [[인물:동영(東永)]]
+증조부 [[인물:지제(志濟)]]
+외조부 [[인물:이민주(李敏周)]] 본관 [[지명:경주(慶州)]]`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
