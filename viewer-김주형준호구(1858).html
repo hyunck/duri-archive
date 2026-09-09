@@ -1421,21 +1421,20 @@
       document.body.classList.toggle('viewer-image-mode', mode === 'image');
       if (mode === 'image') window.scrollTo(0, 0);
     }
-    // 대조 보기 전환 시 양면 모드 해제
+    buildSidebarList();
+    if (currentPage > totalPagesForMode()) currentPage = 1;
     if (mode === 'compare' && viewSpread) {
       viewSpread = false;
       document.getElementById('toggle-single').classList.add('active');
       document.getElementById('toggle-spread')?.classList.remove('active');
-      renderPage(currentPage);
     }
-    if (currentPage > totalPagesForMode()) currentPage = 1;
     showCompareOrImage();
     document.getElementById('toggle-compare').classList.toggle('active', mode === 'compare');
     document.getElementById('toggle-image').classList.toggle('active', mode === 'image');
     // 단면/양면 토글은 원문이미지 모드에서만, 텍스트 크기는 대조 보기에서만 표시
     document.getElementById('spread-toggles').style.display    = mode === 'image'   ? '' : 'none';
     document.getElementById('text-size-controls').style.display = mode === 'compare' ? '' : 'none';
-    if (mode === 'image') updateImageMode(getPageData(currentPage), currentPage);
+    renderPage(currentPage);
   }
 
   function showCompareOrImage() {
