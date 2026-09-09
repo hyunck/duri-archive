@@ -1069,15 +1069,15 @@
 
   /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
   function getSpreadPages(num) {
-    if (!viewSpread || num === 1 || num === doc.total_pages) return [num];
+    if (!viewSpread || viewMode !== 'image' || num === 1 || num === doc.total_pages) return [num];
     const start = num % 2 === 0 ? num : num - 1;
     const end = start + 1;
     return end < doc.total_pages ? [start, end] : [start];
   }
 
   function renderPage(num) {
-    // 양면 모드에서는 짝수 시작 페이지로 정규화
-    if (viewSpread && num !== 1 && num !== doc.total_pages) {
+    // 양면 모드에서는 짝수 시작 페이지로 정규화 (이미지 모드에서만)
+    if (viewSpread && viewMode === 'image' && num !== 1 && num !== doc.total_pages) {
       num = num % 2 === 0 ? num : num - 1;
     }
     currentPage = num;
@@ -1368,7 +1368,7 @@
   =========================== */
   function changePage(delta) {
     let target;
-    if (viewSpread) {
+    if (viewSpread && viewMode === 'image') {
       // 현재 페이지가 단면(1장짜리)이면 1칸, 양면이면 2칸 이동
       const isSingle = getSpreadPages(currentPage).length === 1;
       const step = (currentPage === 1 && delta > 0) ? 1

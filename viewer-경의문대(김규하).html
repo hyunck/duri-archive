@@ -1055,14 +1055,14 @@
   }
 
   function getSpreadPages(num) {
-    if (!viewSpread || num === 1 || num === doc.total_pages) return [num];
+    if (!viewSpread || viewMode !== 'image' || num === 1 || num === doc.total_pages) return [num];
     const start = num % 2 === 0 ? num : num - 1;
     const end = start + 1;
     return end < doc.total_pages ? [start, end] : [start];
   }
 
   function renderPage(num) {
-    if (viewSpread && num !== 1 && num !== doc.total_pages) {
+    if (viewSpread && viewMode === 'image' && num !== 1 && num !== doc.total_pages) {
       num = num % 2 === 0 ? num : num - 1;
     }
     currentPage = num;
@@ -1342,7 +1342,7 @@
   =========================== */
   function changePage(delta) {
     let target;
-    if (viewSpread) {
+    if (viewSpread && viewMode === 'image') {
       const isSingle = getSpreadPages(currentPage).length === 1;
       const step = (currentPage === 1 && delta > 0) ? 1
                  : (currentPage === 2 && delta < 0) ? -1
