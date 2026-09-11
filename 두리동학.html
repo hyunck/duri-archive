@@ -739,12 +739,16 @@
 var LOCATIONS = [
   /* ── 종택·부속 건물 (gold) ── */
   {
-    name: '종택 (김규하 가옥)',
-    hanja: '宗宅',
+    name: '종가 (김규하 가옥)',
+    hanja: '宗家',
     type: 'gold',
     lat: 37.9730286967622, lng: 128.750738667033,
     desc: '경주김씨 두리종중의 종가로, 강원특별자치도 유형문화유산(양양 김택준 가옥)으로 지정되어 있다. 종가의 집터를 제외한 마을 내 종가 소유의 여러 집터들은 본래 후사가 없는 먼 조상의 것들로, 이후 종가 소유로 넘어온 것이라 전해진다.',
     parcels: [
+      [37.9693586,128.7596338],   // 인구리 18-1 (밭)
+      [37.969214,128.7598046],   // 인구리 18-2 (밭)
+      [37.9692333,128.7598177],   // 인구리 18-6 (밭)
+      [37.96927760000001,128.759854],   // 인구리 18-11 (밭)
       [37.9748825,128.7409304],   // 죽리 254 (논)
       [37.9742535,128.740424],   // 죽리 254-2 (논)
       [37.974665,128.7399397],   // 죽리 254-3 (논)
@@ -828,13 +832,15 @@ var LOCATIONS = [
     name: '후동 김동영 산소 터',
     hanja: '後洞山所',
     type: 'black',
-    lat: 37.972266928678316, lng: 128.75045900639375
+    lat: 37.972266928678316, lng: 128.75045900639375,
+    noParcel: true   // 김규하 필지와 겹쳐 자체 필지 조회 생략
   },
   {
     name: '성황동 김동영 처 강릉김씨 산소 터',
     hanja: '城隍洞山所',
     type: 'black',
-    lat: 37.969783, lng: 128.7521257
+    lat: 37.969783, lng: 128.7521257,
+    noParcel: true   // 김규하 필지와 겹쳐 자체 필지 조회 생략
   },
 
   /* ── 가문원 댁 (red) ── */
@@ -1579,7 +1585,7 @@ function toggleAllParcels(btn) {
     btn.textContent = '전체 필지 숨기기';
     btn.classList.add('active');
     LOCATIONS.forEach(function (loc) {
-      if (loc.type === 'blue' || !map) return;
+      if (loc.type === 'blue' || loc.noParcel || !map) return;
       var color = COLOR[loc.type] || '#A87C24';
       if (Array.isArray(loc.parcels)) {
         loc.parcels.forEach(function (pt) { fetchAllParcelByPoint(pt[0], pt[1], color, loc.type, loc); });
@@ -1822,7 +1828,7 @@ function fetchParcelByPoint(lat, lng, color, type) {
 
 function fetchParcel(loc) {
   clearParcel();
-  if (!loc || loc.type === 'blue' || !map) return;
+  if (!loc || loc.type === 'blue' || loc.noParcel || !map) return;
   if (typeVisible[loc.type] === false) return;
   var color = COLOR[loc.type] || '#A87C24';
   if (Array.isArray(loc.parcels)) {
