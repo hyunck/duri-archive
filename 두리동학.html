@@ -1429,6 +1429,13 @@ var LOCATIONS = [
   }
 ];
 
+/* ── 지도 위 지명 텍스트 라벨 (마커·필지와 무관, 항상 표시) ── */
+var TEXT_LABELS = [
+  { text: '성황동', lat: 37.97061947051345, lng: 128.75273132973268 },
+  { text: '뒷골',   lat: 37.97216722218886, lng: 128.7520882037056 },
+  { text: '퇴비골', lat: 37.97257575576946, lng: 128.75534968554544 }
+];
+
 /* ── 색상 매핑 ── */
 var COLOR = { gold: '#A87C24', red: '#c84040', orange: '#D4621A', purple: '#2563EB', teal: '#1A8A80', green: '#2d7a2d', blue: '#3a7aba', black: '#7B44B0', pink: '#C44071', amber: '#8A8228', rose: '#C85830', slate: '#708090' };
 
@@ -1475,6 +1482,22 @@ function markerIcon(color) {
   };
 }
 
+/* ── 지도 위 지명 텍스트 라벨 (팝업·필지 조회 없이 텍스트만 표시) ── */
+function addTextLabel(lbl) {
+  new naver.maps.Marker({
+    map:      map,
+    position: new naver.maps.LatLng(lbl.lat, lbl.lng),
+    icon: {
+      content: '<div style="transform:translate(-50%,-50%);font-family:Pretendard,\'Malgun Gothic\',sans-serif;' +
+        'font-size:15px;font-weight:700;color:#ffffff;letter-spacing:0.06em;white-space:nowrap;' +
+        'text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.6);pointer-events:none;">' +
+        lbl.text + '</div>',
+      anchor: new naver.maps.Point(0, 0)
+    },
+    zIndex: 50
+  });
+}
+
 /* ── 지도 초기화 ── */
 function initMap() {
   var placeholder = document.getElementById('map-placeholder');
@@ -1504,6 +1527,7 @@ function initMap() {
 
   drawDuriBoundary();   // 두리 경계를 가장 먼저 그려 필지 아래 위치
   LOCATIONS.forEach(function (loc, i) { addMarker(loc, i); });
+  TEXT_LABELS.forEach(function (lbl) { addTextLabel(lbl); });
   renderList();
   toggleAllParcels(document.getElementById('btn-toggle-parcels'));
 }
