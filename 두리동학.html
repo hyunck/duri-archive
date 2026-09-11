@@ -793,15 +793,16 @@ var LOCATIONS = [
       [37.952609,128.7477513],   // 후포매리 산55 (장두골)
       [37.9518275,128.7462829],   // 후포매리 산55-1
       [37.97659,128.7386009],   // 북분리 산120 (감남동)
-      [37.97476657686007,128.7398466786733],   // 죽리 산35-3
+      [37.974786049464775,128.73982437819078],   // 죽리 산35-3
       [37.97613246547356,128.73893293977707],   // 죽리 산35-5
       [37.97522058691179,128.73808066516028],   // 죽리 산35-6
       [37.9753807,128.7393376],   // 죽리 산35 (죽리 258-2)
       [37.9750813,128.7389141],   // 죽리 산35 (죽리 258-3)
       [37.9759347,128.7386376],   // 죽리 산35 (죽리 258-4)
-      [37.9743496,128.7394986],   // 죽리 산35 (죽리 258-5)
+      [37.9760786907028,128.73967565979663],   // 죽리 산35 (죽리 258-5)
       [37.9750978,128.7401356],   // 죽리 산36 (죽리 254-1)
       [37.9751451,128.7403951],   // 죽리 산36 (죽리 254-4)
+      [37.974745,128.7401684],   // 죽리 산36 (죽리 254-7)
       [37.9751078,128.7397608],   // 죽리 산36-1
       [37.9493759,128.7530693],   // 후포매리 산85
       [37.9493611,128.7559394],   // 후포매리 산85-1
@@ -1585,10 +1586,10 @@ function addMarker(loc, idx) {
   var mutedColor = isDark ? '#a0a8b8' : '#6e6b66';
 
   var iwContent =
-    '<div style="padding:10px 14px;min-width:120px;max-width:200px;' +
+    '<div style="padding:10px 14px;min-width:120px;max-width:320px;width:max-content;' +
     'font-family:Pretendard,Malgun Gothic,sans-serif;background:' + bgColor + ';' +
     'border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);">' +
-    '<div style="font-weight:700;font-size:14px;color:' + textColor + ';margin-bottom:3px;">' + loc.name + '</div>' +
+    '<div style="font-weight:700;font-size:14px;color:' + textColor + ';margin-bottom:3px;white-space:nowrap;">' + loc.name + '</div>' +
     (loc.hanja ? '<div style="font-size:11px;color:#A87C24;letter-spacing:.1em;">' + loc.hanja + '</div>' : '') +
     '</div>';
 
