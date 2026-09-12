@@ -1178,14 +1178,18 @@ const CATALOG = [
 
   // ── 기타 ─────────────────────────────────────────────────
   {
-    id: "gwangmunhoe-ad", // 미상
+    id: "gwangmunhoe-ad",
+    call_number: "KJ-GMH-001",
     title_hanja: "朝鮮光文會 廣告文",
     title_korean: "조선광문회 광고문",
     author: "조선광문회 (朝鮮光文會)",
     year: "",
     year_display: "1910년대",
     category: "기타",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-조선광문회광고문.html",
+    total_pages: 4,
+    digitized_pages: 4,
     classification: "史部 雜史類"
   },
   {
