@@ -431,7 +431,7 @@
     .history-table th,
     .history-table td {
       padding: 12px 14px;
-      text-align: left;
+      text-align: center;
       vertical-align: top;
       border-bottom: 1px solid var(--border-subtle);
     }
@@ -456,6 +456,11 @@
     .history-table tbody td:last-child {
       color: var(--text-muted);
       font-size: 14px;
+      text-align: left;
+    }
+
+    .history-table thead th:last-child {
+      text-align: left;
     }
 
     .history-table tbody tr:last-child td {
@@ -491,6 +496,7 @@
         border-bottom: none;
         padding: 4px 0;
         white-space: normal;
+        text-align: left;
       }
       .history-table td::before {
         content: attr(data-label);
@@ -735,8 +741,8 @@
             <tr><td data-label="연도">1843년(헌종 9)</td><td data-label="기재사항">현남면 원당리(元堂里)</td><td data-label="출처">김주형준호구(1843)</td><td data-label="기타">준호구, 제4호</td></tr>
             <tr><td data-label="연도">1846년(헌종 12)</td><td data-label="기재사항">현남면 후동(後洞)</td><td data-label="출처">종가실록(1930)</td><td data-label="기타">양양부에 올린 소지 (종가실록 수록)</td></tr>
             <tr><td data-label="연도">1855년(철종 6)</td><td data-label="기재사항">현남면 원당리(元堂里)</td><td data-label="출처">김주형준호구(1855)</td><td data-label="기타">준호구, 호구단자, 제3호</td></tr>
-            <tr><td data-label="연도">1858년(철종 9)</td><td data-label="기재사항">〃</td><td data-label="출처">김주형준호구(1858)</td><td data-label="기타">준호구, 호구단자, 제2호</td></tr>
-            <tr><td data-label="연도">1861년(철종 12)</td><td data-label="기재사항">〃</td><td data-label="출처">김주형준호구(1861)</td><td data-label="기타">준호구, 호구단자, 제3호</td></tr>
+            <tr><td data-label="연도">1858년(철종 9)</td><td data-label="기재사항">〃</td><td data-label="출처">김주형준호구(1858)</td><td data-label="기타">준호구, 제2호</td></tr>
+            <tr><td data-label="연도">1861년(철종 12)</td><td data-label="기재사항">〃</td><td data-label="출처">김주형준호구(1861)</td><td data-label="기타">준호구, 제3호</td></tr>
             <tr><td data-label="연도">1876년(고종 13)</td><td data-label="기재사항">〃</td><td data-label="출처">김국성준호구(1876)</td><td data-label="기타">준호구, 제2호</td></tr>
             <tr><td data-label="연도">1879년(고종 16)</td><td data-label="기재사항">〃</td><td data-label="출처">김탁영준호구(1879)</td><td data-label="기타">김동영, 준호구, 제5호</td></tr>
             <tr><td data-label="연도">1882년(고종 19)</td><td data-label="기재사항">〃</td><td data-label="출처">김치성준호구(1882)</td><td data-label="기타">준호구, 제5호</td></tr>
