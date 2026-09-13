@@ -23,7 +23,7 @@ const CATALOG = [
     title_korean: "화수회",
     author: "종중 (宗中)",
     year: "",
-    year_display: "20세기 초",
+    year_display: "1885년~1925년",
     category: "종중 기록",
     digitized: true,
     detail_url: "detail-화수회.html",
@@ -56,6 +56,39 @@ const CATALOG = [
     digitized_pages: 2,
     summary: "대정 2년(1913) 두리 문중이 종인 김동건(金東建)·김홍열(金鴻烈)에게 발급한 논 환퇴(還退) 조건부 명문 2장.",
     classification: "史部 政書類"
+  },
+  {
+    id: "jangdugok-hyanghwagyecheop", // 미상
+    title_hanja: "長斗谷香火契帖",
+    title_korean: "장두곡향화계첩",
+    author: "종중 (宗中)",
+    year: "1929",
+    year_display: "1929년 1월",
+    category: "종중 기록",
+    digitized: false,
+    classification: "史部 雜史類"
+  },
+  {
+    id: "jongjung-jangbu", // 미상
+    title_hanja: "宗中帳簿",
+    title_korean: "종중 장부",
+    author: "종중 (宗中)",
+    year: "",
+    year_display: "1926년 이후",
+    category: "종중 기록",
+    digitized: false,
+    classification: "史部 雜史類"
+  },
+  {
+    id: "myeonokdaek-chibu", // 미상
+    title_hanja: "綿玉宅置付",
+    title_korean: "면옥댁치부",
+    author: "종중 (宗中)",
+    year: "",
+    year_display: "1925년 이후",
+    category: "종중 기록",
+    digitized: false,
+    classification: "史部 雜史類"
   },
   {
     id: "munhyeonrok",
