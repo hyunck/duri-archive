@@ -375,6 +375,17 @@
     classification: "史部 雜史類"
   },
   {
+    id: "cheongseong-gajeon", // 필사본
+    title_hanja: "淸城家傳",
+    title_korean: "청성가전",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "사서·전기",
+    digitized: false,
+    classification: "史部 傳記類"
+  },
+  {
     id: "toegye-eonhaengrok", // 미상
     title_hanja: "退溪先生言行錄",
     title_korean: "퇴계선생언행록",
