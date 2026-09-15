@@ -58,14 +58,18 @@ const CATALOG = [
     classification: "史部 政書類"
   },
   {
-    id: "jangdugok-hyanghwagyecheop", // 미상
+    id: "jangdugok-hyanghwagyecheop",
+    call_number: "KJ-JDG-001",
     title_hanja: "長斗谷香火契帖",
     title_korean: "장두곡향화계첩",
     author: "종중 (宗中)",
     year: "1929",
     year_display: "1929년 1월",
     category: "종중 기록",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-장두곡향화계첩.html",
+    total_pages: 30,
+    digitized_pages: 1,
     classification: "史部 雜史類"
   },
   {
