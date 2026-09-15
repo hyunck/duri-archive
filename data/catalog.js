@@ -797,6 +797,17 @@
     classification: "集部 總集類"
   },
   {
+    id: "duyul", // 필사본
+    title_hanja: "杜律",
+    title_korean: "두율",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "문집·기문",
+    digitized: false,
+    classification: "集部 總集類"
+  },
+  {
     id: "haseok-gwanseorok", // 미상
     title_hanja: "霞石謾稿 關西錄",
     title_korean: "하석만고 관서록",
