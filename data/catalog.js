@@ -900,6 +900,21 @@ const CATALOG = [
 
   // ── 의서 ─────────────────────────────────────────────────
   {
+    id: "chimgu-gyeongheombang",
+    call_number: "KJ-CGHB-001",
+    title_hanja: "鍼灸經驗方",
+    title_korean: "침구경험방",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "의서",
+    digitized: true,
+    detail_url: "detail-침구경험방.html",
+    total_pages: 40,
+    digitized_pages: 1,
+    classification: "子部 醫家類"
+  },
+  {
     id: "bangyak-hapyeon", // 미상
     title_hanja: "方藥合編",
     title_korean: "방약합편",
