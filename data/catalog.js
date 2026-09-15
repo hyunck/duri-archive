@@ -1,4 +1,4 @@
-const CATALOG = [
+﻿const CATALOG = [
 
   // ── 종중 기록 ────────────────────────────────────────────
   {
@@ -64,7 +64,7 @@ const CATALOG = [
     title_korean: "장두곡향화계첩",
     author: "종중 (宗中)",
     year: "1929",
-    year_display: "1929년 1월",
+    year_display: "1929년 11월",
     category: "종중 기록",
     digitized: true,
     detail_url: "detail-장두곡향화계첩.html",
