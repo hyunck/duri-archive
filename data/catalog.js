@@ -990,6 +990,21 @@
 
   // ── 풍수·도가 ────────────────────────────────────────────
   {
+    id: "gungeulga",
+    call_number: "KJ-GEG-001",
+    title_hanja: "弓乙歌",
+    title_korean: "궁을가",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "풍수·도가",
+    digitized: true,
+    detail_url: "detail-궁을가.html",
+    total_pages: 10,
+    digitized_pages: 2,
+    classification: "子部 道家類"
+  },
+  {
     id: "tonghyeonrok", // 미상
     title_hanja: "通玄錄",
     title_korean: "통현록",
