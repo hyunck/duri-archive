@@ -478,6 +478,17 @@
     classification: "子部 儒家類"
   },
   {
+    id: "gyemong-pyeon", // 필사본
+    title_hanja: "啓蒙篇",
+    title_korean: "계몽편",
+    author: "김찬호 (金燦鎬)",
+    year: "1947",
+    year_display: "1947년",
+    category: "경전·유학",
+    digitized: false,
+    classification: "子部 儒家類"
+  },
+  {
     id: "sohak-jipju", // 미상
     title_hanja: "小學諸家集註",
     title_korean: "소학제가집주",
