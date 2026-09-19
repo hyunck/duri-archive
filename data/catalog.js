@@ -305,8 +305,8 @@
   },
   {
     id: "gyeongju-dongwon", // 미상
-    title_hanja: "慶州金氏同源錄",
-    title_korean: "경주김씨동원록",
+    title_hanja: "慶州金氏同源錄舊序",
+    title_korean: "경주김씨동원록구서 : 갑오보 서문",
     author: "미상",
     year: "",
     year_display: "",
@@ -1337,5 +1337,16 @@
     category: "기타",
     digitized: false,
     classification: "子部 術數類"
+  },
+  {
+    id: "saimdang", // 필사본
+    title_hanja: "栗谷先生母夫人師任堂申氏筆蹟",
+    title_korean: "율곡선생 모 부인 사임당 신씨 필적",
+    author: "미상",
+    year: "",
+    year_display: "",
+    category: "기타",
+    digitized: false,
+    classification: "미분류"
   }
 ];
