@@ -23,7 +23,7 @@
     title_korean: "화수회",
     author: "종중 (宗中)",
     year: "",
-    year_display: "1885년~1925년",
+    year_display: "1895년~1925년",
     category: "종중 기록",
     digitized: true,
     detail_url: "detail-화수회.html",
