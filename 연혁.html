@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="images/favicon/192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/favicon/512.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>연혁 | 경주김씨 상촌공파 두리종중</title>
+  <meta name="description" content="경주김씨 상촌공파 두리종중의 연혁을 시대순으로 정리하였다. 창거부터 종가 대화재, 화수회 결성, 종가실록 저술 등 주요 사건을 시간순으로 확인할 수 있다.">
+  <link rel="canonical" href="https://두리종중.com/연혁.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="연혁 | 경주김씨 상촌공파 두리종중">
+  <meta property="og:description" content="경주김씨 상촌공파 두리종중의 연혁을 시대순으로 정리하였다.">
+  <meta property="og:url" content="https://두리종중.com/연혁.html">
+  <meta property="og:image" content="https://두리종중.com/images/banner/banner.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');
+    document.documentElement.classList.add('js');
+  </script>
+  <style>
+    .page-wrap { max-width: 1080px; margin: 0 auto; padding: 64px 40px 100px; }
+    .page-hero { padding: 56px 40px 32px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); max-width: 1080px; margin: 0 auto; }
+    .page-title-ko { font-size: 36px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .body-text { font-size: 17px; line-height: 2; color: var(--text-primary); }
+    .body-text p { margin-bottom: 1.4em; }
+
+    /* 연혁 타임라인 */
+    .timeline-intro { max-width: 720px; margin: 0 0 48px; }
+    .timeline { --tl-line-x: 174px; position: relative; margin-top: 8px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: var(--tl-line-x);
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold-600) 6%, var(--gold-600) 94%, transparent);
+      opacity: 0.55;
+    }
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 130px 40px 1fr;
+      grid-template-areas: "date marker content";
+      column-gap: 24px;
+      margin-bottom: 36px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-date {
+      grid-area: date;
+      text-align: right;
+      padding-top: 15px;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--gold-600);
+      line-height: 1.5;
+    }
+    .timeline-marker {
+      grid-area: marker;
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg-body);
+      border: 2px solid var(--gold-600);
+      box-shadow: 0 0 0 4px var(--bg-body);
+    }
+    .timeline-content {
+      grid-area: content;
+      background: var(--bg-elevated, var(--bg-body));
+      border: 1px solid var(--border-normal);
+      border-radius: 10px;
+      padding: 16px 22px;
+      transition: border-color 0.2s ease;
+    }
+    .timeline-content:hover { border-color: var(--gold-600); }
+    .timeline-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .timeline-content strong { color: var(--text-bright); font-weight: 700; }
+
+    /* 로딩 시 살짝 나타나는 애니메이션 (JS 없으면 즉시 보임) */
+    html.js .timeline-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    html.js .timeline-item.tl-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.js .timeline-item { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 36px 20px 24px; }
+      .page-wrap  { padding: 40px 20px 80px; }
+      .page-title-ko { font-size: 24px; }
+
+      .timeline { --tl-line-x: 15px; }
+      .timeline-item {
+        grid-template-columns: 32px 1fr;
+        grid-template-areas: "marker date" "marker content";
+        row-gap: 6px;
+        column-gap: 16px;
+      }
+      .timeline-date { text-align: left; padding-top: 1px; }
+      .timeline-marker { padding-top: 3px; }
+      .timeline-content { padding: 14px 16px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y8SZ52M48J');
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+  <a href="index.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <div class="header-right">
+    <nav class="site-nav">
+    <a class="nav-item" href="index.html">홈</a>
+    <div class="nav-dropdown">
+      <span class="nav-item nav-dropdown-btn active">두리종중<span class="dropdown-arrow">▾</span></span>
+      <div class="nav-dropdown-menu">
+        <a href="jongga.html" class="nav-dropdown-item">계보</a>
+        <a href="연혁.html" class="nav-dropdown-item active">연혁</a>
+        <a href="지파.html" class="nav-dropdown-item">지파</a>
+        <a href="인물.html" class="nav-dropdown-item">주요 인물</a>
+      </div>
+    </div>
+    <a class="nav-item" href="두리동학.html">두리동학</a>
+    <a class="nav-item" href="catalog.html">소장 문서</a>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item" href="jongtaek.html">종택</a>
+    </nav>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+    <button class="hamburger-btn" id="mobile-menu-open" aria-label="메뉴 열기" aria-controls="mobile-menu-panel">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu-panel" id="mobile-menu-panel">
+  <div class="mobile-menu-header">
+    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="메뉴 닫기">✕</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a class="mobile-menu-item" href="index.html">홈</a>
+        <a class="mobile-menu-item" href="jongga.html">두리종중</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="jongga.html">계보</a>
+    <a class="mobile-menu-item mobile-menu-sub active" href="연혁.html">연혁</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="인물.html">주요 인물</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="지파.html">지파</a>
+    <a class="mobile-menu-item" href="두리동학.html">두리동학</a>
+    <a class="mobile-menu-item" href="catalog.html">소장 문서</a>
+    <a class="mobile-menu-item" href="family.html">가계도</a>
+    <a class="mobile-menu-item" href="jongtaek.html">종택</a>
+  </nav>
+</aside>
+
+  <div class="page-hero">
+    <div class="page-title-ko">연혁</div>
+  </div>
+
+  <div class="page-wrap">
+    <section class="section">
+      <div class="timeline-intro body-text">
+        <p>두리종중의 연혁을 시대순으로 정리하였다. 가장 오래된 사건이 위에, 가장 최근의 사건이 아래에 위치한다.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">1700년대 초</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김여경</strong>, 현남면 두리 일대의 숲을 개척하여 자리를 잡다(創居).</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1804년<br>(순조 4)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>영동지방의 대형 산불로 종가가 전소되다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1840년<br>(헌종 6)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김주형</strong>의 상선(商船) 사업 실패로, 두리의 전답과 종가, 소나무 숲을 전당 잡히다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1842년<br>(헌종 8)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김상학</strong>(金商學), 사월댁(沙月宅)으로 분가하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1846년<br>(헌종 12)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>병오년(丙午年) 산비탈을 나누어 팔아, 채무를 상환하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1855년<br>(철종 6)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>후포매리 장두곡(長斗谷) 선영의 향화계(香火契) 문회(門會)를 개최하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1880년<br>(고종 17)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>종가를 재건하고, 성황동과 포매산 선영을 문중 소유로 편입하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1890년<br>(고종 27)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>환이문권(換移文券) 사건이 일어나다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1895년<br>(고종 32)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>화수회(花樹會) 문중 회의를 개최하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1902년<br>(광무 6)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김규하</strong> 승중(承重)하고, <strong>김재열</strong>(金載烈)이 둘째집(二宅)으로 분가하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1920년<br>(대정 9)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p>성황동에 전사청(奠祠廳)을 건립하다.</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1930년<br>(소화 5)</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김규하</strong>, 『종가실록(宗家實錄)』을 저술하다.</p></div>
+        </div>
+      </div>
+    </section>
+  </div><!-- /page-wrap -->
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo-block">
+        <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+        <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-address">
+          <span>강원특별자치도 양양군 현남면 두리</span>
+          <span>사이트 관리 : 14대손</span>
+        <span>문의: hwahyun82@gmail.com</span>
+        </div>
+        <div class="footer-copyright">이 사이트의 모든 콘텐츠의 무단 전재·복제를 금합니다. 단, 학술 연구·교육·정보 전달 등 비영리 목적의 활용은 자유롭게 허용됩니다.</div>
+      </div>
+      <nav class="footer-links">
+        <a href="index.html">홈</a>
+        <a href="jongga.html">두리종중</a>
+        <a href="두리동학.html">두리동학</a>
+        <a href="catalog.html">소장 문서</a>
+        <a href="family.html">가계도</a>
+        <a href="jongtaek.html">종택</a>
+      </nav>
+    </div>
+    <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+  </footer>
+
+  <script src="style.js" onerror="void 0"></script>
+  <script src="mobile-menu.js"></script>
+  <script>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    function update() {
+      var t = document.documentElement.getAttribute('data-theme');
+      btn.querySelector('.ti').textContent = t === 'dark' ? '☀' : '☾';
+    }
+    update();
+    btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('duri-theme', next);
+      update();
+    });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var items = document.querySelectorAll('.timeline-item');
+    if (!items.length) return;
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('tl-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tl-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+  </script>
+
+</body>
+</html>
