@@ -194,6 +194,102 @@
     classification: "史部 政書類"
   },
   {
+    id: "gukseong-1876",
+    title_hanja: "金國聲準戶口, 1876",
+    title_korean: "김국성준호구",
+    author: "김국성 (金國聲)",
+    year: "1876",
+    year_display: "광서 2년(1876)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김국성준호구(1876).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1876",
+    title_hanja: "金鐸永準戶口, 1876",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1876",
+    year_display: "광서 2년(1876)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1876).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1879",
+    title_hanja: "金鐸永準戶口, 1879",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1879",
+    year_display: "광서 5년(1879)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1879).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1882",
+    title_hanja: "金鐸永準戶口, 1882",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1882",
+    year_display: "광서 8년(1882)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1882).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1885",
+    title_hanja: "金鐸永準戶口, 1885",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1885",
+    year_display: "광서 11년(1885)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1885).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1888",
+    title_hanja: "金鐸永準戶口, 1888",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1888",
+    year_display: "광서 14년(1888)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1888).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1891",
+    title_hanja: "金鐸永準戶口, 1891",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1891",
+    year_display: "광서 17년(1891)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1891).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1894",
+    title_hanja: "金鐸永準戶口, 1894",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1894",
+    year_display: "광서 20년(1894)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1894).html",
+    classification: "史部 政書類"
+  },
+  {
     id: "hojeok-yangyang", // 미상
     title_hanja: "江原道襄陽郡縣南面戶籍",
     title_korean: "강원도 양양군 현남면 호적",
