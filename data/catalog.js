@@ -73,6 +73,21 @@
     classification: "史部 雜史類"
   },
   {
+    id: "seonjo-saengnyeon-1931",
+    call_number: "KJ-1931-001",
+    title_hanja: "先祖生年及死亡年兆其他事蹟",
+    title_korean: "선조생년급사망년조기타사적",
+    author: "김규하 (金圭夏)",
+    year: "1931",
+    year_display: "소화 6년(1931)",
+    category: "종중 기록",
+    digitized: true,
+    detail_url: "detail-선조생년급사망년조기타사적.html",
+    total_pages: 10,
+    digitized_pages: 0,
+    classification: "史部 雜史類"
+  },
+  {
     id: "jongjung-jangbu", // 미상
     title_hanja: "宗中帳簿",
     title_korean: "종중 장부",
