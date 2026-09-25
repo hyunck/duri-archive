@@ -869,6 +869,18 @@
     detail_url: "detail-문단.html",
     classification: "集部 總集類"
   },
+  {
+    id: "sangnyangmun-1880",
+    title_hanja: "金鐸永家屋上樑文",
+    title_korean: "김탁영가옥상량문",
+    author: "미상",
+    year: "1880",
+    year_display: "광서 6년(1880)",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-김탁영가옥상량문.html",
+    classification: "集部 記類"
+  },
     {
     id: "hanhweonrok", // 미상
     title_hanja: "寒喧錄 簡牘",

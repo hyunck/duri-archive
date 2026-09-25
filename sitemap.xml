@@ -187,6 +187,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://두리종중.com/detail-김탁영가옥상량문.html</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://두리종중.com/detail-벽사문유천하일가기상부.html</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -375,6 +381,12 @@
   <url>
     <loc>https://두리종중.com/viewer-문단.html</loc>
     <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://두리종중.com/viewer-김탁영가옥상량문.html</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
