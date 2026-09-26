@@ -88,12 +88,12 @@
     classification: "史部 雜史類"
   },
   {
-    id: "jongjung-jangbu", // 미상
-    title_hanja: "宗中帳簿",
-    title_korean: "종중 장부",
+    id: "hwasu2", // 미상
+    title_hanja: "花樹會",
+    title_korean: "화수회",
     author: "종중 (宗中)",
     year: "",
-    year_display: "1926년 이후",
+    year_display: "1926년~1955년",
     category: "종중 기록",
     digitized: false,
     classification: "史部 雜史類"
