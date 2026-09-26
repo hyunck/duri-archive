@@ -88,6 +88,21 @@
     classification: "史部 雜史類"
   },
   {
+    id: "seodanggye",
+    call_number: "KJ-SDG-001",
+    title_hanja: "書堂契",
+    title_korean: "서당계",
+    author: "종중 (宗中)",
+    year: "",
+    year_display: "미상",
+    category: "종중 기록",
+    digitized: true,
+    detail_url: "detail-서당계.html",
+    total_pages: 20,
+    digitized_pages: 0,
+    classification: "史部 雜史類"
+  },
+  {
     id: "hwasu2", // 미상
     title_hanja: "花樹會",
     title_korean: "화수회",

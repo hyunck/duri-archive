@@ -235,6 +235,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://두리종중.com/detail-서당계.html</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://두리종중.com/detail-조선광문회광고문.html</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -434,6 +440,12 @@
   </url>
   <url>
     <loc>https://두리종중.com/viewer-선조생년급사망년조기타사적.html</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://두리종중.com/viewer-서당계.html</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
