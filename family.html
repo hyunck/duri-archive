@@ -1375,8 +1375,8 @@ const NODES = {
   p130: { kr:'김창O', hj:'金昌O', gen:14 },
   p131: { kr:'김창O', hj:'金昌O', gen:14 },
   p122g: { kr:'김규하', hj:'金圭夏', gen:10, ghost:true },
-  p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1899년 ~ 1955년', spouse:[{ hj:'강릉 金氏', dates:'1898년 ~ ?', father:'관현(寛鉉)' }] },
-  p179: { kr:'김기호', hj:'金琪鎬', gen:11, dates:'1919년 ~ ?', houseLabel:'호정댁', spouse:[{ hj:'창녕 曺氏', dates:'1921년 ~ ?', father:'덕문(德文)' }] },
+  p123: { kr:'김규영', hj:'金圭英', gen:10, dates:'1899년 ~ 1955년', houseLabel:'호정댁', spouse:[{ hj:'강릉 金氏', dates:'1898년 ~ ?', father:'관현(寛鉉)' }] },
+  p179: { kr:'김기호', hj:'金琪鎬', gen:11, dates:'1919년 ~ ?', spouse:[{ hj:'창녕 曺氏', dates:'1921년 ~ ?', father:'덕문(德文)' }] },
   p180: { kr:'김맹호', hj:'金孟鎬', gen:11, dates:'1922년 ~ 1945년', spouse:[{ hj:'전주 李氏', dates:'1923년 ~ ?' }] },
   p181: { kr:'김응호', hj:'金應鎬', gen:11, dates:'1926년 ~ ?' },
   p124: { kr:'김규현', hj:'金圭鉉', gen:10, dates:'1902년 ~ 2000년?', spouse:[
@@ -1921,7 +1921,7 @@ function renderTree() {
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
       const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p99' ? 0.18 : id === 'p200' ? 0.32 : id === 'p266' ? 0.34 : id === 'p179' ? 0.38 :(id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : id === 'p11' ? 0.12 : 0.28;
+      const offsetRatio = id === 'p99' ? 0.18 : id === 'p200' ? 0.32 : id === 'p266' ? 0.34 : id === 'p123' ? 0.38 :(id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : id === 'p11' ? 0.12 : 0.28;
       const hl = document.createElement('div');
       hl.className = 'house-label';
       hl.dataset.pid = id;
