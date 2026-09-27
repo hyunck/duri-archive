@@ -1075,16 +1075,17 @@
 
   /* 페이지 num 기준 표시할 페이지 번호 배열 반환 */
   function getSpreadPages(num) {
-    if (!viewSpread || num === 1 || num === totalPagesForMode()) return [num];
-    const start = num % 2 === 0 ? num : num - 1;
+    if (!viewSpread) return [num];
+    const start = num % 2 === 1 ? num : num - 1;
     const end = start + 1;
-    return end < totalPagesForMode() ? [start, end] : [start];
+    return end <= totalPagesForMode() ? [start, end] : [start];
   }
 
   function renderPage(num) {
-    // 양면 모드에서는 짝수 시작 페이지로 정규화
-    if (viewSpread && num !== 1 && num !== totalPagesForMode()) {
-      num = num % 2 === 0 ? num : num - 1;
+    // 양면 모드에서는 1-2, 3-4 ... 홀수 시작 페이지로 정규화(3페이지처럼 남는 마지막 페이지는 단독 표시)
+    if (viewSpread) {
+      const start = num % 2 === 1 ? num : num - 1;
+      if (start + 1 <= totalPagesForMode()) num = start;
     }
     currentPage = num;
     const spreadNums = getSpreadPages(num);
@@ -1375,11 +1376,7 @@
   function changePage(delta) {
     let target;
     if (viewSpread) {
-      // 1페이지↔2페이지 전환은 1칸, 나머지는 2칸 이동
-      const step = (currentPage === 1 && delta > 0) ? 1
-                 : (currentPage === 2 && delta < 0) ? -1
-                 : 2 * delta;
-      target = currentPage + step;
+      target = currentPage + 2 * delta;
     } else {
       target = currentPage + delta;
     }
