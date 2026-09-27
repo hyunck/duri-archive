@@ -911,6 +911,18 @@
     detail_url: "detail-김탁영가옥상량문.html",
     classification: "集部 記類"
   },
+  {
+    id: "sangnyangmun-1901",
+    title_hanja: "奠祀廳上樑文",
+    title_korean: "전사청상량문",
+    author: "경헌(敬軒) 최영훈(崔永勳)",
+    year: "1901",
+    year_display: "광무 5년(1901)",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-전사청상량문.html",
+    classification: "集部 記類"
+  },
     {
     id: "hanhweonrok", // 미상
     title_hanja: "寒喧錄 簡牘",
