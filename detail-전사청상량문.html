@@ -391,6 +391,7 @@
   <!-- 탭 -->
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="biblio">서지사항</button>
+    <button class="tab-btn" data-tab="desc">해제</button>
   </div>
 
   <div class="tab-content">
@@ -409,6 +410,11 @@
           <tr><td>분류</td><td>集部 記類</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- 해제 -->
+    <div class="tab-pane" id="tab-desc">
+      <div class="desc-body" id="desc-body"></div>
     </div>
 
   </div>
@@ -461,6 +467,8 @@
     sessionStorage.setItem('viewMode', 'image');
     location.href = 'viewer-전사청상량문.html';
   });
+
+  document.getElementById('desc-body').innerHTML = DOC_SANGNYANGMUN_1901.description;
 </script>
 </body>
 </html>
