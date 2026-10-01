@@ -1025,6 +1025,8 @@ const NODES = {
   p582: { kr:'김노영', hj:'金魯永', gen:'g4', ancestorOnly:true, ja:'가구(可久)', dates:'1747년 ~ 1797년', post:'예조참판', spouse:[{ hj:'남양 洪氏', rank:'정부인', father:'대현(大顯)', fatherPost:'현령', grandfather:'재(榟)', grandfatherPost:'대사헌', greatGrandfather:'구조(龜祚)', greatGrandfatherPost:'진사 贈 이조참판', matGrandfather:'창원 黃氏 황익무(黃榏戊)', matGrandfatherPost:'목사' }] },
   p586: { kr:'김관희', hj:'金觀喜', gen:'g5', ancestorOnly:true, ja:'자빈(子賓)', dates:'1773년 ~ 1797년', spouse:[{ hj:'평산 申氏', dates:'1769년 ~ 1837년', father:'대년(大年)', fatherPost:'참의', grandfather:'서(曙)', grandfatherPost:'군수', greatGrandfather:'성하(聖夏)', greatGrandfatherPost:'평운군(平雲君) 贈 이조참판', matGrandfather:'경주 李氏 이기(李琪)' }] },
   p587: { kr:'김상일', hj:'金商一', gen:'g6', ancestorOnly:true, ja:'사우(士遇)', dates:'1794년 ~ 1858년', post:'양양부사(襄陽府使)', spouse:[{ hj:'임천 趙氏', dates:'1793년 ~ 1815년', father:'학염(學濂)', fatherPost:'현감', grandfather:'덕윤(德潤)', grandfatherPost:'판서', greatGrandfather:'명정(明鼎)', greatGrandfatherPost:'이조판서 문헌공(文獻公)', matGrandfather:'평산 申氏 신대유(申大有)', matGrandfatherPost:'현감' },{ hj:'청주 韓氏', order:'계배', dates:'1798년 ~ 1861년', father:'중유(重維)', grandfather:'명직(命直)', greatGrandfather:'우조(宇朝)', matGrandfather:'연안 李氏 이학보(李學輔)' }] },
+  p589: { kr:'김시제', hj:'金始濟', gen:'g7', ancestorOnly:true, ja:'신여(藎汝)', ho:'술암(述菴)', dates:'1814년 ~ 1867년', post:'생원', spouse:[{ hj:'덕수 李氏', dates:'1813년 ~ 1856년', father:'노찬(魯燦)' },{ hj:'경주 鄭氏', order:'계배', dates:'1821년 ~ 1890년', father:'여종(汝宗)' }] },
+  p590: { kr:'김태제', hj:'金台濟', gen:'g7', ancestorOnly:true, ja:'평여(平汝)', ho:'성대(星臺)', dates:'1827년 ~ ?', post:'이천부사(伊川府使), 자헌대부 봉상사 제조', spouse:[{ hj:'창원 黃氏', rank:'정부인', father:'종림(鍾林)', fatherPost:'목사', grandfather:'기옥(基玉)', grandfatherPost:'군수 曾 이조참의', greatGrandfather:'인점(仁點)', greatGrandfatherPost:'창성위(昌城尉)', matGrandfather:'청송 沈氏 심능우(沈能愚)', matGrandfatherPost:'진사' }] },
   p583: { kr:'김노성', hj:'金魯成', gen:'g4', ancestorOnly:true, ja:'가대(可大)', dates:'1754년 ~ 1794년', post:'수원판관', spouse:[{ hj:'연일 鄭氏', rank:'숙인', dates:'1754년 ~ 1772년', father:'지환(趾煥)', fatherPost:'승지', grandfather:'실(實)', grandfatherPost:'이조판서 문형(文衡)', greatGrandfather:'순하(舜河)', greatGrandfatherPost:'贈 찬성', matGrandfather:'덕수 李氏 이규진(李奎鎭)', matGrandfatherPost:'부사' }] },
   p584: { kr:'김노명', hj:'金魯明', gen:'g4', ancestorOnly:true, ja:'가원(可遠)', dates:'1756년 ~ 1775년', spouse:[{ hj:'풍산 洪氏', father:'배호(配浩)', fatherPost:'부사', grandfather:'전보(銓輔)', grandfatherPost:'부사', greatGrandfather:'중주(重疇)', greatGrandfatherPost:'蔭 참판 백당(栢堂)', matGrandfather:'창원 黃氏 황익을(黃榏乙)', matGrandfatherPost:'목사' }] },
   p585: { kr:'김노경', hj:'金魯敬', gen:'g4', ancestorOnly:true, ja:'가일(可一)', ho:'유당(酉堂)', dates:'1766년 ~ 1837년', post:'이조·호조·병조·형조판서 판의금부사', spouse:[{ hj:'기계 兪氏', rank:'정부인', dates:'1767년 ~ 1801년', father:'준주(駿注)', fatherPost:'군수', grandfather:'한숙(漢肅)', grandfatherPost:'대사헌', greatGrandfather:'언탁(彦鐸)', greatGrandfatherPost:'동지돈녕부사(同敦)', matGrandfather:'한산 李氏 이해중(李海重)', matGrandfatherPost:'참판' }] },
@@ -1747,6 +1749,7 @@ const GEN_INFO = {
   'g4':{label:'23세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">15세</span>'},
   'g5':{label:'24세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">16세</span>'},
   'g6':{label:'25세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">17세</span>'},
+  'g7':{label:'26세', pre:'태사공파', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">18세</span>'},
   1:{label:'1대', pre:'입향조', sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">12세</span>'},
   2:{label:'2대',sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">13세</span>'},
   3:{label:'3대',sub:'<span class="gen-sub">상촌공파</span><span class="gen-num">14세</span>'},
@@ -1766,7 +1769,7 @@ const GEN_INFO = {
 // ══════════════════════════════════════════════════════════
 //  레이아웃 상수
 // ══════════════════════════════════════════════════════════
-const ANCESTOR_H = 6850; // 윗대 패널 높이 (px)
+const ANCESTOR_H = 7250; // 윗대 패널 높이 (px)
 const TOP_RESERVE = 50;  // 토글 버튼·점선을 위한 tree-outer 상단 여유 공간 (px)
 const COL_W  = 260;   // 열 너비 (카드 중심 간격)
 const CARD_W = 175;   // 카드 너비
@@ -2871,7 +2874,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p571: ['p572'], p572: ['p573', 'p574'], p574: ['p575', 'p576'], p576: ['p577', 'p578', 'p579', 'p580'], p580: ['p581'], p581: ['p582', 'p583', 'p584', 'p585'], p584: ['p586'], p586: ['p587'], p585: ['p588g'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p571: ['p572'], p572: ['p573', 'p574'], p574: ['p575', 'p576'], p576: ['p577', 'p578', 'p579', 'p580'], p580: ['p581'], p581: ['p582', 'p583', 'p584', 'p585'], p584: ['p586'], p586: ['p587'], p587: ['p589', 'p590'], p585: ['p588g'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       drawConnections(svg, oRect, { p302: ['p560'] }, '#5B8DB8', null);  // 양부→양자(김양수→김연)
       drawConnections(svg, oRect, { p582: ['p588'] }, '#5B8DB8', null);  // 양부→양자(김노영→김정희)
@@ -3119,6 +3122,7 @@ function initAncestors() {
   const CTOP_GEN4 = 5600; // 김세진 계보 전용 추가 행(김이주 자녀, gen:'g4')
   const CTOP_GEN5 = 6000; // 김세진 계보 전용 추가 행(김노명 자녀, gen:'g5')
   const CTOP_GEN6 = 6400; // 김세진 계보 전용 추가 행(김관희 자녀, gen:'g6')
+  const CTOP_GEN7 = 6800; // 김세진 계보 전용 추가 행(김상일 자녀, gen:'g7')
 
   // ── main-tree-wrap
   const mainWrap = document.createElement('div');
@@ -3236,6 +3240,8 @@ function initAncestors() {
   section.appendChild(makeACard('p584', eonBinCX - 111 * COL_W, CTOP_GEN4));  // 김노명(김이주 삼남)
   section.appendChild(makeACard('p586', eonBinCX - 111 * COL_W, CTOP_GEN5));  // 김관희(김노명 장남)
   section.appendChild(makeACard('p587', eonBinCX - 111 * COL_W, CTOP_GEN6));  // 김상일(김관희 장남)
+  section.appendChild(makeACard('p589', eonBinCX - 112 * COL_W, CTOP_GEN7));  // 김시제(김상일 장남)
+  section.appendChild(makeACard('p590', eonBinCX - 110 * COL_W, CTOP_GEN7));  // 김태제(김상일 차남)
   const p588gCard = makeACard('p588g', eonBinCX - 110 * COL_W, CTOP_GEN5);  // 김정희(김노경 장남, 김노영에게 출계)
   p588gCard.classList.add('person-card-ghost');
   section.appendChild(p588gCard);
@@ -3306,7 +3312,7 @@ function initAncestors() {
   // section.appendChild(makeACard('p472', eonBinCX + 6.5 * COL_W, CTOP_0));  // 김두영(김도진 차남) — 2026-09-22 주석처리
 
   // 대수 라벨
-  [{ gen:'-10', top: CTOP_10 + 16 }, { gen:'-9', top: CTOP_9 + 16 }, { gen:'-8', top: CTOP_8 + 16 }, { gen:'-7', top: CTOP_7 + 16 }, { gen:'-6', top: CTOP_6 + 16 }, { gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }, { gen:0, top: CTOP_0 + 16 }, { gen:'g1', top: CTOP_GEN1 + 16 }, { gen:'g2', top: CTOP_GEN2 + 16 }, { gen:'g3', top: CTOP_GEN3 + 16 }, { gen:'g4', top: CTOP_GEN4 + 16 }, { gen:'g5', top: CTOP_GEN5 + 16 }, { gen:'g6', top: CTOP_GEN6 + 16 }].forEach(function(info) {
+  [{ gen:'-10', top: CTOP_10 + 16 }, { gen:'-9', top: CTOP_9 + 16 }, { gen:'-8', top: CTOP_8 + 16 }, { gen:'-7', top: CTOP_7 + 16 }, { gen:'-6', top: CTOP_6 + 16 }, { gen:'-5', top: CTOP_5 + 16 }, { gen:'-4', top: CTOP_4 + 16 }, { gen:'-3', top: CTOP_3 + 16 }, { gen:'-2', top: CTOP_2 + 16 }, { gen:'-1', top: CTOP_1 + 16 }, { gen:0, top: CTOP_0 + 16 }, { gen:'g1', top: CTOP_GEN1 + 16 }, { gen:'g2', top: CTOP_GEN2 + 16 }, { gen:'g3', top: CTOP_GEN3 + 16 }, { gen:'g4', top: CTOP_GEN4 + 16 }, { gen:'g5', top: CTOP_GEN5 + 16 }, { gen:'g6', top: CTOP_GEN6 + 16 }, { gen:'g7', top: CTOP_GEN7 + 16 }].forEach(function(info) {
     var gi = GEN_INFO[info.gen];
     if (!gi) return;
     var lbl = document.createElement('div');
