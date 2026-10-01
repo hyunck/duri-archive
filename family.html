@@ -3018,7 +3018,7 @@ function drawArrows(svg, oRect, map, color) {
     const tCX = (tRect.left + tRect.right) / 2;
 
     // ghost가 오른쪽이고 수평선 예외 없음 → 수평 왼쪽 화살표
-    if (fCX > tCX && fromId !== 'p114g' && fromId !== 'p324g' && fromId !== 'p325g') {
+    if (fCX > tCX && fromId !== 'p114g' && fromId !== 'p324g' && fromId !== 'p325g' && fromId !== 'p588g') {
       const midY = (fRect.top + fRect.bottom) / 2 - oRect.top;
       const x1   = fRect.left  - oRect.left - 2;
       const x2   = tRect.right - oRect.left + 2;
