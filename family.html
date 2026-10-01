@@ -1007,6 +1007,9 @@ const NODES = {
   p564: { kr:'김호윤', hj:'金好尹', gen:-4, ancestorOnly:true, ja:'대임(大任)', dates:'1525년 ~ ?', post:'선무랑(宣務郞) 贈 승정원 좌승지', postCard:'선무랑(宣務郞)<br>贈 승정원 좌승지', spouse:[{ hj:'전주 李氏', rank:'贈 숙부인', father:'현당(賢讜)', fatherPost:'목사', grandfather:'자례(自禮)', grandfatherPost:'해평부령(海平副令)', greatGrandfather:'석(碩)', greatGrandfatherPost:'우성령(牛城令)', matGrandfather:'옥천 陸氏 육세영(陸世英)' },{ hj:'나주 朴氏', order:'계배', rank:'贈 숙부인', dates:'1537년 ~ 1606년', father:'근(謹)', fatherPost:'사평(司評)', grandfather:'연(堧)', grandfatherPost:'현령(縣令)', greatGrandfather:'치(䎩)', greatGrandfatherPost:'蔭 집의(執義) 贈 영상(頜相)', matGrandfather:'연안 李氏 이순장(李順長)', matGrandfatherPost:'동추(同樞) 贈 찬성(贊成)' }] },
   p565: { kr:'딸', gen:-3, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'김인선', hj:'金麟善', post:'현감', father:'발(潑)', fatherPost:'현감' }, clan:'상주 金氏' },
   p566: { kr:'김적', hj:'金積', gen:-3, ancestorOnly:true, ja:'선여(善餘)', ho:'단구자(丹邱子)', dates:'1564년 ~ 1646년', post:'안기도찰방(安奇道察訪) 贈 이조참판', postCard:'안기도찰방(安奇道察訪)<br>贈 이조참판', spouse:[{ hj:'화순 崔氏', rank:'贈 정부인', father:'원(遠)', fatherPost:'무(武) 좌윤(左尹)', grandfather:'유선(唯善)', grandfatherPost:'贈 판서', greatGrandfather:'준(浚)', greatGrandfatherPost:'군수 贈 승지', matGrandfather:'순창 趙氏 조인갑(趙認甲)', matGrandfatherPost:'선전(宣傳)' }] },
+  p567: { kr:'김홍익', hj:'金弘翼', gen:-2, ancestorOnly:true, ja:'익지(翼之)', ho:'묵재(默齋)', dates:'1581년 ~ 1636년', post:'연산현감 贈 이조판서 충민공(忠愍公)', spouse:[{ hj:'파평 尹氏', rank:'贈 정부인', father:'민일(民逸)', fatherPost:'참판' },{ hj:'해주 崔氏', order:'계배', rank:'贈 정부인', father:'집(潗)', fatherPost:'좌랑' }] },
+  p568: { kr:'딸', gen:-2, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'이신여', hj:'李信輿', father:'성록(成祿)', fatherPost:'참의' }, clan:'전주 李氏' },
+  p569: { kr:'김홍량', hj:'金弘亮', gen:-2, ancestorOnly:true, ja:'량지(亮之)', dates:'1588년 ~ 1624년', post:'장임랑', spouse:[{ hj:'나주 丁氏', father:'호성(好誠)', fatherPost:'감찰' },{ hj:'청주 韓氏', order:'계배', father:'경유(景裕)', fatherPost:'찰방 贈 참판' }] },
   p561: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'김중순', hj:'金仲淳' }, clan:'희천 金氏' },
   p562: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'이위', hj:'李緯', post:'군수' }, clan:'경주 李氏' },
   p563: { kr:'김파', hj:'金坡', gen:-5, ancestorOnly:true, post:'참봉', spouse:[{ hj:'함안 李氏' }] },
@@ -2841,7 +2844,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       drawConnections(svg, oRect, { p302: ['p560'] }, '#5B8DB8', null);  // 양부→양자(김양수→김연)
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
@@ -3179,6 +3182,9 @@ function initAncestors() {
   section.appendChild(makeACard('p564', eonBinCX - 5 * COL_W, CTOP_4));  // 김호윤(김연 장남)
   section.appendChild(makeACard('p565', eonBinCX - 6 * COL_W, CTOP_3));  // 장녀(김인선 처)
   section.appendChild(makeACard('p566', eonBinCX - 5 * COL_W, CTOP_3));  // 김적(김호윤 장남)
+  section.appendChild(makeACard('p567', eonBinCX - 6 * COL_W, CTOP_2));  // 김홍익(김적 장남)
+  section.appendChild(makeACard('p568', eonBinCX - 5 * COL_W, CTOP_2));  // 장녀(이신여 처)
+  section.appendChild(makeACard('p569', eonBinCX - 4 * COL_W, CTOP_2));  // 김홍량(김적 차남)
   section.appendChild(makeACard('p491', eonBinCX, CTOP_10));  // 김자수
   section.appendChild(makeACard('p477', eonBinCX - 23 * COL_W, CTOP_8));  // 김영년
   section.appendChild(makeACard('p299', eonBinCX, CTOP_8));  // 김영원
