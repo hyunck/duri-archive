@@ -1012,6 +1012,7 @@ const NODES = {
   p569: { kr:'김홍량', hj:'金弘亮', gen:-2, ancestorOnly:true, ja:'량지(亮之)', dates:'1588년 ~ 1624년', post:'장임랑', spouse:[{ hj:'나주 丁氏', father:'호성(好誠)', fatherPost:'감찰' },{ hj:'청주 韓氏', order:'계배', father:'경유(景裕)', fatherPost:'찰방 贈 참판' }] },
   p570: { kr:'김홍필', hj:'金弘弼', gen:-2, ancestorOnly:true, ja:'뇌지(賚之)', dates:'1596년 ~ 1650년', post:'내시교관(內侍敎官) 贈 이조참의', spouse:[{ hj:'파평 尹氏', rank:'贈 숙부인', father:'유경(惟敬)' }] },
   p571: { kr:'김홍욱', hj:'金弘郁', gen:-2, ancestorOnly:true, ja:'문숙(文叔)', ho:'학주(鶴洲)', dates:'1602년 ~ 1654년', post:'황해도관찰사 겸 순찰사 贈 이조판서 문정공(文貞公)', spouse:[{ hj:'동복 吳氏', rank:'贈 정부인', father:'정(靖)', fatherPost:'병조참의 贈 이조참의', grandfather:'억령(億齡)', grandfatherPost:'예조판서(禮判) 문숙공(文肅公) 만취(晩翠)', greatGrandfather:'세현(世賢)', greatGrandfatherPost:'직장 贈 판서', matGrandfather:'남원 尹氏 윤돈(尹暾)', matGrandfatherPost:'판서 효정공(孝貞公)' }] },
+  p572: { kr:'김세진', hj:'金世珍', gen:-1, ancestorOnly:true, ja:'원서(元瑞)', ho:'운천(雲川)', dates:'1621년 ~ 1686년', post:'찰방 贈 의정부 좌찬성', spouse:[{ hj:'전주 李氏', rank:'贈 정부인', father:'지항(之恒)', fatherPost:'부제학(副學) 贈 이조판서', grandfather:'목(楘)', grandfatherPost:'대사헌(大憲) 贈 영상(領相) 충정공(忠貞公) 송교(松郊)', greatGrandfather:'신성(愼誠)', greatGrandfatherPost:'봉사 贈 찬성', matGrandfather:'평산 申氏 신감(申鑑)', matGrandfatherPost:'유수(留守)' }] },
   p561: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'김중순', hj:'金仲淳' }, clan:'희천 金氏' },
   p562: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'이위', hj:'李緯', post:'군수' }, clan:'경주 李氏' },
   p563: { kr:'김파', hj:'金坡', gen:-5, ancestorOnly:true, post:'참봉', spouse:[{ hj:'함안 李氏' }] },
@@ -2846,7 +2847,7 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p571: ['p572'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       drawConnections(svg, oRect, { p302: ['p560'] }, '#5B8DB8', null);  // 양부→양자(김양수→김연)
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
@@ -3189,6 +3190,7 @@ function initAncestors() {
   section.appendChild(makeACard('p569', eonBinCX - 115 * COL_W, CTOP_2));  // 김홍량(김적 차남)
   section.appendChild(makeACard('p570', eonBinCX - 114 * COL_W, CTOP_2));  // 김홍필(김적 삼남)
   section.appendChild(makeACard('p571', eonBinCX - 113 * COL_W, CTOP_2));  // 김홍욱(김적 사남)
+  section.appendChild(makeACard('p572', eonBinCX - 113 * COL_W, CTOP_1));  // 김세진(김홍욱 장남)
   section.appendChild(makeACard('p491', eonBinCX, CTOP_10));  // 김자수
   section.appendChild(makeACard('p477', eonBinCX - 133 * COL_W, CTOP_8));  // 김영년
   section.appendChild(makeACard('p299', eonBinCX, CTOP_8));  // 김영원
