@@ -1028,6 +1028,8 @@ const NODES = {
   p583: { kr:'김노성', hj:'金魯成', gen:'g4', ancestorOnly:true, ja:'가대(可大)', dates:'1754년 ~ 1794년', post:'수원판관', spouse:[{ hj:'연일 鄭氏', rank:'숙인', dates:'1754년 ~ 1772년', father:'지환(趾煥)', fatherPost:'승지', grandfather:'실(實)', grandfatherPost:'이조판서 문형(文衡)', greatGrandfather:'순하(舜河)', greatGrandfatherPost:'贈 찬성', matGrandfather:'덕수 李氏 이규진(李奎鎭)', matGrandfatherPost:'부사' }] },
   p584: { kr:'김노명', hj:'金魯明', gen:'g4', ancestorOnly:true, ja:'가원(可遠)', dates:'1756년 ~ 1775년', spouse:[{ hj:'풍산 洪氏', father:'배호(配浩)', fatherPost:'부사', grandfather:'전보(銓輔)', grandfatherPost:'부사', greatGrandfather:'중주(重疇)', greatGrandfatherPost:'蔭 참판 백당(栢堂)', matGrandfather:'창원 黃氏 황익을(黃榏乙)', matGrandfatherPost:'목사' }] },
   p585: { kr:'김노경', hj:'金魯敬', gen:'g4', ancestorOnly:true, ja:'가일(可一)', ho:'유당(酉堂)', dates:'1766년 ~ 1837년', post:'이조·호조·병조·형조판서 판의금부사', spouse:[{ hj:'기계 兪氏', rank:'정부인', dates:'1767년 ~ 1801년', father:'준주(駿注)', fatherPost:'군수', grandfather:'한숙(漢肅)', grandfatherPost:'대사헌', greatGrandfather:'언탁(彦鐸)', greatGrandfatherPost:'동지돈녕부사(同敦)', matGrandfather:'한산 李氏 이해중(李海重)', matGrandfatherPost:'참판' }] },
+  p588g: { kr:'김정희', hj:'金正喜', gen:'g5', ancestorOnly:true, ghost:true },
+  p588: { kr:'김정희', hj:'金正喜', gen:'g5', ancestorOnly:true, ja:'원춘(元春)·추사(秋史)', ho:'완당(阮堂)', dates:'1786년 ~ 1856년', post:'병조참판', spouse:[{ hj:'한산 李氏', rank:'정부인', dates:'1786년 ~ 1805년', father:'의민(義民)', grandfather:'복영(復永)', grandfatherPost:'蔭 판서 贈 은숙공(恩肅公)', greatGrandfather:'태중(台重)', greatGrandfatherPost:'판서 贈 문경공(文敬公) 삼산(三山)', matGrandfather:'무안 朴氏 박사빈(朴師彬)' },{ hj:'예안 李氏', order:'계배', rank:'정부인', dates:'1788년 ~ 1842년', father:'병현(秉鉉)', grandfather:'언주(彦胄)', greatGrandfather:'관병(觀炳)', greatGrandfatherPost:'진사', matGrandfather:'진천 宋氏 송인손(宋寅孫)' }] },
   p561: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'김중순', hj:'金仲淳' }, clan:'희천 金氏' },
   p562: { kr:'딸', gen:-5, ancestorOnly:true, gender:'f', sonInLaw:{ kr:'이위', hj:'李緯', post:'군수' }, clan:'경주 李氏' },
   p563: { kr:'김파', hj:'金坡', gen:-5, ancestorOnly:true, post:'참봉', spouse:[{ hj:'함안 李氏' }] },
@@ -1723,6 +1725,7 @@ const ARROWS = {
   p421g: 'p421',  // 출계 자리(김명열 장남) → 양자 실제 위치(김봉열 아래)
   p345g: 'p345',  // 출계 자리(김영제 장남) → 양자 실제 위치(김원제 아래)
   p560g: 'p560',  // 출계 자리(김양언 삼남) → 양자 실제 위치(김양수 아래)
+  p588g: 'p588',  // 출계 자리(김노경 장남) → 양자 실제 위치(김노영 아래)
 };
 
 // 대(代) 라벨
@@ -2868,9 +2871,10 @@ function drawTree() {
     const ty = p00Rect.top - oRect.top;
     const _aVis = document.getElementById('ancestor-section')?.style.display !== 'none';
     if (_aVis) {
-      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p571: ['p572'], p572: ['p573', 'p574'], p574: ['p575', 'p576'], p576: ['p577', 'p578', 'p579', 'p580'], p580: ['p581'], p581: ['p582', 'p583', 'p584', 'p585'], p584: ['p586'], p586: ['p587'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
+      drawConnections(svg, oRect, { p491: ['p476', 'p492'], p476: ['p477', 'p299', 'p478', 'p479', 'p480'], p477: ['p481'], p481: ['p482', 'p483', 'p484'], p482: ['p485', 'p486', 'p487', 'p488', 'p489'], p483: ['p548', 'p549', 'p550', 'p551', 'p552'], p484: ['p553', 'p554', 'p555', 'p556'], p299: ['p300', 'p298', 'p467', 'p468'], p300: ['p301', 'p302', 'p303'], p301: ['p557', 'p558', 'p559', 'p560g', 'p561', 'p562', 'p563'], p298: ['p297'], p560: ['p564'], p564: ['p565', 'p566'], p566: ['p567', 'p568', 'p569', 'p570', 'p571'], p571: ['p572'], p572: ['p573', 'p574'], p574: ['p575', 'p576'], p576: ['p577', 'p578', 'p579', 'p580'], p580: ['p581'], p581: ['p582', 'p583', 'p584', 'p585'], p584: ['p586'], p586: ['p587'], p585: ['p588g'], p290: ['p289', 'p293', 'p295'], p289: ['p288'], p288: ['p286'], p286: ['p287', 'p285'] }, '#A87C24', null);
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       drawConnections(svg, oRect, { p302: ['p560'] }, '#5B8DB8', null);  // 양부→양자(김양수→김연)
+      drawConnections(svg, oRect, { p582: ['p588'] }, '#5B8DB8', null);  // 양부→양자(김노영→김정희)
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
       (function () {
         const siEl = document.getElementById('p489');
@@ -3232,6 +3236,10 @@ function initAncestors() {
   section.appendChild(makeACard('p584', eonBinCX - 111 * COL_W, CTOP_GEN4));  // 김노명(김이주 삼남)
   section.appendChild(makeACard('p586', eonBinCX - 111 * COL_W, CTOP_GEN5));  // 김관희(김노명 장남)
   section.appendChild(makeACard('p587', eonBinCX - 111 * COL_W, CTOP_GEN6));  // 김상일(김관희 장남)
+  const p588gCard = makeACard('p588g', eonBinCX - 110 * COL_W, CTOP_GEN5);  // 김정희(김노경 장남, 김노영에게 출계)
+  p588gCard.classList.add('person-card-ghost');
+  section.appendChild(p588gCard);
+  section.appendChild(makeACard('p588', eonBinCX - 113 * COL_W, CTOP_GEN5));  // 김정희(김노영 양자, 실제 위치)
   section.appendChild(makeACard('p585', eonBinCX - 110 * COL_W, CTOP_GEN4));  // 김노경(김이주 사남)
   section.appendChild(makeACard('p491', eonBinCX, CTOP_10));  // 김자수
   section.appendChild(makeACard('p477', eonBinCX - 133 * COL_W, CTOP_8));  // 김영년
