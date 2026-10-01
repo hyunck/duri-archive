@@ -2878,6 +2878,17 @@ function drawTree() {
       drawConnections(svg, oRect, { p297: ['p290'] }, '#7B5A8E', null);
       drawConnections(svg, oRect, { p302: ['p560'] }, '#5B8DB8', null);  // 양부→양자(김양수→김연)
       drawConnections(svg, oRect, { p582: ['p588'] }, '#5B8DB8', null);  // 양부→양자(김노영→김정희)
+      // 김연 이하 계보가 접혀 있으면 짧은 점선 스텁만 표시(윗대 패널 전체 토글과 동일 패턴)
+      (function () {
+        const kEl = document.getElementById('p560');
+        const k564 = document.getElementById('p564');
+        if (!kEl || !k564) return;
+        if (k564.style.display !== 'none') return;
+        const kRect = kEl.getBoundingClientRect();
+        const kx = kRect.left + kRect.width / 2 - oRect.left;
+        const ky = kRect.bottom - oRect.top;
+        seg(svg, kx, ky, kx, ky + 36, '#A87C24', '7 4');
+      })();
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
       (function () {
         const siEl = document.getElementById('p489');
@@ -3440,7 +3451,7 @@ function initAncestors() {
   kyeonBtn.title = '김연 이하 계보 펼치기';
   kyeonBtn.style.cssText = [
     'position:absolute',
-    'left:' + (eonBinCX - 113 * COL_W + CARD_W / 2 - 13.5) + 'px',
+    'left:' + (eonBinCX - 115 * COL_W - 13.5) + 'px',
     'top:' + (CTOP_4 - 44) + 'px',
     'width:28px',
     'height:28px',
