@@ -2882,12 +2882,15 @@ function drawTree() {
       (function () {
         const kEl = document.getElementById('p560');
         const k564 = document.getElementById('p564');
-        if (!kEl || !k564) return;
+        const btnEl = document.getElementById('kyeon-toggle-btn');
+        if (!kEl || !k564 || !btnEl) return;
         if (k564.style.display !== 'none') return;
         const kRect = kEl.getBoundingClientRect();
+        const btnRect = btnEl.getBoundingClientRect();
         const kx = kRect.left + kRect.width / 2 - oRect.left;
         const ky = kRect.bottom - oRect.top;
-        seg(svg, kx, ky, kx, ky + 36, '#A87C24', '7 4');
+        const btnCY = btnRect.top + btnRect.height / 2 - oRect.top;
+        seg(svg, kx, ky, kx, btnCY, '#A87C24', '7 4');
       })();
       // 종남(p490)은 김맹견의 서자 — 이재(p489)의 분기점에서부터만 보라색으로 이어 그림
       (function () {
@@ -3468,6 +3471,7 @@ function initAncestors() {
     'justify-content:center',
     'z-index:10',
     'padding:0',
+    'pointer-events:auto',
   ].join(';');
   section.appendChild(kyeonBtn);
 
