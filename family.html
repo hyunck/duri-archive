@@ -2971,6 +2971,7 @@ function drawConnections(svg, oRect, map, color, dash) {
     const pEl = document.getElementById(pid);
     if (!pEl) return;
     const pRect = pEl.getBoundingClientRect();
+    if (pRect.width === 0 && pRect.height === 0) return;  // 접힌(display:none) 부모는 건너뜀
     const px = pRect.left + pRect.width / 2 - oRect.left;
     const py = pRect.bottom - oRect.top;
 
@@ -2978,6 +2979,7 @@ function drawConnections(svg, oRect, map, color, dash) {
       const cEl = document.getElementById(cids[0]);
       if (!cEl) return;
       const cRect = cEl.getBoundingClientRect();
+      if (cRect.width === 0 && cRect.height === 0) return;  // 접힌(display:none) 자식은 건너뜀
       const cx2 = cRect.left + cRect.width / 2 - oRect.left;
       const cy2 = cRect.top - oRect.top;
       if (Math.abs(px - cx2) < 1) {
@@ -2993,6 +2995,7 @@ function drawConnections(svg, oRect, map, color, dash) {
         const el = document.getElementById(id);
         if (!el) return null;
         const r = el.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) return null;  // 접힌(display:none) 자식은 건너뜀
         return { kx: r.left + r.width/2 - oRect.left, ky: r.top - oRect.top };
       }).filter(Boolean);
       if (!kids.length) return;
@@ -3428,6 +3431,58 @@ function initAncestors() {
     drawTree();
   }
   btn.addEventListener('click', function(e) { e.stopPropagation(); _setAncestor(!_open); });
+
+  // ── 김연 이하 계보 펼치기/접기 토글 (기본값: 접힘)
+  var KYEON_BRANCH_IDS = ['p564','p565','p566','p567','p568','p569','p570','p571','p572','p573','p574','p575','p576','p577','p578','p579','p580','p581','p582','p583','p584','p585','p586','p587','p588','p588g','p589','p590'];
+  var kyeonBtn = document.createElement('button');
+  kyeonBtn.id = 'kyeon-toggle-btn';
+  kyeonBtn.textContent = '+';
+  kyeonBtn.title = '김연 이하 계보 펼치기';
+  kyeonBtn.style.cssText = [
+    'position:absolute',
+    'left:' + (eonBinCX - 113 * COL_W + CARD_W / 2 - 13.5) + 'px',
+    'top:' + (CTOP_4 - 44) + 'px',
+    'width:28px',
+    'height:28px',
+    'border-radius:50%',
+    'border:2px solid var(--gold-600,#A87C24)',
+    'background:var(--bg-elevated)',
+    'color:var(--gold-600,#A87C24)',
+    'font-size:18px',
+    'font-weight:700',
+    'line-height:1',
+    'cursor:pointer',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'z-index:10',
+    'padding:0',
+  ].join(';');
+  section.appendChild(kyeonBtn);
+
+  var _kyeonOpen = false;
+  function _setKyeonBranch(open) {
+    _kyeonOpen = open;
+    KYEON_BRANCH_IDS.forEach(function(sid) {
+      var el = document.getElementById(sid);
+      if (el) el.style.display = open ? 'block' : 'none';
+    });
+    var lbl = document.querySelector('.house-label[data-pid="p571"]');
+    if (lbl) lbl.style.display = open ? '' : 'none';
+    kyeonBtn.textContent = open ? '−' : '+';
+    kyeonBtn.title = open ? '김연 이하 계보 접기' : '김연 이하 계보 펼치기';
+    drawTree();
+  }
+  kyeonBtn.addEventListener('click', function(e) { e.stopPropagation(); _setKyeonBranch(!_kyeonOpen); });
+  // 초기 접힘 상태: drawTree()는 아직 호출하지 않음(_zoom이 이 시점엔 아직 선언 전이라
+  // effectiveScale()이 터짐 — 이후 자동 실행되는 _onceDraw/requestAnimationFrame이
+  // 숨겨진 카드를 반영해 다시 그려줌).
+  KYEON_BRANCH_IDS.forEach(function(sid) {
+    var el = document.getElementById(sid);
+    if (el) el.style.display = 'none';
+  });
+  var kyeonLbl0 = document.querySelector('.house-label[data-pid="p571"]');
+  if (kyeonLbl0) kyeonLbl0.style.display = 'none';
 }
 
 renderTree();
