@@ -3473,7 +3473,9 @@ document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
 // ── 대(代) 라벨 수평 고정 ──
 function updateGenLabels() {
   const wrap = document.querySelector('.tree-scroll-wrap');
-  const offset = wrap.scrollLeft / effectiveScale();
+  const outer = document.getElementById('tree-outer');
+  const margin = parseFloat(outer.style.marginLeft) || 0;  // 윗대 패널 좌측 보정 margin만큼 상쇄
+  const offset = (wrap.scrollLeft - margin) / effectiveScale();
   document.querySelectorAll('.gen-label-abs').forEach(el => {
     el.style.left = offset + 'px';
   });
