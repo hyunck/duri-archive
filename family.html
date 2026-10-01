@@ -3448,6 +3448,29 @@ function initAncestors() {
 
   // ── 김연 이하 계보 펼치기/접기 토글 (기본값: 접힘)
   var KYEON_BRANCH_IDS = ['p564','p565','p566','p567','p568','p569','p570','p571','p572','p573','p574','p575','p576','p577','p578','p579','p580','p581','p582','p583','p584','p585','p586','p587','p588','p588g','p589','p590'];
+  // 김연 이하 계보가 접혀 있을 때 김영년·김희 계보 전체를 김칭 쪽으로 당겨오기 위한 재배치 대상
+  // (펼치면 다시 현재 위치 = 김연의 넓은 자손을 위해 미리 확보해둔 왼쪽 자리로 밀려남)
+  var KYEON_REPOSITION_IDS = ['p477','p481','p482','p483','p484','p548','p549','p550','p551','p552','p553','p554','p555','p556','p485','p486','p487','p488','p489','p490','p300','p301','p302','p303','p557','p558','p559','p560g','p561','p562','p563','p560'];
+  var KYEON_SHIFT_PX = 110 * COL_W;  // 접었을 때 오른쪽(칭 쪽)으로 당겨올 거리 — 오늘 이 계보들을 왼쪽으로 민 거리와 동일
+  var _kyeonFarLeft = {};
+  KYEON_REPOSITION_IDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) _kyeonFarLeft[id] = parseFloat(el.style.left);
+  });
+  var kyeonLabel477 = document.querySelector('.house-label[data-pid="p477"]');
+  var kyeonLabel300 = document.querySelector('.house-label[data-pid="p300"]');
+  var _kyeonLabelFarLeft477 = kyeonLabel477 ? parseFloat(kyeonLabel477.style.left) : null;
+  var _kyeonLabelFarLeft300 = kyeonLabel300 ? parseFloat(kyeonLabel300.style.left) : null;
+  function _applyKyeonReposition(open) {
+    KYEON_REPOSITION_IDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && _kyeonFarLeft[id] !== undefined) {
+        el.style.left = (_kyeonFarLeft[id] + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
+      }
+    });
+    if (kyeonLabel477 && _kyeonLabelFarLeft477 !== null) kyeonLabel477.style.left = (_kyeonLabelFarLeft477 + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
+    if (kyeonLabel300 && _kyeonLabelFarLeft300 !== null) kyeonLabel300.style.left = (_kyeonLabelFarLeft300 + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
+  }
   var kyeonBtn = document.createElement('button');
   kyeonBtn.id = 'kyeon-toggle-btn';
   kyeonBtn.textContent = '+';
@@ -3484,6 +3507,7 @@ function initAncestors() {
     });
     var lbl = document.querySelector('.house-label[data-pid="p571"]');
     if (lbl) lbl.style.display = open ? '' : 'none';
+    _applyKyeonReposition(open);
     kyeonBtn.textContent = open ? '−' : '+';
     kyeonBtn.title = open ? '김연 이하 계보 접기' : '김연 이하 계보 펼치기';
     drawTree();
@@ -3498,6 +3522,7 @@ function initAncestors() {
   });
   var kyeonLbl0 = document.querySelector('.house-label[data-pid="p571"]');
   if (kyeonLbl0) kyeonLbl0.style.display = 'none';
+  _applyKyeonReposition(false);
 }
 
 renderTree();
