@@ -3415,6 +3415,7 @@ const MOBILE_SCALE = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
 // seg()/drawArrows()/_arrowLabel()/updateGenLabels()에서 이 값으로 한 번 나눠 상쇄한다.
 function effectiveScale() { return _zoom * MOBILE_SCALE; }
 
+let _ancestorMinLeft = null;  // 윗대 패널 카드 중 가장 왼쪽(음수) left — 최초 1회만 계산해 캐시
 function applyZoom(z) {
   const ZOOM_BASE = 0.8;
   const _z = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
@@ -3430,6 +3431,21 @@ function applyZoom(z) {
   scaleWrap.style.width  = (TREE_W * scale) + 'px';
   scaleWrap.style.height = ((TREE_H + _mainWrapTop) * scale) + 'px';
   document.getElementById('zoom-level').textContent = Math.round((_zoom / 0.8) * 100) + '%';
+
+  // 윗대 패널이 열려 있고 음수 left 카드(김맹견 계보 등)가 있으면 스크롤로 닿을 수 있도록
+  // margin-left를 scale에 비례해 준다(margin은 transform 밖이라 자동으로 scale 안 되므로 수동 보정).
+  if (_aS && _aS.style.display !== 'none') {
+    if (_ancestorMinLeft === null) {
+      _ancestorMinLeft = 0;
+      _aS.querySelectorAll('.person-card').forEach(function(c) {
+        const l = parseFloat(c.style.left);
+        if (!isNaN(l) && l < _ancestorMinLeft) _ancestorMinLeft = l;
+      });
+    }
+    outer.style.marginLeft = (Math.max(0, -_ancestorMinLeft) * scale + 50) + 'px';
+  } else {
+    outer.style.marginLeft = '0px';
+  }
 }
 
 // viewport 중심을 유지하며 줌 (버튼/휠 공통)
