@@ -3470,6 +3470,10 @@ function initAncestors() {
     });
     if (kyeonLabel477 && _kyeonLabelFarLeft477 !== null) kyeonLabel477.style.left = (_kyeonLabelFarLeft477 + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
     if (kyeonLabel300 && _kyeonLabelFarLeft300 !== null) kyeonLabel300.style.left = (_kyeonLabelFarLeft300 + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
+    // 토글 버튼도 김연(p560)과 같은 열을 따라가도록 함께 이동
+    if (kyeonBtn && _kyeonFarLeft['p560'] !== undefined) {
+      kyeonBtn.style.left = (_kyeonFarLeft['p560'] + CARD_W / 2 - 13.5 + (open ? 0 : KYEON_SHIFT_PX)) + 'px';
+    }
   }
   var kyeonBtn = document.createElement('button');
   kyeonBtn.id = 'kyeon-toggle-btn';
