@@ -3511,9 +3511,13 @@ function initAncestors() {
     });
     var lbl = document.querySelector('.house-label[data-pid="p571"]');
     if (lbl) lbl.style.display = open ? '' : 'none';
+    var wrapK = document.querySelector('.tree-scroll-wrap');
+    var btnBefore = kyeonBtn.getBoundingClientRect().left;
     _applyKyeonReposition(open);
     kyeonBtn.textContent = open ? '−' : '+';
     kyeonBtn.title = open ? '김연 이하 계보 접기' : '김연 이하 계보 펼치기';
+    applyZoom(_zoom);  // 가장 왼쪽 카드가 바뀌므로 좌측 margin(스크롤 한계) 재계산
+    wrapK.scrollLeft += kyeonBtn.getBoundingClientRect().left - btnBefore;  // 버튼이 화면에서 제자리에 머물도록 보정
     drawTree();
   }
   kyeonBtn.addEventListener('click', function(e) { e.stopPropagation(); _setKyeonBranch(!_kyeonOpen); });
@@ -3573,7 +3577,6 @@ const MOBILE_SCALE = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
 // seg()/drawArrows()/_arrowLabel()/updateGenLabels()에서 이 값으로 한 번 나눠 상쇄한다.
 function effectiveScale() { return _zoom * MOBILE_SCALE; }
 
-let _ancestorMinLeft = null;  // 윗대 패널 카드 중 가장 왼쪽(음수) left — 최초 1회만 계산해 캐시
 function applyZoom(z) {
   const ZOOM_BASE = 0.8;
   const _z = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
@@ -3593,13 +3596,13 @@ function applyZoom(z) {
   // 윗대 패널이 열려 있고 음수 left 카드(김맹견 계보 등)가 있으면 스크롤로 닿을 수 있도록
   // margin-left를 scale에 비례해 준다(margin은 transform 밖이라 자동으로 scale 안 되므로 수동 보정).
   if (_aS && _aS.style.display !== 'none') {
-    if (_ancestorMinLeft === null) {
-      _ancestorMinLeft = 0;
-      _aS.querySelectorAll('.person-card').forEach(function(c) {
-        const l = parseFloat(c.style.left);
-        if (!isNaN(l) && l < _ancestorMinLeft) _ancestorMinLeft = l;
-      });
-    }
+    // 김연 이하 계보 접힘/펼침·계보 이동에 따라 가장 왼쪽 카드가 달라지므로 보이는 카드만 매번 다시 계산
+    let _ancestorMinLeft = 0;
+    _aS.querySelectorAll('.person-card').forEach(function(c) {
+      if (c.style.display === 'none') return;
+      const l = parseFloat(c.style.left);
+      if (!isNaN(l) && l < _ancestorMinLeft) _ancestorMinLeft = l;
+    });
     outer.style.marginLeft = (Math.max(0, -_ancestorMinLeft) * scale + 50) + 'px';
   } else {
     outer.style.marginLeft = '0px';
