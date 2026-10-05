@@ -225,7 +225,7 @@ const DOC_SEODANGGYE = {
     {
       page_num: 20,
       type: "text",
-      title: "20페이지",
+      title: "20페이지 : 을사년(1905년) 서당계",
       image: "images/서당계/page_20.png",
     }
   ]
