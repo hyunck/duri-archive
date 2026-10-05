@@ -31,10 +31,14 @@ const DOC_SEODANGGYE = {
     {
       page_num: 1,
       type: "text",
-      title: "1페이지",
+      title: "1페이지 : 병신년(1896년) 서당계",
       image: "images/서당계/page_01.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `
+
+`,
+      korean_translation: `
+
+`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -43,11 +47,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "2페이지",
       image: "images/서당계/page_02.png",
+      hanja_text: `有司 [[인물:金禹亨]]
+
+`,
+      korean_translation: `유사 [[인물:김우형(金禹亨, 김동규)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 3,
       type: "text",
-      title: "3페이지",
+      title: "3페이지 : 정유년(1897) 서당계",
       image: "images/서당계/page_03.png",
     },
     {
@@ -55,11 +67,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "4페이지",
       image: "images/서당계/page_04.png",
+      hanja_text: `有司 [[인물:金政八]]
+
+`,
+      korean_translation: `유사 [[인물:김정팔(金政八, 김동호)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 5,
       type: "text",
-      title: "5페이지",
+      title: "5페이지 : 무술년(1898년) 서당계",
       image: "images/서당계/page_05.png",
     },
     {
@@ -67,11 +87,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "6페이지",
       image: "images/서당계/page_06.png",
+      hanja_text: `有司 [[인물:金永壽]]
+
+`,
+      korean_translation: `유사 [[인물:김영수(金永壽, 김동만)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 7,
       type: "text",
-      title: "7페이지",
+      title: "7페이지 : 기해년(1899년) 서당계",
       image: "images/서당계/page_07.png",
     },
     {
@@ -79,11 +107,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "8페이지",
       image: "images/서당계/page_08.png",
+      hanja_text: `有司 [[인물:金敬天]]
+
+`,
+      korean_translation: `유사 [[인물:김경천(金敬天, 김주열)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 9,
       type: "text",
-      title: "9페이지",
+      title: "9페이지 : 경자년(1900년) 서당계",
       image: "images/서당계/page_09.png",
     },
     {
@@ -91,11 +127,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "10페이지",
       image: "images/서당계/page_10.png",
+      hanja_text: `有司 [[인물:金興五]]
+
+`,
+      korean_translation: `유사 [[인물:김흥오(金興五, 김동건)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 11,
       type: "text",
-      title: "11페이지",
+      title: "11페이지 : 신축년(1901년) 서당계",
       image: "images/서당계/page_11.png",
     },
     {
@@ -103,11 +147,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "12페이지",
       image: "images/서당계/page_12.png",
+      hanja_text: `有司 [[인물:金性一]]
+
+`,
+      korean_translation: `유사 [[인물:김성일(金性一, 김원제)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 13,
       type: "text",
-      title: "13페이지",
+      title: "13페이지 : 임인년(1902년) 서당계",
       image: "images/서당계/page_13.png",
     },
     {
@@ -115,11 +167,19 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "14페이지",
       image: "images/서당계/page_14.png",
+      hanja_text: `有司 [[인물:金淸一]]
+
+`,
+      korean_translation: `유사 [[인물:김청일(金淸一, 김성제)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 15,
       type: "text",
-      title: "15페이지",
+      title: "15페이지 : 계묘년(1903년) 서당계",
       image: "images/서당계/page_15.png",
     },
     {
@@ -127,6 +187,14 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "16페이지",
       image: "images/서당계/page_16.png",
+      hanja_text: `有司 [[인물:金汝明]]
+
+`,
+      korean_translation: `유사 [[인물:김여명(金汝明, 김규하)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 17,
@@ -137,7 +205,7 @@ const DOC_SEODANGGYE = {
     {
       page_num: 18,
       type: "text",
-      title: "18페이지",
+      title: "18페이지 : 갑진년(1904년) 서당계",
       image: "images/서당계/page_18.png",
     },
     {
@@ -145,6 +213,14 @@ const DOC_SEODANGGYE = {
       type: "text",
       title: "19페이지",
       image: "images/서당계/page_19.png",
+      hanja_text: `有司 [[인물:金鳳烈]]
+
+`,
+      korean_translation: `유사 [[인물:김봉열(金鳳烈)]]
+
+`,
+      note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
+      annotations: []
     },
     {
       page_num: 20,
