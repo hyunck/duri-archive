@@ -216,7 +216,7 @@ const DOC_SEODANGGYE = {
       hanja_text: `有司 [[인물:金鳳烈]]
 
 `,
-      korean_translation: `유사 [[인물:김봉열(金鳳烈)]]
+      korean_translation: `유사 [[인물:김봉렬(金鳳烈)]]
 
 `,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",

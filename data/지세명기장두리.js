@@ -112,7 +112,7 @@ const DOC_JISE = {
     {
       page_num: 9,
       type: "text",
-      title: "9페이지 : 두리 김성열(金聖烈)",
+      title: "9페이지 : 두리 김성렬(金聖烈)",
       image: "images/지세명기장 두리/page_09.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -212,7 +212,7 @@ const DOC_JISE = {
     {
       page_num: 19,
       type: "text",
-      title: "19페이지 : 두리 김상열(金相烈)",
+      title: "19페이지 : 두리 김상렬(金相烈)",
       image: "images/지세명기장 두리/page_19.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -252,7 +252,7 @@ const DOC_JISE = {
     {
       page_num: 23,
       type: "text",
-      title: "23페이지 : 두리 김성열(金成烈)",
+      title: "23페이지 : 두리 김성렬(金成烈)",
       image: "images/지세명기장 두리/page_23.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -392,7 +392,7 @@ const DOC_JISE = {
     {
       page_num: 37,
       type: "text",
-      title: "37페이지 : 두리 김봉열(金鳳烈)",
+      title: "37페이지 : 두리 김봉렬(金鳳烈)",
       image: "images/지세명기장 두리/page_37.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -632,7 +632,7 @@ const DOC_JISE = {
     {
       page_num: 61,
       type: "text",
-      title: "61페이지 : 두리 김홍열(金鴻烈)",
+      title: "61페이지 : 두리 김홍렬(金鴻烈)",
       image: "images/지세명기장 두리/page_61.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -652,7 +652,7 @@ const DOC_JISE = {
     {
       page_num: 63,
       type: "text",
-      title: "63페이지 : 두리 김공열(金孔烈)",
+      title: "63페이지 : 두리 김공렬(金孔烈)",
       image: "images/지세명기장 두리/page_63.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -672,7 +672,7 @@ const DOC_JISE = {
     {
       page_num: 65,
       type: "text",
-      title: "65페이지 : 두리 김명열(金明烈)",
+      title: "65페이지 : 두리 김명렬(金明烈)",
       image: "images/지세명기장 두리/page_65.png",
       hanja_text: ``,
       korean_translation: ``,
