@@ -292,6 +292,17 @@
     .pg-self-td { text-align: center; background: rgba(168,124,36,0.07); }
     .pg-self-td .pg-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: unset; }
     .pg-self-td .pg-cell-name { font-size: 14px; }
+    /* ── 본문 (두리종중 계보·지파 페이지와 같은 양식) ── */
+    .nobi-text { max-width: 1080px; margin: 0 auto; padding: 8px 0 24px; }
+    .nobi-text .section { margin-top: 56px; }
+    .nobi-text .section + .section { margin-top: 72px; }
+    .nobi-text .section-title { display: block; font-size: 22px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.04em; padding-bottom: 14px; border-bottom: 1px solid var(--border-normal); margin: 0 0 28px; }
+    .nobi-text .section-title span { font-size: 15px; font-weight: 400; color: var(--gold-600); letter-spacing: 0.12em; margin-left: 12px; font-family: var(--font-serif); }
+    .nobi-text .body-text { font-size: 17px; line-height: 2; color: var(--text-primary); }
+    .nobi-text .body-text p { margin-bottom: 1.4em; }
+    .nobi-text .body-text p:last-child { margin-bottom: 0; }
+    .nobi-text .sub-title { font-size: 17px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.05em; padding-bottom: 8px; border-bottom: 1px solid var(--border-normal); margin-bottom: 8px; }
+    @media (max-width: 768px) { .nobi-text .body-text { font-size: 16px; } }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
@@ -415,11 +426,115 @@
     <button class="zoom-btn zoom-btn-reset" id="zoom-reset" title="초기화">↺</button>
   </div>
 
+  <div class="nobi-text">
+
+    <section class="section">
+      <h2 class="section-title">노비 기록의 개요<span>概要</span></h2>
+      <div class="body-text">
+        <p>위 가계도는 종가에서 소장 중인 『종가실록』과 1804년 소지(所志), 그리고 김주형·김탁영의 준호구에 기재된 노비(奴婢)의 인적 사항을 정리하여 어머니를 기준으로 이어 놓은 것이다. 노비는 어머니의 신분을 따라 상속되었으므로 아버지는 기록에 나타나지 않으며, 가계도 역시 모계(母系)로만 연결하였다.</p>
+        <p>『종가실록』의 1801년 기록에는 노비가 7명이라는 언급만 있고 인명은 확인되지 않아 가계도에는 반영하지 않았다. 가계도에는 1804년 소지부터 1894년 준호구까지 인명이 확인되는 노비 15명이 수록되어 있다.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">같은 인물의 다른 이름<span>異名</span></h2>
+      <div class="body-text">
+        <p>노비의 이름은 문서마다 한자 표기가 조금씩 다르게 적혀 있고, 문서의 작성 시기에 따라 아예 다른 이름으로 나타나는 경우도 있다. 가계도에서는 다음과 같이 같은 인물로 보고 가장 늦은 시기의 표기를 대표 이름으로 삼았으며, 나머지 표기는 이명으로 함께 적었다.</p>
+        <p>
+          신단(辛丹)은 정단(丁丹)과, 석분(石分)과 계분(桂分)은 계분(啓分)과 같은 인물로 보았다.<br>
+          한복(漢卜·汗卜)은 한복(汗福)으로, 한매(漢梅·汗梅)는 한매(汗每)로 보았다.<br>
+          계삼(癸三)은 계삼(啓三)으로, 금월(今月)은 금월(金月)로 보았다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">문서별 기재 현황<span>記載現況</span></h2>
+      <div class="body-text">
+
+        <h3 class="sub-title">1804년 소지 (6명)</h3>
+        <p>비 신단(辛丹)의 소생으로 노 계삼(啓三) 32세, 비 석분(石分) 27세가 있다.</p>
+        <p>비 대월(大月)은 임술년(1802)에 사망(故)하였고, 소생으로 노 한복(漢卜) 18세, 비 한매(漢梅) 13세, 비 한점(漢点) 8세가 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1828년 준호구 (8명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗卜) 41세, 비 한매(漢梅) 36세가 있다.</p>
+        <p>비 한매(漢梅)의 소생으로 비 맹적(孟趯) 17세, 노 맹돌(孟乭) 14세, 노 성돌(成乭) 8세가 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(癸三) 52세, 비 계분(桂分) 47세가 있다.</p>
+        <p>비 계분(桂分)의 소생으로 노 연돌(軟乭) 12세가 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1831년 준호구 (8명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗卜) 44세, 비 한매(漢梅) 39세가 있다.</p>
+        <p>비 한매(漢梅)의 소생으로 비 맹적(孟趯) 20세, 노 맹돌(孟乭) 17세, 노 성돌(成乭) 11세가 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(癸三) 55세, 비 계분(桂分) 50세가 있다.</p>
+        <p>비 계분(桂分)의 소생으로 노 연돌(軟乭) 15세가 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1834년 준호구 (9명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗福) 47세, 비 한매(漢梅) 42세가 있다.</p>
+        <p>비 한매(漢梅)의 소생으로 비 맹적(孟趯) 23세, 노 맹돌(孟乭) 20세, 노 성국(成菊) 5세가 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(金月) 4세가 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(癸三) 58세, 비 계분(桂分) 53세가 있다.</p>
+        <p>비 계분(桂分)의 소생으로 노 연돌(軟乭) 18세가 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1843년 준호구 (9명)</h3>
+        <p>비 대월(大月)의 소생으로 노 한복(汗福) 53세(신해생, 1791), 비 한매(汗每) 48세(병진생, 1796)가 있다.</p>
+        <p>비 한매(汗每)의 소생으로 비 맹적(孟趯, 경오생, 1810), 노 맹돌(孟乭, 임신생, 1812), 노 성국(成菊, 경인생, 1830)이 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(金月, 신묘생, 1831)이 있다.</p>
+        <p>비 정단(丁丹)의 소생으로 노 계삼(啓三, 정유생, 1777), 비 계분(啓分, 임인생, 1782)이 있다.</p>
+        <p>비 계분(啓分)의 소생으로 노 연돌(軟乭, 정축생, 1817)이 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1849년 준호구 (9명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗卜) 56세, 비 한매(汗梅, 병진생)가 있다.</p>
+        <p>비 한매(汗梅)의 소생으로 비 맹적(孟趯, 경오생), 노 맹돌(孟乭, 임신생), 노 성국(成菊, 경인생)이 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(今月, 신묘생)이 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(啓三, 정유생), 비 계분(啓分, 임인생)이 있다.</p>
+        <p>비 계분(啓分)의 소생으로 노 연돌(軟乭, 정축생)이 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1855년 준호구 (10명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗卜) 59세, 비 한매(汗梅, 병진생)가 있다.</p>
+        <p>비 한매(汗梅)의 소생으로 비 맹적(孟趯, 경오생), 노 맹돌(孟乭, 임신생), 노 성국(成菊, 경인생)이 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(金月, 신묘생)이 있다.</p>
+        <p>비 금월(金月)의 소생으로 비 선녀(先女, 계축생)가 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(啓三, 정유생), 비 계분(啓分, 임인생)이 있다.</p>
+        <p>비 계분(啓分)의 소생으로 노 연돌(軟乭, 정축생)이 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1858년 준호구 (10명)</h3>
+        <p>비 대월(大月)은 사망(故)하였고, 소생으로 노 한복(汗卜) 62세, 비 한매(汗梅, 병진생)가 있다.</p>
+        <p>비 한매(汗梅)의 소생으로 비 맹적(孟趯, 경오생), 노 맹돌(孟乭, 임신생), 노 성국(成菊, 경인생)이 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(金月, 신묘생)이 있다.</p>
+        <p>비 금월(金月)의 소생으로 비 선녀(先女, 계축생)가 있다.</p>
+        <p>비 정단(丁丹)은 사망(故)하였고, 소생으로 노 계삼(啓三, 정유생), 비 계분(啓分, 임인생)이 있다.</p>
+        <p>비 계분(啓分)의 소생으로 노 연돌(軟乭, 정축생)이 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1861년 준호구 (7명)</h3>
+        <p>이 문서에는 비 대월(大月)과 비 정단(丁丹), 그리고 정단의 소생인 노 계삼(啓三), 비 계분(啓分)과 계분의 소생 노 연돌(軟乭)이 기재되어 있지 않다. 노 한복(汗卜) 65세, 비 한매(汗梅, 병진생)가 기재되어 있다.</p>
+        <p>비 한매(汗梅)의 소생으로 비 맹적(孟趯, 경오생), 노 맹돌(孟乭, 임신생), 노 성국(成菊, 경인생)이 있다.</p>
+        <p>비 맹적(孟趯)의 소생으로 비 금월(金月, 신묘생)이 있다.</p>
+        <p>비 금월(金月)의 소생으로 비 선녀(先女, 계축생)가 있다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1870년~1876년 준호구 (0명)</h3>
+        <p>이 시기의 준호구에는 기재된 노비가 없다.</p>
+
+        <h3 class="sub-title" style="margin-top: 36px;">1879년~1894년 준호구 (각 1명)</h3>
+        <p>김탁영의 준호구에 노 춘력?(春土+力)이 매 식년마다 1명씩 기재되어 있다. 위 계보와의 관계는 확인되지 않는다.</p>
+        <p>
+          1879년: 노 춘력?(春土+力) 16세<br>
+          1882년: 노 춘력?(春土+力) 19세<br>
+          1885년: 노 춘력?(春土+力) 22세<br>
+          1888년: 노 춘력?(春土+力) 25세<br>
+          1891년: 노 춘력?(春土+力) 28세<br>
+          1894년: 노 춘력?(春土+力) 31세
+        </p>
+
+      </div>
+    </section>
+
+  </div>
+
   <div class="source-section">
     <div class="source-label">출처</div>
     <div class="source-list">
       <a class="source-item" href="detail-종가실록.html" style="text-decoration:none">종가실록<span class="source-sub">(宗家實錄, 1801년 기록)</span></a>
-      <a class="source-item" href="jongtaek.html" style="text-decoration:none">김도철 소지<span class="source-sub">(1804년)</span></a>
+      <a class="source-item" href="detail-종가실록.html" style="text-decoration:none">김도철 소지<span class="source-sub">(1804년)</span></a>
       <a class="source-item" href="detail-김주형준호구(1828).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1828)</span></a>
       <a class="source-item" href="detail-김주형준호구(1831).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1831)</span></a>
       <a class="source-item" href="detail-김주형준호구(1834).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1834)</span></a>
@@ -427,7 +542,7 @@
       <a class="source-item" href="detail-김주형준호구(1849).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1849)</span></a>
       <a class="source-item" href="detail-김주형준호구(1855).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1855)</span></a>
       <a class="source-item" href="detail-김주형준호구(1858).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1858)</span></a>
-      <a class="source-item" href="detail-김주형준호구1(1861).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1861)</span></a>
+      <a class="source-item" href="detail-김주형준호구2(1861).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1861)</span></a>
       <a class="source-item" href="detail-김탁영준호구(1879).html" style="text-decoration:none">김탁영준호구<span class="source-sub">(1879~1894)</span></a>
     </div>
   </div>
