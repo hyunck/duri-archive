@@ -99,12 +99,8 @@ const DOC_SEONJO_1931 = {
       type: "text",
       title: "4페이지",
       image: "images/선조생년급사망년조기타사적/page_04.png",
-      hanja_text: `
-
-`,
-      korean_translation: `
-
-      `,
+      hanja_text: ``,
+      korean_translation: ``,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -113,7 +109,8 @@ const DOC_SEONJO_1931 = {
       type: "text",
       title: "5페이지",
       image: "images/선조생년급사망년조기타사적/page_05.png",
-      hanja_text: `
+      hanja_text: `癸亥年日記謄本
+癸亥年十一月晦日門會多小是非說不可枚記而招聖烈熱心可嘆可嘆而況又靑龍嶝事蹟言論時泰濟氏言內大宅於大盤石邊大松一株斫伐水【柗】栽介造伐(卽壬申年)
 
 `,
       korean_translation: `
