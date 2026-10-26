@@ -150,6 +150,30 @@
     classification: "史部 政書類"
   },
   {
+    id: "junjuhoju-1831",
+    title_hanja: "金胄衡準戶口, 1831",
+    title_korean: "김주형준호구",
+    author: "김주형 (金胄衡)",
+    year: "1831",
+    year_display: "도광 11년(1831)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구(1831).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "junjuhoju-1834",
+    title_hanja: "金胄衡準戶口, 1834",
+    title_korean: "김주형준호구",
+    author: "김주형 (金胄衡)",
+    year: "1834",
+    year_display: "도광 14년(1834)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구(1834).html",
+    classification: "史部 政書類"
+  },
+  {
     id: "junjuhoju-1843",
     title_hanja: "金胄衡準戶口, 1843",
     title_korean: "김주형준호구",
@@ -159,6 +183,18 @@
     category: "호적·관문서",
     digitized: true,
     detail_url: "detail-김주형준호구(1843).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "junjuhoju-1849",
+    title_hanja: "金胄衡準戶口, 1849",
+    title_korean: "김주형준호구",
+    author: "김주형 (金胄衡)",
+    year: "1849",
+    year_display: "도광 29년(1849)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구(1849).html",
     classification: "史部 政書類"
   },
   {
