@@ -5,7 +5,7 @@ const DOC_CHEOLHO_TAEGIL = {
   title_korean: "김철호 장사 택일기",
   author: "미상",
   year_display: "미상",
-  category: "풍수·도가",
+  category: "종중 기록",
   volume: "1張",
   size: "-",
   classification: "子部 術數類",

@@ -125,7 +125,7 @@
     author: "미상",
     year: "",
     year_display: "미상",
-    category: "풍수·도가",
+    category: "종중 기록",
     digitized: true,
     detail_url: "detail-김철호장사택일기.html",
     total_pages: 1,
