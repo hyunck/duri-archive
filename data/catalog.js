@@ -103,6 +103,21 @@
     classification: "史部 雜史類"
   },
   {
+    id: "saheonseo",
+    call_number: "KJ-SHS-001",
+    title_hanja: "思軒序",
+    title_korean: "사헌서",
+    author: "미상",
+    year: "",
+    year_display: "미상",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-사헌서.html",
+    total_pages: 3,
+    digitized_pages: 0,
+    classification: "集部 序跋類"
+  },
+  {
     id: "hwasu2", // 미상
     title_hanja: "花樹會",
     title_korean: "화수회",
