@@ -272,6 +272,30 @@
     classification: "史部 政書類"
   },
   {
+    id: "takyeong-1870",
+    title_hanja: "金鐸永準戶口, 1870",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1870",
+    year_display: "동치 9년(1870)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1870).html",
+    classification: "史部 政書類"
+  },
+  {
+    id: "takyeong-1873",
+    title_hanja: "金鐸永準戶口, 1873",
+    title_korean: "김탁영준호구",
+    author: "김탁영 (金鐸永)",
+    year: "1873",
+    year_display: "동치 12년(1873)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김탁영준호구(1873).html",
+    classification: "史部 政書類"
+  },
+  {
     id: "gukseong-1876",
     title_hanja: "金國聲準戶口, 1876",
     title_korean: "김국성준호구",
