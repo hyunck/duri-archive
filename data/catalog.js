@@ -138,6 +138,18 @@
 
   // ── 호적·관문서 ──────────────────────────────────────────
   {
+    id: "junjuhoju-1828",
+    title_hanja: "金胄衡準戶口, 1828",
+    title_korean: "김주형준호구",
+    author: "김주형 (金胄衡)",
+    year: "1828",
+    year_display: "도광 8년(1828)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-김주형준호구(1828).html",
+    classification: "史部 政書類"
+  },
+  {
     id: "junjuhoju-1843",
     title_hanja: "金胄衡準戶口, 1843",
     title_korean: "김주형준호구",
