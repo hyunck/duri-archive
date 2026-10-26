@@ -1,0 +1,744 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="images/favicon/192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/favicon/512.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>두리종중 노비 가계도</title>
+  <meta name="description" content="경주김씨 상촌공파 두리종중 종가의 노비 가계도 — 종가실록과 준호구 기록을 바탕으로 역대 노비의 모계 계보와 문서별 이명을 정리했습니다.">
+  <link rel="canonical" href="https://두리종중.com/노비가계도.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="두리종중 노비 가계도">
+  <meta property="og:description" content="경주김씨 상촌공파 두리종중 종가의 노비 가계도 — 종가실록과 준호구 기록을 바탕으로 역대 노비의 모계 계보와 문서별 이명을 정리했습니다.">
+  <meta property="og:url" content="https://두리종중.com/노비가계도.html">
+  <meta property="og:image" content="https://두리종중.com/images/banner/banner.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('duri-theme') || 'light');</script>
+  <style>
+    .page-hero { padding: 52px 48px 40px; border-bottom: 1px solid var(--border-normal); background: var(--bg-body); }
+    .page-title-ko { font-family: var(--font-serif); font-size: 30px; font-weight: 800; color: var(--text-bright); letter-spacing: 0.04em; }
+    .page-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.14em; margin-top: 5px; }
+    .hero-ornament { margin-top: 28px; display: flex; align-items: center; gap: 12px; }
+    .hero-ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-800), transparent); }
+    .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-800)); }
+    .hero-ornament-text { font-family: var(--font-serif); font-size: 11px; color: var(--gold-800); letter-spacing: 0.18em; }
+
+    .family-wrap { width: 100%; padding: 40px 48px 80px; box-sizing: border-box; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
+    .section-title { font-size: 18px; font-weight: 700; color: var(--text-bright); }
+    .section-title-hanja { font-family: var(--font-serif); font-size: 14px; color: var(--gold-600); letter-spacing: 0.1em; }
+
+    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; font-size: 13px; color: var(--text-secondary); align-items: center; }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-700); }
+    .legend-line { width: 24px; height: 2px; background: var(--gold-700); }
+
+    /* ── 트리 컨테이너 ── */
+    .tree-scroll-wrap { overflow: auto; width: 100%; height: calc(100vh - 260px); min-height: 500px; margin-bottom: 40px; cursor: grab; user-select: none; }
+    .tree-scroll-wrap.panning { cursor: grabbing; }
+    .tree-outer { position: relative; /* width/height set by JS */ }
+    #tree-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+
+    /* ── 대(代) 라벨 ── */
+    .gen-label-abs {
+      position: absolute; display: flex; flex-direction: column;
+      align-items: flex-end; padding-right: 12px;
+      z-index: 10; text-shadow: 0 0 6px var(--bg-body), 0 0 12px var(--bg-body), 0 0 18px var(--bg-body), 0 0 24px var(--bg-body), 0 0 30px var(--bg-body);
+    }
+    .gen-num { font-size: 13px; font-weight: 700; color: var(--gold-700); letter-spacing: 0.08em; }
+    .gen-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.04em; }
+
+    /* ── 인물 카드 ── */
+    .person-card {
+      position: absolute;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .p-kr { font-size: 21px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.02em; margin-bottom: 5px; }
+    .p-hj { font-family: var(--font-serif); font-size: 15px; color: var(--gold-600); letter-spacing: 0.06em; line-height: 1.5; }
+    .p-dates { font-size: 12px; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.02em; }
+    .p-ja { font-size: 12px; color: var(--text-muted); margin-top: 5px; letter-spacing: 0.04em; }
+    .p-aliases { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 4px; }
+    .p-alias { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+    .p-alias-hj { font-family: var(--font-serif); font-size: 13px; color: var(--text-muted); margin-left: 4px; letter-spacing: 0.04em; }
+    .p-spouses { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 5px; }
+    .p-spouse { font-size: 12px; }
+    .p-spouse-head { display: flex; align-items: baseline; gap: 5px; }
+    .p-spouse-prefix { font-size: 12px; color: var(--text-muted); }
+    .p-spouse-clan { font-family: var(--font-serif); font-size: 13px; color: var(--text-primary); letter-spacing: 0.04em; }
+    .p-spouse-rank { font-size: 11px; color: var(--text-muted); }
+    .p-spouse-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; padding-left: 14px; }
+
+    /* ── 출처 ── */
+    .source-section { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; background: var(--bg-elevated); border: 1px solid var(--border-normal); border-radius: var(--radius-md); }
+    .source-label { font-size: 13px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; }
+    .source-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .source-item { font-size: 13px; color: var(--text-primary); background: var(--bg-body); border: 1px solid var(--border-normal); border-radius: var(--radius-sm); padding: 6px 12px; cursor: pointer; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; transition: var(--transition); }
+    .source-item:hover { border-color: var(--gold-600); background: var(--bg-hover); color: var(--gold-400); }
+    .source-sub { font-size: 11px; color: var(--text-muted); }
+    .pm-desc { padding: 16px 22px; color: var(--text-secondary); font-size: 14px; line-height: 1.75; min-height: 60px; }
+    .pm-desc-empty { padding: 16px 22px; color: var(--text-muted); font-size: 13px; font-style: italic; }
+
+    /* ── 딸 카드 ── */
+    .person-card-female {
+      border-color: #9B4F63;
+    }
+    .person-card-female .p-hj { color: #9B4F63; }
+
+    /* ── 고스트(출계) 카드 ── */
+    .house-label {
+      position: absolute;
+      font-size: 20px;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      color: rgba(0,0,0,.85);
+      letter-spacing: 0.08em;
+      text-align: center;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .house-label {
+      color: rgba(255,255,255,.92);
+    }
+    .house-label[data-pid="p200"],
+    .house-label[data-pid="p64"],
+    .house-label[data-pid="p110"],
+    .house-label[data-pid="p106"],
+    .house-label[data-pid="p114"],
+    .house-label[data-pid="p11"] {
+      text-shadow: 0 0 10px var(--bg-body), 0 0 20px var(--bg-body), 0 2px 6px var(--bg-body);
+    }
+    .person-card-ghost {
+      background: transparent;
+      border: 1px solid transparent;
+      outline: 2px dashed rgba(60, 110, 165, 0.45);
+      outline-offset: -1px;
+    }
+    .person-card-ghost .p-kr      { color: #2E5F8A; }
+    .person-card-ghost .p-hj      { color: #2D5070; }
+    .person-card-ghost .p-dates   { color: #3A6080; }
+    .person-card-ghost .p-alias   { color: #3A5878; }
+    .person-card-ghost .p-alias-hj { color: #305068; }
+
+    /* ── 확대/축소 플로팅 버튼 ── */
+    .zoom-controls {
+      position: fixed;
+      bottom: 36px;
+      right: 40px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-normal);
+      border-radius: var(--radius-md);
+      padding: 6px 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 200;
+    }
+    .zoom-btn {
+      width: 30px; height: 30px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 18px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .zoom-btn:hover { background: var(--bg-hover); color: var(--gold-700); border-color: var(--gold-600); }
+    .zoom-level {
+      font-size: 12px; font-weight: 700;
+      color: var(--text-secondary);
+      min-width: 40px; text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .zoom-btn-reset {
+      font-size: 11px; width: auto; padding: 0 7px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 28px 20px 24px; }
+      .page-title-ko { font-size: 24px; }
+      .hero-ornament { display: none; }
+      .family-wrap { padding: 28px 16px 60px; }
+      .source-section { flex-direction: column; gap: 10px; }
+      .source-list { flex-direction: column; }
+      .source-item { width: 100%; box-sizing: border-box; }
+    }
+
+    /* ── 다크 모드 ── */
+    [data-theme="dark"] .page-hero { background: var(--bg-body); border-bottom-color: var(--border-subtle); }
+    [data-theme="dark"] .hero-ornament-line { background: linear-gradient(90deg, var(--gold-600), transparent); }
+    [data-theme="dark"] .hero-ornament-line.right { background: linear-gradient(90deg, transparent, var(--gold-600)); }
+
+    /* 인물 카드 */
+    [data-theme="dark"] .person-card { background: var(--bg-elevated); border-color: var(--border-normal); }
+
+    /* 딸 카드 */
+    [data-theme="dark"] .person-card-female { border-color: #C87090; }
+    [data-theme="dark"] .person-card-female .p-hj { color: #D4859A; }
+
+    /* 고스트 카드 */
+    [data-theme="dark"] .person-card-ghost { outline-color: rgba(91,141,184,0.55); }
+    [data-theme="dark"] .person-card-ghost .p-kr      { color: #5880A8; }
+    [data-theme="dark"] .person-card-ghost .p-hj      { color: #4070A0; }
+    [data-theme="dark"] .person-card-ghost .p-dates   { color: #3A5E80; }
+    [data-theme="dark"] .person-card-ghost .p-alias   { color: #4A6880; }
+    [data-theme="dark"] .person-card-ghost .p-alias-hj { color: #3A5870; }
+
+    /* 출처 */
+    [data-theme="dark"] .source-section { background: var(--bg-elevated); border-color: var(--border-subtle); }
+
+    /* 줌 컨트롤 */
+    [data-theme="dark"] .zoom-controls { background: var(--bg-elevated); border-color: var(--border-normal); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
+    /* ===== 인물 상세 팝업 ===== */
+    .person-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45); z-index: 1000;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .person-modal-overlay.open { display: flex; }
+    .person-modal {
+      background: var(--bg-card); border: 1px solid var(--border-normal);
+      border-radius: 12px; width: 520px; max-width: 100%; max-height: 80vh;
+      overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      position: relative; animation: pmFadeIn 0.14s ease;
+    }
+    @keyframes pmFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(5px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
+    }
+    .pm-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 26px; height: 26px; border: none;
+      background: var(--bg-hover); border-radius: 50%; cursor: pointer;
+      font-size: 13px; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .pm-close:hover { background: var(--border-subtle); color: var(--text-primary); }
+    .pm-header { padding: 22px 48px 16px 22px; border-bottom: 1px solid var(--border-subtle); }
+    .pm-name-kr { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.03em; }
+    .pm-name-hj { font-family: var(--font-serif); font-size: 14px; color: var(--text-secondary); margin-top: 3px; letter-spacing: 0.05em; }
+    .pm-gen-badge {
+      display: inline-block; font-size: 11px; color: var(--text-muted);
+      background: var(--bg-hover); border-radius: 4px;
+      padding: 2px 7px; margin-top: 9px; letter-spacing: 0.04em;
+    }
+    .pm-body { padding: 8px 0; }
+    .pm-row {
+      display: flex; gap: 10px; padding: 10px 22px;
+      border-bottom: 1px solid var(--border-subtle); align-items: flex-start;
+    }
+    .pm-row:last-child { border-bottom: none; }
+    .pm-label { width: 52px; flex-shrink: 0; color: var(--text-muted); font-size: 12px; padding-top: 2px; }
+    .pm-value { flex: 1; color: var(--text-primary); line-height: 1.65; font-size: 14px; }
+    .pm-spouse-item + .pm-spouse-item { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border-subtle); }
+    .pm-sp-head { display: flex; align-items: baseline; gap: 5px; }
+    .pm-sp-prefix { color: var(--text-muted); font-size: 13px; }
+    .pm-sp-clan { font-family: var(--font-serif); font-size: 14px; }
+    .pm-sp-rank { font-size: 12px; color: var(--text-muted); }
+    .pm-sp-detail { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ─── 팔고조도 ──────────────────────────── */
+    .pm-palgojo-btn {
+      display: block; margin: 14px 22px 12px; padding: 7px 14px;
+      background: none; border: 1px solid var(--accent);
+      color: var(--accent); border-radius: 5px; cursor: pointer;
+      font-size: 13px; letter-spacing: 0.04em; text-align: left;
+      transition: background 0.18s, color 0.18s;
+    }
+    .pm-palgojo-btn:hover { background: var(--accent); color: #fff; }
+    .pm-modal-pg { width: 820px !important; }
+    .pg-back-row { padding: 10px 22px 2px; }
+    .pg-back-btn {
+      background: none; border: none; color: var(--accent);
+      cursor: pointer; font-size: 13px; padding: 0; letter-spacing: 0.03em;
+    }
+    .pg-back-btn:hover { text-decoration: underline; }
+    .pg-wrap { overflow-x: auto; padding: 8px 22px 20px; }
+    .pg-table { border-collapse: collapse; font-size: 11.5px; table-layout: fixed; width: 100%; }
+    .pg-table th {
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      padding: 5px 10px; border: 1px solid var(--border-subtle);
+      text-align: center; background: var(--bg-secondary); white-space: nowrap;
+    }
+    .pg-table td { border: 1px solid var(--border-subtle); vertical-align: middle; }
+    .pg-cell { padding: 8px 11px; min-height: 48px; word-break: keep-all; }
+    .pg-cell-rel { font-size: 12px; color: var(--accent); margin-bottom: 3px; letter-spacing: 0.03em; }
+    .pg-cell-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+    .pg-cell-hj { font-family: var(--font-serif); font-size: 13px; color: var(--text-secondary); margin-top: 1px; }
+    .pg-cell-clan { font-family: var(--font-serif); font-size: 13px; color: var(--text-secondary); }
+    .pg-cell-post { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; white-space: normal; overflow-wrap: break-word; word-break: break-all; }
+    .pg-tabs { display: flex; gap: 8px; padding: 10px 22px 0; }
+    .pg-tab { background: none; border: 1px solid var(--border-subtle); color: var(--text-muted); border-radius: 4px; padding: 4px 12px; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+    .pg-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(168,124,36,0.07); font-weight: 600; }
+    .pg-tab:hover:not(.active) { border-color: var(--text-secondary); color: var(--text-primary); }
+    .pg-unknown { opacity: 0.38; }
+    .pg-unknown .pg-cell-rel { color: var(--text-muted); }
+    .pg-self-td { text-align: center; background: rgba(168,124,36,0.07); }
+    .pg-self-td .pg-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: unset; }
+    .pg-self-td .pg-cell-name { font-size: 14px; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8SZ52M48J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y8SZ52M48J');
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo-wrap">
+    <div class="logo-main">경주김씨 상촌공파 두리종중</div>
+    <div class="logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+  </a>
+  <div class="header-right">
+    <nav class="site-nav">
+    <a class="nav-item" href="index.html">홈</a>
+    <div class="nav-dropdown">
+      <span class="nav-item nav-dropdown-btn">두리종중<span class="dropdown-arrow">▾</span></span>
+      <div class="nav-dropdown-menu">
+        <a href="jongga.html" class="nav-dropdown-item">계보</a>
+        <a href="연혁.html" class="nav-dropdown-item">연혁</a>
+        <a href="지파.html" class="nav-dropdown-item">지파</a>
+        <a href="인물.html" class="nav-dropdown-item">주요 인물</a>
+      </div>
+    </div>
+    <a class="nav-item" href="두리동학.html">두리동학</a>
+    <div class="nav-dropdown">
+      <span class="nav-item nav-dropdown-btn active">소장 문서<span class="dropdown-arrow">▾</span></span>
+      <div class="nav-dropdown-menu">
+        <a href="catalog.html" class="nav-dropdown-item">문서 목록</a>
+        <a href="노비가계도.html" class="nav-dropdown-item active">노비 가계도</a>
+      </div>
+    </div>
+    <a class="nav-item" href="family.html">가계도</a>
+    <a class="nav-item" href="jongtaek.html">종택</a>
+    </nav>
+    <button class="theme-toggle-btn" id="theme-toggle" title="다크 모드"><span class="ti">☾</span></button>
+    <button class="hamburger-btn" id="mobile-menu-open" aria-label="메뉴 열기" aria-controls="mobile-menu-panel">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<aside class="mobile-menu-panel" id="mobile-menu-panel">
+  <div class="mobile-menu-header">
+    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="메뉴 닫기">✕</button>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a class="mobile-menu-item" href="index.html">홈</a>
+        <a class="mobile-menu-item" href="jongga.html">두리종중</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="jongga.html">계보</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="연혁.html">연혁</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="인물.html">주요 인물</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="지파.html">지파</a>
+    <a class="mobile-menu-item" href="두리동학.html">두리동학</a>
+    <a class="mobile-menu-item active" href="catalog.html">소장 문서</a>
+    <a class="mobile-menu-item mobile-menu-sub" href="catalog.html">문서 목록</a>
+    <a class="mobile-menu-item mobile-menu-sub active" href="노비가계도.html">노비 가계도</a>
+    <a class="mobile-menu-item" href="family.html">가계도</a>
+    <a class="mobile-menu-item" href="jongtaek.html">종택</a>
+  </nav>
+</aside>
+
+
+
+<div class="family-wrap">
+
+  <div class="section-header">
+    <span class="section-title">노비 가계도</span>
+    <span class="section-title-hanja">奴婢家系圖</span>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div style="width:14px;height:14px;border-radius:3px;border:1px solid var(--border-normal);"></div><span>노(奴) — 사내종</span></div>
+    <div class="legend-item"><div style="width:14px;height:14px;border-radius:3px;border:1px solid #9B4F63;"></div><span>비(婢) — 여종</span></div>
+    <div class="legend-item">
+      <span style="font-size:11px;color:var(--text-muted);border-top:1px solid var(--border-subtle);padding-top:2px;padding-right:4px;">이명</span>
+      <span>문서마다 다르게 적힌 이름 — 구분선 아래 작은 글씨</span>
+    </div>
+    <div class="legend-item"><div class="legend-line"></div><span>모계 연결선 (노비는 어머니를 따라 상속되어 아버지는 기록되지 않음)</span></div>
+  </div>
+
+  <noscript>
+    <h2>두리종중 종가 노비 가계도</h2>
+    <ul>
+      <li>대월 大月 (비, ?~1802년) 자녀: 한복(汗福), 한매(汗每), 한점(漢点)</li>
+      <li>한복 汗福 (노, 1791년생) 이명: 한복(漢卜), 한복(汗卜)</li>
+      <li>한매 汗每 (비, 1796년생) 이명: 한매(漢梅) 자녀: 맹적(孟趯), 맹돌(孟乭), 성돌(成乭), 성국(成菊)</li>
+      <li>한점 漢点 (비, 1797년생)</li>
+      <li>맹적 孟趯 (비, 1810년생) 자녀: 금월(金月)</li>
+      <li>맹돌 孟乭 (노, 1812년생)</li>
+      <li>성돌 成乭 (노, 1821년경생)</li>
+      <li>성국 成菊 (노, 1830년생)</li>
+      <li>금월 金月 (비, 1831년생)</li>
+      <li>정단 丁丹 (비) 이명: 신단(辛丹) 자녀: 계삼(啓三), 계분(啓分)</li>
+      <li>계삼 啓三 (노, 1777년생) 이명: 계삼(癸三)</li>
+      <li>계분 啓分 (비, 1782년생) 이명: 석분(石分), 계분(桂分) 자녀: 연돌(軟乭)</li>
+      <li>연돌 軟乭 (노, 1817년생)</li>
+    </ul>
+  </noscript>
+
+  <div class="tree-scroll-wrap">
+    <div id="tree-scale-wrap">
+      <div class="tree-outer" id="tree-outer">
+        <svg id="tree-svg"></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoom-out" title="축소">−</button>
+    <span class="zoom-level" id="zoom-level">100%</span>
+    <button class="zoom-btn" id="zoom-in" title="확대">+</button>
+    <button class="zoom-btn zoom-btn-reset" id="zoom-reset" title="초기화">↺</button>
+  </div>
+
+  <div class="source-section">
+    <div class="source-label">출처</div>
+    <div class="source-list">
+      <a class="source-item" href="detail-종가실록.html" style="text-decoration:none">종가실록<span class="source-sub">(宗家實錄, 1801년 기록)</span></a>
+      <a class="source-item" href="jongtaek.html" style="text-decoration:none">김도철 소지<span class="source-sub">(1804년)</span></a>
+      <a class="source-item" href="detail-김주형준호구(1828).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1828)</span></a>
+      <a class="source-item" href="detail-김주형준호구(1831).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1831)</span></a>
+      <a class="source-item" href="detail-김주형준호구(1834).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1834)</span></a>
+      <a class="source-item" href="detail-김주형준호구(1843).html" style="text-decoration:none">김주형준호구<span class="source-sub">(1843)</span></a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logo-block">
+      <div class="footer-logo-name">경주김씨 상촌공파 두리종중</div>
+      <div class="footer-logo-hj">慶州金氏 桑村公派 斗里宗中</div>
+    </div>
+    <div class="footer-info">
+      <div class="footer-address">
+        <span>강원특별자치도 양양군 현남면 두리</span>
+        <span>문의: 사이트 관리 : 14대손</span>
+        <span>문의: hwahyun82@gmail.com</span>
+      </div>
+      <div class="footer-copyright">이 사이트의 모든 콘텐츠의 무단 전재·복제를 금합니다. 단, 학술 연구·교육·정보 전달 등 비영리 목적의 활용은 자유롭게 허용됩니다.</div>
+    </div>
+    <nav class="footer-links">
+      <a href="index.html">홈</a>
+      <a href="jongga.html">두리종중</a>
+      <a href="두리동학.html">두리동학</a>
+      <a href="catalog.html">소장 문서</a>
+      <a href="family.html">가계도</a>
+      <a href="jongtaek.html">종택</a>
+    </nav>
+  </div>
+  <p class="footer-copy">© 경주김씨 상촌공파 두리종중. All rights reserved.</p>
+</footer>
+
+<!-- 인물 상세 팝업 -->
+<div class="person-modal-overlay" id="pm-overlay">
+  <div class="person-modal" id="pm-modal">
+    <button class="pm-close" id="pm-close" title="닫기">✕</button>
+    <div class="pm-header" id="pm-header"></div>
+    <div class="pm-body" id="pm-body"></div>
+  </div>
+</div>
+
+<script src="theme.js"></script>
+<script src="mobile-menu.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+//  노비 데이터
+//  g: 대(세대) / sex: 'm' 노(奴) · 'f' 비(婢) / aliases: 문서마다 다르게 적힌 이름
+//  recs: 문서별 기재 기록 [연도, 문서, 기재 내용]
+// ═══════════════════════════════════════════════════════
+const D04 = '1804년 소지', D28 = '1828년 준호구', D31 = '1831년 준호구', D34 = '1834년 준호구', D43 = '1843년 준호구';
+
+const NODES = {
+  daewol: { kr:'대월', hj:'大月', g:1, sex:'f', dates:'? ~ 1802년',
+    note:'임술년(1802)에 사망한 것으로 기재되어 있다. 이후 문서에서는 한복·한매 등의 어머니로만 나타난다.',
+    recs:[[D04,'대월(大月) — 임술년(1802) 故'],[D28,'대월(大月) — 故'],[D31,'대월(大月) — 故'],[D34,'대월(大月) — 故'],[D43,'대월(大月) — 한복·한매의 어머니']] },
+
+  jeongdan: { kr:'정단', hj:'丁丹', g:1, sex:'f', dates:'? ~ ?',
+    aliases:[{kr:'신단', hj:'辛丹', src:'1804년 소지'}],
+    note:'1804년 소지의 신단(辛丹)과 같은 인물로 본다. 1804년에는 생존해 있었고 1828년 준호구에는 사망(故)으로 기재되어 있어, 그 사이에 사망한 것으로 보인다.',
+    recs:[[D04,'신단(辛丹) — 계삼·석분의 어머니'],[D28,'정단(丁丹) — 故'],[D31,'정단(丁丹) — 故'],[D34,'정단(丁丹) — 故'],[D43,'정단(丁丹) — 계삼·계분의 어머니']] },
+
+  hanbok: { kr:'한복', hj:'汗福', g:2, sex:'m', dates:'1791년 ~ ?', mother:'daewol',
+    aliases:[{kr:'한복', hj:'漢卜', src:'1804년 소지'},{kr:'한복', hj:'汗卜', src:'1828·1831년 준호구'}],
+    note:'생년은 1843년 준호구의 간지(신해년)를 따랐다. 앞선 문서들의 나이로 계산하면 1788년 전후가 되어 기재 나이에 차이가 있다.',
+    recs:[[D04,'한복(漢卜) 18세'],[D28,'한복(汗卜) 41세'],[D31,'한복(汗卜) 44세'],[D34,'한복(汗福) 47세'],[D43,'한복(汗福) 53세 · 신해년(1791)생']] },
+
+  hanmae: { kr:'한매', hj:'汗每', g:2, sex:'f', dates:'1796년 ~ ?', mother:'daewol',
+    aliases:[{kr:'한매', hj:'漢梅', src:'1804년 소지·1828~1834년 준호구'}],
+    recs:[[D04,'한매(漢梅) 13세'],[D28,'한매(漢梅) 36세'],[D31,'한매(漢梅) 39세'],[D34,'한매(漢梅) 42세'],[D43,'한매(汗每) 48세 · 병진년(1796)생']] },
+
+  hanjeom: { kr:'한점', hj:'漢点', g:2, sex:'f', dates:'1797년경 ~ ?', mother:'daewol',
+    note:'1804년 소지에만 나타나고 이후 문서에는 보이지 않는다. 생년은 1804년의 나이(8세)로 계산한 것이다.',
+    recs:[[D04,'한점(漢点) 8세']] },
+
+  gyesam: { kr:'계삼', hj:'啓三', g:2, sex:'m', dates:'1777년 ~ ?', mother:'jeongdan',
+    aliases:[{kr:'계삼', hj:'癸三', src:'1828~1834년 준호구'}],
+    recs:[[D04,'계삼(啓三) 32세'],[D28,'계삼(癸三) 52세'],[D31,'계삼(癸三) 55세'],[D34,'계삼(癸三) 58세'],[D43,'계삼(啓三) · 정유년(1777)생']] },
+
+  gyebun: { kr:'계분', hj:'啓分', g:2, sex:'f', dates:'1782년 ~ ?', mother:'jeongdan',
+    aliases:[{kr:'석분', hj:'石分', src:'1804년 소지'},{kr:'계분', hj:'桂分', src:'1828~1834년 준호구'}],
+    note:'1804년 소지의 석분(石分)과 같은 인물로 본다. 1804년의 나이(27세)로 계산하면 1778년 전후가 되어 1843년 준호구의 임인년(1782)과 차이가 있다.',
+    recs:[[D04,'석분(石分) 27세'],[D28,'계분(桂分) 47세'],[D31,'계분(桂分) 50세'],[D34,'계분(桂分) 53세'],[D43,'계분(啓分) · 임인년(1782)생']] },
+
+  maengjeok: { kr:'맹적', hj:'孟趯', g:3, sex:'f', dates:'1810년 ~ ?', mother:'hanmae',
+    recs:[[D28,'맹적(孟趯) 17세'],[D31,'맹적(孟趯) 20세'],[D34,'맹적(孟趯) 23세'],[D43,'맹적(孟趯) · 경오년(1810)생 · 한매의 첫째 소생']] },
+
+  maengdol: { kr:'맹돌', hj:'孟乭', g:3, sex:'m', dates:'1812년 ~ ?', mother:'hanmae',
+    recs:[[D28,'맹돌(孟乭) 14세'],[D31,'맹돌(孟乭) 17세'],[D34,'맹돌(孟乭) 20세'],[D43,'맹돌(孟乭) · 임신년(1812)생 · 한매의 둘째 소생']] },
+
+  seongdol: { kr:'성돌', hj:'成乭', g:3, sex:'m', dates:'1821년경 ~ ?', mother:'hanmae',
+    note:'1828·1831년 준호구에만 나타나고 1834년 이후에는 보이지 않는다. 생년은 1828년의 나이(8세)로 계산한 것이다. 1834년 준호구에 처음 나타나는 성국(成菊)과는 나이가 맞지 않아 별개의 인물로 구분하였다.',
+    recs:[[D28,'성돌(成乭) 8세'],[D31,'성돌(成乭) 11세']] },
+
+  seongguk: { kr:'성국', hj:'成菊', g:3, sex:'m', dates:'1830년 ~ ?', mother:'hanmae',
+    recs:[[D34,'성국(成菊) 5세'],[D43,'성국(成菊) · 경인년(1830)생 · 한매의 셋째 소생']] },
+
+  geumwol: { kr:'금월', hj:'金月', g:4, sex:'f', dates:'1831년 ~ ?', mother:'maengjeok',
+    recs:[[D34,'금월(金月) 4세'],[D43,'금월(金月) · 신묘년(1831)생 · 맹적의 첫째 소생']] },
+
+  yeondol: { kr:'연돌', hj:'軟乭', g:3, sex:'m', dates:'1817년 ~ ?', mother:'gyebun',
+    recs:[[D28,'연돌(軟乭) 12세'],[D31,'연돌(軟乭) 15세'],[D34,'연돌(軟乭) 18세'],[D43,'연돌(軟乭) · 정축년(1817)생 · 계분의 소생']] },
+};
+
+// 어머니 → 자녀(출생 순)
+const CHILDREN = {
+  daewol:    ['hanbok','hanmae','hanjeom'],
+  hanmae:    ['maengjeok','maengdol','seongdol','seongguk'],
+  maengjeok: ['geumwol'],
+  jeongdan:  ['gyesam','gyebun'],
+  gyebun:    ['yeondol'],
+};
+const ROOTS = ['daewol','jeongdan'];
+
+const GEN_INFO = { 1:{label:'1대'}, 2:{label:'2대'}, 3:{label:'3대'}, 4:{label:'4대'} };
+
+// ═══════════════════════════════════════════════════════
+//  레이아웃 (리프 수 기준 열 배정 — 가계도 페이지와 동일 방식)
+// ═══════════════════════════════════════════════════════
+const COL_W = 260, CARD_W = 175, PAD_L = 92, PAD_T = 20, PAD_B = 60, ROW_H = 300, ROOT_GAP = 0.5;
+
+const leafCnt = {}, colS = {}, colE = {};
+function calcLeaf(id) {
+  const ch = CHILDREN[id] || [];
+  leafCnt[id] = ch.length ? ch.reduce((s, c) => s + calcLeaf(c), 0) : 1;
+  return leafCnt[id];
+}
+function assignCols(id, start) {
+  colS[id] = start; colE[id] = start + leafCnt[id];
+  let cur = start;
+  (CHILDREN[id] || []).forEach(c => { assignCols(c, cur); cur += leafCnt[c]; });
+}
+let _cursor = 0;
+ROOTS.forEach(r => { calcLeaf(r); assignCols(r, _cursor); _cursor += leafCnt[r] + ROOT_GAP; });
+const TOTAL_COLS = _cursor - ROOT_GAP;
+const TREE_W = PAD_L + TOTAL_COLS * COL_W + 40;
+const MAX_GEN = Math.max(...Object.values(NODES).map(n => n.g));
+const TREE_H = PAD_T + MAX_GEN * ROW_H + 260 + PAD_B;
+
+const nodeCX = id => PAD_L + (colS[id] + colE[id]) / 2 * COL_W;
+const nodeTY = id => PAD_T + (NODES[id].g - 1) * ROW_H;
+
+// ═══════════════════════════════════════════════════════
+//  카드 렌더링
+// ═══════════════════════════════════════════════════════
+function sexLabel(n) { return n.sex === 'f' ? '비(婢) · 여종' : '노(奴) · 사내종'; }
+
+function renderTree() {
+  const outer = document.getElementById('tree-outer');
+  outer.style.width = TREE_W + 'px';
+  outer.style.height = TREE_H + 'px';
+  const genSeen = new Set();
+
+  Object.keys(NODES).forEach(id => {
+    const node = NODES[id];
+    const cx = nodeCX(id), ty = nodeTY(id);
+
+    if (!genSeen.has(node.g)) {
+      genSeen.add(node.g);
+      const lbl = document.createElement('div');
+      lbl.className = 'gen-label-abs';
+      lbl.style.cssText = `left:0; top:${ty + 16}px; width:${PAD_L - 4}px;`;
+      lbl.innerHTML = `<span class="gen-num">${GEN_INFO[node.g].label}</span>`;
+      outer.appendChild(lbl);
+    }
+
+    const card = document.createElement('div');
+    card.id = id;
+    card.className = 'person-card' + (node.sex === 'f' ? ' person-card-female' : '');
+    card.style.cssText = `left:${cx - CARD_W / 2}px; top:${ty}px; width:${CARD_W}px; cursor:pointer;`;
+    let html = `<div class="p-kr">${node.kr}</div><div class="p-hj">${node.hj}</div>`;
+    if (node.dates) html += `<div class="p-dates">${node.dates}</div>`;
+    html += `<div class="p-ja">${node.sex === 'f' ? '婢 · 여종' : '奴 · 사내종'}</div>`;
+    if (node.aliases?.length) {
+      html += '<div class="p-aliases">' +
+        node.aliases.map(a => `<div class="p-alias">${a.kr}<span class="p-alias-hj">${a.hj}</span></div>`).join('') + '</div>';
+    }
+    card.innerHTML = html;
+    card.addEventListener('click', () => { if (!_hasDragged) openPersonModal(id); });
+    outer.appendChild(card);
+  });
+}
+
+// 연결선: 부모 하단 → 중간 가로선 → 자녀 상단 (좌표는 레이아웃 값 그대로 — 배율 보정 불필요)
+function drawLines() {
+  const svg = document.getElementById('tree-svg');
+  svg.innerHTML = '';
+  const mk = (x1, y1, x2, y2) => {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+    el.setAttribute('x2', x2); el.setAttribute('y2', y2);
+    el.setAttribute('stroke', '#A87C24'); el.setAttribute('stroke-width', '2');
+    el.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(el);
+  };
+  Object.entries(CHILDREN).forEach(([pid, cids]) => {
+    const pEl = document.getElementById(pid);
+    const px = nodeCX(pid), py = nodeTY(pid) + pEl.offsetHeight;
+    const cy = nodeTY(cids[0]);
+    const midY = py + (cy - py) / 2;
+    const xs = cids.map(nodeCX);
+    mk(px, py, px, midY);
+    mk(Math.min(px, ...xs), midY, Math.max(px, ...xs), midY);
+    xs.forEach(x => mk(x, midY, x, cy));
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  인물 상세 팝업
+// ═══════════════════════════════════════════════════════
+function openPersonModal(id) {
+  const n = NODES[id];
+  if (!n) return;
+  const rows = [];
+  rows.push({ label: '구분', value: sexLabel(n) });
+  if (n.dates) rows.push({ label: '생몰연도', value: n.dates });
+  if (n.mother) rows.push({ label: '모(母)', value: `${NODES[n.mother].kr} <span style="font-family:var(--font-serif);font-size:13px;color:var(--text-muted)">${NODES[n.mother].hj}</span>` });
+  if (CHILDREN[id]) rows.push({ label: '자녀', value: CHILDREN[id].map(c => `${NODES[c].kr} <span style="font-family:var(--font-serif);font-size:13px;color:var(--text-muted)">${NODES[c].hj}</span>`).join('<br>') });
+  if (n.aliases?.length) rows.push({ label: '이명', value: n.aliases.map(a => `${a.kr} <span style="font-family:var(--font-serif);font-size:13px;color:var(--text-muted)">${a.hj}</span> <span style="font-size:12px;color:var(--text-muted)">(${a.src})</span>`).join('<br>') });
+  if (n.recs?.length) rows.push({ label: '기록', value: n.recs.map(r => `<span style="color:var(--text-muted);font-size:12px">${r[0]}</span> ${r[1]}`).join('<br>') });
+  if (n.note) rows.push({ label: '기타', value: n.note });
+
+  document.getElementById('pm-header').innerHTML =
+    `<div class="pm-name-kr">${n.kr}</div><div class="pm-name-hj">${n.hj}</div>` +
+    `<div class="pm-gen-badge">${GEN_INFO[n.g].label}</div>`;
+  document.getElementById('pm-body').innerHTML =
+    rows.map(r => `<div class="pm-row"><div class="pm-label">${r.label}</div><div class="pm-value">${r.value}</div></div>`).join('');
+  document.getElementById('pm-overlay').classList.add('open');
+}
+function closePersonModal() {
+  document.getElementById('pm-overlay').classList.remove('open');
+}
+document.getElementById('pm-close').addEventListener('click', closePersonModal);
+document.getElementById('pm-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('pm-overlay')) closePersonModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePersonModal(); });
+
+// ═══════════════════════════════════════════════════════
+//  확대/축소 · 팬 (가계도 페이지와 동일)
+// ═══════════════════════════════════════════════════════
+let _zoom = 1;
+const ZOOM_MIN = 0.12, ZOOM_MAX = 1.92, ZOOM_STEP = 0.12, ZOOM_BASE = 0.8;
+const MOBILE_SCALE = window.matchMedia('(max-width: 768px)').matches ? 0.5 : 1;
+function effectiveScale() { return _zoom * MOBILE_SCALE; }
+
+function applyZoom(z) {
+  const _z = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z));
+  _zoom = Math.round((_z - ZOOM_BASE) / ZOOM_STEP) * ZOOM_STEP + ZOOM_BASE;
+  const outer = document.getElementById('tree-outer');
+  const scaleWrap = document.getElementById('tree-scale-wrap');
+  const scale = effectiveScale();
+  outer.style.transform = `scale(${scale})`;
+  outer.style.transformOrigin = 'top left';
+  scaleWrap.style.width = (TREE_W * scale) + 'px';
+  scaleWrap.style.height = (TREE_H * scale) + 'px';
+  document.getElementById('zoom-level').textContent = Math.round((_zoom / ZOOM_BASE) * 100) + '%';
+  updateGenLabels();
+}
+function zoomAroundCenter(newZ) {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  const oldScale = effectiveScale();
+  const cx = (wrap.scrollLeft + wrap.clientWidth / 2) / oldScale;
+  const cy = (wrap.scrollTop + wrap.clientHeight / 2) / oldScale;
+  applyZoom(newZ);
+  const newScale = effectiveScale();
+  wrap.scrollLeft = cx * newScale - wrap.clientWidth / 2;
+  wrap.scrollTop = cy * newScale - wrap.clientHeight / 2;
+}
+document.getElementById('zoom-in').addEventListener('click', () => zoomAroundCenter(_zoom + ZOOM_STEP));
+document.getElementById('zoom-out').addEventListener('click', () => zoomAroundCenter(_zoom - ZOOM_STEP));
+document.getElementById('zoom-reset').addEventListener('click', () => applyZoom(ZOOM_BASE));
+document.querySelector('.tree-scroll-wrap').addEventListener('wheel', e => {
+  if (!e.ctrlKey) return;
+  e.preventDefault();
+  zoomAroundCenter(_zoom + (e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP));
+}, { passive: false });
+
+// 대(代) 라벨 수평 고정
+function updateGenLabels() {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  const offset = wrap.scrollLeft / effectiveScale();
+  document.querySelectorAll('.gen-label-abs').forEach(el => { el.style.left = offset + 'px'; });
+}
+document.querySelector('.tree-scroll-wrap').addEventListener('scroll', updateGenLabels);
+
+// 드래그 팬
+let _hasDragged = false;
+(function () {
+  const wrap = document.querySelector('.tree-scroll-wrap');
+  let isPanning = false, startX, startY, scrollX, scrollY;
+  wrap.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    _hasDragged = false; isPanning = true;
+    startX = e.clientX; startY = e.clientY;
+    scrollX = wrap.scrollLeft; scrollY = wrap.scrollTop;
+    wrap.classList.add('panning');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isPanning) return;
+    const dx = e.clientX - startX, dy = e.clientY - startY;
+    if (Math.abs(dx) + Math.abs(dy) > 5) _hasDragged = true;
+    wrap.scrollLeft = scrollX - dx;
+    wrap.scrollTop = scrollY - dy;
+  });
+  window.addEventListener('mouseup', () => {
+    if (!isPanning) return;
+    isPanning = false;
+    wrap.classList.remove('panning');
+  });
+})();
+
+// ═══════════════════════════════════════════════════════
+//  초기화
+// ═══════════════════════════════════════════════════════
+renderTree();
+drawLines();
+window.addEventListener("load", drawLines);
+applyZoom(ZOOM_BASE);
+</script>
+</body>
+</html>
