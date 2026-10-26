@@ -118,6 +118,21 @@
     classification: "集部 序跋類"
   },
   {
+    id: "cheolho-taegil",
+    call_number: "KJ-CHT-001",
+    title_hanja: "葬事擇日記",
+    title_korean: "김철호 장사 택일기",
+    author: "미상",
+    year: "",
+    year_display: "미상",
+    category: "풍수·도가",
+    digitized: true,
+    detail_url: "detail-김철호장사택일기.html",
+    total_pages: 1,
+    digitized_pages: 0,
+    classification: "子部 術數類"
+  },
+  {
     id: "hwasu2", // 미상
     title_hanja: "花樹會",
     title_korean: "화수회",
