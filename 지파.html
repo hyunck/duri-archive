@@ -39,10 +39,10 @@
     .taekho-groups { display: flex; flex-direction: column; row-gap: 36px; margin-top: 8px; }
     .taekho-group-head { font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text-bright); padding: 14px 0 12px; border-bottom: 1px solid var(--border-normal); }
     .taekho-group-head span { padding-left: 12px; font-size: inherit; font-weight: inherit; color: inherit; }
-    .taekho-groups .taekho-col { display: flex; flex-wrap: wrap; column-gap: 28px; }
-    .taekho-groups .taekho-col li { font-size: 17px; font-weight: 400; padding: 12px 0; border-bottom: none; }
+    .taekho-groups .taekho-col { display: block; padding-top: 12px; line-height: 2; }
+    .taekho-groups .taekho-col li { display: inline; font-size: 17px; font-weight: 400; padding: 0; border-bottom: none; }
+    .taekho-groups .taekho-col li:not(:last-child)::after { content: ", "; }
     @media (max-width: 768px) {
-      .taekho-groups .taekho-col { column-gap: 18px; }
       .taekho-group-head { font-size: 16px; }
       .taekho-group-head span { padding-left: 6px; }
       .taekho-cols { column-gap: 20px; }
