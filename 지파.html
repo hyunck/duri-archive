@@ -38,12 +38,13 @@
     .taekho-col li span { padding-left: 12px; font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
     .taekho-groups { display: flex; flex-direction: column; row-gap: 36px; margin-top: 8px; }
     .taekho-group-head { font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text-bright); padding: 14px 0 12px; border-bottom: 1px solid var(--border-normal); }
-    .taekho-group-head span { padding-left: 12px; font-size: 15px; font-weight: 400; color: var(--text-muted); }
-    .taekho-groups .taekho-col { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 24px; }
-    .taekho-groups .taekho-col li { font-size: 17px; padding-left: 4px; }
+    .taekho-group-head span { padding-left: 12px; font-size: inherit; font-weight: inherit; color: inherit; }
+    .taekho-groups .taekho-col { display: flex; flex-wrap: wrap; column-gap: 28px; }
+    .taekho-groups .taekho-col li { font-size: 17px; padding: 12px 0; border-bottom: none; }
     @media (max-width: 768px) {
-      .taekho-groups .taekho-col { grid-template-columns: repeat(2, 1fr); column-gap: 16px; }
-      .taekho-group-head span { padding-left: 6px; font-size: 13px; }
+      .taekho-groups .taekho-col { column-gap: 18px; }
+      .taekho-group-head { font-size: 16px; }
+      .taekho-group-head span { padding-left: 6px; }
       .taekho-cols { column-gap: 20px; }
       .taekho-col li { font-size: 15px; padding-left: 8px; }
       .taekho-col li span { padding-left: 6px; font-size: 13px; }
@@ -371,7 +372,7 @@
                 <li>면옥치댁(綿玉峙宅)</li>
                 <li>상방댁(上房宅)</li>
                 <li>장항댁(獐項宅)</li>
-                <li>향정댁(杏亭宅)</li>
+                <li>행정댁(杏亭宅)</li>
               </ul>
             </div>
             <div class="taekho-group">
@@ -384,7 +385,7 @@
                 <li>둘째댁(二宅)</li>
                 <li>와부댁(瓦阜宅)</li>
                 <li>조산댁(造山宅)</li>
-                <li>송전댁(향호댁, 松田宅, 香湖宅)</li>
+                <li>송전댁(행호댁, 松田宅, 杏湖宅)</li>
               </ul>
             </div>
             <div class="taekho-group">
