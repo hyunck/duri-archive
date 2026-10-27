@@ -36,10 +36,11 @@
     .taekho-col { list-style: none; margin: 0; padding: 0; }
     .taekho-col li { font-size: 17px; font-weight: 700; line-height: 1.6; color: var(--text-bright); letter-spacing: 0.03em; padding: 12px 0 12px 28px; border-bottom: 1px solid var(--border-subtle); }
     .taekho-col li span { padding-left: 12px; font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
-    .taekho-groups { display: flex; flex-direction: column; row-gap: 36px; margin-top: 32px; }
-    .taekho-group-head { font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text-bright); padding: 2px 0 2px 14px; border-left: 3px solid var(--gold-700); }
+    .taekho-groups { display: flex; flex-direction: column; row-gap: 16px; margin-top: 32px; }
+    .taekho-group { background: var(--bg-elevated, var(--bg-body)); border: 1px solid var(--border-normal); border-radius: 10px; padding: 16px 22px; }
+    .taekho-group-head { font-size: 17px; font-weight: 700; line-height: 1.5; color: var(--text-bright); padding: 0; }
     .taekho-group-head span { padding-left: 12px; font-size: inherit; font-weight: inherit; color: inherit; }
-    .taekho-groups .taekho-col { display: block; padding: 10px 0 0 17px; line-height: 2; }
+    .taekho-groups .taekho-col { display: block; padding: 8px 0 0; line-height: 2; }
     .taekho-groups .taekho-col li { display: inline; font-size: 17px; font-weight: 400; padding: 0; border-bottom: none; }
     .taekho-groups .taekho-col li:not(:last-child)::after { content: ", "; }
     @media (max-width: 768px) {
