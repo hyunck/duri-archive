@@ -29,7 +29,17 @@
     .body-text { font-size: 17px; line-height: 2; color: var(--text-primary); }
     .body-text p { margin-bottom: 1.4em; }
     .sub-title { font-size: 20px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.05em; padding-bottom: 8px; border-bottom: 1px solid var(--border-normal); margin-bottom: 8px; }
+    .source-list { margin-top: 84px; padding-top: 48px; border-top: 1px solid var(--border-normal); }
+    .source-list-title { font-size: 20px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.05em; padding-bottom: 12px; border-bottom: 1px solid var(--border-normal); margin-bottom: 8px; }
+    .source-list + .source-list { margin-top: 56px; padding-top: 0; border-top: none; }
+    .taekho-cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+    .taekho-col { list-style: none; margin: 0; padding: 0; }
+    .taekho-col li { font-size: 17px; line-height: 1.6; color: var(--text-primary); padding: 12px 0 12px 28px; border-bottom: 1px solid var(--border-subtle); }
+    .taekho-col li span { padding-left: 12px; font-size: 15px; color: var(--text-muted); }
     @media (max-width: 768px) {
+      .taekho-cols { column-gap: 20px; }
+      .taekho-col li { font-size: 15px; padding-left: 8px; }
+      .taekho-col li span { padding-left: 6px; font-size: 13px; }
       .page-hero { padding: 36px 20px 24px; }
       .page-wrap  { padding: 40px 20px 80px; }
       .page-title-ko { font-size: 24px; }
@@ -144,7 +154,7 @@
         </div>
         <div style="padding-left: 56px;">
           <h3 class="sub-title">남녘댁(南宅)</h3>
-          <p>김의성의 차남 김동규(金東奎)가 후사가 없어 김동영의 3남 김주열(金周烈)을 양자로 들였었는데, 김주열의 차남 김규대(金圭大) 어르신이 분가하여 형성된 지파이다. 남녘댁의 가옥은 현재까지 남아 있다.</p>
+          <p>김의성의 차남 김동규가 후사가 없어 김동영의 3남 김주열을 양자로 들였었는데, 김주열의 차남 김규대(金圭大) 어르신이 분가하여 형성된 지파이다. 남녘댁의 가옥은 현재까지 남아 있다.</p>
         </div>
         <div style="padding-left: 56px;">
           <h3 class="sub-title">방앗간웃집(방앗간웃宅)</h3>
@@ -314,6 +324,31 @@
         </div>
         <div style="padding-left: 28px;">
           <h3 class="sub-title" style="margin-top: 24px;">사수댁(社首宅)<span style="padding-left:12px; font-size:15px;">미상</span></h3>
+        </div>
+
+        <!-- 자료별 택호 목록: 자료마다 아래 .source-list 블록을 복제해서 사용 (왼쪽·오른쪽 열 각 7개) -->
+        <div class="source-list">
+          <h3 class="source-list-title">장두곡향화계첩 을묘년(1915년) 11월 12일 문회</h3>
+          <div class="taekho-cols">
+            <ul class="taekho-col">
+              <li>영동댁(永同宅)</li>
+              <li>왕도댁(旺道宅)<span>광정리</span></li>
+              <li>임호정댁(臨湖亭宅)<span>광정리</span></li>
+              <li>우암댁(愚巖宅)<span>광정리</span></li>
+              <li>사수댁(社首宅)</li>
+              <li>주촌댁(舟村宅)</li>
+              <li>남면댁(南面宅)</li>
+            </ul>
+            <ul class="taekho-col">
+              <li>갈평댁(葛坪宅)</li>
+              <li>부연댁(釜渊宅)</li>
+              <li>면옥댁(綿玉宅)</li>
+              <li>입암댁(笠巖宅)</li>
+              <li>강릉댁(江陵宅)</li>
+              <li>소왕도댁(小旺道宅)<span>광정리</span></li>
+              <li>호정댁(湖汀宅)</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
