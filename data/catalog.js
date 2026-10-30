@@ -103,6 +103,21 @@
     classification: "史部 雜史類"
   },
   {
+    id: "mansacheop",
+    call_number: "KJ-MSC-001",
+    title_hanja: "挽詞帖",
+    title_korean: "만사첩",
+    author: "미상",
+    year: "",
+    year_display: "미상",
+    category: "문집·기문",
+    digitized: true,
+    detail_url: "detail-만사첩.html",
+    total_pages: 20,
+    digitized_pages: 0,
+    classification: "集部 總集類"
+  },
+  {
     id: "saheonseo",
     call_number: "KJ-SHS-001",
     title_hanja: "思軒序",
