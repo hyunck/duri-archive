@@ -34,6 +34,9 @@
 
     .section + .section { margin-top: 88px; }
     .section-title { font-size: 22px; font-weight: 700; color: var(--text-bright); letter-spacing: 0.04em; padding-bottom: 14px; border-bottom: 1px solid var(--border-normal); margin-bottom: 32px; }
+    .section-title.has-switch { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .section-switch { flex: none; background: none; border: none; padding: 0; font: inherit; font-size: 13px; font-weight: 400; letter-spacing: 0; color: var(--text-muted); cursor: pointer; transition: color 0.2s ease; }
+    .section-switch:hover { color: var(--gold-600); }
 
     /* 연혁 타임라인 */
     .timeline-intro { max-width: 720px; margin: 0 0 48px; }
@@ -210,6 +213,11 @@
       <h2 class="section-title">역대 대문중(大門中) 문장(門長)</h2>
       <div class="timeline">
         <div class="timeline-item">
+          <div class="timeline-date">~1929년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>미상</strong></p></div>
+        </div>
+        <div class="timeline-item">
           <div class="timeline-date">1929년~1935년</div>
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
           <div class="timeline-content"><p><strong>김순제</strong>(金舜濟, 1856년~1935년)</p></div>
@@ -233,8 +241,11 @@
     </section>
 
     <section class="section">
-      <h2 class="section-title">화수회(花樹會) 역대 유사(有司)</h2>
-      <div class="timeline">
+      <h2 class="section-title has-switch">
+        <span id="yusa-title">화수회(花樹會) 역대 유사(有司)</span>
+        <button type="button" class="section-switch" id="yusa-switch">서당계(書堂契) 역대 유사 ›</button>
+      </h2>
+      <div class="timeline" id="yusa-hwasu">
         <div class="timeline-item">
           <div class="timeline-date">1898년</div>
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
@@ -249,6 +260,178 @@
           <div class="timeline-date">1901년</div>
           <div class="timeline-marker"><span class="timeline-dot"></span></div>
           <div class="timeline-content"><p><strong>김동식</strong>(金東植)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1902년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김성제</strong>(金聖濟)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1903년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동규</strong>(金東奎)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1904년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동식</strong>(金東植)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1905년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김홍렬</strong>(金弘烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1907년~1908년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김홍렬</strong>(金鴻烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1909년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동식</strong>(金東植)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1910년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동건</strong>(金東建)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1911년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동억</strong>(金東檍)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1913년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동억</strong>(金東檍)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1914년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김주열</strong>(金周烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1915년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김봉렬</strong>(金鳳烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1916년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동식</strong>(金東軾)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1917년~1921년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동건</strong>(金東建)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1922년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김재열</strong>(金載烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1923년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동수</strong>(金東秀)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1924년~1927년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김재열</strong>(金載烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1928년~1929년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동만</strong>(金東萬)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1930년~1932년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김홍렬</strong>(金鴻烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1933년~1935년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김경렬</strong>(金庚烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1936년~1937년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김동선</strong>(金東善)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1945년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김정렬</strong>(金鼎烈), <strong>김규석</strong>(金圭錫), <strong>김무열</strong>(金武烈)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1946년~1947년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김정렬</strong>(金鼎烈), <strong>김규일</strong>(金圭一)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1951년~1953년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong><strong>김규관</strong>(金圭琯)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1954년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong><strong>김동식</strong>(金東軾)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1955년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong><strong>김규현</strong>(金圭鉉)</p></div>
+        </div>
+      </div>
+      <div class="timeline" id="yusa-seodang" hidden>
+        <div class="timeline-item">
+          <div class="timeline-date">1896년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김우형</strong>(金禹亨, 김동규)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1897년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김정팔</strong>(金政八, 김동호)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1898년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김영수</strong>(金永壽, 김동만)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1899년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김경천</strong>(金敬天, 김주열)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1900년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김흥오</strong>(金興五, 김동건)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1901년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김성일</strong>(金性一, 김원제)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1902년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김청일</strong>(金淸一, 김성제)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1903년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김여명</strong>(金汝明, 김규하)</p></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">1904년</div>
+          <div class="timeline-marker"><span class="timeline-dot"></span></div>
+          <div class="timeline-content"><p><strong>김봉렬</strong>(金鳳烈)</p></div>
         </div>
       </div>
     </section>
@@ -319,6 +502,26 @@
     items.forEach(function (el) { io.observe(el); });
   })();
   </script>
+
+  <script>
+  (function () {
+    var btn = document.getElementById('yusa-switch');
+    var title = document.getElementById('yusa-title');
+    var a = document.getElementById('yusa-hwasu');
+    var b = document.getElementById('yusa-seodang');
+    if (!btn || !title || !a || !b) return;
+    var showSeodang = false;
+    btn.addEventListener('click', function () {
+      showSeodang = !showSeodang;
+      a.hidden = showSeodang;
+      b.hidden = !showSeodang;
+      title.textContent = showSeodang ? '서당계(書堂契) 역대 유사(有司)' : '화수회(花樹會) 역대 유사(有司)';
+      btn.textContent = showSeodang ? '화수회(花樹會) 역대 유사 ›' : '서당계(書堂契) 역대 유사 ›';
+      (showSeodang ? b : a).querySelectorAll('.timeline-item').forEach(function (el) { el.classList.add('tl-visible'); });
+    });
+  })();
+  </script>
+
 
 </body>
 </html>
