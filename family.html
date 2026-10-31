@@ -110,6 +110,7 @@
     [data-theme="dark"] .house-label {
       color: rgba(255,255,255,.92);
     }
+    .house-label-card,
     .house-label[data-pid="p200"],
     .house-label[data-pid="p64"],
     .house-label[data-pid="p110"],
@@ -1975,12 +1976,11 @@ function renderTree() {
 
     // 집 라벨 (houseLabel 있는 노드)
     if (node.houseLabel) {
-      const rowAbove = ROW_HEIGHTS[node.gen - 1] || 252;
-      const offsetRatio = id === 'p99' ? 0.18 : id === 'p200' ? 0.32 : id === 'p266' ? 0.34 : id === 'p123' ? 0.13 :(id === 'p64' || id === 'p110' || id === 'p106' || id === 'p114') ? 0.20 : id === 'p11' ? 0.12 : 0.28;
+      const labelOffset = 41;  // 김여경 위 현남파 라벨과 같은 간격(박스 바로 위)
       const hl = document.createElement('div');
-      hl.className = 'house-label';
+      hl.className = 'house-label house-label-card';
       hl.dataset.pid = id;
-      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - Math.round(rowAbove * offsetRatio)}px; width:${CARD_W}px;`;
+      hl.style.cssText = `left:${cx - CARD_W/2}px; top:${ty - labelOffset}px; width:${CARD_W}px;`;
       hl.textContent = node.houseLabel;
       outer.appendChild(hl);
     }
