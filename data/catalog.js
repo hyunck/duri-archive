@@ -103,6 +103,21 @@
     classification: "史部 雜史類"
   },
   {
+    id: "gyeongtong",
+    call_number: "KJ-GYT-001",
+    title_hanja: "敬通",
+    title_korean: "경통",
+    author: "김성제 (金聖濟)",
+    year: "",
+    year_display: "미상",
+    category: "종중 기록",
+    digitized: true,
+    detail_url: "detail-경통.html",
+    total_pages: 3,
+    digitized_pages: 0,
+    classification: "史部 雜史類"
+  },
+  {
     id: "mansarok",
     call_number: "KJ-MSR-001",
     title_hanja: "輓詞錄",
