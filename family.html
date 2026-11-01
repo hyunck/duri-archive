@@ -404,7 +404,7 @@
       <li>김한명 金漢明 관련 인명: 순흥 安氏, 평창 李氏</li>
       <li>김한성 金漢成 (1692년 ~ ?) 관련 인명: 전주 李氏</li>
       <li>김한정 金漢正 관련 인명: 정선 全氏</li>
-      <li>김씨 (1703년 ~ 1783년?) 관련 인명: 이동장, 李東章, 성한(聖漢), 선제(善悌), 명룡(溟龍), 전주 李氏, 기룡(起龍)</li>
+      <li>김씨 (1703년 ~ 1783년?) 관련 인명: 이동장, 李東章, 성한(聖漢), 선제(善悌), 명룡(溟龍), 전주 李氏, 기룡(起龍), 경주이씨 상서공후 통진공파</li>
       <li>김춘주 金春柱 (1711년 ~ ?) 관련 인명: 진주 姜氏, 석구(錫耉)</li>
       <li>김경주 金庚柱</li>
       <li>김덕주 金德柱 (1733년 ~ ?) 관련 인명: 한양 趙氏</li>
@@ -936,7 +936,7 @@ const NODES = {
   p321: { kr:'김한명', hj:'金漢明', gen:2, myo:'도유동(道踰洞) 건좌(乾坐)', spouse:[{ hj:'순흥 安氏', dates:'1690년 ~ ?' }, { hj:'평창 李氏', order:'계배', dates:'1695년 ~ 1757년' }] },
   p322: { kr:'김한성', hj:'金漢成', gen:2, dates:'1692년 ~ ?', myo:'양양(襄陽) 면(面) 거마리(車馬里) 자좌(子坐)', spouse:[{ hj:'전주 李氏' }] },
   p323: { kr:'김한정', hj:'金漢正', gen:2, myo:'거마리(車馬里) 건좌(乾坐)', spouse:[{ hj:'정선 全氏' }] },
-  p600: { kr:'딸', gen:2, gender:'f', name:'김씨', dates:'1703년 ~ 1783년?', sonInLaw:{ kr:'이동장', hj:'李東章', dates:'1698년 ~ 1734년', post:'절충부호군', father:'성한(聖漢)', grandfather:'선제(善悌)', greatGrandfather:'명룡(溟龍)', matGrandfather:'전주 李氏 기룡(起龍)' } },
+  p600: { kr:'딸', gen:2, gender:'f', name:'김씨', dates:'1703년 ~ 1783년?', sonInLaw:{ kr:'이동장', hj:'李東章', dates:'1698년 ~ 1734년', post:'절충부호군', father:'성한(聖漢)', grandfather:'선제(善悌)', greatGrandfather:'명룡(溟龍)', matGrandfather:'전주 李氏 기룡(起龍)', note:'경주이씨 상서공후 통진공파' } },
   // 김한명(p321) 자식
   p346: { kr:'김춘주', hj:'金春柱', gen:3, dates:'1711년 ~ ?', myo:'북면(北面) 도리(陶里) 경좌(庚坐)', spouse:[{ hj:'진주 姜氏', dates:'1713년 ~ ?', father:'석구(錫耉)' }] },
   p347: { kr:'김경주', hj:'金庚柱', gen:3, note:'강릉파(江陵派)', postCard:'강릉파(江陵派)' },
@@ -1865,23 +1865,23 @@ const CX_OVERRIDE = {};
   ['p282','p281','p280','p279'].forEach((id, i) => { CX_OVERRIDE[id] = p282CX - 3 * COL_W * i; });
 
   // 김시환(p292) / 김세환(p291) 아들들 — p282CX 기준 왼쪽 배치
-  CX_OVERRIDE['p318']  = p282CX - COL_W * 18.25; // 김여옥 (양자, 김세환 직하) — p321·p322·p323 중심(≈18.33)
+  CX_OVERRIDE['p318']  = p282CX - COL_W * 21.25; // 김여옥 (양자, 김세환 직하) — p321·p322·p323 중심(≈18.33)
   CX_OVERRIDE['p318g'] = p282CX - COL_W * 14.25;  // 김여옥 출계 자리 (p292 왼쪽, p319와 1.5슬롯 간격)
   CX_OVERRIDE['p319']  = p282CX - COL_W * 12.75;  // 차남 김여벽 (= p324 정확히 직상방, 파란선 직선)
 
   // 김여옥(p318) 아들들 — 계보 사이 여유롭게 배치
-  CX_OVERRIDE['p321'] = p282CX - COL_W * 22.375; // 장남 김한명 (김한명·김한성·김한정·김씨 간격 2.75 균등, 김여옥 -18.25 중앙)
-  CX_OVERRIDE['p322'] = p282CX - COL_W * 19.625; // 차남 김한성
-  CX_OVERRIDE['p323'] = p282CX - COL_W * 16.875;  // 삼남 김한정
-  CX_OVERRIDE['p600'] = p282CX - COL_W * 14.125; // 딸 김씨 (이동장 처)
+  CX_OVERRIDE['p321'] = p282CX - COL_W * 25.375; // 장남 김한명 (김한명·김한성·김한정·김씨 간격 2.75 균등, 김여옥 -18.25 중앙)
+  CX_OVERRIDE['p322'] = p282CX - COL_W * 22.625; // 차남 김한성
+  CX_OVERRIDE['p323'] = p282CX - COL_W * 19.875;  // 삼남 김한정
+  CX_OVERRIDE['p600'] = p282CX - COL_W * 17.125; // 딸 김씨 (이동장 처)
   // 김한명(p321) 자식 — 1.5×COL_W 간격, p321 중심 좌우 대칭
-  CX_OVERRIDE['p346'] = p282CX - COL_W * 23.125;    // 장남 김춘주 (p321 중심 좌우 ±0.75)
-  CX_OVERRIDE['p347'] = p282CX - COL_W * 21.625;   // 차남 김경주
+  CX_OVERRIDE['p346'] = p282CX - COL_W * 26.125;    // 장남 김춘주 (p321 중심 좌우 ±0.75)
+  CX_OVERRIDE['p347'] = p282CX - COL_W * 24.625;   // 차남 김경주
   // 김한성(p322) 자식 — 1.5×COL_W 간격, p322 중심 좌우 대칭
-  CX_OVERRIDE['p348'] = p282CX - COL_W * 20.375;     // 장남 김덕주 (p322 중심 좌우 ±0.75)
-  CX_OVERRIDE['p349'] = p282CX - COL_W * 18.875;   // 차남 김해주
+  CX_OVERRIDE['p348'] = p282CX - COL_W * 23.375;     // 장남 김덕주 (p322 중심 좌우 ±0.75)
+  CX_OVERRIDE['p349'] = p282CX - COL_W * 21.875;   // 차남 김해주
   // 김한정(p323) 자식 — p323 직하
-  CX_OVERRIDE['p350'] = p282CX - COL_W * 16.875;   // 장남 김창주 (p323 직하)
+  CX_OVERRIDE['p350'] = p282CX - COL_W * 19.875;   // 장남 김창주 (p323 직하)
   // 김여벽(p319) 아들 — 자식 2인 중심: (13.5+12)/2=12.75
   CX_OVERRIDE['p324'] = p282CX - COL_W * 12.75;  // 장남 김한영
   // 김여선(p279) 아들 — p279 N=9 직하 (직선 연결)
@@ -3135,7 +3135,7 @@ function initAncestors() {
   const p00CX    = parseInt(p00El.style.left, 10) + CARD_W / 2;
   const p31ElSb  = document.getElementById('p31');
   const p31CXSb  = p31ElSb ? parseInt(p31ElSb.style.left, 10) + CARD_W / 2 : p00CX;
-  const sBaekCX  = p31CXSb - 21.75 * COL_W; // 김생백 중심 (p291·p318 직선, N_p282=18.25)
+  const sBaekCX  = p31CXSb - 24.75 * COL_W; // 김생백 중심 (p291·p318 직선, N_p282=21.25; 김씨(p600)가 김세환 ghost보다 왼쪽에 오도록 3칸 이동)
   const eonBinCX = p00CX;                     // 김언빈·윗대 중심 (김윤백 바로 위)
   const CTOP_10  = 70;   // gen -10 행 top (김자수)
   const CTOP_9   = 520;   // gen -9 행 top (김근)
@@ -3369,7 +3369,7 @@ function initAncestors() {
     var sc = document.createElement('div');
     sc.id = sid;
     sc.className = 'person-card' + (nd2.ghost ? ' person-card-ghost' : '');
-    var _nPos = [21.75, 19, 17][i]; // p291=p318 직하(N_p282=18.25), p291g 중간, p292=p318g/p319 중심
+    var _nPos = [24.75, 19, 17][i]; // p291=p318 직하(N_p282=21.25), p291g 중간, p292=p318g/p319 중심
     sc.style.cssText = 'position:absolute; display:none; left:' + (_p31CXIA - _nPos * COL_W - CARD_W / 2) + 'px; top:' + _p00Top + 'px; width:' + CARD_W + 'px; cursor:pointer;';
     var ch2 = '<div class="p-kr">' + nd2.kr + '</div><div class="p-hj">' + nd2.hj + '</div>';
     if (nd2.ja)    ch2 += '<div class="p-ja">字 ' + nd2.ja + '</div>';
