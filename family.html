@@ -2046,6 +2046,7 @@ function renderTree() {
         html += `<div class="p-kr">${siKr}</div>`;
         if (siHj) html += `<div class="p-hj">${siHj}</div>`;
         if (node.sonInLaw?.dates) html += `<div class="p-dates">${node.sonInLaw.dates}</div>`;
+        if (node.sonInLaw?.post) html += `<div class="p-dates">${node.sonInLaw.post}</div>`;
         if (node.sonInLaw?.kr && node.clan) html += `<div class="p-dates">${node.clan}</div>`;
       }
       card.innerHTML = html;
