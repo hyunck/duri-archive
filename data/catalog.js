@@ -1793,18 +1793,6 @@
     classification: "集部 別集類"
   },
   {
-    id: "list-014",
-    title_hanja: "東國歷代史略",
-    title_korean: "동국역대사략",
-    suffix: " 권1",
-    author: "미상",
-    year: "",
-    year_display: "",
-    category: "사서·전기",
-    digitized: false,
-    classification: "史部 編年類"
-  },
-  {
     id: "list-015",
     title_hanja: "通鑑",
     title_korean: "통감",
