@@ -1037,6 +1037,21 @@
     classification: "集部 總集類"
   },
   {
+    id: "supyo-1901",
+    call_number: "KJ-GGH-001",
+    title_hanja: "光武五年 金圭夏 手標",
+    title_korean: "광무 5년 김규하 수표",
+    author: "김규하 (金圭夏)",
+    year: "1901",
+    year_display: "광무 5년(1901)",
+    category: "호적·관문서",
+    digitized: true,
+    detail_url: "detail-광무5년김규하수표.html",
+    total_pages: 2,
+    digitized_pages: 0,
+    classification: "史部 政書類"
+  },
+  {
     id: "sangnyangmun-1880",
     title_hanja: "金鐸永家屋上樑文",
     title_korean: "김탁영가옥상량문",
