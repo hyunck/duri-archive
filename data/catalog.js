@@ -576,13 +576,18 @@
   // ── 사서·전기 ────────────────────────────────────────────
   {
     id: "donggukyeokdae-1901", // 인쇄본
+    call_number: "KJ-DGYS-001",
     title_hanja: "東國歷代史略",
     title_korean: "동국역대사략",
+    suffix: " 권1",
     author: "미상",
-    year: "1901",
-    year_display: "광무 5년(1901)",
+    year: "",
+    year_display: "미상",
     category: "사서·전기",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-동국역대사략권1.html",
+    total_pages: 30,
+    digitized_pages: 0,
     // 卷一
     classification: "史部 編年類"
   },
