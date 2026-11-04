@@ -33,8 +33,8 @@ const DOC_DONGGUK_1 = {
       type: "text",
       title: "1페이지",
       image: "images/동국역대사략 권1/page_01.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `大韓歷代史略 一`,
+      korean_translation: `대한역대사략 1`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
@@ -63,18 +63,32 @@ const DOC_DONGGUK_1 = {
       type: "text",
       title: "4페이지",
       image: "images/동국역대사략 권1/page_04.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `光武五年辛丑三月日 經義問製
+學部大臣 [[인물:金奎弘]]
+協辦 [[인물:閔泳璨]]
+成均館長 [[인물:李種元]]
+幼學 [[인물:金奎夏]][[001]] 入格`,
+      korean_translation: `광무(光武) 5년 신축(辛丑, 1901년) 3월 일 경의문(經義問) 제술(製)
+학부대신(學部大臣) [[인물:김규홍(金奎弘)]]
+(학부)협판(協辦) [[인물:민영찬(閔泳璨)]]
+성균관장(成均館長) [[인물:이종원(李種元)]]
+유학(幼學) [[인물:김규하(金奎夏)]][[001]] 입격(入格)`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
-      annotations: []
+      annotations: [
+        {id: "001", text: "김여경(金如瓊)의 10대손인 두산(斗山) 김규하(金圭夏)다. 김규하는 1900년(광무 4) 20세의 나이에 제2회 경의문대(經義問對) 초고(初考, 면시(面試))에 응시하였으며, 답안을 적은 책자를 학부에 제출해 차상(次上)을 받아 서울에서 이루어지는 회고(會考)에 응시할 수 있는 자격을 얻었다. 이후 상경한 205명 중 1인으로 회고를 치러 위 책을 하사받은 것으로 추정된다. 이때, 어떠한 기준으로 책을 하사받은 것인지는 명확하지 않다."},
+      ]
     },
     {
       page_num: 5,
       type: "text",
       title: "5페이지",
       image: "images/동국역대사략 권1/page_05.png",
-      hanja_text: "",
-      korean_translation: "",
+      hanja_text: `東國歷代史略 卷一
+
+[官印]`,
+      korean_translation: `동국역대사략(東國歷代史略) 권1
+
+[관인]`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
