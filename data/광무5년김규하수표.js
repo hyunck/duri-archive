@@ -5,7 +5,7 @@ const DOC_SUPYO_1901 = {
   title_korean: "광무 5년 김규하 수표",
   author: "김규하 (金圭夏)",
   year_display: "광무 5년(1901)",
-  category: "호적·관문서",
+  category: "기타",
   volume: "1張",
   size: "-",
   classification: "史部 政書類",
