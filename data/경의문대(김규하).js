@@ -32,10 +32,13 @@ const DOC_GYEONGUI = {
       type: "text",
       title: "1페이지 : 표지",
       image: "images/경의문대(김규하)/page_01.png",
-      hanja_text: `經義問對 [江]`,
-      korean_translation: `경의문대 [강(江)]`,
+      hanja_text: `經義問對 [江][[001]]`,
+      korean_translation: `경의문대 [강(江)][[001]]`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
-      annotations: []
+      annotations: [
+        {id: "001", text: "붉은 글씨로 '江'이 적혀 있다. 강원도(江原道)의 지역 분류로 추정되며, 우측의 흘림체는 지역 표기로 추정된다."},
+        
+      ]
     },
     {
       page_num: 2,
@@ -90,9 +93,9 @@ const DOC_GYEONGUI = {
     {
       page_num: 7,
       type: "text",
-      title: "7페이지 : 경의문제",
+      title: "7페이지 : 문제 1 (논어)",
       image: "images/경의문대(김규하)/page_07.png",
-      hanja_text: `絰義問題 [次上]
+      hanja_text: `經義問題 [次上]
 
 問
 論語[[인물:子]]曰, "父在觀其志, 父沒觀其行, 三年無改於父之道, 可謂孝矣."
@@ -104,20 +107,20 @@ const DOC_GYEONGUI = {
 切言之道, 揂路也, 通古今人所共由之路, 而不可湏更離者也.
 汎言之道, 揂事也, 人所各由者也.
 此所謂道者, 汎言父在所行之(事也)...`,
-      korean_translation: `질의문제 [차상(次上)]
+      korean_translation: `경의문제 [차상(次上)]
 
 묻는다(問)
 『논어(論語)』에 [[인물:공자(子)]]께서 말씀하시기를, "아버지가 살아 계실 때는 그 뜻을 살피고, 아버지가 돌아가신 뒤에는 그 행실을 살피되, 삼 년 동안 아버지의 도(道)를 고치지 않아야 효라 이를 만하다" 하셨다. [[인물:윤씨(尹氏, 윤돈(尹焞))]]가 말하기를, "그 도가 (옳은 것)이라면 종신토록 고치지 않아도 괜찮거니와, 그 도가 옳지 않은 것이라면 어찌 삼 년을 기다리겠는가" 하였다. 이 이른바 '도(道)'라는 것은 과연 어떤 도이기에, (경우에 따라) 고칠 수도 있고 고치지 않을 수도 있다는 것인가?
 
 답한다(對)
-『논어』에서 도(道)를 말한 곳이 많으니, 군자의 도를 절실히(구체적으로) 말한 것이 있고, 보통 사람의 도를 범연히(포괄적으로) 말한 것이 있다. 절실히 말한 도는 길(路)로 아울러지니, 고금(古今)의 사람이 함께 말미암는 길이며, 잠시도 떠날 수 없는 것이다. 범연히 말한 도는 일[事]로 아울러지니, 사람마다 각기 말미암는 바(의 일)이다. 이 이른바 도라는 것은, (아버지가) 살아 계실 때 행하는 바(의 일)를 범연히 말한 (것이다)...`,
+『논어』에서 도(道)를 말한 곳이 많으니, 군자의 도를 절실히(구체적으로) 말한 것이 있고, 보통 사람의 도를 범연히(포괄적으로) 말한 것이 있다. 절실히 말한 도는 길(路)로 아울러지니, 고금(古今)의 사람이 함께 말미암는 길이며, 잠시도 떠날 수 없는 것이다. 범연히 말한 도는 일(事)로 아울러지니, 사람마다 각기 말미암는 바(의 일)이다. 이 이른바 도라는 것은, (아버지가) 살아 계실 때 행하는 바(의 일)를 범연히 말한 (것이다)...`,
       note: "이 페이지는 아직 판독·번역이 진행되지 않았습니다.",
       annotations: []
     },
     {
       page_num: 8,
       type: "text",
-      title: "8페이지",
+      title: "8페이지 : 문제 2 (논어)",
       image: "images/경의문대(김규하)/page_08.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -137,7 +140,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 10,
       type: "text",
-      title: "10페이지",
+      title: "10페이지 : 문제 3 (논어)",
       image: "images/경의문대(김규하)/page_10.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -147,7 +150,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 11,
       type: "text",
-      title: "11페이지",
+      title: "11페이지 : 문제 4 (논어)",
       image: "images/경의문대(김규하)/page_11.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -167,7 +170,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 13,
       type: "text",
-      title: "13페이지",
+      title: "13페이지 : 문제 5 (논어)",
       image: "images/경의문대(김규하)/page_13.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -197,7 +200,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 16,
       type: "text",
-      title: "16페이지",
+      title: "16페이지 : 문제 6 (논어)",
       image: "images/경의문대(김규하)/page_16.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -227,7 +230,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 19,
       type: "text",
-      title: "19페이지",
+      title: "19페이지 : 문제 7 (논어)",
       image: "images/경의문대(김규하)/page_19.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -237,7 +240,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 20,
       type: "text",
-      title: "20페이지",
+      title: "20페이지 : 문제 8 (논어)",
       image: "images/경의문대(김규하)/page_20.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -257,7 +260,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 22,
       type: "text",
-      title: "22페이지",
+      title: "22페이지 : 문제 9 (논어)",
       image: "images/경의문대(김규하)/page_22.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -267,7 +270,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 23,
       type: "text",
-      title: "23페이지",
+      title: "23페이지 : 문제 10 (논어)",
       image: "images/경의문대(김규하)/page_23.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -277,7 +280,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 24,
       type: "text",
-      title: "24페이지",
+      title: "24페이지 : 문제 11 (논어)",
       image: "images/경의문대(김규하)/page_24.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -287,7 +290,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 25,
       type: "text",
-      title: "25페이지",
+      title: "25페이지 : 문제 12 (논어)",
       image: "images/경의문대(김규하)/page_25.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -297,7 +300,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 26,
       type: "text",
-      title: "26페이지",
+      title: "26페이지 : 문제 13 (논어)",
       image: "images/경의문대(김규하)/page_26.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -317,7 +320,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 28,
       type: "text",
-      title: "28페이지",
+      title: "28페이지 : 문제 14 (혼합)",
       image: "images/경의문대(김규하)/page_28.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -337,7 +340,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 30,
       type: "text",
-      title: "30페이지",
+      title: "30페이지 : 문제 15 (논어, 중용)",
       image: "images/경의문대(김규하)/page_30.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -347,7 +350,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 31,
       type: "text",
-      title: "31페이지",
+      title: "31페이지 : 문제 16 (논어)",
       image: "images/경의문대(김규하)/page_31.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -357,7 +360,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 32,
       type: "text",
-      title: "32페이지",
+      title: "32페이지 : 문제 17 (맹자)",
       image: "images/경의문대(김규하)/page_32.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -377,7 +380,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 34,
       type: "text",
-      title: "34페이지",
+      title: "34페이지 : 문제 18 (맹자)",
       image: "images/경의문대(김규하)/page_34.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -387,7 +390,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 35,
       type: "text",
-      title: "35페이지",
+      title: "35페이지 : 문제 19 (맹자)",
       image: "images/경의문대(김규하)/page_35.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -397,7 +400,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 36,
       type: "text",
-      title: "36페이지",
+      title: "36페이지 : 문제 20 (맹자)",
       image: "images/경의문대(김규하)/page_36.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -407,7 +410,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 37,
       type: "text",
-      title: "37페이지",
+      title: "37페이지 : 문제 21 (맹자)",
       image: "images/경의문대(김규하)/page_37.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -437,7 +440,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 40,
       type: "text",
-      title: "40페이지",
+      title: "40페이지 : 문제 22 (맹자)",
       image: "images/경의문대(김규하)/page_40.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -457,7 +460,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 42,
       type: "text",
-      title: "42페이지",
+      title: "42페이지 : 문제 23 (맹자, 대학)",
       image: "images/경의문대(김규하)/page_42.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -467,7 +470,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 43,
       type: "text",
-      title: "43페이지",
+      title: "43페이지 : 문제 24 (맹자)",
       image: "images/경의문대(김규하)/page_43.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -477,7 +480,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 44,
       type: "text",
-      title: "44페이지",
+      title: "44페이지 : 문제 25 (맹자)",
       image: "images/경의문대(김규하)/page_44.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -507,7 +510,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 47,
       type: "text",
-      title: "47페이지",
+      title: "47페이지 : 문제 26 (맹자)",
       image: "images/경의문대(김규하)/page_47.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -537,7 +540,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 50,
       type: "text",
-      title: "50페이지",
+      title: "50페이지 : 문제 27 (논어, 맹자)",
       image: "images/경의문대(김규하)/page_50.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -547,7 +550,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 51,
       type: "text",
-      title: "51페이지",
+      title: "51페이지 : 문제 28 (맹자)",
       image: "images/경의문대(김규하)/page_51.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -567,7 +570,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 53,
       type: "text",
-      title: "53페이지",
+      title: "53페이지 : 문제 29 (맹자)",
       image: "images/경의문대(김규하)/page_53.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -587,7 +590,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 55,
       type: "text",
-      title: "55페이지",
+      title: "55페이지 : 문제 30 (맹자)",
       image: "images/경의문대(김규하)/page_55.png",
       hanja_text: ``,
       korean_translation: ``,
@@ -641,7 +644,7 @@ const DOC_GYEONGUI = {
     {
       page_num: 60,
       type: "text",
-      title: "60페이지",
+      title: "60페이지 : 사조",
       image: "images/경의문대(김규하)/page_60.png",
       hanja_text: `父 [[인물: 宗烈]][[001]]
 祖 [[인물:東永]]
