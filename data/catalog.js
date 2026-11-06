@@ -177,11 +177,15 @@
     id: "myeonokdaek-chibu", // 미상
     title_hanja: "綿玉宅置付",
     title_korean: "면옥댁치부",
-    author: "종중 (宗中)",
+    call_number: "KJ-MOCB-001",
+    author: "면옥치댁 (綿玉峙宅)",
     year: "",
-    year_display: "1925년 이후",
+    year_display: "1923년~1932년",
     category: "종중 기록",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-면옥댁치부.html",
+    total_pages: 32,
+    digitized_pages: 0,
     classification: "史部 雜史類"
   },
   {
