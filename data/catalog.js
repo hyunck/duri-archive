@@ -534,7 +534,7 @@
     call_number: "KJ-GJR-001",
     title_hanja: "光武十年 經義問對 傳令",
     title_korean: "광무 10년 경의문대 전령",
-    author: "관",
+    author: "관(官)",
     year: "1906",
     year_display: "광무 10년(1906)",
     category: "호적·관문서",
@@ -1584,6 +1584,21 @@
   },
 
   // ── 기타 ─────────────────────────────────────────────────
+  {
+    id: "yeokdunto-1924",
+    call_number: "KJ-YDT-001",
+    title_hanja: "驛屯土轉賣契約書",
+    title_korean: "역둔토 전매계약서",
+    author: "김규하 (金圭夏)",
+    year: "1924",
+    year_display: "1924년(대정 13) 2월",
+    category: "기타",
+    digitized: true,
+    detail_url: "detail-역둔토전매계약서.html",
+    total_pages: 5,
+    digitized_pages: 0,
+    classification: "史部 政書類"
+  },
   {
     id: "supyo-1901",
     call_number: "KJ-GGH-001",

@@ -3,7 +3,7 @@ const DOC_GYEONGUI_JEONRYEONG = {
   call_number: "KJ-GJR-001",
   title_hanja: "光武十年 經義問對 傳令",
   title_korean: "광무 10년 경의문대 전령",
-  author: "관",
+  author: "관(官)",
   year_display: "광무 10년(1906)",
   category: "호적·관문서",
   volume: "1張",
@@ -17,7 +17,7 @@ const DOC_GYEONGUI_JEONRYEONG = {
   bibliography: {
     "원서명": "光武十年 經義問對 傳令",
     "현대어서명": "광무 10년 경의문대 전령",
-    "간행자": "관",
+    "간행자": "관(官)",
     "간행연도": "광무 10년(1906)",
     "책권수": "1張",
     "책크기": "-",
