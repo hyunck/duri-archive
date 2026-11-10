@@ -459,11 +459,15 @@
     id: "hojeok-yangyang", // 미상
     title_hanja: "江原道襄陽郡縣南面戶籍",
     title_korean: "강원도 양양군 현남면 호적",
-    author: "미상",
-    year: "",
-    year_display: "대한제국기",
+    call_number: "KJ-HJYY-001",
+    author: "김탁영(金鐸永) 외 5인",
+    year: "1897",
+    year_display: "1897년~1906년",
     category: "호적·관문서",
-    digitized: false,
+    digitized: true,
+    detail_url: "detail-강원도양양군현남면호적.html",
+    total_pages: 15,
+    digitized_pages: 0,
     // 15張
     classification: "史部 政書類"
   },
