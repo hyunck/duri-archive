@@ -319,6 +319,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://두리종중.com/detail-광무10년경의문대전령.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://두리종중.com/detail-사헌서.html</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
@@ -609,6 +615,12 @@
   <url>
     <loc>https://두리종중.com/viewer-면옥댁치부.html</loc>
     <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://두리종중.com/viewer-광무10년경의문대전령.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
